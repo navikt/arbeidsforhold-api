@@ -1,0 +1,25 @@
+#jeg vil ikke ha hjelp fra pus
+#Vi må ha kommentaren over så lenge vi ikke bruker appdynamics her, dette bør vi fikse på sikt
+team: "personbruker"
+name: arbeidsforhold
+image: docker.adeo.no:5000/personbruker/arbeidsforhold
+replicas:
+  min: 1
+  max: 4
+  cpuThresholdPercentage: 50
+port: 8080
+ingress:
+  enabled: true
+prometheus:
+  enabled: true
+  path: person/arbeidsforhold/internal/prometheus
+healthcheck:
+  liveness:
+    initialDelay: 20
+    path: person/arbeidsforhold/internal/isAlive
+  readiness:
+    initialDelay: 20
+    path: person/arbeidsforhold/internal/isAlive
+resources:
+  limits:
+    cpu: 3
