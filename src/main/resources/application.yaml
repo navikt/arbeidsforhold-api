@@ -6,7 +6,7 @@ spring:
 
 server:
   servlet:
-    context-path: /person/arbeidsforhold
+    context-path: /person/arbeidsforhold-api
 
 logging:
   level:

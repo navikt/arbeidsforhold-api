@@ -13,11 +13,11 @@ public class CORSResponseFilter implements ContainerResponseFilter {
 
     private static final List<String> ALLOWED_ORIGINS = asList(
             "http://localhost:8080",
-            "https://arbeidsforhold-t6.nais.oera-q.local",
-            "https://arbeidsforhold-q6.nais.oera-q.local",
-            "https://arbeidsforhold-q4.nais.oera-q.local",
-            "https://arbeidsforhold-q1.nais.oera-q.local",
-            "https://arbeidsforhold-q0.nais.oera-q.local",
+            "https://arbeidsforhold-api-t6.nais.oera-q.local",
+            "https://arbeidsforhold-api-q6.nais.oera-q.local",
+            "https://arbeidsforhold-api-q4.nais.oera-q.local",
+            "https://arbeidsforhold-api-q1.nais.oera-q.local",
+            "https://arbeidsforhold-api-q0.nais.oera-q.local",
             "https://tjenester-t6.nav.no",
             "https://tjenester-q6.nav.no",
             "https://tjenester-q4.nav.no",
