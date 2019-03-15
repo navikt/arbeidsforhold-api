@@ -7,7 +7,7 @@ spring:
 server:
   servlet:
     context-path: /person/arbeidsforhold
-    
+
 no.nav.security.oidc:
   issuers: selvbetjening
   issuer.selvbetjening:
