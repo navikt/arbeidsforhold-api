@@ -8,6 +8,7 @@ import org.springframework.validation.annotation.Validated;
 
 import javax.validation.Valid;
 import java.util.HashMap;
+import java.util.Map;
 
 @Configuration
 @ConfigurationProperties(prefix = "no.nav.security.oidc")

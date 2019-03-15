@@ -8,23 +8,6 @@ server:
   servlet:
     context-path: /person/arbeidsforhold
 
-management:
-  endpoint:
-    health:
-      show-details: always
-  endpoints:
-    web:
-      exposure:
-        include: info, health, metrics, prometheus
-      base-path: "/internal"
-      path-mapping:
-        info: "isAlive"
-        health: "isReady"
-  metrics:
-    export:
-      prometheus:
-        enabled: true
-
 logging:
   level:
     org.springframework: INFO
