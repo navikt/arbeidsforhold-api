@@ -23,3 +23,13 @@ healthcheck:
 resources:
   limits:
     cpu: 3
+fasitResources:
+  used:
+    - alias: aad_b2c_clientid
+      resourceType: credential
+      propertyMap:
+        username: NO_NAV_SECURITY_OIDC_ISSUER_SELVBETJENING_ACCEPTEDAUDIENCE
+    - alias: aad_b2c_discovery
+      resourceType: baseurl
+      propertyMap:
+        url: NO_NAV_SECURITY_OIDC_ISSUER_SELVBETJENING_DISCOVERYURL
