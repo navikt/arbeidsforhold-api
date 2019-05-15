@@ -9,7 +9,8 @@ object ArbeidsforholdTransformer {
 
             arbeidsforholdId = inbound.navArbeidsforholdId,
             arbeidsgiver = ArbeidsgiverTransformer.toOutbound(inbound.arbeidsgiver, arbgivnavn),
-            ansettelsesPeriode = PeriodeTransformer.toOutboundfromAnsettelsesperiode(inbound.ansettelsesperiode)
+            ansettelsesPeriode = PeriodeTransformer.toOutboundfromAnsettelsesperiode(inbound.ansettelsesperiode),
+            sistBekreftet = inbound.sistBekreftet
 
     )
 
