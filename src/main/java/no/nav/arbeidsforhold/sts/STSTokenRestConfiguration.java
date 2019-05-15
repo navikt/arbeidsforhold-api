@@ -1,4 +1,4 @@
-package no.nav.personopplysninger.features.sts;
+package no.nav.arbeidsforhold.sts;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 
@@ -44,10 +44,10 @@ public class STSTokenRestConfiguration {
     private String STSApiKeyPassword;
 
     @Bean
-    public no.nav.personopplysninger.features.sts.STSConsumer stsConsumer(
+    public STSConsumer stsConsumer(
             @Named("STSClient") Client client,
             @Value("${SECURITY_TOKEN_SERVICE_TOKEN_URL}") String STSServiceUri) throws URISyntaxException {
-        return new no.nav.personopplysninger.features.sts.STSConsumer(client, new URI(STSServiceUri));
+        return new STSConsumer(client, new URI(STSServiceUri));
     }
 
     private String getBasicAuthentication() {

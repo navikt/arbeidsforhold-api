@@ -1,4 +1,4 @@
-package no.nav.personopplysninger.features.sts;
+package no.nav.arbeidsforhold.sts;
 
 import no.nav.arbeidsforhold.exceptions.ConsumerException;
 

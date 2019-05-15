@@ -1,4 +1,4 @@
-package no.nav.arbeidsforhold;
+package no.nav.arbeidsforhold.config;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import no.nav.arbeidsforhold.config.EregConsumer;

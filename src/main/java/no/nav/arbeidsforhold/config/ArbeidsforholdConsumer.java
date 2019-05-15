@@ -1,5 +1,6 @@
 package no.nav.arbeidsforhold.config;
 
+import no.nav.arbeidsforhold.domain.Arbeidsforhold;
 import no.nav.arbeidsforhold.exceptions.ArbeidsforholdConsumerException;
 import no.nav.log.MDCConstants;
 import org.slf4j.Logger;
