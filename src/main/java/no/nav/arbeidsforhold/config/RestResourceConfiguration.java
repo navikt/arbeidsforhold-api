@@ -23,8 +23,6 @@ public class RestResourceConfiguration extends ResourceConfig {
         register(CORSResponseFilter.class);
         register(OidcResourceFilteringFeature.class);
         register(OidcContainerRequestFilter.class);
-
-
     }
 
     public static class OidcResourceFilteringFeature implements DynamicFeature {

@@ -16,11 +16,11 @@ import java.net.URISyntaxException;
 
 @Configuration
 public class KodeverkRestConfiguration {
-
-    @Value("${PERSONOPPLYSNINGER-API-KODEVERK_REST-API-APIKEY_USERNAME}")
+   
+    @Value("${ARBEIDSFORHOLD-API-KODEVERK_REST-API-APIKEY_USERNAME}")
     private String kodeverkApiKeyUsername;
 
-    @Value("${PERSONOPPLYSNINGER-API-KODEVERK_REST-API-APIKEY_PASSWORD}")
+    @Value("${ARBEIDSFORHOLD-API-KODEVERK_REST-API-APIKEY_PASSWORD}")
     private String kodeverkApiKeyPassword;
 
     @Bean
