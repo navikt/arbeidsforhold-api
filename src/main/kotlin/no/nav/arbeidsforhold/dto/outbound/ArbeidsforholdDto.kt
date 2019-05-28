@@ -16,5 +16,6 @@ data class ArbeidsforholdDto (
         val arbeidstidsOrdning: String? = null,
         val sisteStillingsEndring: String? = null,
         val sisteLoennsEndring: String? = null,
-        val stillingsProsent: Double? = null
+        val stillingsProsent: Double? = null,
+        val yrke: String? = null
 )

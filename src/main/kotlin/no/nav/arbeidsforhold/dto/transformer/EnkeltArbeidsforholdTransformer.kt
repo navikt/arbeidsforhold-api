@@ -25,7 +25,9 @@ object EnkeltArbeidsforholdTransformer {
                 stillingsProsent = gyldigarbeidsavtale?.stillingsprosent,
                 arbeidstidsOrdning = gyldigarbeidsavtale?.arbeidstidsOrdning,
                 sisteStillingsEndring = gyldigarbeidsavtale?.sisteStillingsendring,
-                sisteLoennsEndring = gyldigarbeidsavtale?.sisteLoennsendring
+                sisteLoennsEndring = gyldigarbeidsavtale?.sisteLoennsendring,
+                yrke = gyldigarbeidsavtale?.yrke
+                //TODO kodeverk
         )
     }
 
