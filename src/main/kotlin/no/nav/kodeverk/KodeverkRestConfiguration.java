@@ -16,7 +16,7 @@ import java.net.URISyntaxException;
 
 @Configuration
 public class KodeverkRestConfiguration {
-   
+
     @Value("${ARBEIDSFORHOLD-API-KODEVERK_REST-API-APIKEY_USERNAME}")
     private String kodeverkApiKeyUsername;
 
