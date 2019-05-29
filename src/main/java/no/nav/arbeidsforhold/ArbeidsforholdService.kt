@@ -2,8 +2,6 @@ package no.nav.arbeidsforhold
 
 import no.nav.arbeidsforhold.config.ArbeidsforholdConsumer
 import no.nav.arbeidsforhold.config.EregConsumer
-import no.nav.arbeidsforhold.domain.Arbeidsavtale
-import no.nav.arbeidsforhold.domain.Arbeidsforhold
 import no.nav.arbeidsforhold.dto.outbound.ArbeidsforholdDto
 import no.nav.arbeidsforhold.dto.transformer.ArbeidsforholdTransformer
 import no.nav.arbeidsforhold.dto.transformer.EnkeltArbeidsforholdTransformer
