@@ -1,7 +1,7 @@
 package no.nav.arbeidsforhold.config;
 
-import no.nav.arbeidsforhold.ArbeidsforholdFnrResource;
-import no.nav.arbeidsforhold.ArbeidsforholdIdResource;
+import no.nav.arbeidsforhold.services.ArbeidsforholdFnrResource;
+import no.nav.arbeidsforhold.services.ArbeidsforholdIdResource;
 import no.nav.arbeidsforhold.features.status.StatusResource;
 import no.nav.security.oidc.jaxrs.OidcContainerRequestFilter;
 import org.glassfish.jersey.jackson.JacksonFeature;

@@ -1,4 +1,4 @@
-package no.nav.arbeidsforhold
+package no.nav.arbeidsforhold.services
 
 import no.nav.arbeidsforhold.config.ArbeidsforholdConsumer
 import no.nav.arbeidsforhold.config.EregConsumer

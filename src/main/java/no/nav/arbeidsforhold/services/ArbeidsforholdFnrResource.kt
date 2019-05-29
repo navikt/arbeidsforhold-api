@@ -1,4 +1,4 @@
-package no.nav.arbeidsforhold
+package no.nav.arbeidsforhold.services
 
 import no.nav.security.oidc.api.ProtectedWithClaims
 import no.nav.security.oidc.jaxrs.OidcRequestContext
@@ -6,7 +6,6 @@ import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.stereotype.Component
 import javax.ws.rs.GET
 import javax.ws.rs.Path
-import javax.ws.rs.PathParam
 import javax.ws.rs.Produces
 import javax.ws.rs.core.MediaType
 import javax.ws.rs.core.Response
@@ -14,30 +13,28 @@ import javax.ws.rs.core.Response
 private const val claimsIssuer = "selvbetjening"
 
 @Component
-@Path("/arbeidsforholdinnslag/{id}")
+@Path("/")
 @ProtectedWithClaims(issuer = claimsIssuer, claimMap = ["acr=Level4"])
-class ArbeidsforholdIdResource @Autowired constructor(private var arbeidsforholdIdService: ArbeidsforholdService) {
+class ArbeidsforholdFnrResource @Autowired constructor(private var arbeidsforholdService: ArbeidsforholdService) {
 
     @GET
+    @Path("/arbeidsforhold")
     @Produces(MediaType.APPLICATION_JSON)
-    fun hentPersonalia(@PathParam("id") id : String): Response {
+    fun hentArbeidsforhold(): Response {
         val fssToken = hentFssToken()
         val fodselsnr = hentFnrFraToken()
-        val arbeidsforhold = arbeidsforholdIdService.hentEttArbeidsforholdmedId(fodselsnr, id.toInt(), fssToken)
+        val arbeidsforhold = arbeidsforholdService.hentArbeidsforhold(fodselsnr, fssToken)
         return Response
                 .ok(arbeidsforhold)
                 .build()
     }
 
-
     private fun hentFssToken(): String {
-        return arbeidsforholdIdService.hentFSSToken()
+        return arbeidsforholdService.hentFSSToken()
     }
 
     private fun hentFnrFraToken(): String {
         val context = OidcRequestContext.getHolder().oidcValidationContext
         return context.getClaims(claimsIssuer).claimSet.subject
     }
-
-
 }
