@@ -23,14 +23,16 @@ class ArbeidsforholdFnrResource @Autowired constructor(private var arbeidsforhol
     fun hentArbeidsforhold(): Response {
         val fssToken = hentFssToken()
         val fodselsnr = hentFnrFraToken()
-        val arbeidsforhold = arbeidsforholdService.hentArbeidsforhold(fodselsnr, fssToken)
+        val arbeidsforhold = "null"
+      //  val arbeidsforhold = arbeidsforholdService.hentArbeidsforhold(fodselsnr, fssToken)
         return Response
                 .ok(arbeidsforhold)
                 .build()
     }
 
     private fun hentFssToken(): String {
-        return arbeidsforholdService.hentFSSToken()
+      //  return arbeidsforholdService.hentFSSToken()
+        return "null"
     }
 
     private fun hentFnrFraToken(): String {

@@ -23,7 +23,8 @@ class ArbeidsforholdIdResource @Autowired constructor(private var arbeidsforhold
     fun hentPersonalia(@PathParam("id") id : String): Response {
         val fssToken = hentFssToken()
         val fodselsnr = hentFnrFraToken()
-        val arbeidsforhold = arbeidsforholdIdService.hentEttArbeidsforholdmedId(fodselsnr, id.toInt(), fssToken)
+      // val arbeidsforhold = arbeidsforholdIdService.hentEttArbeidsforholdmedId(fodselsnr, id.toInt(), fssToken)
+        val arbeidsforhold = ""
         return Response
                 .ok(arbeidsforhold)
                 .build()
@@ -31,7 +32,8 @@ class ArbeidsforholdIdResource @Autowired constructor(private var arbeidsforhold
 
 
     private fun hentFssToken(): String {
-        return arbeidsforholdIdService.hentFSSToken()
+        //return arbeidsforholdIdService.hentFSSToken()
+        return ""
     }
 
     private fun hentFnrFraToken(): String {

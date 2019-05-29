@@ -16,10 +16,7 @@ import org.springframework.stereotype.Service
 
 @Service
 class ArbeidsforholdService @Autowired constructor(
-        private var arbeidsforholdConsumer: ArbeidsforholdConsumer,
-        private var stsConsumer: STSConsumer,
-        private var eregConsumer: EregConsumer,
-        private var kodeverkConsumer: KodeverkConsumer
+
 
 ) {
 
@@ -30,7 +27,7 @@ class ArbeidsforholdService @Autowired constructor(
     private val kodeverkspraak = "nb"
     private var kodeverk = Kodeverk()
 
-    fun hentFSSToken(): String {
+  /*  fun hentFSSToken(): String {
         val fssToken = stsConsumer.fssToken
         Thread.sleep(3000)
         val strippedToken = fssToken.substring(tokenbodyindex, fssToken.length - tokenbodyend)
@@ -123,6 +120,6 @@ class ArbeidsforholdService @Autowired constructor(
             log.warn("Element not found in Arbeidstidsording: " + inbound.arbeidstidsOrdning)
         }
 
-    }
+    }*/
 
 }
