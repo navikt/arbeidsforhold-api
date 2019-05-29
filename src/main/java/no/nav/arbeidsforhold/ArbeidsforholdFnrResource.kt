@@ -13,13 +13,14 @@ import javax.ws.rs.core.Response
 private const val claimsIssuer = "selvbetjening"
 
 @Component
-@Path("/arbeidsforhold")
+@Path("/")
 @ProtectedWithClaims(issuer = claimsIssuer, claimMap = ["acr=Level4"])
 class ArbeidsforholdResource @Autowired constructor(private var arbeidsforholdService: ArbeidsforholdService) {
 
     @GET
+    @Path("/arbeidsforhold")
     @Produces(MediaType.APPLICATION_JSON)
-    fun hentPersonalia(): Response {
+    fun hentArbeidsforhold(): Response {
         val fssToken = hentFssToken()
         val fodselsnr = hentFnrFraToken()
         val arbeidsforhold = arbeidsforholdService.hentArbeidsforhold(fodselsnr, fssToken)
