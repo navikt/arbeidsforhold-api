@@ -1,5 +1,6 @@
 package no.nav.arbeidsforhold.config;
 
+import no.nav.arbeidsforhold.ArbeidsforholdResource;
 import no.nav.arbeidsforhold.features.status.StatusResource;
 import no.nav.security.oidc.jaxrs.OidcContainerRequestFilter;
 import org.glassfish.jersey.jackson.JacksonFeature;
@@ -19,7 +20,8 @@ public class RestResourceConfiguration extends ResourceConfig {
 
     public RestResourceConfiguration() {
         register(JacksonFeature.class);
-        register (StatusResource.class);
+        register(StatusResource.class);
+        register(ArbeidsforholdResource.class);
         register(CORSResponseFilter.class);
         register(OidcResourceFilteringFeature.class);
         register(OidcContainerRequestFilter.class);
