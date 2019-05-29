@@ -16,15 +16,15 @@ private const val claimsIssuer = "selvbetjening"
 @Component
 @Path("/arbeidsforholdinnslag/{id}")
 @ProtectedWithClaims(issuer = claimsIssuer, claimMap = ["acr=Level4"])
-class ArbeidsforholdIdResource {
+class ArbeidsforholdIdResource (private var arbeidsforholdIdService: ArbeidsforholdService) {
 
     @GET
     @Produces(MediaType.APPLICATION_JSON)
     fun hentPersonalia(@PathParam("id") id : String): Response {
         val fssToken = hentFssToken()
         val fodselsnr = hentFnrFraToken()
-      // val arbeidsforhold = arbeidsforholdIdService.hentEttArbeidsforholdmedId(fodselsnr, id.toInt(), fssToken)
-        val arbeidsforhold = ""
+        val arbeidsforhold = arbeidsforholdIdService.hentEttArbeidsforholdmedId(fodselsnr, id.toInt(), fssToken)
+
         return Response
                 .ok(arbeidsforhold)
                 .build()
@@ -32,8 +32,7 @@ class ArbeidsforholdIdResource {
 
 
     private fun hentFssToken(): String {
-        //return arbeidsforholdIdService.hentFSSToken()
-        return ""
+        return arbeidsforholdIdService.hentFSSToken()
     }
 
     private fun hentFnrFraToken(): String {

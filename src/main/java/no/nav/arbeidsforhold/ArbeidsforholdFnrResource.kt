@@ -15,7 +15,7 @@ private const val claimsIssuer = "selvbetjening"
 @Component
 @Path("/")
 @ProtectedWithClaims(issuer = claimsIssuer, claimMap = ["acr=Level4"])
-class ArbeidsforholdFnrResource {
+class ArbeidsforholdFnrResource (private var arbeidsforholdService: ArbeidsforholdService) {
 
     @GET
     @Path("/arbeidsforhold")
@@ -23,16 +23,14 @@ class ArbeidsforholdFnrResource {
     fun hentArbeidsforhold(): Response {
         val fssToken = hentFssToken()
         val fodselsnr = hentFnrFraToken()
-        val arbeidsforhold = "null"
-      //  val arbeidsforhold = arbeidsforholdService.hentArbeidsforhold(fodselsnr, fssToken)
+        val arbeidsforhold = arbeidsforholdService.hentArbeidsforhold(fodselsnr, fssToken)
         return Response
                 .ok(arbeidsforhold)
                 .build()
     }
 
     private fun hentFssToken(): String {
-      //  return arbeidsforholdService.hentFSSToken()
-        return "null"
+        return arbeidsforholdService.hentFSSToken()
     }
 
     private fun hentFnrFraToken(): String {
