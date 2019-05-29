@@ -16,7 +16,7 @@ private const val claimsIssuer = "selvbetjening"
 @Component
 @Path("/arbeidsforholdinnslag/{id}")
 @ProtectedWithClaims(issuer = claimsIssuer, claimMap = ["acr=Level4"])
-class ArbeidsforholdIdResource @Autowired constructor(private var arbeidsforholdIdService: ArbeidsforholdService) {
+class ArbeidsforholdIdResource {
 
     @GET
     @Produces(MediaType.APPLICATION_JSON)
