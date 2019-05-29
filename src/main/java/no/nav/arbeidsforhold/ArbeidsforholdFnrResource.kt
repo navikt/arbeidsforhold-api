@@ -15,7 +15,7 @@ private const val claimsIssuer = "selvbetjening"
 @Component
 @Path("/")
 @ProtectedWithClaims(issuer = claimsIssuer, claimMap = ["acr=Level4"])
-class ArbeidsforholdFnrResource (private var arbeidsforholdService: ArbeidsforholdService) {
+class ArbeidsforholdFnrResource @Autowired constructor (private var arbeidsforholdService: ArbeidsforholdService) {
 
     @GET
     @Path("/arbeidsforhold")

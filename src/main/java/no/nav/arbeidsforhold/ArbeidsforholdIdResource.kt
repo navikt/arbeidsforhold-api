@@ -16,7 +16,7 @@ private const val claimsIssuer = "selvbetjening"
 @Component
 @Path("/arbeidsforholdinnslag/{id}")
 @ProtectedWithClaims(issuer = claimsIssuer, claimMap = ["acr=Level4"])
-class ArbeidsforholdIdResource (private var arbeidsforholdIdService: ArbeidsforholdService) {
+class ArbeidsforholdIdResource @Autowired constructor (private var arbeidsforholdIdService: ArbeidsforholdService) {
 
     @GET
     @Produces(MediaType.APPLICATION_JSON)
@@ -24,7 +24,6 @@ class ArbeidsforholdIdResource (private var arbeidsforholdIdService: Arbeidsforh
         val fssToken = hentFssToken()
         val fodselsnr = hentFnrFraToken()
         val arbeidsforhold = arbeidsforholdIdService.hentEttArbeidsforholdmedId(fodselsnr, id.toInt(), fssToken)
-
         return Response
                 .ok(arbeidsforhold)
                 .build()
