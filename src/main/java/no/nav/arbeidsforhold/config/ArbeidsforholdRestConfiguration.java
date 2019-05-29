@@ -18,8 +18,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 @Configuration
-public class
-ArbeidsforholdRestConfiguration {
+public class ArbeidsforholdRestConfiguration {
 
     @Value("${PERSONOPPLYSNINGER-API-AAREG-API-APIKEY_USERNAME}")
     private String arbeidsforholdApiUsername;
