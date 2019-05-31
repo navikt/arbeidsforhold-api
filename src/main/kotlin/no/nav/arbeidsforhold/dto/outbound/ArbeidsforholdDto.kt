@@ -13,9 +13,9 @@ data class ArbeidsforholdDto (
         val arbeidsavtaler: ArrayList<ArbeidsavtaleDto>? = null,
 
         val antallTimerPrUke: Double? = null,
-        val arbeidstidsOrdning: String? = null,
+        var arbeidstidsOrdning: String? = null,
         val sisteStillingsEndring: String? = null,
         val sisteLoennsEndring: String? = null,
         val stillingsProsent: Double? = null,
-        val yrke: String? = null
+        var yrke: String? = null
 )

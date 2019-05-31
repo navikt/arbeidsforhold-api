@@ -2,6 +2,7 @@ package no.nav.arbeidsforhold.dto.transformer
 
 import no.nav.arbeidsforhold.domain.Arbeidsavtale
 import no.nav.arbeidsforhold.dto.outbound.ArbeidsavtaleDto
+import no.nav.arbeidsforhold.services.kodeverk.Kodeverk
 
 
 object ArbeidsavtaleTransformer {

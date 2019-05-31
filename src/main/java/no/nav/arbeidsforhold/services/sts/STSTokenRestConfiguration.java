@@ -31,10 +31,10 @@ public class STSTokenRestConfiguration {
     private final String BASIC = "BASIC ";
     private final String AUTHORIZATION = "Authorization";
 
-    @Value("${SRVPERSONOPPLYSNINGER-API_USERNAME}")
+    @Value("${SRVARBEIDSFORHOLD-API_USERNAME}")
     private String STSUsername;
 
-    @Value("${SRVPERSONOPPLYSNINGER-API_PASSWORD}")
+    @Value("${SRVARBEIDSFORHOLD-API_PASSWORD}")
     private String STSPassword;
 
     @Value("${ARBEIDSFORHOLD-API-SECURITY-TOKEN-SERVICE-TOKEN-APIKEY_USERNAME}")

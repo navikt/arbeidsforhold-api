@@ -81,7 +81,9 @@ class ArbeidsforholdService @Autowired constructor(
         arbeidsforholdDto = EnkeltArbeidsforholdTransformer.toOutbound(arbeidsforhold, arbgivnavn, opplarbgivnavn)
         val yrke = kodeverkConsumer.hentYrke(arbeidsforholdDto.yrke)
         val arbeidstidsordning = kodeverkConsumer.hentArbeidstidstyper(arbeidsforholdDto.arbeidstidsOrdning)
-        getTerms(yrke, arbeidstidsordning, arbeidsforholdDto)
+
+        arbeidsforholdDto.yrke = getYrkeTerm(yrke, arbeidsforholdDto)
+        arbeidsforholdDto.arbeidstidsOrdning = getArbeidstidsordningTerm(arbeidstidsordning, arbeidsforholdDto)
         return arbeidsforholdDto
     }
 
@@ -96,33 +98,28 @@ class ArbeidsforholdService @Autowired constructor(
         return orgnavn
     }
 
-    private fun getTerms(yrke: GetKodeverkKoderBetydningerResponse, arbeidstidsordning: GetKodeverkKoderBetydningerResponse, inbound: ArbeidsforholdDto) {
-        getYrkeTerm(yrke, inbound)
-        getArbeidstidsordningTerm(arbeidstidsordning, inbound)
-    }
-
-    private fun getYrkeTerm(yrke: GetKodeverkKoderBetydningerResponse, inbound: ArbeidsforholdDto) {
+    private fun getYrkeTerm(yrke: GetKodeverkKoderBetydningerResponse, inbound: ArbeidsforholdDto): String? {
         try {
             if (!inbound.yrke.isNullOrEmpty() && !yrke.betydninger.getValue(inbound.yrke).isEmpty()) {
-                kodeverk.yrketerm = yrke.betydninger.getValue(inbound.yrke)[0]?.beskrivelser?.getValue(kodeverkspraak)?.term
+                return yrke.betydninger.getValue(inbound.yrke)[0]?.beskrivelser?.getValue(kodeverkspraak)?.term
             }
         } catch (nse: NoSuchElementException) {
-            kodeverk.yrketerm = inbound.yrke
             log.warn("Element not found in Yrke: " + inbound.yrke)
-        }
 
+        }
+        return inbound.yrke
     }
 
-    private fun getArbeidstidsordningTerm(arbeidstidsordning: GetKodeverkKoderBetydningerResponse, inbound: ArbeidsforholdDto) {
+    private fun getArbeidstidsordningTerm(arbeidstidsordning: GetKodeverkKoderBetydningerResponse, inbound: ArbeidsforholdDto): String? {
         try {
             if (!inbound.arbeidstidsOrdning.isNullOrEmpty() && !arbeidstidsordning.betydninger.getValue(inbound.arbeidstidsOrdning).isEmpty()) {
-                kodeverk.arbeidstidsordningterm = arbeidstidsordning.betydninger.getValue(inbound.arbeidstidsOrdning)[0]?.beskrivelser?.getValue(kodeverkspraak)?.term
+                return arbeidstidsordning.betydninger.getValue(inbound.arbeidstidsOrdning)[0]?.beskrivelser?.getValue(kodeverkspraak)?.term
             }
         } catch (nse: NoSuchElementException) {
-            kodeverk.arbeidstidsordningterm = inbound.arbeidstidsOrdning
+
             log.warn("Element not found in Arbeidstidsording: " + inbound.arbeidstidsOrdning)
         }
-
+        return inbound.arbeidstidsOrdning
     }
 
 }

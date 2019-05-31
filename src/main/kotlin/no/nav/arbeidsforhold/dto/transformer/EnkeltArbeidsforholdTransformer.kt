@@ -3,6 +3,7 @@ package no.nav.arbeidsforhold.dto.transformer
 import no.nav.arbeidsforhold.domain.Arbeidsforhold
 import no.nav.arbeidsforhold.dto.outbound.ArbeidsavtaleDto
 import no.nav.arbeidsforhold.dto.outbound.ArbeidsforholdDto
+import no.nav.arbeidsforhold.services.kodeverk.Kodeverk
 import no.nav.personopplysninger.features.arbeidsforhold.dto.transformer.OpplysningspliktigArbeidsgiverTransformer
 
 object EnkeltArbeidsforholdTransformer {
@@ -10,7 +11,6 @@ object EnkeltArbeidsforholdTransformer {
     fun toOutbound(inbound: Arbeidsforhold, arbgivnavn: String?, opplarbgivnavn: String?): ArbeidsforholdDto {
 
         val gyldigarbeidsavtale = gyldigArbeidsavtale(ArbeidsavtaleTransformer.toOutboundArray(inbound.arbeidsavtaler))
-
         return ArbeidsforholdDto(
                 arbeidsforholdId = inbound.navArbeidsforholdId,
                 type = inbound.type,
@@ -27,7 +27,6 @@ object EnkeltArbeidsforholdTransformer {
                 sisteStillingsEndring = gyldigarbeidsavtale?.sisteStillingsendring,
                 sisteLoennsEndring = gyldigarbeidsavtale?.sisteLoennsendring,
                 yrke = gyldigarbeidsavtale?.yrke
-                //TODO kodeverk
         )
     }
 
