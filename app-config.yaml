@@ -45,3 +45,7 @@ fasitResources:
       resourceType: credential
     - alias: arbeidsforhold-api-ereg.api-apiKey
       resourceType: credential
+    - alias: arbeidsforhold-api-security-token-service-token-apiKey
+      resourceType: credential
+    - alias: security-token-service-token
+      resourceType: restservice
