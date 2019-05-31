@@ -1,4 +1,4 @@
-package no.nav.arbeidsforhold.sts;
+package no.nav.arbeidsforhold.services.sts;
 
 import no.nav.arbeidsforhold.exceptions.ConsumerException;
 

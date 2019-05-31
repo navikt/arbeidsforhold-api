@@ -1,4 +1,4 @@
-package no.nav.arbeidsforhold.sts;
+package no.nav.arbeidsforhold.services.sts;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 

@@ -1,4 +1,4 @@
-package no.nav.arbeidsforhold.kodeverk
+package no.nav.arbeidsforhold.services.kodeverk
 
 
 class Kodeverk {

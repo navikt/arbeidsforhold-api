@@ -26,7 +26,7 @@ import java.net.URL;
 import java.util.EnumSet;
 
 @SpringBootConfiguration
-@ComponentScan({"no.nav.arbeidsforhold","no.nav.kodeverk","no.nav.arbeidsforhold.services"})
+@ComponentScan({"no.nav.arbeidsforhold.api","no.nav.arbeidsforhold.services","no.nav.arbeidsforhold.config"})
 @EnableConfigurationProperties(MultiIssuerProperties.class)
 @Import({RestClientConfiguration.class,
 })

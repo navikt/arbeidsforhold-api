@@ -1,4 +1,4 @@
-package no.nav.kodeverk.api;
+package no.nav.arbeidsforhold.services.kodeverk.api;
 
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;

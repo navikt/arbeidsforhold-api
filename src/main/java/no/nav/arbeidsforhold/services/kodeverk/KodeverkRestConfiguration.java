@@ -1,4 +1,4 @@
-package no.nav.kodeverk;
+package no.nav.arbeidsforhold.services.kodeverk;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import no.nav.security.oidc.jaxrs.OidcClientRequestFilter;

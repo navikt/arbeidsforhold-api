@@ -1,8 +1,8 @@
-package no.nav.kodeverk;
+package no.nav.arbeidsforhold.services.kodeverk;
 
 import no.nav.arbeidsforhold.ConsumerFactory;
-import no.nav.kodeverk.api.GetKodeverkKoderBetydningerResponse;
-import no.nav.kodeverk.exceptions.KodeverkConsumerException;
+import no.nav.arbeidsforhold.services.kodeverk.api.GetKodeverkKoderBetydningerResponse;
+import no.nav.arbeidsforhold.services.kodeverk.exceptions.KodeverkConsumerException;
 import no.nav.log.MDCConstants;
 import org.slf4j.MDC;
 
@@ -12,7 +12,7 @@ import javax.ws.rs.core.Response;
 import java.net.URI;
 
 import static javax.ws.rs.core.Response.Status.Family.SUCCESSFUL;
-import static no.nav.kodeverk.ConsumerFactory.readEntity;
+import static no.nav.arbeidsforhold.ConsumerFactory.readEntity;
 
 public class KodeverkConsumer {
 
