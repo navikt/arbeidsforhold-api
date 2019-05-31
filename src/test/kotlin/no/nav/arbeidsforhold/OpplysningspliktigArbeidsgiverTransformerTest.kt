@@ -11,6 +11,7 @@ import kotlin.test.assertNotNull
 
 @TestInstance(PER_CLASS)
 class OpplysningspliktigArbeidsgiverTransformerTest
+{
 
 @Test
 fun skalFaaOpplysningspliktigArbeidsgiver() {
@@ -19,6 +20,7 @@ fun skalFaaOpplysningspliktigArbeidsgiver() {
     assertNotNull(actual)
     assertEquals(inbound.type.toString(), actual.type)
 
+}
 }
 
 

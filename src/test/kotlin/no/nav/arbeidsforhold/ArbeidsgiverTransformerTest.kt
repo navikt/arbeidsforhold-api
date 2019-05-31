@@ -10,14 +10,16 @@ import kotlin.test.assertEquals
 import kotlin.test.assertNotNull
 
 @TestInstance(PER_CLASS)
-class ArbeidsgiverTransformerTest
+class ArbeidsgiverTransformerTest {
 
-@Test
-fun skalFaArbeidsgiver() {
-    val inbound: Arbeidsgiver = ArbeidsgiverObjectMother.withDummyValues
+    @Test
+    fun skalFaArbeidsgiver() {
+        val inbound: Arbeidsgiver = ArbeidsgiverObjectMother.withDummyValues
 
-    val actual: ArbeidsgiverDto = ArbeidsgiverTransformer.toOutbound(inbound, "NAV")
-    assertNotNull(actual)
-    assertEquals(inbound.type.toString(), actual.type)
+        val actual: ArbeidsgiverDto = ArbeidsgiverTransformer.toOutbound(inbound, "NAV")
+        assertNotNull(actual)
+        assertEquals(inbound.type.toString(), actual.type)
+
+    }
 
 }

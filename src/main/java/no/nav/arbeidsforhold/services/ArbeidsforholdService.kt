@@ -5,7 +5,6 @@ import no.nav.arbeidsforhold.config.EregConsumer
 import no.nav.arbeidsforhold.dto.outbound.ArbeidsforholdDto
 import no.nav.arbeidsforhold.dto.transformer.ArbeidsforholdTransformer
 import no.nav.arbeidsforhold.dto.transformer.EnkeltArbeidsforholdTransformer
-import no.nav.arbeidsforhold.services.kodeverk.Kodeverk
 import no.nav.arbeidsforhold.services.sts.STSConsumer
 import no.nav.ereg.Navn
 import no.nav.arbeidsforhold.services.kodeverk.KodeverkConsumer
@@ -28,7 +27,6 @@ class ArbeidsforholdService @Autowired constructor(
     private val tokenbodyend = 42
     private val organisasjon = "Organisasjon"
     private val kodeverkspraak = "nb"
-    private var kodeverk = Kodeverk()
 
     fun hentFSSToken(): String {
         val fssToken = stsConsumer.fssToken
