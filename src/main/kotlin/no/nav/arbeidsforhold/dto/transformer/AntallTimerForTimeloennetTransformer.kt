@@ -8,7 +8,8 @@ object AntallTimerForTimeloennetTransformer {
     fun toOutbound(inbound: AntallTimerForTimeloennet) = AntallTimerForTimeloennetDto(
 
             antallTimer = inbound.antallTimer.toString(),
-            periode = PeriodeTransformer.toOutboundfromPeriode(inbound.periode)
+            periode = PeriodeTransformer.toOutboundfromPeriode(inbound.periode),
+            rapporteringsperiode = inbound.rapporteringsperiode
 
     )
 

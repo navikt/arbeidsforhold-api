@@ -18,6 +18,7 @@ class AntallTimerForTimeloennetTransformerTest {
         val actual: AntallTimerForTimeloennetDto = AntallTimerForTimeloennetTransformer.toOutbound(inbound)
         assertNotNull(actual)
         assertEquals(inbound.antallTimer.toString(), actual.antallTimer)
+        assertEquals(inbound.rapporteringsperiode, actual.rapporteringsperiode)
         assertEquals(inbound.periode?.fom, actual.periode?.periodeFra)
         assertEquals(inbound.periode?.tom, actual.periode?.periodeTil)
 
