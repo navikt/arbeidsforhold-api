@@ -49,3 +49,5 @@ fasitResources:
       resourceType: credential
     - alias: security-token-service-token
       resourceType: restservice
+    - alias: srvarbeidsforhold-api
+      resourceType: credential
