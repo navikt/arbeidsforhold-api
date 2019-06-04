@@ -20,7 +20,7 @@ import static javax.ws.rs.core.Response.Status.Family.SUCCESSFUL;
 
 public class ArbeidsforholdConsumer {
 
-    private static final String CONSUMER_ID = "personbruker-personopplysninger-api";
+    private static final String CONSUMER_ID = "personbruker-arbeidsforhold-api";
     private static final String BEARER = "Bearer ";
     private static final String REGELVERK = "A_ORDNINGEN";
     private Client client;
