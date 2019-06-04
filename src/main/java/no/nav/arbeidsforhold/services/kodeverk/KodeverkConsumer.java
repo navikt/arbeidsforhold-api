@@ -48,7 +48,7 @@ public class KodeverkConsumer {
     }
 
     private Invocation.Builder buildYrkeRequest(String kode) {
-        return getBuilder(kode, "v1/kodeverk/Yrket/koder/betydninger", false);
+        return getBuilder(kode, "v1/kodeverk/Yrker/koder/betydninger", false);
 
     }
 

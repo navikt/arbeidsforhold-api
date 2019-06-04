@@ -43,9 +43,8 @@ public class EregConsumer {
                 .header("Nav-Call-Id", MDC.get(MDCConstants.MDC_CALL_ID))
                 .header("Nav-Consumer-Id", CONSUMER_ID);
 
-
     }
-    
+
     private EregOrganisasjon hentOrganisasjonsNavnFraService(Invocation.Builder request) {
         try (Response response = request.get()) {
             return readResponse(response);

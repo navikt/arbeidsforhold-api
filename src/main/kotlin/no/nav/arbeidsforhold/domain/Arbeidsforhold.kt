@@ -1,5 +1,8 @@
 package no.nav.arbeidsforhold.domain
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties
+
+@JsonIgnoreProperties(ignoreUnknown = true)
 data class Arbeidsforhold (
 
         val ansettelsesperiode: Ansettelsesperiode? = null,
