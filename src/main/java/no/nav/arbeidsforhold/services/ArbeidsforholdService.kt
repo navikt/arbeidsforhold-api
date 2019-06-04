@@ -30,7 +30,7 @@ class ArbeidsforholdService @Autowired constructor(
 
     fun hentFSSToken(): String {
         val fssToken = stsConsumer.fssToken
-        Thread.sleep(3000)
+        log.warn("Arbeidsforholdtoken " + fssToken)
         val strippedToken = fssToken.substring(tokenbodyindex, fssToken.length - tokenbodyend)
         return strippedToken
     }
