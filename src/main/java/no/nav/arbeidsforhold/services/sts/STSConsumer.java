@@ -1,6 +1,7 @@
 package no.nav.arbeidsforhold.services.sts;
 
 import no.nav.arbeidsforhold.exceptions.ConsumerException;
+import no.nav.sts.FssToken;
 
 import javax.ws.rs.ProcessingException;
 import javax.ws.rs.client.Client;
@@ -20,7 +21,7 @@ public class STSConsumer {
         this.endpoint = endpoint;
     }
 
-    public String getFSSToken() {
+    public FssToken getFSSToken() {
 
         Invocation.Builder request = buildSTSRequest();
         return getToken(request);
@@ -40,9 +41,9 @@ public class STSConsumer {
     }
 
 
-    private String getToken(Invocation.Builder request) {
+    private FssToken getToken(Invocation.Builder request) {
         try (Response response = request.get()) {
-            return readEntity(String.class, response);
+            return readEntity(FssToken.class, response);
         } catch (Exception e) {
             String msg = "Forsøkte å hente STSToken. endpoint=[" + endpoint + "].";
             throw new ConsumerException(msg, e);

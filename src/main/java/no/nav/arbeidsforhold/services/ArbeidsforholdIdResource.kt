@@ -30,7 +30,7 @@ class ArbeidsforholdIdResource @Autowired constructor(private var arbeidsforhold
     }
 
 
-    private fun hentFssToken(): String {
+    private fun hentFssToken(): String? {
         return arbeidsforholdIdService.hentFSSToken()
     }
 

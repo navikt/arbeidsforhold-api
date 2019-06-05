@@ -29,7 +29,7 @@ class ArbeidsforholdFnrResource @Autowired constructor(private var arbeidsforhol
                 .build()
     }
 
-    private fun hentFssToken(): String {
+    private fun hentFssToken(): String? {
         return arbeidsforholdService.hentFSSToken()
     }
 
