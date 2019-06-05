@@ -79,10 +79,10 @@ class ArbeidsforholdService @Autowired constructor(
         }
         arbeidsforholdDto = EnkeltArbeidsforholdTransformer.toOutbound(arbeidsforhold, arbgivnavn, opplarbgivnavn)
         val yrke = kodeverkConsumer.hentYrke(arbeidsforholdDto.yrke)
-        val arbeidstidsordning = kodeverkConsumer.hentArbeidstidstyper(arbeidsforholdDto.arbeidstidsOrdning)
+        val type = kodeverkConsumer.hentArbeidsforholdstyper(arbeidsforholdDto.type)
 
         arbeidsforholdDto.yrke = getYrkeTerm(yrke, arbeidsforholdDto)
-        arbeidsforholdDto.arbeidstidsOrdning = getArbeidstidsordningTerm(arbeidstidsordning, arbeidsforholdDto)
+        arbeidsforholdDto.type = getArbeidsforholdstypeTerm(type, arbeidsforholdDto)
         return arbeidsforholdDto
     }
 
@@ -109,16 +109,16 @@ class ArbeidsforholdService @Autowired constructor(
         return inbound.yrke
     }
 
-    private fun getArbeidstidsordningTerm(arbeidstidsordning: GetKodeverkKoderBetydningerResponse, inbound: ArbeidsforholdDto): String? {
+    private fun getArbeidsforholdstypeTerm(type: GetKodeverkKoderBetydningerResponse, inbound: ArbeidsforholdDto): String? {
         try {
-            if (!inbound.arbeidstidsOrdning.isNullOrEmpty() && !arbeidstidsordning.betydninger.getValue(inbound.arbeidstidsOrdning).isEmpty()) {
-                return arbeidstidsordning.betydninger.getValue(inbound.arbeidstidsOrdning)[0]?.beskrivelser?.getValue(kodeverkspraak)?.term
+            if (!inbound.type.isNullOrEmpty() && !type.betydninger.getValue(inbound.type).isEmpty()) {
+                return type.betydninger.getValue(inbound.type)[0]?.beskrivelser?.getValue(kodeverkspraak)?.term
             }
         } catch (nse: NoSuchElementException) {
 
-            log.warn("Element not found in Arbeidstidsording: " + inbound.arbeidstidsOrdning)
+            log.warn("Element not found in Arbeidsforholdstype: " + inbound.type)
         }
-        return inbound.arbeidstidsOrdning
+        return inbound.type
     }
 
 }

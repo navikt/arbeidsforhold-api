@@ -3,7 +3,7 @@ package no.nav.arbeidsforhold.dto.outbound
 data class ArbeidsforholdDto (
 
         val navArbeidsforholdId: Long? = null,
-        val type: String? = null,
+        var type: String? = null,
         val sistBekreftet : String? = null,
         val arbeidsgiver : ArbeidsgiverDto? = null,
         val opplysningspliktigarbeidsgiver : OpplysningspliktigArbeidsgiverDto? = null,
@@ -13,7 +13,7 @@ data class ArbeidsforholdDto (
         val arbeidsavtaler: ArrayList<ArbeidsavtaleDto>? = null,
 
         val antallTimerPrUke: Double? = null,
-        var arbeidstidsOrdning: String? = null,
+        val arbeidstidsOrdning: String? = null,
         val sisteStillingsEndring: String? = null,
         val sisteLoennsEndring: String? = null,
         val stillingsProsent: Double? = null,

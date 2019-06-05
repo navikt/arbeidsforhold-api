@@ -30,8 +30,8 @@ public class KodeverkConsumer {
         return hentKodeverkBetydning(request);
     }
 
-    public GetKodeverkKoderBetydningerResponse hentArbeidstidstyper(String kode) {
-        Invocation.Builder request = buildArbeidstidstyperRequest(kode);
+    public GetKodeverkKoderBetydningerResponse hentArbeidsforholdstyper(String kode) {
+        Invocation.Builder request = buildArbeidsforholdstyperRequest(kode);
         return hentKodeverkBetydning(request);
     }
 
@@ -52,8 +52,8 @@ public class KodeverkConsumer {
 
     }
 
-    private Invocation.Builder buildArbeidstidstyperRequest(String kode) {
-        return getBuilder(kode, "v1/kodeverk/Kommuner/koder/betydninger", false);
+    private Invocation.Builder buildArbeidsforholdstyperRequest(String kode) {
+        return getBuilder(kode, "v1/kodeverk/Arbeidsforholdstyper/koder/betydninger", false);
     }
 
     private GetKodeverkKoderBetydningerResponse hentKodeverkBetydning(Invocation.Builder request) {
