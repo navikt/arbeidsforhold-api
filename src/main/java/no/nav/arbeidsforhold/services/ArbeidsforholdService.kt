@@ -80,9 +80,11 @@ class ArbeidsforholdService @Autowired constructor(
         arbeidsforholdDto = EnkeltArbeidsforholdTransformer.toOutbound(arbeidsforhold, arbgivnavn, opplarbgivnavn)
         val yrke = kodeverkConsumer.hentYrke(arbeidsforholdDto.yrke)
         val type = kodeverkConsumer.hentArbeidsforholdstyper(arbeidsforholdDto.type)
+        val arbeidstidsordning = kodeverkConsumer.hentArbeidsforholdstyper(arbeidsforholdDto.arbeidstidsOrdning)
 
         arbeidsforholdDto.yrke = getYrkeTerm(yrke, arbeidsforholdDto)
         arbeidsforholdDto.type = getArbeidsforholdstypeTerm(type, arbeidsforholdDto)
+        arbeidsforholdDto.arbeidstidsOrdning = getArbeidstidsordningTerm(arbeidstidsordning, arbeidsforholdDto)
         return arbeidsforholdDto
     }
 
@@ -119,6 +121,18 @@ class ArbeidsforholdService @Autowired constructor(
             log.warn("Element not found in Arbeidsforholdstype: " + inbound.type)
         }
         return inbound.type
+    }
+
+    private fun getArbeidstidsordningTerm(ordning: GetKodeverkKoderBetydningerResponse, inbound: ArbeidsforholdDto): String? {
+        try {
+            if (!inbound.arbeidstidsOrdning.isNullOrEmpty() && !ordning.betydninger.getValue(inbound.arbeidstidsOrdning).isEmpty()) {
+                return ordning.betydninger.getValue(inbound.arbeidstidsOrdning)[0]?.beskrivelser?.getValue(kodeverkspraak)?.term
+            }
+        } catch (nse: NoSuchElementException) {
+
+            log.warn("Element not found in Arbeidsforholdstype: " + inbound.arbeidstidsOrdning)
+        }
+        return inbound.arbeidstidsOrdning
     }
 
 }
