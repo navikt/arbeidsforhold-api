@@ -11,7 +11,7 @@ object EnkeltArbeidsforholdTransformer {
 
         val gyldigarbeidsavtale = gyldigArbeidsavtale(ArbeidsavtaleTransformer.toOutboundArray(inbound.arbeidsavtaler))
         return ArbeidsforholdDto(
-                navarbeidsforholdId = inbound.navArbeidsforholdId,
+                navArbeidsforholdId = inbound.navArbeidsforholdId,
                 type = inbound.type,
                 sistBekreftet = inbound.sistBekreftet,
                 arbeidsgiver = ArbeidsgiverTransformer.toOutbound(inbound.arbeidsgiver, arbgivnavn),

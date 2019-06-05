@@ -2,7 +2,7 @@ package no.nav.arbeidsforhold.dto.outbound
 
 data class ArbeidsforholdDto (
 
-        val navarbeidsforholdId: Long? = null,
+        val navArbeidsforholdId: Long? = null,
         val type: String? = null,
         val sistBekreftet : String? = null,
         val arbeidsgiver : ArbeidsgiverDto? = null,
