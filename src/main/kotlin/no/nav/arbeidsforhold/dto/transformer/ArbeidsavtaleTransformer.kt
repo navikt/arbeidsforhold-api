@@ -18,7 +18,10 @@ object ArbeidsavtaleTransformer {
                     stillingsprosent = arbeidsavtale.stillingsprosent,
                     sisteLoennsendring = arbeidsavtale.sistLoennsendring,
                     yrke = arbeidsavtale.yrke,
-                    gyldighetsperiode = PeriodeTransformer.toOutboundfromGyldighetsperiode(arbeidsavtale.gyldighetsperiode)
+                    gyldighetsperiode = PeriodeTransformer.toOutboundfromGyldighetsperiode(arbeidsavtale.gyldighetsperiode),
+                    fartsomraade = arbeidsavtale.fartsomraade,
+                    skipsregister = arbeidsavtale.skipsregister,
+                    skipstype = arbeidsavtale.skipstype
             )
             arbeidsavtaleDtoArray.add(avtaledto)
         }

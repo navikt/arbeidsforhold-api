@@ -8,5 +8,8 @@ data class ArbeidsavtaleDto (
         val sisteLoennsendring : String? = null,
         val yrke : String? = null,
         val gyldighetsperiode: PeriodeDto? = null,
-        val stillingsprosent: Double? = null
+        val stillingsprosent: Double? = null,
+        val fartsomraade : String? = null,
+        val skipsregister: String? = null,
+        val skipstype: String? = null
 )

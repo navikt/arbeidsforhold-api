@@ -25,7 +25,10 @@ object EnkeltArbeidsforholdTransformer {
                 arbeidstidsOrdning = gyldigarbeidsavtale?.arbeidstidsOrdning,
                 sisteStillingsEndring = gyldigarbeidsavtale?.sisteStillingsendring,
                 sisteLoennsEndring = gyldigarbeidsavtale?.sisteLoennsendring,
-                yrke = gyldigarbeidsavtale?.yrke
+                yrke = gyldigarbeidsavtale?.yrke,
+                fartsomraade = gyldigarbeidsavtale?.fartsomraade,
+                skipsregister = gyldigarbeidsavtale?.skipsregister,
+                skipstype = gyldigarbeidsavtale?.skipstype
         )
     }
 

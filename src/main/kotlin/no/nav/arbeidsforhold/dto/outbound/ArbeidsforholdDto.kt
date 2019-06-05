@@ -17,5 +17,9 @@ data class ArbeidsforholdDto (
         val sisteStillingsEndring: String? = null,
         val sisteLoennsEndring: String? = null,
         val stillingsProsent: Double? = null,
-        var yrke: String? = null
+        var yrke: String? = null,
+        val fartsomraade: String? = null,
+        val skipsregister: String? = null,
+        val skipstype: String? = null
+
 )

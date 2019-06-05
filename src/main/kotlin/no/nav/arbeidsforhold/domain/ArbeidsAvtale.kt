@@ -23,5 +23,8 @@ data class Arbeidsavtale (
         /* Stillingsprosent */
         val stillingsprosent: kotlin.Double? = null,
         /* Yrke (kodeverk: Yrker) */
-        val yrke: kotlin.String? = null
+        val yrke: kotlin.String? = null,
+        val fartsomraade: kotlin.String? = null,
+        val skipsregister: kotlin.String? = null,
+        val skipstype: kotlin.String? = null
 )
