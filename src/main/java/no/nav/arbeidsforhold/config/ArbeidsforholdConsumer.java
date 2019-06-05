@@ -99,6 +99,7 @@ public class ArbeidsforholdConsumer {
             String msg = "Forsøkte å konsumere REST-tjenesten Arbeidsforhold. endpoint=[" + endpoint + "], HTTP response status=[" + r.getStatus() + "].";
             throw new ArbeidsforholdConsumerException(msg + " - " + readEntity(String.class, r));
         } else {
+            log.warn("Arbeidsforhold: " + r.readEntity(String.class));
             List arbeidsforholdList = r.readEntity(new GenericType<List<Arbeidsforhold>>(){});
             return arbeidsforholdList;
         }
@@ -109,6 +110,7 @@ public class ArbeidsforholdConsumer {
             String msg = "Forsøkte å konsumere REST-tjenesten Arbeidsforhold. endpoint=[" + endpoint + "], HTTP response status=[" + r.getStatus() + "].";
             throw new ArbeidsforholdConsumerException(msg + " - " + readEntity(String.class, r));
         } else {
+            log.warn("Arbeidsforholdinnslag: " + r.readEntity(String.class));
             Arbeidsforhold arbeidsforhold = r.readEntity(Arbeidsforhold.class);
             return arbeidsforhold;
         }
