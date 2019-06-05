@@ -13,6 +13,8 @@ public class STSConsumer {
     private Client client;
     private URI endpoint;
 
+    public static String token;
+
     public STSConsumer(Client client, URI endpoint) {
         this.client = client;
         this.endpoint = endpoint;

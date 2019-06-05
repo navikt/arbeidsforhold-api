@@ -23,7 +23,6 @@ class ArbeidsforholdIdResource @Autowired constructor(private var arbeidsforhold
     fun hentPersonalia(@PathParam("id") id : String): Response {
         val fssToken = hentFssToken()
         val fodselsnr = hentFnrFraToken()
-        Thread.sleep(5000)
         val arbeidsforhold = arbeidsforholdIdService.hentEttArbeidsforholdmedId(fodselsnr, id.toInt(), fssToken)
         return Response
                 .ok(arbeidsforhold)
