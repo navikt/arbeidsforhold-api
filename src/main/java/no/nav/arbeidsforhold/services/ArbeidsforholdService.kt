@@ -59,14 +59,25 @@ class ArbeidsforholdService @Autowired constructor(
         arbgivnavn = hentEttarbforholdOrgnavn(arbeidsforhold, arbgivnavn)
         opplarbgivnavn = hentEttarbforholdOpplysningspliktig(arbeidsforhold, opplarbgivnavn)
         arbeidsforholdDto = EnkeltArbeidsforholdTransformer.toOutbound(arbeidsforhold, arbgivnavn, opplarbgivnavn)
+
         val yrke = kodeverkConsumer.hentYrke(arbeidsforholdDto.yrke)
         val type = kodeverkConsumer.hentArbeidsforholdstyper(arbeidsforholdDto.type)
         val arbeidstidsordning = kodeverkConsumer.hentArbeidsforholdstyper(arbeidsforholdDto.arbeidstidsOrdning)
+        val skipstype = kodeverkConsumer.hentYrke(arbeidsforholdDto.skipstype)
+        val skipsregister = kodeverkConsumer.hentArbeidsforholdstyper(arbeidsforholdDto.skipsregister)
+        val fartsomraade = kodeverkConsumer.hentArbeidsforholdstyper(arbeidsforholdDto.fartsomraade)
 
+        settKodeverkVerdier(arbeidsforholdDto, yrke, type, arbeidstidsordning, skipsregister, skipstype, fartsomraade)
+        return arbeidsforholdDto
+    }
+
+    private fun settKodeverkVerdier(arbeidsforholdDto: ArbeidsforholdDto, yrke: GetKodeverkKoderBetydningerResponse, type: GetKodeverkKoderBetydningerResponse, arbeidstidsordning: GetKodeverkKoderBetydningerResponse, skipsregister: GetKodeverkKoderBetydningerResponse, skipstype: GetKodeverkKoderBetydningerResponse, fartsomraade: GetKodeverkKoderBetydningerResponse) {
         arbeidsforholdDto.yrke = getYrkeTerm(yrke, arbeidsforholdDto)
         arbeidsforholdDto.type = getArbeidsforholdstypeTerm(type, arbeidsforholdDto)
         arbeidsforholdDto.arbeidstidsOrdning = getArbeidstidsordningTerm(arbeidstidsordning, arbeidsforholdDto)
-        return arbeidsforholdDto
+        arbeidsforholdDto.skipsregister = getSkipsregisterTerm(skipsregister, arbeidsforholdDto)
+        arbeidsforholdDto.skipstype = getSkipstypeTerm(skipstype, arbeidsforholdDto)
+        arbeidsforholdDto.fartsomraade = getFartsomraadeTerm(fartsomraade, arbeidsforholdDto)
     }
 
     private fun hentEttarbforholdOpplysningspliktig(arbeidsforhold: Arbeidsforhold, opplarbgivnavn: String?): String? {
@@ -146,6 +157,43 @@ class ArbeidsforholdService @Autowired constructor(
         }
         return inbound.arbeidstidsOrdning
     }
+
+    private fun getSkipsregisterTerm(skipsregister: GetKodeverkKoderBetydningerResponse, inbound: ArbeidsforholdDto): String? {
+        try {
+            if (!inbound.skipsregister.isNullOrEmpty() && !skipsregister.betydninger.getValue(inbound.skipsregister).isEmpty()) {
+                return skipsregister.betydninger.getValue(inbound.skipsregister)[0]?.beskrivelser?.getValue(kodeverkspraak)?.term
+            }
+        } catch (nse: NoSuchElementException) {
+
+            log.warn("Element not found in Arbeidsforholdstype: " + inbound.skipsregister)
+        }
+        return inbound.skipsregister
+    }
+
+    private fun getSkipstypeTerm(skipstype: GetKodeverkKoderBetydningerResponse, inbound: ArbeidsforholdDto): String? {
+        try {
+            if (!inbound.skipstype.isNullOrEmpty() && !skipstype.betydninger.getValue(inbound.skipstype).isEmpty()) {
+                return skipstype.betydninger.getValue(inbound.skipstype)[0]?.beskrivelser?.getValue(kodeverkspraak)?.term
+            }
+        } catch (nse: NoSuchElementException) {
+
+            log.warn("Element not found in Arbeidsforholdstype: " + inbound.skipstype)
+        }
+        return inbound.skipstype
+    }
+
+    private fun getFartsomraadeTerm(fartsomraade: GetKodeverkKoderBetydningerResponse, inbound: ArbeidsforholdDto): String? {
+        try {
+            if (!inbound.fartsomraade.isNullOrEmpty() && !fartsomraade.betydninger.getValue(inbound.fartsomraade).isEmpty()) {
+                return fartsomraade.betydninger.getValue(inbound.fartsomraade)[0]?.beskrivelser?.getValue(kodeverkspraak)?.term
+            }
+        } catch (nse: NoSuchElementException) {
+
+            log.warn("Element not found in Arbeidsforholdstype: " + inbound.fartsomraade)
+        }
+        return inbound.fartsomraade
+    }
+
 
 
     private fun concatenateNavn(navn: Navn?): String {
