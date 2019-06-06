@@ -5,9 +5,9 @@ import no.nav.arbeidsforhold.dto.outbound.UtenlandsoppholdDto
 
 object UtenlandsoppholdTransformer {
 
-    fun toOutbound(inbound: Utenlandsopphold) = UtenlandsoppholdDto(
+    fun toOutbound(inbound: Utenlandsopphold, landterm: String?) = UtenlandsoppholdDto(
             periode = PeriodeTransformer.toOutboundfromPeriode(inbound.periode),
-            land = inbound.landkode
+            land = landterm
     )
 
 

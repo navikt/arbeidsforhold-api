@@ -35,6 +35,32 @@ public class KodeverkConsumer {
         return hentKodeverkBetydning(request);
     }
 
+    public GetKodeverkKoderBetydningerResponse hentArbeidstidsordningstyper(String kode) {
+        Invocation.Builder request = buildArbeidstidsordningsRequest(kode);
+        return hentKodeverkBetydning(request);
+    }
+
+
+    public GetKodeverkKoderBetydningerResponse hentFartsomraade(String kode) {
+        Invocation.Builder request = buildFartsomraadeRequest(kode);
+        return hentKodeverkBetydning(request);
+    }
+
+
+    public GetKodeverkKoderBetydningerResponse hentSkipsregister(String kode) {
+        Invocation.Builder request = buildSkipsregisterRequest(kode);
+        return hentKodeverkBetydning(request);
+    }
+
+    public GetKodeverkKoderBetydningerResponse hentSkipstyper(String kode) {
+        Invocation.Builder request = buildSkipstyperRequest(kode);
+        return hentKodeverkBetydning(request);
+    }
+
+    public GetKodeverkKoderBetydningerResponse hentLand(String kode) {
+        Invocation.Builder request = buildLandRequest(kode);
+        return hentKodeverkBetydning(request);
+    }
 
     private Invocation.Builder getBuilder(String kode, String path, Boolean eksluderUgyldige) {
         return client.target(endpoint)
@@ -49,11 +75,29 @@ public class KodeverkConsumer {
 
     private Invocation.Builder buildYrkeRequest(String kode) {
         return getBuilder(kode, "v1/kodeverk/Yrker/koder/betydninger", false);
-
     }
 
     private Invocation.Builder buildArbeidsforholdstyperRequest(String kode) {
         return getBuilder(kode, "v1/kodeverk/Arbeidsforholdstyper/koder/betydninger", false);
+    }
+
+    private Invocation.Builder buildArbeidstidsordningsRequest(String kode) {
+        return getBuilder(kode, "v1/kodeverk/Arbeidstidsordninger/koder/betydninger", false);
+    }
+    private Invocation.Builder buildFartsomraadeRequest(String kode) {
+        return getBuilder(kode, "v1/kodeverk/Fartsomraade/koder/betydninger", false);
+    }
+
+    private Invocation.Builder buildSkipsregisterRequest(String kode) {
+        return getBuilder(kode, "v1/kodeverk/Skipsregister/koder/betydninger", false);
+    }
+
+    private Invocation.Builder buildSkipstyperRequest(String kode) {
+        return getBuilder(kode, "v1/kodeverk/Skipstyper/koder/betydninger", false);
+    }
+
+    private Invocation.Builder buildLandRequest(String kode) {
+        return getBuilder(kode, "v1/kodeverk/Landkoder/koder/betydninger", false);
     }
 
     private GetKodeverkKoderBetydningerResponse hentKodeverkBetydning(Invocation.Builder request) {

@@ -4,6 +4,7 @@ import no.nav.arbeidsforhold.config.ArbeidsforholdConsumer
 import no.nav.arbeidsforhold.config.EregConsumer
 import no.nav.arbeidsforhold.domain.Arbeidsforhold
 import no.nav.arbeidsforhold.dto.outbound.ArbeidsforholdDto
+import no.nav.arbeidsforhold.dto.outbound.UtenlandsoppholdDto
 import no.nav.arbeidsforhold.dto.transformer.ArbeidsforholdTransformer
 import no.nav.arbeidsforhold.dto.transformer.EnkeltArbeidsforholdTransformer
 import no.nav.arbeidsforhold.services.sts.STSConsumer
@@ -53,19 +54,21 @@ class ArbeidsforholdService @Autowired constructor(
         val arbeidsforhold = arbeidsforholdConsumer.hentArbeidsforholdmedId(fodselsnr, id, fssToken)
 
 
-        var arbeidsforholdDto: ArbeidsforholdDto
+
         var arbgivnavn = arbeidsforhold.arbeidsgiver?.organisasjonsnummer
         var opplarbgivnavn = arbeidsforhold.opplysningspliktig?.organisasjonsnummer
         arbgivnavn = hentEttarbforholdOrgnavn(arbeidsforhold, arbgivnavn)
         opplarbgivnavn = hentEttarbforholdOpplysningspliktig(arbeidsforhold, opplarbgivnavn)
-        arbeidsforholdDto = EnkeltArbeidsforholdTransformer.toOutbound(arbeidsforhold, arbgivnavn, opplarbgivnavn)
-
+        val arbeidsforholdDto = EnkeltArbeidsforholdTransformer.toOutbound(arbeidsforhold, arbgivnavn, opplarbgivnavn)
+        var utenlandsoppholdDto = arbeidsforholdDto.utenlandsopphold
+    //    utenlandsoppholdDto.
         val yrke = kodeverkConsumer.hentYrke(arbeidsforholdDto.yrke)
         val type = kodeverkConsumer.hentArbeidsforholdstyper(arbeidsforholdDto.type)
-        val arbeidstidsordning = kodeverkConsumer.hentArbeidsforholdstyper(arbeidsforholdDto.arbeidstidsOrdning)
-        val skipstype = kodeverkConsumer.hentYrke(arbeidsforholdDto.skipstype)
-        val skipsregister = kodeverkConsumer.hentArbeidsforholdstyper(arbeidsforholdDto.skipsregister)
-        val fartsomraade = kodeverkConsumer.hentArbeidsforholdstyper(arbeidsforholdDto.fartsomraade)
+        val arbeidstidsordning = kodeverkConsumer.hentArbeidstidsordningstyper(arbeidsforholdDto.arbeidstidsOrdning)
+        val skipstype = kodeverkConsumer.hentSkipstyper(arbeidsforholdDto.skipstype)
+        val skipsregister = kodeverkConsumer.hentSkipsregister(arbeidsforholdDto.skipsregister)
+        val fartsomraade = kodeverkConsumer.hentFartsomraade(arbeidsforholdDto.fartsomraade)
+  //      val land = kodeverkConsumer.hentland(utenlandsoppholdDto)
 
         settKodeverkVerdier(arbeidsforholdDto, yrke, type, arbeidstidsordning, skipsregister, skipstype, fartsomraade)
         return arbeidsforholdDto
@@ -122,6 +125,18 @@ class ArbeidsforholdService @Autowired constructor(
     }
 
 
+   /* private fun geTerm(term: GetKodeverkKoderBetydningerResponse, inbound: ArbeidsforholdDto): String? {
+        try {
+            if (!term.betydninger.getValue(term).isEmpty()) {
+                return term.betydninger.getValue(term.beskrivelser?.getValue(kodeverkspraak)?.term
+            }
+        } catch (nse: NoSuchElementException) {
+            log.warn("Element not found in Yrke: " + inbound.yrke)
+
+        }
+        return inbound.yrke
+    }*/
+
     private fun getYrkeTerm(yrke: GetKodeverkKoderBetydningerResponse, inbound: ArbeidsforholdDto): String? {
         try {
             if (!inbound.yrke.isNullOrEmpty() && !yrke.betydninger.getValue(inbound.yrke).isEmpty()) {
@@ -165,7 +180,7 @@ class ArbeidsforholdService @Autowired constructor(
             }
         } catch (nse: NoSuchElementException) {
 
-            log.warn("Element not found in Arbeidsforholdstype: " + inbound.skipsregister)
+            log.warn("Element not found in Skipsregister: " + inbound.skipsregister)
         }
         return inbound.skipsregister
     }
@@ -177,7 +192,7 @@ class ArbeidsforholdService @Autowired constructor(
             }
         } catch (nse: NoSuchElementException) {
 
-            log.warn("Element not found in Arbeidsforholdstype: " + inbound.skipstype)
+            log.warn("Element not found in Skipstype: " + inbound.skipstype)
         }
         return inbound.skipstype
     }
@@ -189,9 +204,21 @@ class ArbeidsforholdService @Autowired constructor(
             }
         } catch (nse: NoSuchElementException) {
 
-            log.warn("Element not found in Arbeidsforholdstype: " + inbound.fartsomraade)
+            log.warn("Element not found in Fartsomraade: " + inbound.fartsomraade)
         }
         return inbound.fartsomraade
+    }
+
+    private fun getLandTerm(land: GetKodeverkKoderBetydningerResponse, inbound: UtenlandsoppholdDto): String? {
+        try {
+            if (!inbound.land.isNullOrEmpty() && !land.betydninger.getValue(inbound.land).isEmpty()) {
+                return land.betydninger.getValue(inbound.land)[0]?.beskrivelser?.getValue(kodeverkspraak)?.term
+            }
+        } catch (nse: NoSuchElementException) {
+
+            log.warn("Element not found in Land: " + inbound.land)
+        }
+        return inbound.land
     }
 
 
