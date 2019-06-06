@@ -34,6 +34,7 @@ class ArbeidsforholdService @Autowired constructor(
     }
 
     fun hentArbeidsforhold(fodselsnr: String, fssToken: String?): List<ArbeidsforholdDto> {
+        Thread.sleep(30000)
         val inbound = arbeidsforholdConsumer.hentArbeidsforholdmedFnr(fodselsnr, fssToken)
         val arbeidsforholdDtos = mutableListOf<ArbeidsforholdDto>()
         for (arbeidsforhold in inbound) {
