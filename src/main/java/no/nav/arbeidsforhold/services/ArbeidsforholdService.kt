@@ -34,7 +34,6 @@ class ArbeidsforholdService @Autowired constructor(
     }
 
     fun hentArbeidsforhold(fodselsnr: String, fssToken: String?): List<ArbeidsforholdDto> {
-        Thread.sleep(30000)
         val inbound = arbeidsforholdConsumer.hentArbeidsforholdmedFnr(fodselsnr, fssToken)
         val arbeidsforholdDtos = mutableListOf<ArbeidsforholdDto>()
         for (arbeidsforhold in inbound) {
@@ -151,11 +150,11 @@ class ArbeidsforholdService @Autowired constructor(
 
     private fun concatenateNavn(navn: Navn?): String {
         var orgnavn = ""
-        if (!navn?.navnelinje1.isNullOrEmpty()) orgnavn += navn?.navnelinje1.orEmpty() + " "
-        if (!navn?.navnelinje2.isNullOrEmpty()) orgnavn += navn?.navnelinje2.orEmpty() + " "
-        if (!navn?.navnelinje3.isNullOrEmpty()) orgnavn += navn?.navnelinje3.orEmpty() + " "
-        if (!navn?.navnelinje4.isNullOrEmpty()) orgnavn += navn?.navnelinje4.orEmpty() + " "
-        if (!navn?.navnelinje5.isNullOrEmpty()) orgnavn += navn?.navnelinje5.orEmpty()
+        if (!navn?.navnelinje1.isNullOrEmpty()) orgnavn += navn?.navnelinje1.orEmpty()
+        if (!navn?.navnelinje2.isNullOrEmpty()) orgnavn += " " + navn?.navnelinje2.orEmpty()
+        if (!navn?.navnelinje3.isNullOrEmpty()) orgnavn += " " + navn?.navnelinje3.orEmpty()
+        if (!navn?.navnelinje4.isNullOrEmpty()) orgnavn += " " + navn?.navnelinje4.orEmpty()
+        if (!navn?.navnelinje5.isNullOrEmpty()) orgnavn += " " + navn?.navnelinje5.orEmpty()
 
         return orgnavn
     }
