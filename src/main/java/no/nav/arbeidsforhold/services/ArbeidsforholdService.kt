@@ -61,14 +61,18 @@ class ArbeidsforholdService @Autowired constructor(
         opplarbgivnavn = hentEttarbforholdOpplysningspliktig(arbeidsforhold, opplarbgivnavn)
         val arbeidsforholdDto = EnkeltArbeidsforholdTransformer.toOutbound(arbeidsforhold, arbgivnavn, opplarbgivnavn)
         var utenlandsoppholdDto = arbeidsforholdDto.utenlandsopphold
-    //    utenlandsoppholdDto.
+        for (oppholdDto in utenlandsoppholdDto)
+        {
+            val land = kodeverkConsumer.hentLand(oppholdDto.land)
+            oppholdDto.land = getLandTerm(land, oppholdDto)
+        }
+
         val yrke = kodeverkConsumer.hentYrke(arbeidsforholdDto.yrke)
         val type = kodeverkConsumer.hentArbeidsforholdstyper(arbeidsforholdDto.type)
         val arbeidstidsordning = kodeverkConsumer.hentArbeidstidsordningstyper(arbeidsforholdDto.arbeidstidsOrdning)
         val skipstype = kodeverkConsumer.hentSkipstyper(arbeidsforholdDto.skipstype)
         val skipsregister = kodeverkConsumer.hentSkipsregister(arbeidsforholdDto.skipsregister)
         val fartsomraade = kodeverkConsumer.hentFartsomraade(arbeidsforholdDto.fartsomraade)
-  //      val land = kodeverkConsumer.hentland(utenlandsoppholdDto)
 
         settKodeverkVerdier(arbeidsforholdDto, yrke, type, arbeidstidsordning, skipsregister, skipstype, fartsomraade)
         return arbeidsforholdDto

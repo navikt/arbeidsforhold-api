@@ -89,7 +89,7 @@ public class KodeverkConsumer {
     }
 
     private Invocation.Builder buildSkipsregisterRequest(String kode) {
-        return getBuilder(kode, "v1/kodeverk/Skipsregister/koder/betydninger", false);
+        return getBuilder(kode, "v1/kodeverk/Skipsregistre/koder/betydninger", false);
     }
 
     private Invocation.Builder buildSkipstyperRequest(String kode) {
