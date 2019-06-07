@@ -85,7 +85,7 @@ public class KodeverkConsumer {
         return getBuilder(kode, "v1/kodeverk/Arbeidstidsordninger/koder/betydninger", false);
     }
     private Invocation.Builder buildFartsomraadeRequest(String kode) {
-        return getBuilder(kode, "v1/kodeverk/Fartsomraade/koder/betydninger", false);
+        return getBuilder(kode, "v1/kodeverk/Fartsområder/koder/betydninger", false);
     }
 
     private Invocation.Builder buildSkipsregisterRequest(String kode) {
