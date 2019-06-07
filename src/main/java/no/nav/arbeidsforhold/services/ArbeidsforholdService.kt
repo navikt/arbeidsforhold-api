@@ -3,6 +3,7 @@ package no.nav.arbeidsforhold.services
 import no.nav.arbeidsforhold.config.ArbeidsforholdConsumer
 import no.nav.arbeidsforhold.config.EregConsumer
 import no.nav.arbeidsforhold.domain.Arbeidsforhold
+import no.nav.arbeidsforhold.dto.outbound.ArbeidsavtaleDto
 import no.nav.arbeidsforhold.dto.outbound.ArbeidsforholdDto
 import no.nav.arbeidsforhold.dto.outbound.UtenlandsoppholdDto
 import no.nav.arbeidsforhold.dto.transformer.ArbeidsforholdTransformer
@@ -61,11 +62,12 @@ class ArbeidsforholdService @Autowired constructor(
         opplarbgivnavn = hentEttarbforholdOpplysningspliktig(arbeidsforhold, opplarbgivnavn)
         val arbeidsforholdDto = EnkeltArbeidsforholdTransformer.toOutbound(arbeidsforhold, arbgivnavn, opplarbgivnavn)
         var utenlandsoppholdDto = arbeidsforholdDto.utenlandsopphold
-        for (oppholdDto in utenlandsoppholdDto)
-        {
-            val land = kodeverkConsumer.hentLand(oppholdDto.land)
-            oppholdDto.land = getLandTerm(land, oppholdDto)
-        }
+        var arbeidsavtaleDto = arbeidsforholdDto.arbeidsavtaler
+
+        settInnKodeverksverdierIUtelandsopphold(utenlandsoppholdDto)
+
+        SettInnKodeverksverdierIArbeidsavtale(arbeidsavtaleDto)
+
 
         val yrke = kodeverkConsumer.hentYrke(arbeidsforholdDto.yrke)
         val type = kodeverkConsumer.hentArbeidsforholdstyper(arbeidsforholdDto.type)
@@ -78,13 +80,26 @@ class ArbeidsforholdService @Autowired constructor(
         return arbeidsforholdDto
     }
 
+    private fun SettInnKodeverksverdierIArbeidsavtale(arbeidsavtaleDto: ArrayList<ArbeidsavtaleDto>?) {
+        for (arbeidsavtale in arbeidsavtaleDto.orEmpty()) {
+            arbeidsavtale.yrke = getYrkeTerm(kodeverkConsumer.hentYrke(arbeidsavtale.yrke), arbeidsavtale.yrke)
+            arbeidsavtale.arbeidstidsordning = getArbeidstidsordningTerm(kodeverkConsumer.hentArbeidstidsordningstyper(arbeidsavtale.arbeidstidsordning), arbeidsavtale.arbeidstidsordning)
+        }
+    }
+
+    private fun settInnKodeverksverdierIUtelandsopphold(utenlandsoppholdDto: ArrayList<UtenlandsoppholdDto>?) {
+        for (opphold in utenlandsoppholdDto.orEmpty()) {
+            opphold.land = getLandTerm(kodeverkConsumer.hentLand(opphold.land), opphold.land)
+        }
+    }
+
     private fun settKodeverkVerdier(arbeidsforholdDto: ArbeidsforholdDto, yrke: GetKodeverkKoderBetydningerResponse, type: GetKodeverkKoderBetydningerResponse, arbeidstidsordning: GetKodeverkKoderBetydningerResponse, skipsregister: GetKodeverkKoderBetydningerResponse, skipstype: GetKodeverkKoderBetydningerResponse, fartsomraade: GetKodeverkKoderBetydningerResponse) {
-        arbeidsforholdDto.yrke = getYrkeTerm(yrke, arbeidsforholdDto)
-        arbeidsforholdDto.type = getArbeidsforholdstypeTerm(type, arbeidsforholdDto)
-        arbeidsforholdDto.arbeidstidsordning = getArbeidstidsordningTerm(arbeidstidsordning, arbeidsforholdDto)
-        arbeidsforholdDto.skipsregister = getSkipsregisterTerm(skipsregister, arbeidsforholdDto)
-        arbeidsforholdDto.skipstype = getSkipstypeTerm(skipstype, arbeidsforholdDto)
-        arbeidsforholdDto.fartsomraade = getFartsomraadeTerm(fartsomraade, arbeidsforholdDto)
+        arbeidsforholdDto.yrke = getYrkeTerm(yrke, arbeidsforholdDto.yrke)
+        arbeidsforholdDto.type = getArbeidsforholdstypeTerm(type, arbeidsforholdDto.type)
+        arbeidsforholdDto.arbeidstidsordning = getArbeidstidsordningTerm(arbeidstidsordning, arbeidsforholdDto.arbeidstidsordning)
+        arbeidsforholdDto.skipsregister = getSkipsregisterTerm(skipsregister, arbeidsforholdDto.skipsregister)
+        arbeidsforholdDto.skipstype = getSkipstypeTerm(skipstype, arbeidsforholdDto.skipstype)
+        arbeidsforholdDto.fartsomraade = getFartsomraadeTerm(fartsomraade, arbeidsforholdDto.fartsomraade)
     }
 
     private fun hentEttarbforholdOpplysningspliktig(arbeidsforhold: Arbeidsforhold, opplarbgivnavn: String?): String? {
@@ -141,88 +156,88 @@ class ArbeidsforholdService @Autowired constructor(
         return inbound.yrke
     }*/
 
-    private fun getYrkeTerm(yrke: GetKodeverkKoderBetydningerResponse, inbound: ArbeidsforholdDto): String? {
+    private fun getYrkeTerm(yrke: GetKodeverkKoderBetydningerResponse, inbound: String?): String? {
         try {
-            if (!inbound.yrke.isNullOrEmpty() && !yrke.betydninger.getValue(inbound.yrke).isEmpty()) {
-                return yrke.betydninger.getValue(inbound.yrke)[0]?.beskrivelser?.getValue(kodeverkspraak)?.term
+            if (!inbound.isNullOrEmpty() && !yrke.betydninger.getValue(inbound).isEmpty()) {
+                return yrke.betydninger.getValue(inbound)[0]?.beskrivelser?.getValue(kodeverkspraak)?.term
             }
         } catch (nse: NoSuchElementException) {
-            log.warn("Element not found in Yrke: " + inbound.yrke)
+            log.warn("Element not found in Yrke: " + inbound)
 
         }
-        return inbound.yrke
+        return inbound
     }
 
-    private fun getArbeidsforholdstypeTerm(type: GetKodeverkKoderBetydningerResponse, inbound: ArbeidsforholdDto): String? {
+    private fun getArbeidsforholdstypeTerm(type: GetKodeverkKoderBetydningerResponse, inbound: String?): String? {
         try {
-            if (!inbound.type.isNullOrEmpty() && !type.betydninger.getValue(inbound.type).isEmpty()) {
-                return type.betydninger.getValue(inbound.type)[0]?.beskrivelser?.getValue(kodeverkspraak)?.term
+            if (!inbound.isNullOrEmpty() && !type.betydninger.getValue(inbound).isEmpty()) {
+                return type.betydninger.getValue(inbound)[0]?.beskrivelser?.getValue(kodeverkspraak)?.term
             }
         } catch (nse: NoSuchElementException) {
 
-            log.warn("Element not found in Arbeidsforholdstype: " + inbound.type)
+            log.warn("Element not found in Arbeidsforholdstype: " + inbound)
         }
-        return inbound.type
+        return inbound
     }
 
-    private fun getArbeidstidsordningTerm(ordning: GetKodeverkKoderBetydningerResponse, inbound: ArbeidsforholdDto): String? {
+    private fun getArbeidstidsordningTerm(ordning: GetKodeverkKoderBetydningerResponse, inbound: String?): String? {
         try {
-            if (!inbound.arbeidstidsordning.isNullOrEmpty() && !ordning.betydninger.getValue(inbound.arbeidstidsordning).isEmpty()) {
-                return ordning.betydninger.getValue(inbound.arbeidstidsordning)[0]?.beskrivelser?.getValue(kodeverkspraak)?.term
+            if (!inbound.isNullOrEmpty() && !ordning.betydninger.getValue(inbound).isEmpty()) {
+                return ordning.betydninger.getValue(inbound)[0]?.beskrivelser?.getValue(kodeverkspraak)?.term
             }
         } catch (nse: NoSuchElementException) {
 
-            log.warn("Element not found in Arbeidsforholdstype: " + inbound.arbeidstidsordning)
+            log.warn("Element not found in Arbeidsforholdstype: " + inbound)
         }
-        return inbound.arbeidstidsordning
+        return inbound
     }
 
-    private fun getSkipsregisterTerm(skipsregister: GetKodeverkKoderBetydningerResponse, inbound: ArbeidsforholdDto): String? {
+    private fun getSkipsregisterTerm(skipsregister: GetKodeverkKoderBetydningerResponse, inbound: String?): String? {
         try {
-            if (!inbound.skipsregister.isNullOrEmpty() && !skipsregister.betydninger.getValue(inbound.skipsregister).isEmpty()) {
-                return skipsregister.betydninger.getValue(inbound.skipsregister)[0]?.beskrivelser?.getValue(kodeverkspraak)?.term
+            if (!inbound.isNullOrEmpty() && !skipsregister.betydninger.getValue(inbound).isEmpty()) {
+                return skipsregister.betydninger.getValue(inbound)[0]?.beskrivelser?.getValue(kodeverkspraak)?.term
             }
         } catch (nse: NoSuchElementException) {
 
-            log.warn("Element not found in Skipsregister: " + inbound.skipsregister)
+            log.warn("Element not found in Skipsregister: " + inbound)
         }
-        return inbound.skipsregister
+        return inbound
     }
 
-    private fun getSkipstypeTerm(skipstype: GetKodeverkKoderBetydningerResponse, inbound: ArbeidsforholdDto): String? {
+    private fun getSkipstypeTerm(skipstype: GetKodeverkKoderBetydningerResponse, inbound: String?): String? {
         try {
-            if (!inbound.skipstype.isNullOrEmpty() && !skipstype.betydninger.getValue(inbound.skipstype).isEmpty()) {
-                return skipstype.betydninger.getValue(inbound.skipstype)[0]?.beskrivelser?.getValue(kodeverkspraak)?.term
+            if (!inbound.isNullOrEmpty() && !skipstype.betydninger.getValue(inbound).isEmpty()) {
+                return skipstype.betydninger.getValue(inbound)[0]?.beskrivelser?.getValue(kodeverkspraak)?.term
             }
         } catch (nse: NoSuchElementException) {
 
-            log.warn("Element not found in Skipstype: " + inbound.skipstype)
+            log.warn("Element not found in Skipstype: " + inbound)
         }
-        return inbound.skipstype
+        return inbound
     }
 
-    private fun getFartsomraadeTerm(fartsomraade: GetKodeverkKoderBetydningerResponse, inbound: ArbeidsforholdDto): String? {
+    private fun getFartsomraadeTerm(fartsomraade: GetKodeverkKoderBetydningerResponse, inbound: String?): String? {
         try {
-            if (!inbound.fartsomraade.isNullOrEmpty() && !fartsomraade.betydninger.getValue(inbound.fartsomraade).isEmpty()) {
-                return fartsomraade.betydninger.getValue(inbound.fartsomraade)[0]?.beskrivelser?.getValue(kodeverkspraak)?.term
+            if (!inbound.isNullOrEmpty() && !fartsomraade.betydninger.getValue(inbound).isEmpty()) {
+                return fartsomraade.betydninger.getValue(inbound)[0]?.beskrivelser?.getValue(kodeverkspraak)?.term
             }
         } catch (nse: NoSuchElementException) {
 
-            log.warn("Element not found in Fartsomraade: " + inbound.fartsomraade)
+            log.warn("Element not found in Fartsomraade: " + inbound)
         }
-        return inbound.fartsomraade
+        return inbound
     }
 
-    private fun getLandTerm(land: GetKodeverkKoderBetydningerResponse, inbound: UtenlandsoppholdDto): String? {
+    private fun getLandTerm(land: GetKodeverkKoderBetydningerResponse, inbound: String?): String? {
         try {
-            if (!inbound.land.isNullOrEmpty() && !land.betydninger.getValue(inbound.land).isEmpty()) {
-                return land.betydninger.getValue(inbound.land)[0]?.beskrivelser?.getValue(kodeverkspraak)?.term
+            if (!inbound.isNullOrEmpty() && !land.betydninger.getValue(inbound).isEmpty()) {
+                return land.betydninger.getValue(inbound)[0]?.beskrivelser?.getValue(kodeverkspraak)?.term
             }
         } catch (nse: NoSuchElementException) {
 
-            log.warn("Element not found in Land: " + inbound.land)
+            log.warn("Element not found in Land: " + inbound)
         }
-        return inbound.land
+        return inbound
     }
 
 
