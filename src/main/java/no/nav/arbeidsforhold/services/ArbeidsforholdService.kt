@@ -69,7 +69,7 @@ class ArbeidsforholdService @Autowired constructor(
 
         val yrke = kodeverkConsumer.hentYrke(arbeidsforholdDto.yrke)
         val type = kodeverkConsumer.hentArbeidsforholdstyper(arbeidsforholdDto.type)
-        val arbeidstidsordning = kodeverkConsumer.hentArbeidstidsordningstyper(arbeidsforholdDto.arbeidstidsOrdning)
+        val arbeidstidsordning = kodeverkConsumer.hentArbeidstidsordningstyper(arbeidsforholdDto.arbeidstidsordning)
         val skipstype = kodeverkConsumer.hentSkipstyper(arbeidsforholdDto.skipstype)
         val skipsregister = kodeverkConsumer.hentSkipsregister(arbeidsforholdDto.skipsregister)
         val fartsomraade = kodeverkConsumer.hentFartsomraade(arbeidsforholdDto.fartsomraade)
@@ -81,7 +81,7 @@ class ArbeidsforholdService @Autowired constructor(
     private fun settKodeverkVerdier(arbeidsforholdDto: ArbeidsforholdDto, yrke: GetKodeverkKoderBetydningerResponse, type: GetKodeverkKoderBetydningerResponse, arbeidstidsordning: GetKodeverkKoderBetydningerResponse, skipsregister: GetKodeverkKoderBetydningerResponse, skipstype: GetKodeverkKoderBetydningerResponse, fartsomraade: GetKodeverkKoderBetydningerResponse) {
         arbeidsforholdDto.yrke = getYrkeTerm(yrke, arbeidsforholdDto)
         arbeidsforholdDto.type = getArbeidsforholdstypeTerm(type, arbeidsforholdDto)
-        arbeidsforholdDto.arbeidstidsOrdning = getArbeidstidsordningTerm(arbeidstidsordning, arbeidsforholdDto)
+        arbeidsforholdDto.arbeidstidsordning = getArbeidstidsordningTerm(arbeidstidsordning, arbeidsforholdDto)
         arbeidsforholdDto.skipsregister = getSkipsregisterTerm(skipsregister, arbeidsforholdDto)
         arbeidsforholdDto.skipstype = getSkipstypeTerm(skipstype, arbeidsforholdDto)
         arbeidsforholdDto.fartsomraade = getFartsomraadeTerm(fartsomraade, arbeidsforholdDto)
@@ -167,14 +167,14 @@ class ArbeidsforholdService @Autowired constructor(
 
     private fun getArbeidstidsordningTerm(ordning: GetKodeverkKoderBetydningerResponse, inbound: ArbeidsforholdDto): String? {
         try {
-            if (!inbound.arbeidstidsOrdning.isNullOrEmpty() && !ordning.betydninger.getValue(inbound.arbeidstidsOrdning).isEmpty()) {
-                return ordning.betydninger.getValue(inbound.arbeidstidsOrdning)[0]?.beskrivelser?.getValue(kodeverkspraak)?.term
+            if (!inbound.arbeidstidsordning.isNullOrEmpty() && !ordning.betydninger.getValue(inbound.arbeidstidsordning).isEmpty()) {
+                return ordning.betydninger.getValue(inbound.arbeidstidsordning)[0]?.beskrivelser?.getValue(kodeverkspraak)?.term
             }
         } catch (nse: NoSuchElementException) {
 
-            log.warn("Element not found in Arbeidsforholdstype: " + inbound.arbeidstidsOrdning)
+            log.warn("Element not found in Arbeidsforholdstype: " + inbound.arbeidstidsordning)
         }
-        return inbound.arbeidstidsOrdning
+        return inbound.arbeidstidsordning
     }
 
     private fun getSkipsregisterTerm(skipsregister: GetKodeverkKoderBetydningerResponse, inbound: ArbeidsforholdDto): String? {

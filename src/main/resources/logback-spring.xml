@@ -4,7 +4,7 @@
 
     <include resource="logback-default-without-abac.xml"/>
 
-    <!-- Spesiell håndtering av loggeren no.nav.log.LogFilter for å forhindre logging av isAlive-sjekker o.l. -->
+    <!-- Spesiell håndtering av loggeren no.nav.log.LogFilter for å forhindre logging av isAlive-sjekker arbeidstidsordning.l. -->
     <appender name="stdout_json_with_filter"  class="no.nav.log.MaskingAppender">
         <filter class="ch.qos.logback.core.filter.EvaluatorFilter">
             <evaluator>

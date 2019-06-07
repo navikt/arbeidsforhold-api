@@ -17,8 +17,8 @@ class ArbeidsforholdTransformerTest {
         val actual: ArbeidsforholdDto = ArbeidsforholdTransformer.toOutbound(inbound, "NAV IKT", "NAV")
         assertNotNull(actual)
         assertEquals(inbound.navArbeidsforholdId, actual.navArbeidsforholdId)
-        assertEquals(inbound.ansettelsesperiode?.periode?.fom, actual.ansettelsesPeriode?.periodeFra)
-        assertEquals(inbound.ansettelsesperiode?.periode?.tom, actual.ansettelsesPeriode?.periodeTil)
+        assertEquals(inbound.ansettelsesperiode?.periode?.fom, actual.ansettelsesperiode?.periodeFra)
+        assertEquals(inbound.ansettelsesperiode?.periode?.tom, actual.ansettelsesperiode?.periodeTil)
 
     }
 }

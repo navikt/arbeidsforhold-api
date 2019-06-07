@@ -13,7 +13,7 @@ object ArbeidsavtaleTransformer {
         for (arbeidsavtale in inbound.orEmpty()) {
             var avtaledto = ArbeidsavtaleDto(
                     antallTimerPrUke = arbeidsavtale.antallTimerPrUke,
-                    arbeidstidsOrdning = arbeidsavtale.arbeidstidsordning,
+                    arbeidstidsordning = arbeidsavtale.arbeidstidsordning,
                     sisteStillingsendring = arbeidsavtale.sistStillingsendring,
                     stillingsprosent = arbeidsavtale.stillingsprosent,
                     sisteLoennsendring = arbeidsavtale.sistLoennsendring,
