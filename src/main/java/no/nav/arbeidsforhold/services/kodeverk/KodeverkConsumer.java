@@ -97,7 +97,7 @@ public class KodeverkConsumer {
     }
 
     private Invocation.Builder buildLandRequest(String kode) {
-        return getBuilder(kode, "v1/kodeverk/Landkoder/koder/betydninger", false);
+        return getBuilder(kode, "v1/kodeverk/LandkoderISO2/koder/betydninger", false);
     }
 
     private GetKodeverkKoderBetydningerResponse hentKodeverkBetydning(Invocation.Builder request) {
