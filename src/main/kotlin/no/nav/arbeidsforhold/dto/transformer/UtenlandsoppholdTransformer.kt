@@ -7,15 +7,16 @@ object UtenlandsoppholdTransformer {
 
     fun toOutbound(inbound: Utenlandsopphold, landterm: String?) = UtenlandsoppholdDto(
             periode = PeriodeTransformer.toOutboundfromPeriode(inbound.periode),
-            land = landterm
+            land = landterm,
+            rapporteringsperiode = inbound.rapporteringsperiode
     )
 
 
     fun toOutboundArray(inbound: Array<Utenlandsopphold>?): ArrayList<UtenlandsoppholdDto> {
-        var utenlandsoppholdDtoArray = ArrayList<UtenlandsoppholdDto>()
+        val utenlandsoppholdDtoArray = ArrayList<UtenlandsoppholdDto>()
 
         for (opphold in inbound.orEmpty()) {
-            var udto = UtenlandsoppholdDto(
+            val udto = UtenlandsoppholdDto(
                     land = opphold.landkode,
                     periode = PeriodeTransformer.toOutboundfromPeriode(opphold.periode),
                     rapporteringsperiode = opphold.rapporteringsperiode
