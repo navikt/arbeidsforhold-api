@@ -17,7 +17,8 @@ object UtenlandsoppholdTransformer {
         for (opphold in inbound.orEmpty()) {
             var udto = UtenlandsoppholdDto(
                     land = opphold.landkode,
-                    periode = PeriodeTransformer.toOutboundfromPeriode(opphold.periode)
+                    periode = PeriodeTransformer.toOutboundfromPeriode(opphold.periode),
+                    rapporteringsperiode = opphold.rapporteringsperiode
             )
             utenlandsoppholdDtoArray.add(udto)
         }

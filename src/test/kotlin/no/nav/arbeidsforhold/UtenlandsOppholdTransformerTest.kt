@@ -20,6 +20,7 @@ class UtenlandsoppholdTransformerTest {
         assertEquals(inbound.periode?.tom, actual.periode?.periodeTil)
         assertEquals(inbound.periode?.fom, actual.periode?.periodeFra)
         assertEquals(inbound.landkode, actual.land)
+        assertEquals(inbound.rapporteringsperiode, actual.rapporteringsperiode)
     }
 
 }

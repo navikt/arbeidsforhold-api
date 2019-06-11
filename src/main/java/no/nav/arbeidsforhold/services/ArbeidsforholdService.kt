@@ -5,6 +5,7 @@ import no.nav.arbeidsforhold.config.EregConsumer
 import no.nav.arbeidsforhold.domain.Arbeidsforhold
 import no.nav.arbeidsforhold.dto.outbound.ArbeidsavtaleDto
 import no.nav.arbeidsforhold.dto.outbound.ArbeidsforholdDto
+import no.nav.arbeidsforhold.dto.outbound.PermisjonPermitteringDto
 import no.nav.arbeidsforhold.dto.outbound.UtenlandsoppholdDto
 import no.nav.arbeidsforhold.dto.transformer.ArbeidsforholdTransformer
 import no.nav.arbeidsforhold.dto.transformer.EnkeltArbeidsforholdTransformer
@@ -61,13 +62,12 @@ class ArbeidsforholdService @Autowired constructor(
         arbgivnavn = hentEttarbforholdOrgnavn(arbeidsforhold, arbgivnavn)
         opplarbgivnavn = hentEttarbforholdOpplysningspliktig(arbeidsforhold, opplarbgivnavn)
         val arbeidsforholdDto = EnkeltArbeidsforholdTransformer.toOutbound(arbeidsforhold, arbgivnavn, opplarbgivnavn)
-        var utenlandsoppholdDto = arbeidsforholdDto.utenlandsopphold
-        var arbeidsavtaleDto = arbeidsforholdDto.arbeidsavtaler
 
-        settInnKodeverksverdierIUtelandsopphold(utenlandsoppholdDto)
+        settInnKodeverksverdierIUtelandsopphold(arbeidsforholdDto.utenlandsopphold)
 
-        SettInnKodeverksverdierIArbeidsavtale(arbeidsavtaleDto)
+        settInnKodeverksverdierIArbeidsavtale(arbeidsforholdDto.arbeidsavtaler)
 
+        settInnKodeverksverdierIPermitteringer(arbeidsforholdDto.permisjonPermittering)
 
         val yrke = kodeverkConsumer.hentYrke(arbeidsforholdDto.yrke)
         val type = kodeverkConsumer.hentArbeidsforholdstyper(arbeidsforholdDto.type)
@@ -80,7 +80,7 @@ class ArbeidsforholdService @Autowired constructor(
         return arbeidsforholdDto
     }
 
-    private fun SettInnKodeverksverdierIArbeidsavtale(arbeidsavtaleDto: ArrayList<ArbeidsavtaleDto>?) {
+    private fun settInnKodeverksverdierIArbeidsavtale(arbeidsavtaleDto: ArrayList<ArbeidsavtaleDto>?) {
         for (arbeidsavtale in arbeidsavtaleDto.orEmpty()) {
             arbeidsavtale.yrke = getYrkeTerm(kodeverkConsumer.hentYrke(arbeidsavtale.yrke), arbeidsavtale.yrke)
             arbeidsavtale.arbeidstidsordning = getArbeidstidsordningTerm(kodeverkConsumer.hentArbeidstidsordningstyper(arbeidsavtale.arbeidstidsordning), arbeidsavtale.arbeidstidsordning)
@@ -90,6 +90,12 @@ class ArbeidsforholdService @Autowired constructor(
     private fun settInnKodeverksverdierIUtelandsopphold(utenlandsoppholdDto: ArrayList<UtenlandsoppholdDto>?) {
         for (opphold in utenlandsoppholdDto.orEmpty()) {
             opphold.land = getLandTerm(kodeverkConsumer.hentLand(opphold.land), opphold.land)
+        }
+    }
+
+    private fun settInnKodeverksverdierIPermitteringer(permitteringsDto: ArrayList<PermisjonPermitteringDto>?) {
+        for (permittering in permitteringsDto.orEmpty()) {
+            permittering.type = getLandTerm(kodeverkConsumer.hentPermisjonstype(permittering.type), permittering.type)
         }
     }
 

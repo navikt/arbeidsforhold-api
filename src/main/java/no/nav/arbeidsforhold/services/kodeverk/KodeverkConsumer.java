@@ -62,6 +62,11 @@ public class KodeverkConsumer {
         return hentKodeverkBetydning(request);
     }
 
+    public GetKodeverkKoderBetydningerResponse hentPermisjonstype(String kode) {
+        Invocation.Builder request = buildPermisjonsRequest(kode);
+        return hentKodeverkBetydning(request);
+    }
+
     private Invocation.Builder getBuilder(String kode, String path, Boolean eksluderUgyldige) {
         return client.target(endpoint)
                 .path(path)
@@ -98,6 +103,10 @@ public class KodeverkConsumer {
 
     private Invocation.Builder buildLandRequest(String kode) {
         return getBuilder(kode, "v1/kodeverk/LandkoderISO2/koder/betydninger", false);
+    }
+
+    private Invocation.Builder buildPermisjonsRequest(String kode) {
+        return getBuilder(kode, "v1/kodeverk/PermisjonsOgPermitteringsBeskrivelse/koder/betydninger", false);
     }
 
     private GetKodeverkKoderBetydningerResponse hentKodeverkBetydning(Invocation.Builder request) {
