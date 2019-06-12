@@ -14,15 +14,15 @@ class PermisjonPermitteringTransformerTest {
 
     @Test
     fun skalFaaPermisjonPermittering() {
-        val inbound: PermisjonPermittering = PermisjonPermitteringObjectMother.withDummyValues
+        val inbound = PermisjonPermitteringObjectMother.arrayOfDummyValues
 
-        val actual: PermisjonPermitteringDto = PermisjonPermitteringTransformer.toOutbound(inbound)
+        val actual: ArrayList<PermisjonPermitteringDto> = PermisjonPermitteringTransformer.toOutboundArray(inbound)
 
         assertNotNull(actual)
-        assertEquals(inbound.periode?.tom, actual.periode?.periodeTil)
-        assertEquals(inbound.periode?.fom, actual.periode?.periodeFra)
-        assertEquals(inbound.prosent.toString(), actual.prosent)
-        assertEquals(inbound.type, actual.type)
+        assertEquals(inbound[0].periode?.tom, actual[0].periode?.periodeTil)
+        assertEquals(inbound[0].periode?.fom, actual[0].periode?.periodeFra)
+        assertEquals(inbound[0].prosent.toString() + " %", actual[0].prosent)
+        assertEquals(inbound[0].type, actual[0].type)
     }
 
 }
