@@ -28,7 +28,8 @@ object EnkeltArbeidsforholdTransformer {
                 yrke = gyldigarbeidsavtale?.yrke,
                 fartsomraade = gyldigarbeidsavtale?.fartsomraade,
                 skipsregister = gyldigarbeidsavtale?.skipsregister,
-                skipstype = gyldigarbeidsavtale?.skipstype
+                skipstype = gyldigarbeidsavtale?.skipstype,
+                antallTimerForTimelonnet = AntallTimerForTimeloennetTransformer.toOutboundArray(inbound.antallTimerForTimeloennet)
         )
     }
 
