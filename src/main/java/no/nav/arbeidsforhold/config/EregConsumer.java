@@ -39,7 +39,7 @@ public class EregConsumer {
 
         return client.target(endpoint)
                 .path("v1/organisasjon/" + orgnr + "/noekkelinfo")
-                .queryParam("gyldigDato", gyldigDato)
+                .queryParam("gyldigDato", gyldigDato.substring(0, 10))
                 .request()
                 .header("Nav-Call-Id", MDC.get(MDCConstants.MDC_CALL_ID))
                 .header("Nav-Consumer-Id", CONSUMER_ID);
