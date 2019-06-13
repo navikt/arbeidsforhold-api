@@ -1,4 +1,4 @@
-package no.nav.arbeidsforhold.services
+package no.nav.arbeidsforhold
 
 import no.nav.arbeidsforhold.config.ArbeidsforholdConsumer
 import no.nav.arbeidsforhold.config.EregConsumer
@@ -114,7 +114,7 @@ class ArbeidsforholdService @Autowired constructor(
     private fun hentEttarbforholdOpplysningspliktig(arbeidsforhold: Arbeidsforhold, opplarbgivnavn: String?): String? {
         var opplarbgivnavn1 = opplarbgivnavn
         if (arbeidsforhold.opplysningspliktig?.type.equals(organisasjon)) {
-            val organisasjon = eregConsumer.hentOrgnavn(arbeidsforhold.opplysningspliktig?.organisasjonsnummer, arbeidsforhold.sistBekreftet)
+            val organisasjon = eregConsumer.hentOrgnavn(arbeidsforhold.opplysningspliktig?.organisasjonsnummer, arbeidsforhold.ansettelsesperiode?.periode?.tom)
             val navn = organisasjon.navn
             opplarbgivnavn1 = concatenateNavn(navn)
         }
@@ -124,7 +124,7 @@ class ArbeidsforholdService @Autowired constructor(
     private fun hentEttarbforholdOrgnavn(arbeidsforhold: Arbeidsforhold, arbgivnavn: String?): String? {
         var arbgivnavn1 = arbgivnavn
         if (arbeidsforhold.arbeidsgiver?.type.equals(organisasjon)) {
-            val organisasjon = eregConsumer.hentOrgnavn(arbeidsforhold.arbeidsgiver?.organisasjonsnummer, arbeidsforhold.sistBekreftet)
+            val organisasjon = eregConsumer.hentOrgnavn(arbeidsforhold.arbeidsgiver?.organisasjonsnummer,  arbeidsforhold.ansettelsesperiode?.periode?.tom)
             val navn = organisasjon.navn
             arbgivnavn1 = concatenateNavn(navn)
         }
@@ -135,7 +135,7 @@ class ArbeidsforholdService @Autowired constructor(
     private fun hentOpplysningspliktigOrgNavn(arbeidsforhold: Arbeidsforhold, opplarbgivnavn: String?): String? {
         var opplarbgivnavn1 = opplarbgivnavn
         if (arbeidsforhold.opplysningspliktig?.type.equals(organisasjon)) {
-            val organisasjon = eregConsumer.hentOrgnavn(arbeidsforhold.opplysningspliktig?.organisasjonsnummer, arbeidsforhold.sistBekreftet)
+            val organisasjon = eregConsumer.hentOrgnavn(arbeidsforhold.opplysningspliktig?.organisasjonsnummer,  arbeidsforhold.ansettelsesperiode?.periode?.tom)
             val navn = organisasjon.navn
             opplarbgivnavn1 = concatenateNavn(navn)
         }
@@ -145,7 +145,7 @@ class ArbeidsforholdService @Autowired constructor(
     private fun hentArbGiverOrgNavn(arbeidsforhold: Arbeidsforhold, arbgivnavn: String?): String? {
         var arbgivnavn1 = arbgivnavn
         if (arbeidsforhold.arbeidsgiver?.type.equals(organisasjon)) {
-            val organisasjon = eregConsumer.hentOrgnavn(arbeidsforhold.arbeidsgiver?.organisasjonsnummer, arbeidsforhold.sistBekreftet)
+            val organisasjon = eregConsumer.hentOrgnavn(arbeidsforhold.arbeidsgiver?.organisasjonsnummer,  arbeidsforhold.ansettelsesperiode?.periode?.tom)
             val navn = organisasjon.navn
             arbgivnavn1 = concatenateNavn(navn)
         }

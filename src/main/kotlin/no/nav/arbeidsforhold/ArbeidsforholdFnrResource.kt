@@ -1,4 +1,4 @@
-package no.nav.arbeidsforhold.services
+package no.nav.arbeidsforhold
 
 import no.nav.security.oidc.api.ProtectedWithClaims
 import no.nav.security.oidc.jaxrs.OidcRequestContext
