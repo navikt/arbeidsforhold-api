@@ -63,7 +63,7 @@ class ArbeidsforholdService @Autowired constructor(
         opplarbgivnavn = hentEttarbforholdOpplysningspliktig(arbeidsforhold, opplarbgivnavn)
         val arbeidsforholdDto = EnkeltArbeidsforholdTransformer.toOutbound(arbeidsforhold, arbgivnavn, opplarbgivnavn)
 
-        settInnKodeverksverdierIUtelandsopphold(arbeidsforholdDto.utenlandsopphold)
+        settInnKodeverksverdierIUtenlandsopphold(arbeidsforholdDto.utenlandsopphold)
 
         settInnKodeverksverdierIArbeidsavtale(arbeidsforholdDto.arbeidsavtaler)
 
@@ -84,10 +84,13 @@ class ArbeidsforholdService @Autowired constructor(
         for (arbeidsavtale in arbeidsavtaleDto.orEmpty()) {
             arbeidsavtale.yrke = getYrkeTerm(kodeverkConsumer.hentYrke(arbeidsavtale.yrke), arbeidsavtale.yrke)
             arbeidsavtale.arbeidstidsordning = getArbeidstidsordningTerm(kodeverkConsumer.hentArbeidstidsordningstyper(arbeidsavtale.arbeidstidsordning), arbeidsavtale.arbeidstidsordning)
+            arbeidsavtale.skipsregister = getSkipsregisterTerm(kodeverkConsumer.hentSkipsregister(arbeidsavtale.skipsregister),  arbeidsavtale.skipsregister)
+            arbeidsavtale.skipstype = getSkipstypeTerm(kodeverkConsumer.hentSkipstyper(arbeidsavtale.skipstype),  arbeidsavtale.skipstype)
+            arbeidsavtale.fartsomraade = getFartsomraadeTerm(kodeverkConsumer.hentFartsomraade(arbeidsavtale.fartsomraade),  arbeidsavtale.fartsomraade)
         }
     }
 
-    private fun settInnKodeverksverdierIUtelandsopphold(utenlandsoppholdDto: ArrayList<UtenlandsoppholdDto>?) {
+    private fun settInnKodeverksverdierIUtenlandsopphold(utenlandsoppholdDto: ArrayList<UtenlandsoppholdDto>?) {
         for (opphold in utenlandsoppholdDto.orEmpty()) {
             opphold.land = getLandTerm(kodeverkConsumer.hentLand(opphold.land), opphold.land)
         }
@@ -99,13 +102,13 @@ class ArbeidsforholdService @Autowired constructor(
         }
     }
 
-    private fun settKodeverkVerdier(arbeidsforholdDto: ArbeidsforholdDto, yrke: GetKodeverkKoderBetydningerResponse, type: GetKodeverkKoderBetydningerResponse, arbeidstidsordning: GetKodeverkKoderBetydningerResponse, skipsregister: GetKodeverkKoderBetydningerResponse, skipstype: GetKodeverkKoderBetydningerResponse, fartsomraade: GetKodeverkKoderBetydningerResponse) {
-        arbeidsforholdDto.yrke = getYrkeTerm(yrke, arbeidsforholdDto.yrke)
-        arbeidsforholdDto.type = getArbeidsforholdstypeTerm(type, arbeidsforholdDto.type)
-        arbeidsforholdDto.arbeidstidsordning = getArbeidstidsordningTerm(arbeidstidsordning, arbeidsforholdDto.arbeidstidsordning)
-        arbeidsforholdDto.skipsregister = getSkipsregisterTerm(skipsregister, arbeidsforholdDto.skipsregister)
-        arbeidsforholdDto.skipstype = getSkipstypeTerm(skipstype, arbeidsforholdDto.skipstype)
-        arbeidsforholdDto.fartsomraade = getFartsomraadeTerm(fartsomraade, arbeidsforholdDto.fartsomraade)
+    private fun settKodeverkVerdier(arbeidsforhold: ArbeidsforholdDto, yrke: GetKodeverkKoderBetydningerResponse, type: GetKodeverkKoderBetydningerResponse, arbeidstidsordning: GetKodeverkKoderBetydningerResponse, skipsregister: GetKodeverkKoderBetydningerResponse, skipstype: GetKodeverkKoderBetydningerResponse, fartsomraade: GetKodeverkKoderBetydningerResponse) {
+        arbeidsforhold.yrke = getYrkeTerm(yrke, arbeidsforhold.yrke)
+        arbeidsforhold.type = getArbeidsforholdstypeTerm(type, arbeidsforhold.type)
+        arbeidsforhold.arbeidstidsordning = getArbeidstidsordningTerm(arbeidstidsordning, arbeidsforhold.arbeidstidsordning)
+        arbeidsforhold.skipsregister = getSkipsregisterTerm(skipsregister, arbeidsforhold.skipsregister)
+        arbeidsforhold.skipstype = getSkipstypeTerm(skipstype, arbeidsforhold.skipstype)
+        arbeidsforhold.fartsomraade = getFartsomraadeTerm(fartsomraade, arbeidsforhold.fartsomraade)
     }
 
     private fun hentEttarbforholdOpplysningspliktig(arbeidsforhold: Arbeidsforhold, opplarbgivnavn: String?): String? {
