@@ -18,7 +18,7 @@ import static javax.ws.rs.core.Response.Status.Family.SUCCESSFUL;
 
 public class EregConsumer {
 
-    private static final String CONSUMER_ID = "personbruker-personopplysninger-api";
+    private static final String CONSUMER_ID = "personbruker-arbeidsforhold-api";
     private Client client;
     private URI endpoint;
     private static final Logger log = LoggerFactory.getLogger(EregConsumer.class);
@@ -30,24 +30,26 @@ public class EregConsumer {
     }
 
 
-    public EregOrganisasjon hentOrgnavn(String orgnr) {
-        Invocation.Builder request = buildOrgnrRequest(orgnr);
-        return hentOrganisasjonsNavn(request);
+    public EregOrganisasjon hentOrgnavn(String orgnr, String gyldigDato) {
+        Invocation.Builder request = buildOrgnrRequest(orgnr, gyldigDato);
+        return hentOrganisasjonsNavnFraService(request);
     }
 
-    private Invocation.Builder buildOrgnrRequest(String orgnr) {
+    private Invocation.Builder buildOrgnrRequest(String orgnr, String gyldigDato) {
 
+        if (gyldigDato != null) {
+            gyldigDato = gyldigDato.substring(0, 10);
+        }
         return client.target(endpoint)
-                .path("v1/organisasjon")
+                .path("v1/organisasjon/" + orgnr + "/noekkelinfo")
+                .queryParam("gyldigDato", gyldigDato)
                 .request()
                 .header("Nav-Call-Id", MDC.get(MDCConstants.MDC_CALL_ID))
-                .header("Nav-Consumer-Id", CONSUMER_ID)
-                .header("orgnummer", orgnr);
+                .header("Nav-Consumer-Id", CONSUMER_ID);
 
     }
 
-
-    private EregOrganisasjon hentOrganisasjonsNavn(Invocation.Builder request) {
+    private EregOrganisasjon hentOrganisasjonsNavnFraService(Invocation.Builder request) {
         try (Response response = request.get()) {
             return readResponse(response);
         } catch (EregConsumerException e) {

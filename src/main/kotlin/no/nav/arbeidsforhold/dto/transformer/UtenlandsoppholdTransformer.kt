@@ -5,19 +5,14 @@ import no.nav.arbeidsforhold.dto.outbound.UtenlandsoppholdDto
 
 object UtenlandsoppholdTransformer {
 
-    fun toOutbound(inbound: Utenlandsopphold) = UtenlandsoppholdDto(
-            periode = PeriodeTransformer.toOutboundfromPeriode(inbound.periode),
-            land = inbound.landkode
-    )
-
-
     fun toOutboundArray(inbound: Array<Utenlandsopphold>?): ArrayList<UtenlandsoppholdDto> {
-        var utenlandsoppholdDtoArray = ArrayList<UtenlandsoppholdDto>()
+        val utenlandsoppholdDtoArray = ArrayList<UtenlandsoppholdDto>()
 
         for (opphold in inbound.orEmpty()) {
-            var udto = UtenlandsoppholdDto(
+            val udto = UtenlandsoppholdDto(
                     land = opphold.landkode,
-                    periode = PeriodeTransformer.toOutboundfromPeriode(opphold.periode)
+                    periode = PeriodeTransformer.toOutboundfromPeriode(opphold.periode),
+                    rapporteringsperiode = opphold.rapporteringsperiode
             )
             utenlandsoppholdDtoArray.add(udto)
         }

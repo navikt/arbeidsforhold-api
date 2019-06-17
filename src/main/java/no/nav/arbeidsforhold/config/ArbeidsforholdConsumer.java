@@ -20,8 +20,9 @@ import static javax.ws.rs.core.Response.Status.Family.SUCCESSFUL;
 
 public class ArbeidsforholdConsumer {
 
-    private static final String CONSUMER_ID = "personbruker-personopplysninger-api";
+    private static final String CONSUMER_ID = "personbruker-arbeidsforhold-api";
     private static final String BEARER = "Bearer ";
+    private static final String REGELVERK = "A_ORDNINGEN";
     private Client client;
     private URI endpoint;
     private static final Logger log = LoggerFactory.getLogger(ArbeidsforholdConsumer.class);
@@ -39,7 +40,7 @@ public class ArbeidsforholdConsumer {
     }
 
 
-    public List<Arbeidsforhold> hentArbeidsforholdmedId(String fnr, int id, String fssToken) {
+    public Arbeidsforhold hentArbeidsforholdmedId(String fnr, int id, String fssToken) {
         Invocation.Builder request = buildForholdIdRequest(fnr, id, fssToken);
         return hentArbeidsforholdmedId(request);
     }
@@ -49,6 +50,7 @@ public class ArbeidsforholdConsumer {
 
         return client.target(endpoint)
                 .path("v1/arbeidstaker/arbeidsforhold")
+                .queryParam("regelverk", REGELVERK)
                 .request()
                 .header("Nav-Call-Id", MDC.get(MDCConstants.MDC_CALL_ID))
                 .header("Nav-Consumer-Id", CONSUMER_ID)
@@ -59,19 +61,19 @@ public class ArbeidsforholdConsumer {
 
     private Invocation.Builder buildForholdIdRequest(String fnr, int id, String fssToken) {
         return client.target(endpoint)
-                .path("v1/arbeidsforhold")
+                .path("v1/arbeidsforhold/" + id)
+                .queryParam("historikk", true)
                 .request()
                 .header("Nav-Call-Id", MDC.get(MDCConstants.MDC_CALL_ID))
                 .header("Nav-Consumer-Id", CONSUMER_ID)
                 .header("Nav-Consumer-Token", BEARER.concat(fssToken))
-                .header("navArbeidsforholdId", id)
                 .header("Nav-Personident", fnr);
     }
 
 
     private List<Arbeidsforhold> hentArbeidsforholdmedFnr(Invocation.Builder request) {
         try (Response response = request.get()) {
-            return readResponse(response);
+            return readFnrResponse(response);
         } catch (ArbeidsforholdConsumerException e) {
             throw e;
         } catch (Exception e) {
@@ -80,9 +82,9 @@ public class ArbeidsforholdConsumer {
         }
     }
 
-    private List<Arbeidsforhold> hentArbeidsforholdmedId(Invocation.Builder request) {
+    private Arbeidsforhold hentArbeidsforholdmedId(Invocation.Builder request) {
         try (Response response = request.get()) {
-            return readResponse(response);
+            return readIdResponse(response);
         } catch (ArbeidsforholdConsumerException e) {
             throw e;
         } catch (Exception e) {
@@ -92,17 +94,28 @@ public class ArbeidsforholdConsumer {
     }
 
 
-    private List<Arbeidsforhold> readResponse(Response r) {
+    private List<Arbeidsforhold> readFnrResponse(Response r) {
         if (!SUCCESSFUL.equals(r.getStatusInfo().getFamily())) {
             String msg = "Forsøkte å konsumere REST-tjenesten Arbeidsforhold. endpoint=[" + endpoint + "], HTTP response status=[" + r.getStatus() + "].";
             throw new ArbeidsforholdConsumerException(msg + " - " + readEntity(String.class, r));
         } else {
-            List arbeidsforholdList = r.readEntity(new GenericType<List<Arbeidsforhold>>(){});
-            log.warn("arbeidsforholdList.size() " + arbeidsforholdList.size());
+            //log.warn("Arbeidsforhold: " + r.readEntity(String.class));
+            List arbeidsforholdList = r.readEntity(new GenericType<List<Arbeidsforhold>>() {
+            });
             return arbeidsforholdList;
         }
     }
 
+    private Arbeidsforhold readIdResponse(Response r) {
+        if (!SUCCESSFUL.equals(r.getStatusInfo().getFamily())) {
+            String msg = "Forsøkte å konsumere REST-tjenesten Arbeidsforhold. endpoint=[" + endpoint + "], HTTP response status=[" + r.getStatus() + "].";
+            throw new ArbeidsforholdConsumerException(msg + " - " + readEntity(String.class, r));
+        } else {
+            //log.warn("Arbeidsforholdinnslag: " + r.readEntity(String.class));
+            Arbeidsforhold arbeidsforhold = r.readEntity(Arbeidsforhold.class);
+            return arbeidsforhold;
+        }
+    }
 
     private <T> T readEntity(Class<T> responsklasse, Response response) {
         try {

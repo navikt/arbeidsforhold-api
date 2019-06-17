@@ -20,10 +20,10 @@ import java.util.logging.Logger;
 @Configuration
 public class ArbeidsforholdRestConfiguration {
 
-    @Value("${PERSONOPPLYSNINGER-API-AAREG-API-APIKEY_USERNAME}")
+    @Value("${ARBEIDSFORHOLD-API-AAREG_API-APIKEY_USERNAME}")
     private String arbeidsforholdApiUsername;
 
-    @Value("${PERSONOPPLYSNINGER-API-AAREG-API-APIKEY_PASSWORD}")
+    @Value("${ARBEIDSFORHOLD-API-AAREG_API-APIKEY_PASSWORD}")
     private String arbeidsforholdApiPassword;
 
     @Bean

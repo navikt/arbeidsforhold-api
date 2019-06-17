@@ -2,11 +2,24 @@ package no.nav.arbeidsforhold.dto.outbound
 
 data class ArbeidsforholdDto (
 
-        val arbeidsforholdId: Long? = null,
-        val type: String? = null,
+        val navArbeidsforholdId: Long? = null,
+        var type: String? = null,
         val sistBekreftet : String? = null,
         val arbeidsgiver : ArbeidsgiverDto? = null,
-        val ansettelsesPeriode : PeriodeDto? = null,
+        val opplysningspliktigarbeidsgiver : OpplysningspliktigArbeidsgiverDto? = null,
+        val ansettelsesperiode : PeriodeDto? = null,
         val utenlandsopphold: ArrayList<UtenlandsoppholdDto>? = null,
-        val permisjonPermittering: ArrayList<PermisjonPermitteringDto>? = null
+        val permisjonPermittering: ArrayList<PermisjonPermitteringDto>? = null,
+        val arbeidsavtaler: ArrayList<ArbeidsavtaleDto>? = null,
+        val antallTimerForTimelonnet: ArrayList<AntallTimerForTimeloennetDto>? = null,
+        val antallTimerPrUke: Double? = null,
+        var arbeidstidsordning: String? = null,
+        val sisteStillingsEndring: String? = null,
+        val sisteLoennsEndring: String? = null,
+        val stillingsprosent: Double? = null,
+        var yrke: String? = null,
+        var fartsomraade: String? = null,
+        var skipsregister: String? = null,
+        var skipstype: String? = null
+
 )

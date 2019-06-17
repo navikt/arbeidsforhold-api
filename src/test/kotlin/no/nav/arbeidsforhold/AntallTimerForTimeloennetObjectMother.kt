@@ -5,7 +5,8 @@ import no.nav.arbeidsforhold.domain.AntallTimerForTimeloennet
 object AntallTimerForTimeloennetObjectMother {
     val withDummyValues = AntallTimerForTimeloennet(
             antallTimer = 37.5,
-            periode = PeriodeObjectMother.withDummyValues
+            periode = PeriodeObjectMother.withDummyValues,
+            rapporteringsperiode = "MAI"
     )
 
     val arrayOfDummyValues = arrayOf(

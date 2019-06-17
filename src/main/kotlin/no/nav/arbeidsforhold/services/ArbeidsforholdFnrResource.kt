@@ -1,4 +1,4 @@
-package no.nav.arbeidsforhold
+package no.nav.arbeidsforhold.services
 
 import no.nav.security.oidc.api.ProtectedWithClaims
 import no.nav.security.oidc.jaxrs.OidcRequestContext
@@ -13,23 +13,25 @@ import javax.ws.rs.core.Response
 private const val claimsIssuer = "selvbetjening"
 
 @Component
-@Path("/arbeidsforholdinnslag")
+@Path("/")
 @ProtectedWithClaims(issuer = claimsIssuer, claimMap = ["acr=Level4"])
-class ArbeidsforholdIdResource @Autowired constructor(private var arbeidsforholdIdService: ArbeidsforholdService) {
+class ArbeidsforholdFnrResource @Autowired constructor(private var arbeidsforholdService: ArbeidsforholdService) {
 
     @GET
+    @Path("/arbeidsforhold")
     @Produces(MediaType.APPLICATION_JSON)
-    fun hentPersonalia(): Response {
+    fun hentArbeidsforhold(): Response {
+        val fssToken = hentFssToken()
         val fodselsnr = hentFnrFraToken()
-        val id = 0;
-        val fssToken = "";
-        //TODO hente id fra URL
-        val arbeidsforhold = arbeidsforholdIdService.hentEttArbeidsforholdmedId(fodselsnr, id, fssToken)
+        val arbeidsforhold = arbeidsforholdService.hentArbeidsforhold(fodselsnr, fssToken)
         return Response
                 .ok(arbeidsforhold)
                 .build()
     }
 
+    private fun hentFssToken(): String? {
+        return arbeidsforholdService.hentFSSToken()
+    }
 
     private fun hentFnrFraToken(): String {
         val context = OidcRequestContext.getHolder().oidcValidationContext

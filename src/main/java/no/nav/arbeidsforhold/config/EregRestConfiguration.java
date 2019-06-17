@@ -21,10 +21,10 @@ import java.util.logging.Logger;
 @Configuration
 public class EregRestConfiguration {
 
-    @Value("${PERSONOPPLYSNINGER-API-EREG-API-APIKEY_USERNAME}")
+    @Value("${ARBEIDSFORHOLD-API-EREG-API-APIKEY_USERNAME}")
     private String eregApiUsername;
 
-    @Value("${PERSONOPPLYSNINGER-API-EREG-API-APIKEY_PASSWORD}")
+    @Value("${ARBEIDSFORHOLD-API-EREG-API-APIKEY_PASSWORD}")
     private String eregApiPassword;
 
     @Bean

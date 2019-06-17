@@ -1,5 +1,8 @@
 package no.nav.arbeidsforhold.domain
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties
+
+@JsonIgnoreProperties(ignoreUnknown = true)
 data class Arbeidsforhold (
 
         val ansettelsesperiode: Ansettelsesperiode? = null,
@@ -8,7 +11,7 @@ data class Arbeidsforhold (
         /* Arbeidsavtaler - gjeldende og evt. med historikk */
         val arbeidsavtaler: kotlin.Array<Arbeidsavtale>? = null,
         /* Arbeidsforhold-id fra opplysningspliktig */
-        val arbeidsforholdId: kotlin.String? = null,
+        val navarbeidsforholdId: kotlin.String? = null,
         val arbeidsgiver: Arbeidsgiver? = null,
         val arbeidstaker: Person? = null,
         /* Er arbeidsforholdet innrapportert via A-Ordningen? */

@@ -33,3 +33,21 @@ fasitResources:
       resourceType: baseurl
       propertyMap:
         url: NO_NAV_SECURITY_OIDC_ISSUER_SELVBETJENING_DISCOVERYURL
+    - alias: kodeverk.rest-api
+      resourceType: restservice
+    - alias: arbeidsforhold-api-kodeverk.rest-api-apiKey
+      resourceType: credential
+    - alias: aareg.api
+      resourceType: restservice
+    - alias: ereg.api
+      resourceType: restservice
+    - alias: arbeidsforhold-api-aareg.api-apiKey
+      resourceType: credential
+    - alias: arbeidsforhold-api-ereg.api-apiKey
+      resourceType: credential
+    - alias: arbeidsforhold-api-security-token-service-token-apiKey
+      resourceType: credential
+    - alias: security-token-service-token
+      resourceType: restservice
+    - alias: srvarbeidsforhold-api
+      resourceType: credential
