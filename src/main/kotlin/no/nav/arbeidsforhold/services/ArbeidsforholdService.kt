@@ -153,17 +153,16 @@ class ArbeidsforholdService @Autowired constructor(
     }
 
 
-   /* private fun geTerm(term: GetKodeverkKoderBetydningerResponse, inbound: ArbeidsforholdDto): String? {
-        try {
-            if (!term.betydninger.getValue(term).isEmpty()) {
-                return term.betydninger.getValue(term.beskrivelser?.getValue(kodeverkspraak)?.term
-            }
-        } catch (nse: NoSuchElementException) {
-            log.warn("Element not found in Yrke: " + inbound.yrke)
-
-        }
-        return inbound.yrke
-    }*/
+    /* private fun geTerm(term: GetKodeverkKoderBetydningerResponse, inbound: ArbeidsforholdDto): String? {
+         try {
+             if (!term.betydninger.getValue(term).isEmpty()) {
+                 return term.betydninger.getValue(term.beskrivelser?.getValue(kodeverkspraak)?.term
+             }
+         } catch (nse: NoSuchElementException) {
+             log.warn("Element not found in Yrke: " + inbound.yrke)
+         }
+         return inbound.yrke
+     }*/
 
     private fun getYrkeTerm(yrke: GetKodeverkKoderBetydningerResponse, inbound: String?): String? {
         try {
