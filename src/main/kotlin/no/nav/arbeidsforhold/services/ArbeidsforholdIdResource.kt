@@ -29,7 +29,7 @@ class ArbeidsforholdIdResource @Autowired constructor(private var arbeidsforhold
         var arbeidsforholdresponse = false
         while (!arbeidsforholdresponse) {
             try {
-                val arbeidsforhold = arbeidsforholdIdService.hentArbeidsforhold(fodselsnr, fssToken)
+                val arbeidsforhold = arbeidsforholdIdService.hentEttArbeidsforholdmedId(fodselsnr, id.toInt(), fssToken)
                 arbeidsforholdresponse = true
                 return Response
                         .ok(arbeidsforhold)
