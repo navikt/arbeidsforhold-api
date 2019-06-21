@@ -19,6 +19,8 @@ class ArbeidsgiverTransformerTest {
         val actual: ArbeidsgiverDto = ArbeidsgiverTransformer.toOutbound(inbound, "NAV")
         assertNotNull(actual)
         assertEquals(inbound.type.toString(), actual.type)
+        assertEquals(inbound.offentligIdent, actual.fnr)
+        assertEquals(inbound.organisasjonsnummer, actual.orgnr)
 
     }
 

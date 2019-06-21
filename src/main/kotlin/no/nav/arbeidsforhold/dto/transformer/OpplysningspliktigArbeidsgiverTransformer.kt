@@ -10,6 +10,7 @@ object OpplysningspliktigArbeidsgiverTransformer {
 
             type = inbound?.type,
             orgnr = inbound?.organisasjonsnummer,
+            fnr = inbound?.offentligIdent,
             orgnavn = arbgivnavn
 
     )
