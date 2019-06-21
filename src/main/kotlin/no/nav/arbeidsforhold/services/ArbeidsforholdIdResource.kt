@@ -23,26 +23,17 @@ class ArbeidsforholdIdResource @Autowired constructor(private var arbeidsforhold
 
     @GET
     @Produces(MediaType.APPLICATION_JSON)
-    fun hentPersonalia(@PathParam("id") id : String): Response {
+    fun hentPersonalia(@PathParam("id") id: String): Response {
         val fssToken = hentFssToken()
         val fodselsnr = hentFnrFraToken()
-        var arbeidsforholdresponse = false
-        while (!arbeidsforholdresponse) {
-            try {
-                val arbeidsforhold = arbeidsforholdIdService.hentEttArbeidsforholdmedId(fodselsnr, id.toInt(), fssToken)
-                arbeidsforholdresponse = true
-                return Response
-                        .ok(arbeidsforhold)
-                        .build()
-            } catch (ae: ArbeidsforholdConsumerException) {
-                log.warn("Failed response from arbeidsforhold " + fssToken);
-            }
-        }
+
+
+        val arbeidsforhold = arbeidsforholdIdService.hentEttArbeidsforholdmedId(fodselsnr, id.toInt(), fssToken)
+
         return Response
-                .ok()
+                .ok(arbeidsforhold)
                 .build()
     }
-
 
     private fun hentFssToken(): String? {
         return arbeidsforholdIdService.hentFSSToken()

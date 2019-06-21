@@ -26,23 +26,14 @@ class ArbeidsforholdFnrResource @Autowired constructor(private var arbeidsforhol
     fun hentArbeidsforhold(): Response {
         val fssToken = hentFssToken()
         val fodselsnr = hentFnrFraToken()
-        var arbeidsforholdresponse = false
-        while (!arbeidsforholdresponse) {
-            try {
-                val arbeidsforhold = arbeidsforholdService.hentArbeidsforhold(fodselsnr, fssToken)
-                arbeidsforholdresponse = true
-                return Response
-                        .ok(arbeidsforhold)
-                        .build()
-            } catch (ae: ArbeidsforholdConsumerException) {
-                log.warn("Failed response from arbeidsforhold " + fssToken);
-            }
-        }
+
+        val arbeidsforhold = arbeidsforholdService.hentArbeidsforhold(fodselsnr, fssToken)
 
         return Response
-                .ok()
+                .ok(arbeidsforhold)
                 .build()
     }
+
 
     private fun hentFssToken(): String? {
         return arbeidsforholdService.hentFSSToken()
