@@ -63,6 +63,7 @@ public class STSTokenRestConfiguration {
     public Client STSClient(ContextResolver<ObjectMapper> clientObjectMapperResolver) {
         Client client =  ClientBuilder.newBuilder()
                 .register(clientObjectMapperResolver)
+                //TODO fjerne nedenstående linje før prodsetting for å unngå logging av tokens
                 .register(new LoggingFeature(Logger.getLogger(LoggingFeature.DEFAULT_LOGGER_NAME), Level.INFO, LoggingFeature.Verbosity.HEADERS_ONLY, Integer.MAX_VALUE))
                 .register((ClientRequestFilter) requestContext -> requestContext.getHeaders().put(AUTHORIZATION, singletonList(getBasicAuthentication())))
                 .register((ClientRequestFilter) requestContext -> requestContext.getHeaders().putSingle(STSApiKeyUsername, STSApiKeyPassword))
