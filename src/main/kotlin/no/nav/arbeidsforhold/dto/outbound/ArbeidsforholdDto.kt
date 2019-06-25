@@ -3,6 +3,7 @@ package no.nav.arbeidsforhold.dto.outbound
 data class ArbeidsforholdDto (
 
         val navArbeidsforholdId: Long? = null,
+        val eksternArbeidsforholdId: String? = null,
         var type: String? = null,
         val sistBekreftet : String? = null,
         val arbeidsgiver : ArbeidsgiverDto? = null,

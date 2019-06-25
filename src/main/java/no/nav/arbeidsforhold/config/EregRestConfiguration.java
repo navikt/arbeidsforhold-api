@@ -39,8 +39,6 @@ public class EregRestConfiguration {
         Client c =  ClientBuilder.newBuilder()
                 .register(clientObjectMapperResolver)
                 .register(OidcClientRequestFilter.class)
-                //TODO fjerne nedenstående linje før prodsetting for å unngå logging av tokens
-                .register(new LoggingFeature(Logger.getLogger(LoggingFeature.DEFAULT_LOGGER_NAME), Level.INFO, LoggingFeature.Verbosity.HEADERS_ONLY, Integer.MAX_VALUE))
                 .register((ClientRequestFilter) requestContext -> requestContext.getHeaders().putSingle(eregApiUsername, eregApiPassword))
                 .build();
         return c;

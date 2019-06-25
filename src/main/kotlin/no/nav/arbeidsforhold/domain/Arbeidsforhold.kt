@@ -11,7 +11,7 @@ data class Arbeidsforhold (
         /* Arbeidsavtaler - gjeldende og evt. med historikk */
         val arbeidsavtaler: kotlin.Array<Arbeidsavtale>? = null,
         /* Arbeidsforhold-id fra opplysningspliktig */
-        val navarbeidsforholdId: kotlin.String? = null,
+        val arbeidsforholdId: String? = null,
         val arbeidsgiver: Arbeidsgiver? = null,
         val arbeidstaker: Person? = null,
         /* Er arbeidsforholdet innrapportert via A-Ordningen? */

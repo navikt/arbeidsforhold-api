@@ -51,7 +51,6 @@ class ArbeidsforholdService @Autowired constructor(
     }
 
 
-
     fun hentEttArbeidsforholdmedId(fodselsnr: String, id: Int, fssToken: String?): ArbeidsforholdDto {
         val arbeidsforhold = arbeidsforholdConsumer.hentArbeidsforholdmedId(fodselsnr, id, fssToken)
 
@@ -124,7 +123,7 @@ class ArbeidsforholdService @Autowired constructor(
     private fun hentEttarbforholdOrgnavn(arbeidsforhold: Arbeidsforhold, arbgivnavn: String?): String? {
         var arbgivnavn1 = arbgivnavn
         if (arbeidsforhold.arbeidsgiver?.type.equals(organisasjon)) {
-            val organisasjon = eregConsumer.hentOrgnavn(arbeidsforhold.arbeidsgiver?.organisasjonsnummer,  arbeidsforhold.ansettelsesperiode?.periode?.tom)
+            val organisasjon = eregConsumer.hentOrgnavn(arbeidsforhold.arbeidsgiver?.organisasjonsnummer, arbeidsforhold.ansettelsesperiode?.periode?.tom)
             val navn = organisasjon.navn
             arbgivnavn1 = concatenateNavn(navn)
         }
@@ -135,7 +134,7 @@ class ArbeidsforholdService @Autowired constructor(
     private fun hentOpplysningspliktigOrgNavn(arbeidsforhold: Arbeidsforhold, opplarbgivnavn: String?): String? {
         var opplarbgivnavn1 = opplarbgivnavn
         if (arbeidsforhold.opplysningspliktig?.type.equals(organisasjon)) {
-            val organisasjon = eregConsumer.hentOrgnavn(arbeidsforhold.opplysningspliktig?.organisasjonsnummer,  arbeidsforhold.ansettelsesperiode?.periode?.tom)
+            val organisasjon = eregConsumer.hentOrgnavn(arbeidsforhold.opplysningspliktig?.organisasjonsnummer, arbeidsforhold.ansettelsesperiode?.periode?.tom)
             val navn = organisasjon.navn
             opplarbgivnavn1 = concatenateNavn(navn)
         }
@@ -145,7 +144,7 @@ class ArbeidsforholdService @Autowired constructor(
     private fun hentArbGiverOrgNavn(arbeidsforhold: Arbeidsforhold, arbgivnavn: String?): String? {
         var arbgivnavn1 = arbgivnavn
         if (arbeidsforhold.arbeidsgiver?.type.equals(organisasjon)) {
-            val organisasjon = eregConsumer.hentOrgnavn(arbeidsforhold.arbeidsgiver?.organisasjonsnummer,  arbeidsforhold.ansettelsesperiode?.periode?.tom)
+            val organisasjon = eregConsumer.hentOrgnavn(arbeidsforhold.arbeidsgiver?.organisasjonsnummer, arbeidsforhold.ansettelsesperiode?.periode?.tom)
             val navn = organisasjon.navn
             arbgivnavn1 = concatenateNavn(navn)
         }
@@ -194,13 +193,13 @@ class ArbeidsforholdService @Autowired constructor(
                 return ordning.betydninger.getValue(inbound)[0]?.beskrivelser?.getValue(kodeverkspraak)?.term
             }
         } catch (nse: NoSuchElementException) {
-
             log.warn("Element not found in Arbeidsforholdstype: " + inbound)
         }
         return inbound
     }
 
     private fun getSkipsregisterTerm(skipsregister: GetKodeverkKoderBetydningerResponse, inbound: String?): String? {
+
         try {
             if (!inbound.isNullOrEmpty() && !skipsregister.betydninger.getValue(inbound).isEmpty()) {
                 return skipsregister.betydninger.getValue(inbound)[0]?.beskrivelser?.getValue(kodeverkspraak)?.term
@@ -209,6 +208,7 @@ class ArbeidsforholdService @Autowired constructor(
 
             log.warn("Element not found in Skipsregister: " + inbound)
         }
+
         return inbound
     }
 
@@ -221,7 +221,9 @@ class ArbeidsforholdService @Autowired constructor(
 
             log.warn("Element not found in Skipstype: " + inbound)
         }
+
         return inbound
+
     }
 
     private fun getFartsomraadeTerm(fartsomraade: GetKodeverkKoderBetydningerResponse, inbound: String?): String? {
@@ -242,12 +244,10 @@ class ArbeidsforholdService @Autowired constructor(
                 return land.betydninger.getValue(inbound)[0]?.beskrivelser?.getValue(kodeverkspraak)?.term
             }
         } catch (nse: NoSuchElementException) {
-
             log.warn("Element not found in Land: " + inbound)
         }
         return inbound
     }
-
 
 
     private fun concatenateNavn(navn: Navn?): String {
