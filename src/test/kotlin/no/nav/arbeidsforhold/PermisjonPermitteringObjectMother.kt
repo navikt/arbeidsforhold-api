@@ -12,8 +12,11 @@ object PermisjonPermitteringObjectMother {
 
     val arrayOfDummyValues = arrayOf(
             PermisjonPermitteringObjectMother.withDummyValues,
-            PermisjonPermittering(
-
+            PermisjonPermittering
+            (
+                    periode = PeriodeObjectMother.withDummyValues,
+                    prosent = 50.9,
+                    type = "Permisjon"
             )
     )
 }

@@ -1,15 +1,19 @@
 package no.nav.arbeidsforhold.dto.transformer
 
+import no.nav.arbeidsforhold.domain.Arbeidsavtale
 import no.nav.arbeidsforhold.domain.Arbeidsforhold
 import no.nav.arbeidsforhold.dto.outbound.ArbeidsavtaleDto
 import no.nav.arbeidsforhold.dto.outbound.ArbeidsforholdDto
+import no.nav.arbeidsforhold.services.ArbeidsforholdService
 import no.nav.personopplysninger.features.arbeidsforhold.dto.transformer.OpplysningspliktigArbeidsgiverTransformer
+import org.slf4j.LoggerFactory
 
 object EnkeltArbeidsforholdTransformer {
-
+    private val log = LoggerFactory.getLogger(EnkeltArbeidsforholdTransformer::class.java)
     fun toOutbound(inbound: Arbeidsforhold, arbgivnavn: String?, opplarbgivnavn: String?): ArbeidsforholdDto {
 
         val gyldigarbeidsavtale = gyldigArbeidsavtale(ArbeidsavtaleTransformer.toOutboundArray(inbound.arbeidsavtaler))
+
         return ArbeidsforholdDto(
                 navArbeidsforholdId = inbound.navArbeidsforholdId,
                 eksternArbeidsforholdId = inbound.arbeidsforholdId,
@@ -18,7 +22,11 @@ object EnkeltArbeidsforholdTransformer {
                 arbeidsgiver = ArbeidsgiverTransformer.toOutbound(inbound.arbeidsgiver, arbgivnavn),
                 opplysningspliktigarbeidsgiver = OpplysningspliktigArbeidsgiverTransformer.toOutbound(inbound.opplysningspliktig, opplarbgivnavn),
                 ansettelsesperiode = PeriodeTransformer.toOutboundfromAnsettelsesperiode(inbound.ansettelsesperiode),
-                arbeidsavtaler = ArbeidsavtaleTransformer.toOutboundArray(inbound.arbeidsavtaler),
+                arbeidsavtaler = if (inbound.arbeidsavtaler?.size != 1) {
+                    ArbeidsavtaleTransformer.toOutboundArray(inbound.arbeidsavtaler)
+                } else {
+                    ArrayList<ArbeidsavtaleDto>()
+                },
                 utenlandsopphold = UtenlandsoppholdTransformer.toOutboundArray(inbound.utenlandsopphold),
                 permisjonPermittering = PermisjonPermitteringTransformer.toOutboundArray(inbound.permisjonPermitteringer),
                 antallTimerPrUke = gyldigarbeidsavtale?.antallTimerPrUke,

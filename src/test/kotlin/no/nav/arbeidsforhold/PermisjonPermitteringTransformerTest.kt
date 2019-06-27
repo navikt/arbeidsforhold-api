@@ -21,7 +21,7 @@ class PermisjonPermitteringTransformerTest {
         assertNotNull(actual)
         assertEquals(inbound[0].periode?.tom, actual[0].periode?.periodeTil)
         assertEquals(inbound[0].periode?.fom, actual[0].periode?.periodeFra)
-        assertEquals(inbound[0].prosent.toString() + " %", actual[0].prosent)
+        assertEquals(inbound[0].prosent.toString().split(".")[0] + " %", actual[0].prosent?.toString())
         assertEquals(inbound[0].type, actual[0].type)
     }
 
