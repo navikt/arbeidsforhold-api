@@ -55,18 +55,18 @@ class ArbeidsforholdService @Autowired constructor(
         val arbeidsforhold = arbeidsforholdConsumer.hentArbeidsforholdmedId(fodselsnr, id, fssToken)
 
 
-
         var arbgivnavn = arbeidsforhold.arbeidsgiver?.organisasjonsnummer
         var opplarbgivnavn = arbeidsforhold.opplysningspliktig?.organisasjonsnummer
         arbgivnavn = hentEttarbforholdOrgnavn(arbeidsforhold, arbgivnavn)
         opplarbgivnavn = hentEttarbforholdOpplysningspliktig(arbeidsforhold, opplarbgivnavn)
         val arbeidsforholdDto = EnkeltArbeidsforholdTransformer.toOutbound(arbeidsforhold, arbgivnavn, opplarbgivnavn)
 
-        settInnKodeverksverdierIUtenlandsopphold(arbeidsforholdDto.utenlandsopphold)
-
-        settInnKodeverksverdierIArbeidsavtale(arbeidsforholdDto.arbeidsavtaler)
-
-        settInnKodeverksverdierIPermitteringer(arbeidsforholdDto.permisjonPermittering)
+        val yrkeskode = arbeidsforholdDto.yrke
+        val typekode = arbeidsforholdDto.type
+        val arbeidstidsordningkode = arbeidsforholdDto.arbeidstidsordning
+        val skipstypekode = arbeidsforholdDto.skipstype
+        val skipsregisterkode = arbeidsforholdDto.skipsregister
+        val fartsomraadekode = arbeidsforholdDto.fartsomraade
 
         val yrke = kodeverkConsumer.hentYrke(arbeidsforholdDto.yrke)
         val type = kodeverkConsumer.hentArbeidsforholdstyper(arbeidsforholdDto.type)
@@ -76,16 +76,41 @@ class ArbeidsforholdService @Autowired constructor(
         val fartsomraade = kodeverkConsumer.hentFartsomraade(arbeidsforholdDto.fartsomraade)
 
         settKodeverkVerdier(arbeidsforholdDto, yrke, type, arbeidstidsordning, skipsregister, skipstype, fartsomraade)
+        settInnKodeverksverdierIUtenlandsopphold(arbeidsforholdDto.utenlandsopphold)
+        settInnKodeverksverdierIArbeidsavtale(arbeidsforholdDto, yrkeskode, typekode, arbeidstidsordningkode, skipstypekode, skipsregisterkode, fartsomraadekode)
+        settInnKodeverksverdierIPermitteringer(arbeidsforholdDto.permisjonPermittering)
+
         return arbeidsforholdDto
     }
 
-    private fun settInnKodeverksverdierIArbeidsavtale(arbeidsavtaleDto: ArrayList<ArbeidsavtaleDto>?) {
-        for (arbeidsavtale in arbeidsavtaleDto.orEmpty()) {
-            arbeidsavtale.yrke = getYrkeTerm(kodeverkConsumer.hentYrke(arbeidsavtale.yrke), arbeidsavtale.yrke)
-            arbeidsavtale.arbeidstidsordning = getArbeidstidsordningTerm(kodeverkConsumer.hentArbeidstidsordningstyper(arbeidsavtale.arbeidstidsordning), arbeidsavtale.arbeidstidsordning)
-            arbeidsavtale.skipsregister = getSkipsregisterTerm(kodeverkConsumer.hentSkipsregister(arbeidsavtale.skipsregister),  arbeidsavtale.skipsregister)
-            arbeidsavtale.skipstype = getSkipstypeTerm(kodeverkConsumer.hentSkipstyper(arbeidsavtale.skipstype),  arbeidsavtale.skipstype)
-            arbeidsavtale.fartsomraade = getFartsomraadeTerm(kodeverkConsumer.hentFartsomraade(arbeidsavtale.fartsomraade),  arbeidsavtale.fartsomraade)
+    private fun settInnKodeverksverdierIArbeidsavtale(arbeidsforhold: ArbeidsforholdDto?, yrke: String?, type: String?, arbeidstidsordning: String?, skipsregister: String?, skipstype: String?, fartsomraade: String?) {
+        //Setter inn kodeverksverdier i avtale der koden er forskjellig fra selve arbeidsforholdet
+        for (arbeidsavtale in arbeidsforhold?.arbeidsavtaler.orEmpty()) {
+            if (yrke != arbeidsavtale.yrke) {
+                arbeidsavtale.yrke = getYrkeTerm(kodeverkConsumer.hentYrke(arbeidsavtale.yrke), arbeidsavtale.yrke)
+            } else {
+                arbeidsavtale.yrke = arbeidsforhold?.yrke
+            }
+            if (arbeidstidsordning != arbeidsavtale.arbeidstidsordning) {
+                arbeidsavtale.arbeidstidsordning = getArbeidstidsordningTerm(kodeverkConsumer.hentArbeidstidsordningstyper(arbeidsavtale.arbeidstidsordning), arbeidsavtale.arbeidstidsordning)
+            } else {
+                arbeidsavtale.arbeidstidsordning = arbeidsforhold?.arbeidstidsordning
+            }
+            if (skipsregister != arbeidsavtale.skipsregister) {
+                arbeidsavtale.skipsregister = getSkipsregisterTerm(kodeverkConsumer.hentSkipsregister(arbeidsavtale.skipsregister), arbeidsavtale.skipsregister)
+            } else {
+                arbeidsavtale.skipsregister = arbeidsforhold?.skipsregister
+            }
+            if (skipstype != arbeidsavtale.skipstype) {
+                arbeidsavtale.skipstype = getSkipstypeTerm(kodeverkConsumer.hentSkipstyper(arbeidsavtale.skipstype), arbeidsavtale.skipstype)
+            } else {
+                arbeidsavtale.skipstype = arbeidsforhold?.skipstype
+            }
+            if (fartsomraade != arbeidsavtale.fartsomraade) {
+                arbeidsavtale.fartsomraade = getFartsomraadeTerm(kodeverkConsumer.hentFartsomraade(arbeidsavtale.fartsomraade), arbeidsavtale.fartsomraade)
+            } else {
+                arbeidsavtale.fartsomraade = arbeidsforhold?.fartsomraade
+            }
         }
     }
 
