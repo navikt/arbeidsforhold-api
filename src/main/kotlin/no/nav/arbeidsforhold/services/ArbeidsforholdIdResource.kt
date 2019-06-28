@@ -24,18 +24,10 @@ class ArbeidsforholdIdResource @Autowired constructor(private var arbeidsforhold
     @GET
     @Produces(MediaType.APPLICATION_JSON)
     fun hentPersonalia(@PathParam("id") id: String): Response {
-        val startTime = System.nanoTime()
 
         val fssToken = hentFssToken()
-        log.warn("TimeSpentFssToken: " + (System.nanoTime() - startTime) / 1000000)
-
         val fodselsnr = hentFnrFraToken()
-
-        log.warn("TimeSpentFnrToken: " + (System.nanoTime() - startTime) / 1000000)
-
         val arbeidsforhold = arbeidsforholdIdService.hentEttArbeidsforholdmedId(fodselsnr, id.toInt(), fssToken)
-
-        log.warn("TimeSpentTotal: " + (System.nanoTime() - startTime) / 1000000)
 
         return Response
                 .ok(arbeidsforhold)
