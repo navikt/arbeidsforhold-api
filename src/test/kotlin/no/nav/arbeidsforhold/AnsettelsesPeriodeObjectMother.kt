@@ -6,7 +6,8 @@ import no.nav.arbeidsforhold.domain.Ansettelsesperiode
 object AnsettelsesPeriodeObjectMother {
 
     val withDummyValues = Ansettelsesperiode(
-            periode = PeriodeObjectMother.withDummyValues
+            periode = PeriodeObjectMother.withDummyValues,
+            varslingskode = "testkode"
     )
 
 

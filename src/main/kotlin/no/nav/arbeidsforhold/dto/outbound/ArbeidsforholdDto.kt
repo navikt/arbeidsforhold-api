@@ -8,7 +8,7 @@ data class ArbeidsforholdDto (
         val sistBekreftet : String? = null,
         val arbeidsgiver : ArbeidsgiverDto? = null,
         val opplysningspliktigarbeidsgiver : OpplysningspliktigArbeidsgiverDto? = null,
-        val ansettelsesperiode : PeriodeDto? = null,
+        val ansettelsesperiode : AnsettelsesperiodeDto? = null,
         val utenlandsopphold: ArrayList<UtenlandsoppholdDto>? = null,
         val permisjonPermittering: ArrayList<PermisjonPermitteringDto>? = null,
         val arbeidsavtaler: ArrayList<ArbeidsavtaleDto>? = null,

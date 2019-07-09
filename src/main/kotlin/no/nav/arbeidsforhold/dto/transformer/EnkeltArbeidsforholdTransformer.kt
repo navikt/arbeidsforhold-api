@@ -21,7 +21,7 @@ object EnkeltArbeidsforholdTransformer {
                 sistBekreftet = inbound.sistBekreftet,
                 arbeidsgiver = ArbeidsgiverTransformer.toOutbound(inbound.arbeidsgiver, arbgivnavn),
                 opplysningspliktigarbeidsgiver = OpplysningspliktigArbeidsgiverTransformer.toOutbound(inbound.opplysningspliktig, opplarbgivnavn),
-                ansettelsesperiode = PeriodeTransformer.toOutboundfromAnsettelsesperiode(inbound.ansettelsesperiode),
+                ansettelsesperiode = AnsettelsesperiodeTransformer.toOutbound(inbound.ansettelsesperiode),
                 arbeidsavtaler = if (inbound.arbeidsavtaler?.size != 1) {
                     ArbeidsavtaleTransformer.toOutboundArray(inbound.arbeidsavtaler)
                 } else {

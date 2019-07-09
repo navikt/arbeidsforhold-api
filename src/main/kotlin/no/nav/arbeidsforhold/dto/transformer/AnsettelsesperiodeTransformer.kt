@@ -4,12 +4,13 @@ import no.nav.arbeidsforhold.domain.Ansettelsesperiode
 import no.nav.arbeidsforhold.domain.Gyldighetsperiode
 import no.nav.arbeidsforhold.domain.Periode
 import no.nav.arbeidsforhold.dto.outbound.PeriodeDto
+import no.nav.arbeidsforhold.dto.outbound.AnsettelsesperiodeDto
 
-object PeriodeTransformer {
+object AnsettelsesperiodeTransformer {
 
-    fun toOutboundfromPeriode(inbound: Periode?) = PeriodeDto (
-            periodeFra = inbound?.fom,
-            periodeTil = inbound?.tom
+    fun toOutbound(inbound: Ansettelsesperiode?) = AnsettelsesperiodeDto (
+            periode = PeriodeTransformer.toOutboundfromPeriode(inbound?.periode),
+            varslingskode = inbound?.varslingskode
     )
 
     fun toOutboundfromGyldighetsperiode(inbound: Gyldighetsperiode?) = PeriodeDto (
