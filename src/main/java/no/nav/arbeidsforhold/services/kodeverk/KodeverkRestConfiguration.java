@@ -23,7 +23,7 @@ public class KodeverkRestConfiguration {
     @Value("${ARBEIDSFORHOLD_API_KODEVERK_REST_API_APIKEY_USERNAME}")
     private String kodeverkApiKeyUsername;
 
-    @Value("${ARBEIDSFORHOLD_APIKODEVERK_REST_API_APIKEY_PASSWORD}")
+    @Value("${ARBEIDSFORHOLD_API_KODEVERK_REST_API_APIKEY_PASSWORD}")
     private String kodeverkApiKeyPassword;
 
     @Bean
