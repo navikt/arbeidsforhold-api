@@ -17,11 +17,11 @@
       "https://www.nav.no/person/arbeidsforhold-api"
     ],
     "liveness": {
-      "path": "/person/arbeidsforhold-api/internal/status/isAlive",
+      "path": "/person/arbeidsforhold-api/internal/isAlive",
       "initialDelay": 10
     },
     "readiness": {
-      "path": "/person/arbeidsforhold-api/internal/status/isAlive",
+      "path": "/person/arbeidsforhold-api/internal/isAlive",
       "initialDelay": 10
     },
     "vault":{
