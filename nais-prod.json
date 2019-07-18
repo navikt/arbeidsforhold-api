@@ -13,8 +13,8 @@
     "team": "personbruker",
     "port": 8080,
     "ingresses": [
-      "https://arbeidsforhold-api.nais.oera-q.local/person/arbeidsforhold-api",
-      "https://www-q0.nav.no/person/arbeidsforhold-api"
+      "https://arbeidsforhold-api.nais.oera.no/person/arbeidsforhold-api",
+      "https://www.nav.no/person/arbeidsforhold-api"
     ],
     "liveness": {
       "path": "/person/arbeidsforhold-api/internal/alive",
