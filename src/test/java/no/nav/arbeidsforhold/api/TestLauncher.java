@@ -11,12 +11,18 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Import;
 import org.springframework.context.annotation.Primary;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+
 @SpringBootApplication(exclude = ErrorMvcAutoConfiguration.class)
 @Import({ApplicationConfig.class})
 public class TestLauncher {
 
     public static void main(String... args) {
-        SpringApplication.run(ApplicationConfig.class, args);
+        setTestEnvironment();
+        ArrayList<String> argList = new ArrayList<>(Arrays.asList(args));
+        argList.add("--spring.profiles.active=dev");
+        SpringApplication.run(ApplicationConfig.class, argList.toArray(new String[0]));
     }
 
     /**
@@ -33,5 +39,24 @@ public class TestLauncher {
     @Primary
     public ResourceConfig testJerseyConfig() {
         return new TestRestResourceConfiguration();
+    }
+
+    private static void setTestEnvironment() {
+        System.setProperty("AAD_B2C_CLIENTID_USERNAME", "");
+        System.setProperty("AAD_B2C_DISCOVERY_URL", "");
+        System.setProperty("ARBEIDSFORHOLD_API_KODEVERK_REST_API_APIKEY_USERNAME", "");
+        System.setProperty("ARBEIDSFORHOLD_API_KODEVERK_REST_API_APIKEY_PASSWORD", "");
+        System.setProperty("ARBEIDSFORHOLD_API_EREG_API_APIKEY_USERNAME" ,"");
+        System.setProperty("ARBEIDSFORHOLD_API_EREG_API_APIKEY_PASSWORD", "");
+        System.setProperty("ARBEIDSFORHOLD_API_SECURITY_TOKEN_SERVICE_TOKEN_APIKEY_USERNAME", "");
+        System.setProperty("ARBEIDSFORHOLD_API_SECURITY_TOKEN_SERVICE_TOKEN_APIKEY_PASSWORD", "");
+        System.setProperty("ARBEIDSFORHOLD_API_AAREG_API_APIKEY_USERNAME", "");
+        System.setProperty("ARBEIDSFORHOLD_API_AAREG_API_APIKEY_PASSWORD", "");
+        System.setProperty("EREG_API_URL", "");
+        System.setProperty("SECURITY_TOKEN_SERVICE_TOKEN_URL", "");
+        System.setProperty("KODEVERK_REST_API_URL", "");
+        System.setProperty("AAREG_API_URL", "");
+        System.setProperty("SRVARBEIDSFORHOLD_API_USERNAME", "");
+        System.setProperty("SRVARBEIDSFORHOLD_API_PASSWORD", "");
     }
 }
