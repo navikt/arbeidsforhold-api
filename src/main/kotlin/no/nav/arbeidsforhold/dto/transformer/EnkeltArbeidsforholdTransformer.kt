@@ -1,10 +1,8 @@
 package no.nav.arbeidsforhold.dto.transformer
 
-import no.nav.arbeidsforhold.domain.Arbeidsavtale
 import no.nav.arbeidsforhold.domain.Arbeidsforhold
 import no.nav.arbeidsforhold.dto.outbound.ArbeidsavtaleDto
 import no.nav.arbeidsforhold.dto.outbound.ArbeidsforholdDto
-import no.nav.arbeidsforhold.services.ArbeidsforholdService
 import no.nav.personopplysninger.features.arbeidsforhold.dto.transformer.OpplysningspliktigArbeidsgiverTransformer
 import org.slf4j.LoggerFactory
 
@@ -32,8 +30,8 @@ object EnkeltArbeidsforholdTransformer {
                 antallTimerPrUke = gyldigarbeidsavtale?.antallTimerPrUke,
                 stillingsprosent = gyldigarbeidsavtale?.stillingsprosent,
                 arbeidstidsordning = gyldigarbeidsavtale?.arbeidstidsordning,
-                sisteStillingsEndring = gyldigarbeidsavtale?.sisteStillingsendring,
-                sisteLoennsEndring = gyldigarbeidsavtale?.sisteLoennsendring,
+                sisteStillingsendring = gyldigarbeidsavtale?.sisteStillingsendring,
+                sisteLoennsendring = gyldigarbeidsavtale?.sisteLoennsendring,
                 yrke = gyldigarbeidsavtale?.yrke,
                 fartsomraade = gyldigarbeidsavtale?.fartsomraade,
                 skipsregister = gyldigarbeidsavtale?.skipsregister,
