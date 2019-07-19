@@ -20,10 +20,10 @@ import java.util.logging.Logger;
 @Configuration
 public class KodeverkRestConfiguration {
 
-    @Value("${ARBEIDSFORHOLD-API-KODEVERK_REST-API-APIKEY_USERNAME}")
+    @Value("${ARBEIDSFORHOLD_API_KODEVERK_REST_API_APIKEY_USERNAME}")
     private String kodeverkApiKeyUsername;
 
-    @Value("${ARBEIDSFORHOLD-API-KODEVERK_REST-API-APIKEY_PASSWORD}")
+    @Value("${ARBEIDSFORHOLD_API_KODEVERK_REST_API_APIKEY_PASSWORD}")
     private String kodeverkApiKeyPassword;
 
     @Bean
