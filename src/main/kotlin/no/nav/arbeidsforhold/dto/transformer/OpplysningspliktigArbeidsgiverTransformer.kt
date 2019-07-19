@@ -1,4 +1,4 @@
-package no.nav.personopplysninger.features.arbeidsforhold.dto.transformer
+package no.nav.arbeidsforhold.dto.transformer
 
 import no.nav.arbeidsforhold.domain.OpplysningspliktigArbeidsgiver
 import no.nav.arbeidsforhold.dto.outbound.OpplysningspliktigArbeidsgiverDto

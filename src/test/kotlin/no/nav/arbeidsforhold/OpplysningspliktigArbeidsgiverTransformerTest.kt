@@ -2,7 +2,7 @@ package no.nav.arbeidsforhold
 
 import no.nav.arbeidsforhold.domain.OpplysningspliktigArbeidsgiver
 import no.nav.arbeidsforhold.dto.outbound.OpplysningspliktigArbeidsgiverDto
-import no.nav.personopplysninger.features.arbeidsforhold.dto.transformer.OpplysningspliktigArbeidsgiverTransformer
+import no.nav.arbeidsforhold.dto.transformer.OpplysningspliktigArbeidsgiverTransformer
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.TestInstance
 import org.junit.jupiter.api.TestInstance.Lifecycle.PER_CLASS

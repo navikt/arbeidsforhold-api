@@ -3,7 +3,6 @@ package no.nav.arbeidsforhold.dto.transformer
 import no.nav.arbeidsforhold.domain.Arbeidsforhold
 import no.nav.arbeidsforhold.dto.outbound.ArbeidsavtaleDto
 import no.nav.arbeidsforhold.dto.outbound.ArbeidsforholdDto
-import no.nav.personopplysninger.features.arbeidsforhold.dto.transformer.OpplysningspliktigArbeidsgiverTransformer
 import org.slf4j.LoggerFactory
 
 object EnkeltArbeidsforholdTransformer {
