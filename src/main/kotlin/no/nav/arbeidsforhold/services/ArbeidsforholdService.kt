@@ -191,7 +191,11 @@ class ArbeidsforholdService @Autowired constructor(
     private fun getYrkeTerm(yrke: GetKodeverkKoderBetydningerResponse, inbound: String?): String? {
         try {
             if (!inbound.isNullOrEmpty() && !yrke.betydninger.getValue(inbound).isEmpty()) {
-                return yrke.betydninger.getValue(inbound)[0]?.beskrivelser?.getValue(kodeverkspraak)?.term
+                val yrkesterm = yrke.betydninger.getValue(inbound)[0]?.beskrivelser?.getValue(kodeverkspraak)?.term
+                if (yrkesterm.isNullOrEmpty())
+                    return yrkesterm
+                else
+                    return yrkesterm + " (" + inbound + ")"
             }
         } catch (nse: NoSuchElementException) {
             log.warn("Element not found in Yrke: " + inbound)
