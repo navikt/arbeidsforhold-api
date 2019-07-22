@@ -3,11 +3,12 @@ package no.nav.arbeidsforhold.services
 import no.nav.arbeidsforhold.config.ArbeidsforholdConsumer
 import no.nav.arbeidsforhold.config.EregConsumer
 import no.nav.arbeidsforhold.domain.Arbeidsforhold
-import no.nav.arbeidsforhold.dto.outbound.ArbeidsavtaleDto
 import no.nav.arbeidsforhold.dto.outbound.ArbeidsforholdDto
 import no.nav.arbeidsforhold.dto.outbound.PermisjonPermitteringDto
 import no.nav.arbeidsforhold.dto.outbound.UtenlandsoppholdDto
+import no.nav.arbeidsforhold.dto.transformer.ArbeidsavtaleTransformer
 import no.nav.arbeidsforhold.dto.transformer.ArbeidsforholdTransformer
+import no.nav.arbeidsforhold.dto.DtoUtils
 import no.nav.arbeidsforhold.dto.transformer.EnkeltArbeidsforholdTransformer
 import no.nav.arbeidsforhold.services.sts.STSConsumer
 import no.nav.ereg.Navn
@@ -43,13 +44,14 @@ class ArbeidsforholdService @Autowired constructor(
 
             var arbgivnavn = arbeidsforhold.arbeidsgiver?.organisasjonsnummer
             var opplarbgivnavn = arbeidsforhold.opplysningspliktig?.organisasjonsnummer
+            var yrke = DtoUtils.hentYrkeForSisteArbeidsavtale(
+                    ArbeidsavtaleTransformer.toOutboundArray(arbeidsforhold.arbeidsavtaler))?.run { getYrkeTerm(kodeverkConsumer.hentYrke(this), this) }
             arbgivnavn = hentArbGiverOrgNavn(arbeidsforhold, arbgivnavn)
             opplarbgivnavn = hentOpplysningspliktigOrgNavn(arbeidsforhold, opplarbgivnavn)
-            arbeidsforholdDtos.add(ArbeidsforholdTransformer.toOutbound(arbeidsforhold, arbgivnavn, opplarbgivnavn))
+            arbeidsforholdDtos.add(ArbeidsforholdTransformer.toOutbound(arbeidsforhold, arbgivnavn, opplarbgivnavn, yrke))
         }
         return arbeidsforholdDtos
     }
-
 
     fun hentEttArbeidsforholdmedId(fodselsnr: String, id: Int, fssToken: String?): ArbeidsforholdDto {
         val arbeidsforhold = arbeidsforholdConsumer.hentArbeidsforholdmedId(fodselsnr, id, fssToken)

@@ -6,10 +6,11 @@ import no.nav.personopplysninger.features.arbeidsforhold.dto.transformer.Opplysn
 
 object ArbeidsforholdTransformer {
 
-    fun toOutbound(inbound: Arbeidsforhold, arbgivnavn: String?, opplarbgivnavn: String?) = ArbeidsforholdDto(
+    fun toOutbound(inbound: Arbeidsforhold, arbgivnavn: String?, opplarbgivnavn: String?, yrke: String?) = ArbeidsforholdDto(
 
             navArbeidsforholdId = inbound.navArbeidsforholdId,
             eksternArbeidsforholdId = inbound.arbeidsforholdId,
+            yrke = yrke,
             arbeidsgiver = ArbeidsgiverTransformer.toOutbound(inbound.arbeidsgiver, arbgivnavn),
             opplysningspliktigarbeidsgiver = OpplysningspliktigArbeidsgiverTransformer.toOutbound(inbound.opplysningspliktig, opplarbgivnavn),
             ansettelsesperiode = AnsettelsesperiodeTransformer.toOutbound(inbound.ansettelsesperiode),
