@@ -29,7 +29,8 @@ public class CORSResponseFilter implements ContainerResponseFilter {
             "https://www-q1.nav.no",
             "https://www.nav.no",
             "https://arbeidsforhold.nais.preprod.local",
-            "https://www-q0.nav.no/person/arbeidsforhold"
+            "https://www-q0.nav.no/person/arbeidsforhold",
+            "https://personopplysninger-q.nav.no"
     );
 
     @Override
