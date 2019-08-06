@@ -1,5 +1,6 @@
 package no.nav.arbeidsforhold.config;
 
+import io.prometheus.client.hotspot.DefaultExports;
 import no.nav.log.LogFilter;
 import no.nav.security.oidc.configuration.MultiIssuerConfiguration;
 import no.nav.security.oidc.configuration.OIDCResourceRetriever;
@@ -31,6 +32,10 @@ import java.util.EnumSet;
 @Import({RestClientConfiguration.class,
 })
 public class ApplicationConfig implements EnvironmentAware {
+
+    static  {
+        DefaultExports.initialize();
+    }
 
     private static final Logger log = LoggerFactory.getLogger(ApplicationConfig.class);
 
