@@ -9,11 +9,11 @@
         <filter class="ch.qos.logback.core.filter.EvaluatorFilter">
             <evaluator>
                 <matcher>
-                    <Name>isAlive</Name>
-                    <!-- filtrerer ut prometheus innslag i info loggen -->
-                    <regex>status=200, method=GET, path=(\/person\/arbeidsforhold-api\/internal\/isAlive|\/person\/arbeidsforhold-api\/internal\/prometheus)</regex>
+                    <Name>internal</Name>
+                    <!-- filtrerer ut isAlive og prometheus innslag i info loggen -->
+                    <regex>status=200, method=GET, host=(.*), path=\/person\/arbeidsforhold-api\/internal(\/isAlive|\/prometheus)</regex>
                 </matcher>
-                <expression>isAlive.matches(formattedMessage)</expression>
+                <expression>internal.matches(formattedMessage)</expression>
             </evaluator>
             <OnMismatch>NEUTRAL</OnMismatch>
             <OnMatch>DENY</OnMatch>

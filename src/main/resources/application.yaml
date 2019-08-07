@@ -9,10 +9,7 @@ server:
     context-path: /person/arbeidsforhold-api
 
 logging:
-  level:
-    org.springframework: INFO
-    org.glassfish: INFO
-    no.nav: INFO
+  config: "classpath:logback-spring.xml"
 
 http.proxy: http://webproxy-nais.nav.no:8088
 
