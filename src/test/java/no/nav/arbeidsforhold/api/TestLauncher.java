@@ -42,6 +42,10 @@ public class TestLauncher {
     }
 
     private static void setTestEnvironment() {
+        // Properties som brukes i logback-default-without-abac.xml
+        System.setProperty("APP_LOG_HOME", "target/log");
+        System.setProperty("contextName", "arbeidsforhold-api");
+
         System.setProperty("AAD_B2C_CLIENTID_USERNAME", "");
         System.setProperty("AAD_B2C_DISCOVERY_URL", "");
         System.setProperty("ARBEIDSFORHOLD_API_KODEVERK_REST_API_APIKEY_USERNAME", "");
