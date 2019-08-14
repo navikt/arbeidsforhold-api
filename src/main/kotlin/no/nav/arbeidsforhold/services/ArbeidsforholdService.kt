@@ -197,7 +197,7 @@ class ArbeidsforholdService @Autowired constructor(
                 if (yrkesterm.isNullOrEmpty() || !inkluderYrkeskode)
                     return yrkesterm
                 else
-                    return yrkesterm + " (yrkeskode: " + inbound + ")"
+                    return yrkesterm + " (Yrkeskode: " + inbound + ")"
             }
         } catch (nse: NoSuchElementException) {
             log.warn("Element not found in Yrke: " + inbound)
