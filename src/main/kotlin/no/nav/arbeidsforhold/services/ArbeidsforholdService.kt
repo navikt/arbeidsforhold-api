@@ -45,7 +45,7 @@ class ArbeidsforholdService @Autowired constructor(
             var arbgivnavn = arbeidsforhold.arbeidsgiver?.organisasjonsnummer
             var opplarbgivnavn = arbeidsforhold.opplysningspliktig?.organisasjonsnummer
             var yrke = DtoUtils.hentYrkeForSisteArbeidsavtale(
-                    ArbeidsavtaleTransformer.toOutboundArray(arbeidsforhold.arbeidsavtaler))?.run { getYrkeTerm(kodeverkConsumer.hentYrke(this), this) }
+                    ArbeidsavtaleTransformer.toOutboundArray(arbeidsforhold.arbeidsavtaler))?.run { getYrkeTerm(kodeverkConsumer.hentYrke(this), this, false) }
             arbgivnavn = hentArbGiverOrgNavn(arbeidsforhold, arbgivnavn)
             opplarbgivnavn = hentOpplysningspliktigOrgNavn(arbeidsforhold, opplarbgivnavn)
             arbeidsforholdDtos.add(ArbeidsforholdTransformer.toOutbound(arbeidsforhold, arbgivnavn, opplarbgivnavn, yrke))
@@ -89,7 +89,7 @@ class ArbeidsforholdService @Autowired constructor(
         //Setter inn kodeverksverdier i avtale der koden er forskjellig fra selve arbeidsforholdet
         for (arbeidsavtale in arbeidsforhold?.arbeidsavtaler.orEmpty()) {
             if (yrke != arbeidsavtale.yrke) {
-                arbeidsavtale.yrke = getYrkeTerm(kodeverkConsumer.hentYrke(arbeidsavtale.yrke), arbeidsavtale.yrke)
+                arbeidsavtale.yrke = getYrkeTerm(kodeverkConsumer.hentYrke(arbeidsavtale.yrke), arbeidsavtale.yrke, true)
             } else {
                 arbeidsavtale.yrke = arbeidsforhold?.yrke
             }
@@ -129,7 +129,7 @@ class ArbeidsforholdService @Autowired constructor(
     }
 
     private fun settKodeverkVerdier(arbeidsforhold: ArbeidsforholdDto, yrke: GetKodeverkKoderBetydningerResponse, type: GetKodeverkKoderBetydningerResponse, arbeidstidsordning: GetKodeverkKoderBetydningerResponse, skipsregister: GetKodeverkKoderBetydningerResponse, skipstype: GetKodeverkKoderBetydningerResponse, fartsomraade: GetKodeverkKoderBetydningerResponse) {
-        arbeidsforhold.yrke = getYrkeTerm(yrke, arbeidsforhold.yrke)
+        arbeidsforhold.yrke = getYrkeTerm(yrke, arbeidsforhold.yrke, true)
         arbeidsforhold.type = getArbeidsforholdstypeTerm(type, arbeidsforhold.type)
         arbeidsforhold.arbeidstidsordning = getArbeidstidsordningTerm(arbeidstidsordning, arbeidsforhold.arbeidstidsordning)
         arbeidsforhold.skipsregister = getSkipsregisterTerm(skipsregister, arbeidsforhold.skipsregister)
@@ -190,14 +190,14 @@ class ArbeidsforholdService @Autowired constructor(
          return inbound.yrke
      }*/
 
-    private fun getYrkeTerm(yrke: GetKodeverkKoderBetydningerResponse, inbound: String?): String? {
+    private fun getYrkeTerm(yrke: GetKodeverkKoderBetydningerResponse, inbound: String?, inkluderYrkeskode: Boolean): String? {
         try {
             if (!inbound.isNullOrEmpty() && !yrke.betydninger.getValue(inbound).isEmpty()) {
                 val yrkesterm = yrke.betydninger.getValue(inbound)[0]?.beskrivelser?.getValue(kodeverkspraak)?.term
-                if (yrkesterm.isNullOrEmpty())
+                if (yrkesterm.isNullOrEmpty() || !inkluderYrkeskode)
                     return yrkesterm
                 else
-                    return yrkesterm + " (" + inbound + ")"
+                    return yrkesterm + " (yrkeskode: " + inbound + ")"
             }
         } catch (nse: NoSuchElementException) {
             log.warn("Element not found in Yrke: " + inbound)
