@@ -2,7 +2,7 @@ package no.nav.arbeidsforhold.services.kodeverk;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import no.nav.security.oidc.jaxrs.OidcClientRequestFilter;
-import org.glassfish.jersey.logging.LoggingFeature;
+import org.glassfish.jersey.client.ClientProperties;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -14,8 +14,6 @@ import javax.ws.rs.client.ClientRequestFilter;
 import javax.ws.rs.ext.ContextResolver;
 import java.net.URI;
 import java.net.URISyntaxException;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 @Configuration
 public class KodeverkRestConfiguration {
@@ -34,12 +32,18 @@ public class KodeverkRestConfiguration {
     }
 
     @Bean
-    public Client kodeverkClient(ContextResolver<ObjectMapper> clientObjectMapperResolver) {
-        return ClientBuilder.newBuilder()
+    public Client kodeverkClient(
+            ContextResolver<ObjectMapper> clientObjectMapperResolver,
+            @Named("defaultConnectTimeoutInMillis") Integer connectTimeout,
+            @Named("defaultReadTimeoutInMillis") Integer readTimeout) {
+        Client client = ClientBuilder.newBuilder()
                 .register(OidcClientRequestFilter.class)
                 .register(clientObjectMapperResolver)
                 .register((ClientRequestFilter) requestContext -> requestContext.getHeaders().putSingle(kodeverkApiKeyUsername,kodeverkApiKeyPassword))
                 .build();
+        client.property(ClientProperties.CONNECT_TIMEOUT, connectTimeout);
+        client.property(ClientProperties.READ_TIMEOUT, readTimeout);
+        return client;
     }
 
 }
