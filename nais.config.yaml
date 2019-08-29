@@ -11,8 +11,9 @@ spec:
   team: {{team}}
   port: 8080
   ingresses:
-    - {{ingress1}}
-    - {{ingress2}}
+  {{#each ingresses }}
+    - {{ this }}
+  {{/each}}
   liveness:
     path: {{baseurl}}/internal/isAlive
     initialDelay: 10
@@ -33,4 +34,4 @@ spec:
       memory: 1500Mi
   prometheus:
     enabled: true
-    path: {{baseurl}}/internal/prometheus
+    path: {{baseurl}}/internal/actuator/prometheus
