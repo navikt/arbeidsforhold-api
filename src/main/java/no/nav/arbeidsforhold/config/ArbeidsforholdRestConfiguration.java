@@ -2,6 +2,7 @@ package no.nav.arbeidsforhold.config;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import no.nav.security.oidc.jaxrs.OidcClientRequestFilter;
+import org.glassfish.jersey.client.ClientProperties;
 import org.glassfish.jersey.logging.LoggingFeature;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
@@ -34,13 +35,18 @@ public class ArbeidsforholdRestConfiguration {
     }
 
     @Bean
-    public Client arbeidsforholdClient(ContextResolver<ObjectMapper> clientObjectMapperResolver) {
-        Client c =  ClientBuilder.newBuilder()
+    public Client arbeidsforholdClient(
+            ContextResolver<ObjectMapper> clientObjectMapperResolver,
+            @Named("defaultConnectTimeoutInMillis") Integer connectTimeout,
+            @Named("defaultReadTimeoutInMillis") Integer readTimeout) {
+        Client client =  ClientBuilder.newBuilder()
                 .register(clientObjectMapperResolver)
                 .register(OidcClientRequestFilter.class)
                 .register((ClientRequestFilter) requestContext -> requestContext.getHeaders().putSingle(arbeidsforholdApiUsername, arbeidsforholdApiPassword))
                 .build();
-        return c;
+        client.property(ClientProperties.CONNECT_TIMEOUT, connectTimeout);
+        client.property(ClientProperties.READ_TIMEOUT, readTimeout);
+        return client;
     }
 
 }
