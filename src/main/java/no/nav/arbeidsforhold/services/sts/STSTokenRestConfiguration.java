@@ -3,6 +3,7 @@ package no.nav.arbeidsforhold.services.sts;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 
+import org.glassfish.jersey.client.ClientProperties;
 import org.glassfish.jersey.logging.LoggingFeature;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
@@ -60,12 +61,17 @@ public class STSTokenRestConfiguration {
     }
 
     @Bean
-    public Client STSClient(ContextResolver<ObjectMapper> clientObjectMapperResolver) {
+    public Client STSClient(
+            ContextResolver<ObjectMapper> clientObjectMapperResolver,
+            @Named("defaultConnectTimeoutInMillis") Integer connectTimeout,
+            @Named("defaultReadTimeoutInMillis") Integer readTimeout) {
         Client client =  ClientBuilder.newBuilder()
                 .register(clientObjectMapperResolver)
                 .register((ClientRequestFilter) requestContext -> requestContext.getHeaders().put(AUTHORIZATION, singletonList(getBasicAuthentication())))
                 .register((ClientRequestFilter) requestContext -> requestContext.getHeaders().putSingle(STSApiKeyUsername, STSApiKeyPassword))
                 .build();
+        client.property(ClientProperties.CONNECT_TIMEOUT, connectTimeout);
+        client.property(ClientProperties.READ_TIMEOUT, readTimeout);
         return client;
     }
 

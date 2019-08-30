@@ -12,6 +12,16 @@ import javax.ws.rs.ext.ContextResolver;
 public class RestClientConfiguration {
 
     @Bean
+    public Integer defaultConnectTimeoutInMillis() {
+        return Integer.valueOf(10 * 1000);
+    }
+
+    @Bean
+    public Integer defaultReadTimeoutInMillis() {
+        return Integer.valueOf(2 * 1000);
+    }
+
+    @Bean
     public ContextResolver<ObjectMapper> clientObjectMapperResolver() {
         return type -> new ObjectMapper()
                 .registerModule(new JavaTimeModule())
