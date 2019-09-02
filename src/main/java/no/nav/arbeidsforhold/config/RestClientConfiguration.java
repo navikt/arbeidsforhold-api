@@ -18,7 +18,7 @@ public class RestClientConfiguration {
 
     @Bean
     public Integer defaultReadTimeoutInMillis() {
-        return Integer.valueOf(2 * 1000);
+        return Integer.valueOf(10 * 1000);
     }
 
     @Bean
