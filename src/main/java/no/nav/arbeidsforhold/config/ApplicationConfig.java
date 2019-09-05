@@ -27,7 +27,11 @@ import java.net.URL;
 import java.util.EnumSet;
 
 @SpringBootConfiguration
-@ComponentScan({"no.nav.arbeidsforhold.api","no.nav.arbeidsforhold.services","no.nav.arbeidsforhold.config"})
+@ComponentScan({
+        "no.nav.arbeidsforhold.api",
+        "no.nav.arbeidsforhold.services",
+        "no.nav.arbeidsforhold.config",
+        "no.nav.arbeidsforhold.tasks"})
 @EnableConfigurationProperties(MultiIssuerProperties.class)
 @Import({RestClientConfiguration.class,
 })
@@ -41,7 +45,6 @@ public class ApplicationConfig implements EnvironmentAware {
 
     private Environment env;
 
-
     @Bean
     ServletWebServerFactory servletWebServerFactory() {
         JettyServletWebServerFactory serverFactory = new JettyServletWebServerFactory();
@@ -49,30 +52,25 @@ public class ApplicationConfig implements EnvironmentAware {
         return serverFactory;
     }
 
-
     @Bean
     public RequestContextListener requestContextListener() {
         return new RequestContextListener();
     }
-
 
     @Bean
     public ResourceConfig jerseyConfig() {
         return new RestResourceConfiguration();
     }
 
-
     @Bean
     public MultiIssuerConfiguration multiIssuerConfiguration(MultiIssuerProperties issuerProperties, OIDCResourceRetriever resourceRetriever) {
         return new MultiIssuerConfiguration(issuerProperties.getIssuer(), resourceRetriever);
     }
 
-
     @Bean
     public JaxrsOIDCTokenValidationFilter tokenValidationFilter(MultiIssuerConfiguration config) {
         return new JaxrsOIDCTokenValidationFilter(config);
     }
-
 
     @Bean
     public FilterRegistrationBean<JaxrsOIDCTokenValidationFilter> oidcTokenValidationFilterBean(JaxrsOIDCTokenValidationFilter validationFilter) {
@@ -87,7 +85,6 @@ public class ApplicationConfig implements EnvironmentAware {
         return filterRegistration;
     }
 
-
     @Bean
     public OIDCResourceRetriever oidcResourceRetriever() {
         OIDCResourceRetriever resourceRetriever = new OIDCResourceRetriever();
@@ -95,7 +92,6 @@ public class ApplicationConfig implements EnvironmentAware {
         resourceRetriever.setUsePlainTextForHttps(Boolean.parseBoolean(env.getProperty("https.plaintext", "false")));
         return resourceRetriever;
     }
-
 
     @Bean
     public FilterRegistrationBean<LogFilter> logFilter() {
@@ -105,7 +101,6 @@ public class ApplicationConfig implements EnvironmentAware {
         filterRegistration.setOrder(1);
         return filterRegistration;
     }
-
 
     private URL getConfiguredProxy() {
         String proxyParameterName = env.getProperty("http.proxy.parametername", "http.proxy");
@@ -124,15 +119,12 @@ public class ApplicationConfig implements EnvironmentAware {
         return proxy;
     }
 
-
     private boolean isProxyConfigAvailable(String proxyconfig) {
         return proxyconfig != null && proxyconfig.trim().length() > 0;
     }
-
 
     @Override
     public void setEnvironment(Environment env) {
         this.env = env;
     }
-
 }

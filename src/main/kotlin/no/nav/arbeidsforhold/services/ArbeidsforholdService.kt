@@ -24,7 +24,6 @@ class ArbeidsforholdService @Autowired constructor(
         private var stsConsumer: STSConsumer,
         private var eregConsumer: EregConsumer,
         private var kodeverkConsumer: KodeverkConsumer
-
 ) {
 
     private val log = LoggerFactory.getLogger(ArbeidsforholdService::class.java)
@@ -45,7 +44,7 @@ class ArbeidsforholdService @Autowired constructor(
             var arbgivnavn = arbeidsforhold.arbeidsgiver?.organisasjonsnummer
             var opplarbgivnavn = arbeidsforhold.opplysningspliktig?.organisasjonsnummer
             var yrke = DtoUtils.hentYrkeForSisteArbeidsavtale(
-                    ArbeidsavtaleTransformer.toOutboundArray(arbeidsforhold.arbeidsavtaler))?.run { getYrkeTerm(kodeverkConsumer.hentYrke(this), this, false) }
+                    ArbeidsavtaleTransformer.toOutboundArray(arbeidsforhold.arbeidsavtaler))?.run { getYrkeTerm(kodeverkConsumer.hentYrke(), this, false) }
             arbgivnavn = hentArbGiverOrgNavn(arbeidsforhold, arbgivnavn)
             opplarbgivnavn = hentOpplysningspliktigOrgNavn(arbeidsforhold, opplarbgivnavn)
             arbeidsforholdDtos.add(ArbeidsforholdTransformer.toOutbound(arbeidsforhold, arbgivnavn, opplarbgivnavn, yrke))
@@ -70,12 +69,12 @@ class ArbeidsforholdService @Autowired constructor(
         val skipsregisterkode = arbeidsforholdDto.skipsregister
         val fartsomraadekode = arbeidsforholdDto.fartsomraade
 
-        val yrke = kodeverkConsumer.hentYrke(arbeidsforholdDto.yrke)
-        val type = kodeverkConsumer.hentArbeidsforholdstyper(arbeidsforholdDto.type)
-        val arbeidstidsordning = kodeverkConsumer.hentArbeidstidsordningstyper(arbeidsforholdDto.arbeidstidsordning)
-        val skipstype = kodeverkConsumer.hentSkipstyper(arbeidsforholdDto.skipstype)
-        val skipsregister = kodeverkConsumer.hentSkipsregister(arbeidsforholdDto.skipsregister)
-        val fartsomraade = kodeverkConsumer.hentFartsomraade(arbeidsforholdDto.fartsomraade)
+        val yrke = kodeverkConsumer.hentYrke()
+        val type = kodeverkConsumer.hentArbeidsforholdstyper()
+        val arbeidstidsordning = kodeverkConsumer.hentArbeidstidsordningstyper()
+        val skipstype = kodeverkConsumer.hentSkipstyper()
+        val skipsregister = kodeverkConsumer.hentSkipsregister()
+        val fartsomraade = kodeverkConsumer.hentFartsomraade()
 
         settKodeverkVerdier(arbeidsforholdDto, yrke, type, arbeidstidsordning, skipsregister, skipstype, fartsomraade)
         settInnKodeverksverdierIUtenlandsopphold(arbeidsforholdDto.utenlandsopphold)
@@ -89,27 +88,27 @@ class ArbeidsforholdService @Autowired constructor(
         //Setter inn kodeverksverdier i avtale der koden er forskjellig fra selve arbeidsforholdet
         for (arbeidsavtale in arbeidsforhold?.arbeidsavtaler.orEmpty()) {
             if (yrke != arbeidsavtale.yrke) {
-                arbeidsavtale.yrke = getYrkeTerm(kodeverkConsumer.hentYrke(arbeidsavtale.yrke), arbeidsavtale.yrke, true)
+                arbeidsavtale.yrke = getYrkeTerm(kodeverkConsumer.hentYrke(), arbeidsavtale.yrke, true)
             } else {
                 arbeidsavtale.yrke = arbeidsforhold?.yrke
             }
             if (arbeidstidsordning != arbeidsavtale.arbeidstidsordning) {
-                arbeidsavtale.arbeidstidsordning = getArbeidstidsordningTerm(kodeverkConsumer.hentArbeidstidsordningstyper(arbeidsavtale.arbeidstidsordning), arbeidsavtale.arbeidstidsordning)
+                arbeidsavtale.arbeidstidsordning = getArbeidstidsordningTerm(kodeverkConsumer.hentArbeidstidsordningstyper(), arbeidsavtale.arbeidstidsordning)
             } else {
                 arbeidsavtale.arbeidstidsordning = arbeidsforhold?.arbeidstidsordning
             }
             if (skipsregister != arbeidsavtale.skipsregister) {
-                arbeidsavtale.skipsregister = getSkipsregisterTerm(kodeverkConsumer.hentSkipsregister(arbeidsavtale.skipsregister), arbeidsavtale.skipsregister)
+                arbeidsavtale.skipsregister = getSkipsregisterTerm(kodeverkConsumer.hentSkipsregister(), arbeidsavtale.skipsregister)
             } else {
                 arbeidsavtale.skipsregister = arbeidsforhold?.skipsregister
             }
             if (skipstype != arbeidsavtale.skipstype) {
-                arbeidsavtale.skipstype = getSkipstypeTerm(kodeverkConsumer.hentSkipstyper(arbeidsavtale.skipstype), arbeidsavtale.skipstype)
+                arbeidsavtale.skipstype = getSkipstypeTerm(kodeverkConsumer.hentSkipstyper(), arbeidsavtale.skipstype)
             } else {
                 arbeidsavtale.skipstype = arbeidsforhold?.skipstype
             }
             if (fartsomraade != arbeidsavtale.fartsomraade) {
-                arbeidsavtale.fartsomraade = getFartsomraadeTerm(kodeverkConsumer.hentFartsomraade(arbeidsavtale.fartsomraade), arbeidsavtale.fartsomraade)
+                arbeidsavtale.fartsomraade = getFartsomraadeTerm(kodeverkConsumer.hentFartsomraade(), arbeidsavtale.fartsomraade)
             } else {
                 arbeidsavtale.fartsomraade = arbeidsforhold?.fartsomraade
             }
@@ -118,13 +117,13 @@ class ArbeidsforholdService @Autowired constructor(
 
     private fun settInnKodeverksverdierIUtenlandsopphold(utenlandsoppholdDto: ArrayList<UtenlandsoppholdDto>?) {
         for (opphold in utenlandsoppholdDto.orEmpty()) {
-            opphold.land = getLandTerm(kodeverkConsumer.hentLand(opphold.land), opphold.land)
+            opphold.land = getLandTerm(kodeverkConsumer.hentLand(), opphold.land)
         }
     }
 
     private fun settInnKodeverksverdierIPermitteringer(permitteringsDto: ArrayList<PermisjonPermitteringDto>?) {
         for (permittering in permitteringsDto.orEmpty()) {
-            permittering.type = getLandTerm(kodeverkConsumer.hentPermisjonstype(permittering.type), permittering.type)
+            permittering.type = getLandTerm(kodeverkConsumer.hentPermisjonstype(), permittering.type)
         }
     }
 
@@ -177,18 +176,6 @@ class ArbeidsforholdService @Autowired constructor(
         }
         return arbgivnavn1
     }
-
-
-    /* private fun geTerm(term: GetKodeverkKoderBetydningerResponse, inbound: ArbeidsforholdDto): String? {
-         try {
-             if (!term.betydninger.getValue(term).isEmpty()) {
-                 return term.betydninger.getValue(term.beskrivelser?.getValue(kodeverkspraak)?.term
-             }
-         } catch (nse: NoSuchElementException) {
-             log.warn("Element not found in Yrke: " + inbound.yrke)
-         }
-         return inbound.yrke
-     }*/
 
     private fun getYrkeTerm(yrke: GetKodeverkKoderBetydningerResponse, inbound: String?, inkluderYrkeskode: Boolean): String? {
         try {
@@ -279,7 +266,6 @@ class ArbeidsforholdService @Autowired constructor(
         }
         return inbound
     }
-
 
     private fun concatenateNavn(navn: Navn?): String {
         var orgnavn = ""
