@@ -5,6 +5,7 @@ import no.nav.arbeidsforhold.services.kodeverk.api.GetKodeverkKoderBetydningerRe
 import no.nav.arbeidsforhold.services.kodeverk.exceptions.KodeverkConsumerException;
 import no.nav.log.MDCConstants;
 import org.slf4j.MDC;
+import org.springframework.cache.annotation.Cacheable;
 
 import javax.ws.rs.client.Client;
 import javax.ws.rs.client.Invocation;
@@ -25,88 +26,54 @@ public class KodeverkConsumer {
         this.endpoint = endpoint;
     }
 
-    public GetKodeverkKoderBetydningerResponse hentYrke(String kode) {
-        Invocation.Builder request = buildYrkeRequest(kode);
-        return hentKodeverkBetydning(request);
+    @Cacheable("yrker")
+    public GetKodeverkKoderBetydningerResponse hentYrke() {
+        return hentKodeverkBetydning(getBuilder("v1/kodeverk/Yrker/koder/betydninger", false));
     }
 
-    public GetKodeverkKoderBetydningerResponse hentArbeidsforholdstyper(String kode) {
-        Invocation.Builder request = buildArbeidsforholdstyperRequest(kode);
-        return hentKodeverkBetydning(request);
+    @Cacheable("arbeidsforholdstyper")
+    public GetKodeverkKoderBetydningerResponse hentArbeidsforholdstyper() {
+        return hentKodeverkBetydning(getBuilder("v1/kodeverk/Arbeidsforholdstyper/koder/betydninger", false));
     }
 
-    public GetKodeverkKoderBetydningerResponse hentArbeidstidsordningstyper(String kode) {
-        Invocation.Builder request = buildArbeidstidsordningsRequest(kode);
-        return hentKodeverkBetydning(request);
+    @Cacheable("arbeidstidsordninger")
+    public GetKodeverkKoderBetydningerResponse hentArbeidstidsordningstyper() {
+        return hentKodeverkBetydning(getBuilder("v1/kodeverk/Arbeidstidsordninger/koder/betydninger", false));
     }
 
-
-    public GetKodeverkKoderBetydningerResponse hentFartsomraade(String kode) {
-        Invocation.Builder request = buildFartsomraadeRequest(kode);
-        return hentKodeverkBetydning(request);
+    @Cacheable("fartsomraader")
+    public GetKodeverkKoderBetydningerResponse hentFartsomraade() {
+        return hentKodeverkBetydning(getBuilder("v1/kodeverk/Fartsområder/koder/betydninger", false));
     }
 
-
-    public GetKodeverkKoderBetydningerResponse hentSkipsregister(String kode) {
-        Invocation.Builder request = buildSkipsregisterRequest(kode);
-        return hentKodeverkBetydning(request);
+    @Cacheable("skipsregistre")
+    public GetKodeverkKoderBetydningerResponse hentSkipsregister() {
+        return hentKodeverkBetydning(getBuilder("v1/kodeverk/Skipsregistre/koder/betydninger", false));
     }
 
-    public GetKodeverkKoderBetydningerResponse hentSkipstyper(String kode) {
-        Invocation.Builder request = buildSkipstyperRequest(kode);
-        return hentKodeverkBetydning(request);
+    @Cacheable("skipstyper")
+    public GetKodeverkKoderBetydningerResponse hentSkipstyper() {
+        return hentKodeverkBetydning(getBuilder("v1/kodeverk/Skipstyper/koder/betydninger", false));
     }
 
-    public GetKodeverkKoderBetydningerResponse hentLand(String kode) {
-        Invocation.Builder request = buildLandRequest(kode);
-        return hentKodeverkBetydning(request);
+    @Cacheable("land")
+    public GetKodeverkKoderBetydningerResponse hentLand() {
+        return hentKodeverkBetydning(getBuilder("v1/kodeverk/LandkoderISO2/koder/betydninger", false));
     }
 
-    public GetKodeverkKoderBetydningerResponse hentPermisjonstype(String kode) {
-        Invocation.Builder request = buildPermisjonsRequest(kode);
-        return hentKodeverkBetydning(request);
+    @Cacheable("permisjonstyper")
+    public GetKodeverkKoderBetydningerResponse hentPermisjonstype() {
+        return hentKodeverkBetydning(getBuilder("v1/kodeverk/PermisjonsOgPermitteringsBeskrivelse/koder/betydninger", false));
     }
 
-    private Invocation.Builder getBuilder(String kode, String path, Boolean eksluderUgyldige) {
+    private Invocation.Builder getBuilder(String path, Boolean eksluderUgyldige) {
         return client.target(endpoint)
                 .path(path)
                 .queryParam("spraak", SPRAAK)
                 .queryParam("ekskluderUgyldige", eksluderUgyldige)
                 .request()
                 .header("Nav-Call-Id", MDC.get(MDCConstants.MDC_CALL_ID))
-                .header("Nav-Consumer-Id", ConsumerFactory.CONSUMER_ID)
-                .header("Nav-Personident", kode);
-    }
-
-    private Invocation.Builder buildYrkeRequest(String kode) {
-        return getBuilder(kode, "v1/kodeverk/Yrker/koder/betydninger", false);
-    }
-
-    private Invocation.Builder buildArbeidsforholdstyperRequest(String kode) {
-        return getBuilder(kode, "v1/kodeverk/Arbeidsforholdstyper/koder/betydninger", false);
-    }
-
-    private Invocation.Builder buildArbeidstidsordningsRequest(String kode) {
-        return getBuilder(kode, "v1/kodeverk/Arbeidstidsordninger/koder/betydninger", false);
-    }
-    private Invocation.Builder buildFartsomraadeRequest(String kode) {
-        return getBuilder(kode, "v1/kodeverk/Fartsområder/koder/betydninger", false);
-    }
-
-    private Invocation.Builder buildSkipsregisterRequest(String kode) {
-        return getBuilder(kode, "v1/kodeverk/Skipsregistre/koder/betydninger", false);
-    }
-
-    private Invocation.Builder buildSkipstyperRequest(String kode) {
-        return getBuilder(kode, "v1/kodeverk/Skipstyper/koder/betydninger", false);
-    }
-
-    private Invocation.Builder buildLandRequest(String kode) {
-        return getBuilder(kode, "v1/kodeverk/LandkoderISO2/koder/betydninger", false);
-    }
-
-    private Invocation.Builder buildPermisjonsRequest(String kode) {
-        return getBuilder(kode, "v1/kodeverk/PermisjonsOgPermitteringsBeskrivelse/koder/betydninger", false);
+                .header("Nav-Consumer-Id", ConsumerFactory.CONSUMER_ID);
     }
 
     private GetKodeverkKoderBetydningerResponse hentKodeverkBetydning(Invocation.Builder request) {
