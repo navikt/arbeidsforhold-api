@@ -14,6 +14,7 @@ import no.nav.arbeidsforhold.services.sts.STSConsumer
 import no.nav.ereg.Navn
 import no.nav.arbeidsforhold.services.kodeverk.KodeverkConsumer
 import no.nav.arbeidsforhold.services.kodeverk.api.GetKodeverkKoderBetydningerResponse
+import no.nav.ereg.EregOrganisasjon
 import org.slf4j.LoggerFactory
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.stereotype.Service
@@ -40,13 +41,10 @@ class ArbeidsforholdService @Autowired constructor(
         val inbound = arbeidsforholdConsumer.hentArbeidsforholdmedFnr(fodselsnr, fssToken)
         val arbeidsforholdDtos = mutableListOf<ArbeidsforholdDto>()
         for (arbeidsforhold in inbound) {
-
-            var arbgivnavn = arbeidsforhold.arbeidsgiver?.organisasjonsnummer
-            var opplarbgivnavn = arbeidsforhold.opplysningspliktig?.organisasjonsnummer
             var yrke = DtoUtils.hentYrkeForSisteArbeidsavtale(
                     ArbeidsavtaleTransformer.toOutboundArray(arbeidsforhold.arbeidsavtaler))?.run { getYrkeTerm(kodeverkConsumer.hentYrke(), this, false) }
-            arbgivnavn = hentArbGiverOrgNavn(arbeidsforhold, arbgivnavn)
-            opplarbgivnavn = hentOpplysningspliktigOrgNavn(arbeidsforhold, opplarbgivnavn)
+            val arbgivnavn = hentArbGiverOrgNavn(arbeidsforhold)
+            val opplarbgivnavn = hentOpplysningspliktigOrgNavn(arbeidsforhold)
             arbeidsforholdDtos.add(ArbeidsforholdTransformer.toOutbound(arbeidsforhold, arbgivnavn, opplarbgivnavn, yrke))
         }
         return arbeidsforholdDtos
@@ -55,10 +53,8 @@ class ArbeidsforholdService @Autowired constructor(
     fun hentEttArbeidsforholdmedId(fodselsnr: String, id: Int, fssToken: String?): ArbeidsforholdDto {
         val arbeidsforhold = arbeidsforholdConsumer.hentArbeidsforholdmedId(fodselsnr, id, fssToken)
 
-        var arbgivnavn = arbeidsforhold.arbeidsgiver?.organisasjonsnummer
-        var opplarbgivnavn = arbeidsforhold.opplysningspliktig?.organisasjonsnummer
-        arbgivnavn = hentEttArbforholdOrgnavn(arbeidsforhold, arbgivnavn)
-        opplarbgivnavn = hentEttArbforholdOpplysningspliktig(arbeidsforhold, opplarbgivnavn)
+        val arbgivnavn = hentArbGiverOrgNavn(arbeidsforhold)
+        val opplarbgivnavn = hentOpplysningspliktigOrgNavn(arbeidsforhold)
         val arbeidsforholdDto = EnkeltArbeidsforholdTransformer.toOutbound(arbeidsforhold, arbgivnavn, opplarbgivnavn)
 
         val yrkeskode = arbeidsforholdDto.yrke
@@ -135,44 +131,26 @@ class ArbeidsforholdService @Autowired constructor(
         arbeidsforhold.fartsomraade = getKodeverksTerm(fartsomraade, arbeidsforhold.fartsomraade, "Fartsomraade")
     }
 
-    private fun hentEttArbforholdOpplysningspliktig(arbeidsforhold: Arbeidsforhold, opplarbgivnavn: String?): String? {
-        var opplarbgivnavn1 = opplarbgivnavn
+    private fun hentOpplysningspliktigOrgNavn(arbeidsforhold: Arbeidsforhold): String? {
+        val orgnr = arbeidsforhold.opplysningspliktig?.organisasjonsnummer
         if (arbeidsforhold.opplysningspliktig?.type.equals(organisasjon)) {
-            val organisasjon = eregConsumer.hentOrgnavn(arbeidsforhold.opplysningspliktig?.organisasjonsnummer, arbeidsforhold.ansettelsesperiode?.periode?.tom)
-            val navn = organisasjon.navn
-            opplarbgivnavn1 = concatenateNavn(navn)
+            val organisasjon: EregOrganisasjon? = eregConsumer.hentOrgnavn(orgnr, arbeidsforhold.ansettelsesperiode?.periode?.tom)
+            if (organisasjon != null) {
+                return concatenateNavn(organisasjon.navn)
+            }
         }
-        return opplarbgivnavn1
+        return orgnr
     }
 
-    private fun hentEttArbforholdOrgnavn(arbeidsforhold: Arbeidsforhold, arbgivnavn: String?): String? {
-        var arbgivnavn1 = arbgivnavn
+    private fun hentArbGiverOrgNavn(arbeidsforhold: Arbeidsforhold): String? {
+        val orgnr = arbeidsforhold.arbeidsgiver?.organisasjonsnummer
         if (arbeidsforhold.arbeidsgiver?.type.equals(organisasjon)) {
-            val organisasjon = eregConsumer.hentOrgnavn(arbeidsforhold.arbeidsgiver?.organisasjonsnummer, arbeidsforhold.ansettelsesperiode?.periode?.tom)
-            val navn = organisasjon.navn
-            arbgivnavn1 = concatenateNavn(navn)
+            val organisasjon: EregOrganisasjon? = eregConsumer.hentOrgnavn(orgnr, arbeidsforhold.ansettelsesperiode?.periode?.tom)
+            if (organisasjon != null) {
+                return concatenateNavn(organisasjon.navn)
+            }
         }
-        return arbgivnavn1
-    }
-
-    private fun hentOpplysningspliktigOrgNavn(arbeidsforhold: Arbeidsforhold, opplarbgivnavn: String?): String? {
-        var opplarbgivnavn1 = opplarbgivnavn
-        if (arbeidsforhold.opplysningspliktig?.type.equals(organisasjon)) {
-            val organisasjon = eregConsumer.hentOrgnavn(arbeidsforhold.opplysningspliktig?.organisasjonsnummer, arbeidsforhold.ansettelsesperiode?.periode?.tom)
-            val navn = organisasjon.navn
-            opplarbgivnavn1 = concatenateNavn(navn)
-        }
-        return opplarbgivnavn1
-    }
-
-    private fun hentArbGiverOrgNavn(arbeidsforhold: Arbeidsforhold, arbgivnavn: String?): String? {
-        var arbgivnavn1 = arbgivnavn
-        if (arbeidsforhold.arbeidsgiver?.type.equals(organisasjon)) {
-            val organisasjon = eregConsumer.hentOrgnavn(arbeidsforhold.arbeidsgiver?.organisasjonsnummer, arbeidsforhold.ansettelsesperiode?.periode?.tom)
-            val navn = organisasjon.navn
-            arbgivnavn1 = concatenateNavn(navn)
-        }
-        return arbgivnavn1
+        return orgnr
     }
 
     private fun getYrkeTerm(yrke: GetKodeverkKoderBetydningerResponse, inbound: String?, inkluderYrkeskode: Boolean): String? {
