@@ -23,20 +23,26 @@ public class EregConsumer {
     private URI endpoint;
     private static final Logger log = LoggerFactory.getLogger(EregConsumer.class);
 
-
     public EregConsumer(Client client, URI endpoint) {
         this.client = client;
         this.endpoint = endpoint;
     }
 
-
     public EregOrganisasjon hentOrgnavn(String orgnr, String gyldigDato) {
         Invocation.Builder request = buildOrgnrRequest(orgnr, gyldigDato);
-        return hentOrganisasjonsNavnFraService(request);
+        try (Response response = request.get()) {
+            return readResponse(response);
+        } catch (EregConsumerException e) {
+            String msg = "Oppslag på orgnr $orgnr med dato $gyldigDato feilet. ";
+            log.error(msg.concat(e.getMessage()));
+        } catch (Exception e) {
+            String msg = "Forsøkte å konsumere REST-tjenesten Enhetsregisteret. endpoint=[" + endpoint + "]. Exception message=";
+            log.error(msg.concat(e.getMessage()));
+        }
+        return null;
     }
 
     private Invocation.Builder buildOrgnrRequest(String orgnr, String gyldigDato) {
-
         if (gyldigDato != null) {
             gyldigDato = gyldigDato.substring(0, 10);
         }
@@ -49,27 +55,14 @@ public class EregConsumer {
 
     }
 
-    private EregOrganisasjon hentOrganisasjonsNavnFraService(Invocation.Builder request) {
-        try (Response response = request.get()) {
-            return readResponse(response);
-        } catch (EregConsumerException e) {
-            throw e;
-        } catch (Exception e) {
-            String msg = "Forsøkte å konsumere REST-tjenesten Enhetsregisteret. endpoint=[" + endpoint + "].";
-            throw new EregConsumerException(msg, e);
-        }
-    }
-
     private EregOrganisasjon readResponse(Response r) {
         if (!SUCCESSFUL.equals(r.getStatusInfo().getFamily())) {
             String msg = "Forsøkte å konsumere REST-tjenesten Enhetsregister. endpoint=[" + endpoint + "], HTTP response status=[" + r.getStatus() + "].";
             throw new EregConsumerException(msg + " - " + readEntity(String.class, r));
         } else {
-            EregOrganisasjon orgnr = readEntity(EregOrganisasjon.class, r);
-            return orgnr;
+            return readEntity(EregOrganisasjon.class, r);
         }
     }
-
 
     private <T> T readEntity(Class<T> responsklasse, Response response) {
         try {
@@ -82,6 +75,4 @@ public class EregConsumer {
             throw new EregConsumerException("Uventet feil på responsobjektet. Responsklasse: " + responsklasse.getName(), e);
         }
     }
-
-
 }
