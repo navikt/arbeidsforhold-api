@@ -33,7 +33,7 @@ public class EregConsumer {
         try (Response response = request.get()) {
             return readResponse(response);
         } catch (EregConsumerException e) {
-            String msg = "Oppslag på orgnr $orgnr med dato $gyldigDato feilet. ";
+            String msg = String.format("Oppslag på orgnr %s med dato %s feilet. ", orgnr, gyldigDato);
             log.error(msg.concat(e.getMessage()));
         } catch (Exception e) {
             String msg = "Forsøkte å konsumere REST-tjenesten Enhetsregisteret. endpoint=[" + endpoint + "]. Exception message=";
