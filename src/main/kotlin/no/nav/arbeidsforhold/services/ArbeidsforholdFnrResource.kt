@@ -1,6 +1,4 @@
 package no.nav.arbeidsforhold.services
-
-import no.nav.arbeidsforhold.exceptions.ArbeidsforholdConsumerException
 import no.nav.security.oidc.api.ProtectedWithClaims
 import no.nav.security.oidc.jaxrs.OidcRequestContext
 import org.slf4j.LoggerFactory
