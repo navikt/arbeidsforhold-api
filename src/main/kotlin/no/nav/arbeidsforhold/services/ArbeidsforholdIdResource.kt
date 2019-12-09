@@ -6,6 +6,7 @@ import no.nav.security.oidc.jaxrs.OidcRequestContext
 import org.slf4j.LoggerFactory
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.stereotype.Component
+import org.springframework.web.bind.annotation.RequestHeader
 import javax.ws.rs.GET
 import javax.ws.rs.Path
 import javax.ws.rs.PathParam
@@ -22,7 +23,7 @@ private val log = LoggerFactory.getLogger(ArbeidsforholdIdResource::class.java)
 class ArbeidsforholdIdResource @Autowired constructor(private var arbeidsforholdIdService: ArbeidsforholdService) {
 
     @GET
-    @Path("/{id}")
+    @Path("/arbeidstaker/{id}")
     @Produces(MediaType.APPLICATION_JSON)
     fun hentArbeidsforholdFraToken(@PathParam("id") id: String): Response {
 
@@ -36,9 +37,9 @@ class ArbeidsforholdIdResource @Autowired constructor(private var arbeidsforhold
     }
 
     @GET
-    @Path("/{fodselsnr}/{id}")
+    @Path("/arbeidsgiver/{id}")
     @Produces(MediaType.APPLICATION_JSON)
-    fun hentArbeidsforholdFnr(@PathParam("fodselsnr") fodselsnr: String, @PathParam("id") id: String): Response {
+    fun hentArbeidsforholdFnr(@RequestHeader("Fnr-Arbeidstaker") fodselsnr: String, @PathParam("id") id: String): Response {
 
         val fssToken = hentFssToken()
         val arbeidsforhold = arbeidsforholdIdService.hentEttArbeidsforholdmedId(fodselsnr, id.toInt(), fssToken)
