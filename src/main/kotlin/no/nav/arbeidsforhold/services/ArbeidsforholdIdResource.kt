@@ -40,6 +40,7 @@ class ArbeidsforholdIdResource @Autowired constructor(private var arbeidsforhold
     fun hentArbeidsforholdFnr(@RequestHeader("Fnr-Arbeidstaker") fodselsnr: String, @PathParam("id") id: String): Response {
 
         log.info(fodselsnr);
+        log.info(id);
         val fssToken = hentFssToken()
         val arbeidsforhold = arbeidsforholdIdService.hentEttArbeidsforholdmedId(fodselsnr, id.toInt(), fssToken)
 
