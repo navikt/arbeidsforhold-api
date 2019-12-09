@@ -3,6 +3,7 @@ import no.nav.security.oidc.api.ProtectedWithClaims
 import no.nav.security.oidc.jaxrs.OidcRequestContext
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.stereotype.Component
+import org.springframework.web.bind.annotation.RequestHeader
 import javax.ws.rs.*
 import javax.ws.rs.core.MediaType
 import javax.ws.rs.core.Response
@@ -31,7 +32,7 @@ class ArbeidsforholdIdResource @Autowired constructor(private var arbeidsforhold
     @GET
     @Path("/arbeidsgiver/{id}")
     @Produces(MediaType.APPLICATION_JSON)
-    fun hentArbeidsforholdArbeidsgiver(@HeaderParam("fnr-arbeidstaker") fodselsnr: String, @PathParam("id") id: String): Response {
+    fun hentArbeidsforholdArbeidsgiver(@RequestHeader("fnr-arbeidstaker") fodselsnr: String, @PathParam("id") id: String): Response {
 
         val fssToken = hentFssToken()
         val arbeidsforhold = arbeidsforholdIdService.hentEttArbeidsforholdmedId(fodselsnr, id.toInt(), fssToken)
