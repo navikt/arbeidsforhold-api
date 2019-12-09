@@ -12,13 +12,16 @@ import static java.util.Arrays.asList;
 public class CORSResponseFilter implements ContainerResponseFilter {
 
     private static final List<String> ALLOWED_ORIGINS = asList(
+            "https://arbeidsforhold.nais.preprod.local",
             "http://localhost:8080",
             "https://www-q0.nav.no",
             "https://www-q1.nav.no",
+            "https://www-q2.nav.no",
+            "https://www-q6.nav.no",
             "https://www.nav.no",
-            "https://arbeidsforhold.nais.preprod.local",
-            "https://www-q0.nav.no/person/arbeidsforhold",
-            "https://personopplysninger-q.nav.no"
+            "https://personopplysninger-q.nav.no",
+            "https://arbeidsgiver-q.nav.no",
+            "https://arbeidsgiver.nav.no"
     );
 
     @Override
