@@ -4,11 +4,7 @@ import no.nav.security.oidc.jaxrs.OidcRequestContext
 import org.slf4j.LoggerFactory
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.stereotype.Component
-import org.springframework.web.bind.annotation.RequestHeader
-import javax.ws.rs.GET
-import javax.ws.rs.Path
-import javax.ws.rs.PathParam
-import javax.ws.rs.Produces
+import javax.ws.rs.*
 import javax.ws.rs.core.MediaType
 import javax.ws.rs.core.Response
 
@@ -23,7 +19,7 @@ class ArbeidsforholdIdResource @Autowired constructor(private var arbeidsforhold
     @GET
     @Path("/arbeidstaker/{id}")
     @Produces(MediaType.APPLICATION_JSON)
-    fun hentArbeidsforholdFraToken(@PathParam("id") id: String): Response {
+    fun hentArbeidsforholdArbeidstaker(@PathParam("id") id: String): Response {
 
         val fssToken = hentFssToken()
         val fodselsnr = hentFnrFraToken()
@@ -37,7 +33,7 @@ class ArbeidsforholdIdResource @Autowired constructor(private var arbeidsforhold
     @GET
     @Path("/arbeidsgiver/{id}")
     @Produces(MediaType.APPLICATION_JSON)
-    fun hentArbeidsforholdFnr(@RequestHeader("Fnr-Arbeidstaker") fodselsnr: String, @PathParam("id") id: String): Response {
+    fun hentArbeidsforholdArbeidsgiver(@HeaderParam("Fnr-Arbeidstaker") fodselsnr: String, @PathParam("id") id: String): Response {
 
         log.info(fodselsnr);
         log.info(id);
