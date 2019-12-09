@@ -17,16 +17,30 @@ private const val claimsIssuer = "selvbetjening"
 private val log = LoggerFactory.getLogger(ArbeidsforholdIdResource::class.java)
 
 @Component
-@Path("/arbeidsforholdinnslag/{id}")
+@Path("/arbeidsforholdinnslag")
 @ProtectedWithClaims(issuer = claimsIssuer, claimMap = ["acr=Level4"])
 class ArbeidsforholdIdResource @Autowired constructor(private var arbeidsforholdIdService: ArbeidsforholdService) {
 
     @GET
+    @Path("/{id}")
     @Produces(MediaType.APPLICATION_JSON)
-    fun hentPersonalia(@PathParam("id") id: String): Response {
+    fun hentArbeidsforholdFraToken(@PathParam("id") id: String): Response {
 
         val fssToken = hentFssToken()
         val fodselsnr = hentFnrFraToken()
+        val arbeidsforhold = arbeidsforholdIdService.hentEttArbeidsforholdmedId(fodselsnr, id.toInt(), fssToken)
+
+        return Response
+                .ok(arbeidsforhold)
+                .build()
+    }
+
+    @GET
+    @Path("/{fodselsnr}/{id}")
+    @Produces(MediaType.APPLICATION_JSON)
+    fun hentArbeidsforholdFnr(@PathParam("id") fodselsnr: String, @PathParam("id") id: String): Response {
+
+        val fssToken = hentFssToken()
         val arbeidsforhold = arbeidsforholdIdService.hentEttArbeidsforholdmedId(fodselsnr, id.toInt(), fssToken)
 
         return Response
