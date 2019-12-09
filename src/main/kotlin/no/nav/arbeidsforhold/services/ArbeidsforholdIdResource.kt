@@ -34,9 +34,7 @@ class ArbeidsforholdIdResource @Autowired constructor(private var arbeidsforhold
     @Path("/arbeidsgiver/{id}")
     @Produces(MediaType.APPLICATION_JSON)
     fun hentArbeidsforholdArbeidsgiver(@HeaderParam("Fnr-Arbeidstaker") fodselsnr: String, @PathParam("id") id: String): Response {
-
-        log.info(fodselsnr);
-        log.info(id);
+        
         val fssToken = hentFssToken()
         val arbeidsforhold = arbeidsforholdIdService.hentEttArbeidsforholdmedId(fodselsnr, id.toInt(), fssToken)
 
