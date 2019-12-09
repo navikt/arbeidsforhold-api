@@ -1,6 +1,4 @@
 package no.nav.arbeidsforhold.services
-
-import no.nav.arbeidsforhold.exceptions.ArbeidsforholdConsumerException
 import no.nav.security.oidc.api.ProtectedWithClaims
 import no.nav.security.oidc.jaxrs.OidcRequestContext
 import org.slf4j.LoggerFactory
@@ -41,6 +39,7 @@ class ArbeidsforholdIdResource @Autowired constructor(private var arbeidsforhold
     @Produces(MediaType.APPLICATION_JSON)
     fun hentArbeidsforholdFnr(@RequestHeader("Fnr-Arbeidstaker") fodselsnr: String, @PathParam("id") id: String): Response {
 
+        log.info(fodselsnr);
         val fssToken = hentFssToken()
         val arbeidsforhold = arbeidsforholdIdService.hentEttArbeidsforholdmedId(fodselsnr, id.toInt(), fssToken)
 
