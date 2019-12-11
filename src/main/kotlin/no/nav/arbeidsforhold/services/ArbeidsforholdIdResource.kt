@@ -1,7 +1,6 @@
 package no.nav.arbeidsforhold.services
 import no.nav.security.oidc.api.ProtectedWithClaims
 import no.nav.security.oidc.jaxrs.OidcRequestContext
-import org.slf4j.LoggerFactory
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.stereotype.Component
 import javax.ws.rs.*
@@ -9,7 +8,6 @@ import javax.ws.rs.core.MediaType
 import javax.ws.rs.core.Response
 
 private const val claimsIssuer = "selvbetjening"
-private val log = LoggerFactory.getLogger(ArbeidsforholdService::class.java)
 
 @Component
 @Path("/arbeidsforholdinnslag")
@@ -35,8 +33,6 @@ class ArbeidsforholdIdResource @Autowired constructor(private var arbeidsforhold
     @Produces(MediaType.APPLICATION_JSON)
     fun hentArbeidsforholdArbeidsgiver(@HeaderParam("Fnr-Arbeidstaker") fodselsnr: String, @PathParam("id") id: String): Response {
 
-        log.info(fodselsnr)
-        log.info(id)
         val fssToken = hentFssToken()
         val arbeidsforhold = arbeidsforholdIdService.hentEttArbeidsforholdmedId(fodselsnr, id.toInt(), fssToken)
 
