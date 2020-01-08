@@ -13,7 +13,7 @@ public class CORSResponseFilter implements ContainerResponseFilter {
 
     private static final List<String> ALLOWED_ORIGINS = asList(
             "https://arbeidsforhold.nais.preprod.local",
-            "http://localhost:8080",
+            "http://localhost:3000",
             "https://www-q0.nav.no",
             "https://www-q1.nav.no",
             "https://www-q2.nav.no",
