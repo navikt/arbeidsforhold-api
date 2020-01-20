@@ -1,5 +1,6 @@
 package no.nav.arbeidsforhold.config;
 
+import javax.servlet.http.HttpServletResponse;
 import javax.ws.rs.container.ContainerRequestContext;
 import javax.ws.rs.container.ContainerResponseContext;
 import javax.ws.rs.container.ContainerResponseFilter;
@@ -28,9 +29,14 @@ public class CORSResponseFilter implements ContainerResponseFilter {
     public void filter(ContainerRequestContext request, ContainerResponseContext response) {
         String origin = request.getHeaderString("Origin");
         if (ALLOWED_ORIGINS.contains(origin)) {
+            // Preflight
+            if ("OPTIONS".equals(request.getMethod())) {
+                response.setStatus(HttpServletResponse.SC_OK);
+            }
+
             response.getHeaders().add("Access-Control-Allow-Origin", origin);
             response.getHeaders().add("Access-Control-Allow-Headers",
-                    "origin, content-type, accept, authorization");
+                    "origin, content-type, accept, authorization, fnr-arbeidstaker");
             response.getHeaders().add("Access-Control-Allow-Credentials", "true");
             response.getHeaders().add("Access-Control-Allow-Methods",
                     "GET, POST, PUT, DELETE, OPTIONS, HEAD");
