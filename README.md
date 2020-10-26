@@ -1,6 +1,10 @@
-[![CircleCI](https://circleci.com/gh/navikt/arbeidsforhold-api.svg?style=svg&circle-token=6dda2eb4424996fe6f12a5fdcfd831abca3c149b)](https://circleci.com/gh/navikt/arbeidsforhold-api)
-
 # Arbeidsforhold-API
+
+![Deploy-to-prod](https://github.com/navikt/arbeidsforhold-api/workflows/Deploy-to-prod/badge.svg) <br>
+![Deploy-to-q0](https://github.com/navikt/arbeidsforhold-api/workflows/Deploy-to-q0/badge.svg)
+![Deploy-to-q1](https://github.com/navikt/arbeidsforhold-api/workflows/Deploy-to-q1/badge.svg)
+![Deploy-to-q2](https://github.com/navikt/arbeidsforhold-api/workflows/Deploy-to-q2/badge.svg)
+![Deploy-to-q6](https://github.com/navikt/arbeidsforhold-api/workflows/Deploy-to-q6/badge.svg)
 
 Spring Boot backend som skal gi brukeren innsikt i informasjonen NAV har lagret. <br>
 Applikasjonen har ingen avhengigheter til nexus og kan kjøres lokalt på laptop.
