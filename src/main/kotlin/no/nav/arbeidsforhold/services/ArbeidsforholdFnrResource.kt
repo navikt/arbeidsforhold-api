@@ -1,6 +1,6 @@
 package no.nav.arbeidsforhold.services
-import no.nav.security.oidc.api.ProtectedWithClaims
-import no.nav.security.oidc.jaxrs.OidcRequestContext
+import no.nav.security.token.support.core.api.ProtectedWithClaims
+import no.nav.security.token.support.jaxrs.JaxrsTokenValidationContextHolder
 import org.slf4j.LoggerFactory
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.stereotype.Component
@@ -38,7 +38,7 @@ class ArbeidsforholdFnrResource @Autowired constructor(private var arbeidsforhol
     }
 
     private fun hentFnrFraToken(): String {
-        val context = OidcRequestContext.getHolder().oidcValidationContext
-        return context.getClaims(claimsIssuer).claimSet.subject
+        val context = JaxrsTokenValidationContextHolder.getHolder()
+        return context.tokenValidationContext.getClaims(claimsIssuer).subject
     }
 }

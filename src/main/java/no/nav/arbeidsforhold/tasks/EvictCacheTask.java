@@ -7,7 +7,6 @@ import org.springframework.cache.CacheManager;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
 
-@Component
 public class EvictCacheTask {
 
     private static final Logger log = LoggerFactory.getLogger(EvictCacheTask.class);
