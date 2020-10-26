@@ -2,8 +2,8 @@ package no.nav.arbeidsforhold.features.status
 
 import io.prometheus.client.CollectorRegistry
 import io.prometheus.client.exporter.common.TextFormat
-import no.nav.security.oidc.api.ProtectedWithClaims
-import no.nav.security.oidc.api.Unprotected
+import no.nav.security.token.support.core.api.ProtectedWithClaims
+import no.nav.security.token.support.core.api.Unprotected
 import org.springframework.stereotype.Component
 import java.io.*
 import java.nio.charset.StandardCharsets

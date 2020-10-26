@@ -3,7 +3,7 @@ package no.nav.arbeidsforhold.config;
 import no.nav.arbeidsforhold.services.ArbeidsforholdFnrResource;
 import no.nav.arbeidsforhold.services.ArbeidsforholdIdResource;
 import no.nav.arbeidsforhold.features.status.StatusResource;
-import no.nav.security.oidc.jaxrs.OidcContainerRequestFilter;
+import no.nav.security.token.support.jaxrs.JwtTokenContainerRequestFilter;
 import org.glassfish.jersey.jackson.JacksonFeature;
 import org.glassfish.jersey.server.ResourceConfig;
 import org.glassfish.jersey.server.wadl.processor.OptionsMethodProcessor;
@@ -26,7 +26,7 @@ public class RestResourceConfiguration extends ResourceConfig {
         register(ArbeidsforholdIdResource.class);
         register(CORSResponseFilter.class);
         register(OidcResourceFilteringFeature.class);
-        register(OidcContainerRequestFilter.class);
+        register(JwtTokenContainerRequestFilter.class);
     }
 
     public static class OidcResourceFilteringFeature implements DynamicFeature {
@@ -37,7 +37,7 @@ public class RestResourceConfiguration extends ResourceConfig {
                     WHITELISTED_PARENT_CLASSES.contains(resourceInfo.getResourceClass().getEnclosingClass())) {
                 return;
             }
-            context.register(OidcContainerRequestFilter.class);
+            context.register(OidcResourceFilteringFeature.class);
         }
     }
 

@@ -1,9 +1,7 @@
 package no.nav.arbeidsforhold.config;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import no.nav.arbeidsforhold.config.EregConsumer;
-import no.nav.security.oidc.jaxrs.OidcClientRequestFilter;
-import org.glassfish.jersey.logging.LoggingFeature;
+import no.nav.security.token.support.jaxrs.JwtTokenClientRequestFilter;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -15,8 +13,6 @@ import javax.ws.rs.client.ClientRequestFilter;
 import javax.ws.rs.ext.ContextResolver;
 import java.net.URI;
 import java.net.URISyntaxException;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 @Configuration
 public class EregRestConfiguration {
@@ -38,7 +34,7 @@ public class EregRestConfiguration {
     public Client eregClient(ContextResolver<ObjectMapper> clientObjectMapperResolver) {
         Client c =  ClientBuilder.newBuilder()
                 .register(clientObjectMapperResolver)
-                .register(OidcClientRequestFilter.class)
+                .register(JwtTokenClientRequestFilter.class)
                 .register((ClientRequestFilter) requestContext -> requestContext.getHeaders().putSingle(eregApiUsername, eregApiPassword))
                 .build();
         return c;
