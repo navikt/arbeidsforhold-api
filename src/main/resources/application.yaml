@@ -12,7 +12,7 @@ logging:
   config: "classpath:logback-spring.xml"
 
 no.nav.security.oidc:
-  issuers: ${AAD_B2C_ISSUER}
+  issuers: selvbetjening
   issuer.selvbetjening:
     discoveryurl: ${LOGINSERVICE_IDPORTEN_DISCOVERY_URL}
     acceptedaudience: ${LOGINSERVICE_IDPORTEN_AUDIENCE}
