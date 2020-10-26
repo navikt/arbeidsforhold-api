@@ -36,4 +36,4 @@ spec:
     - configmap: loginservice-idporten
   prometheus:
     enabled: true
-    path: /person/arbeidsforhold-api/internal/actuator/prometheus
+    path: /person/arbeidsforhold-api/internal/prometheus
