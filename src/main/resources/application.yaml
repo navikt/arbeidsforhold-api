@@ -11,6 +11,8 @@ server:
 logging:
   config: "classpath:logback-spring.xml"
 
+http.proxy: http://webproxy-nais.nav.no:8088
+
 no.nav.security.oidc:
   issuers: selvbetjening
   issuer.selvbetjening:
