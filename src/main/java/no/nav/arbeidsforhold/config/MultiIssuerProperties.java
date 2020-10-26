@@ -1,10 +1,9 @@
 package no.nav.arbeidsforhold.config;
 
-import no.nav.security.oidc.configuration.IssuerProperties;
+import no.nav.security.token.support.core.configuration.IssuerProperties;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.context.annotation.Primary;
 import org.springframework.validation.annotation.Validated;
 
 import javax.validation.Valid;
@@ -15,7 +14,6 @@ import java.util.Map;
 @ConfigurationProperties(prefix = "no.nav.security.oidc")
 @EnableConfigurationProperties
 @Validated
-@Primary
 public class MultiIssuerProperties {
 
     @Valid
