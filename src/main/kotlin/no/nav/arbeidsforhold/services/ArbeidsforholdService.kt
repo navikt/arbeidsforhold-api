@@ -70,8 +70,9 @@ class ArbeidsforholdService @Autowired constructor(
         val skipstype = kodeverkConsumer.hentSkipstyper()
         val skipsregister = kodeverkConsumer.hentSkipsregister()
         val fartsomraade = kodeverkConsumer.hentFartsomraade()
+        val sluttaarsak = kodeverkConsumer.hentSluttÅrsak()
 
-        settKodeverkVerdier(arbeidsforholdDto, yrke, type, arbeidstidsordning, skipsregister, skipstype, fartsomraade)
+        settKodeverkVerdier(arbeidsforholdDto, yrke, type, arbeidstidsordning, skipsregister, skipstype, fartsomraade, sluttaarsak)
         settInnKodeverksverdierIUtenlandsopphold(arbeidsforholdDto.utenlandsopphold)
         settInnKodeverksverdierIArbeidsavtale(arbeidsforholdDto, yrkeskode, typekode, arbeidstidsordningkode, skipstypekode, skipsregisterkode, fartsomraadekode)
         settInnKodeverksverdierIPermitteringer(arbeidsforholdDto.permisjonPermittering)
@@ -122,13 +123,14 @@ class ArbeidsforholdService @Autowired constructor(
         }
     }
 
-    private fun settKodeverkVerdier(arbeidsforhold: ArbeidsforholdDto, yrke: GetKodeverkKoderBetydningerResponse, type: GetKodeverkKoderBetydningerResponse, arbeidstidsordning: GetKodeverkKoderBetydningerResponse, skipsregister: GetKodeverkKoderBetydningerResponse, skipstype: GetKodeverkKoderBetydningerResponse, fartsomraade: GetKodeverkKoderBetydningerResponse) {
+    private fun settKodeverkVerdier(arbeidsforhold: ArbeidsforholdDto, yrke: GetKodeverkKoderBetydningerResponse, type: GetKodeverkKoderBetydningerResponse, arbeidstidsordning: GetKodeverkKoderBetydningerResponse, skipsregister: GetKodeverkKoderBetydningerResponse, skipstype: GetKodeverkKoderBetydningerResponse, fartsomraade: GetKodeverkKoderBetydningerResponse, sluttaarsak: GetKodeverkKoderBetydningerResponse) {
         arbeidsforhold.yrke = getYrkeTerm(yrke, arbeidsforhold.yrke, true)
         arbeidsforhold.type = getKodeverksTerm(type, arbeidsforhold.type, "Arbeidsforholdstype")
         arbeidsforhold.arbeidstidsordning = getKodeverksTerm(arbeidstidsordning, arbeidsforhold.arbeidstidsordning, "Arbeidsforholdstype")
         arbeidsforhold.skipsregister = getKodeverksTerm(skipsregister, arbeidsforhold.skipsregister, "Skipsregister")
         arbeidsforhold.skipstype = getKodeverksTerm(skipstype, arbeidsforhold.skipstype, "Skipstype")
         arbeidsforhold.fartsomraade = getKodeverksTerm(fartsomraade, arbeidsforhold.fartsomraade, "Fartsomraade")
+        arbeidsforhold.ansettelsesperiode?.sluttaarsak = getKodeverksTerm(sluttaarsak, arbeidsforhold.ansettelsesperiode?.sluttaarsak, "Sluttaarsak")
     }
 
     private fun hentOpplysningspliktigOrgNavn(arbeidsforhold: Arbeidsforhold): String? {

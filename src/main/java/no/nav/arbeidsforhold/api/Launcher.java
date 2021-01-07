@@ -33,7 +33,8 @@ public class Launcher {
                 new ConcurrentMapCache("skipsregistre"),
                 new ConcurrentMapCache("skipstyper"),
                 new ConcurrentMapCache("land"),
-                new ConcurrentMapCache("permisjonstyper")
+                new ConcurrentMapCache("permisjonstyper"),
+                new ConcurrentMapCache("sluttaarsaker")
         ));
         return cacheManager;
     }
