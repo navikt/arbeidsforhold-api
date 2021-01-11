@@ -12,6 +12,7 @@ data class ArbeidsforholdDto (
         val utenlandsopphold: ArrayList<UtenlandsoppholdDto>? = null,
         val permisjonPermittering: ArrayList<PermisjonPermitteringDto>? = null,
         val arbeidsavtaler: ArrayList<ArbeidsavtaleDto>? = null,
+        val ansettelsesform: String? = null,
         val antallTimerForTimelonnet: ArrayList<AntallTimerForTimeloennetDto>? = null,
         val antallTimerPrUke: Double? = null,
         var arbeidstidsordning: String? = null,
