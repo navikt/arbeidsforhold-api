@@ -20,6 +20,7 @@ public class ArbeidsforholdConsumer {
     private static final String CONSUMER_ID = "personbruker-arbeidsforhold-api";
     private static final String BEARER = "Bearer ";
     private static final String REGELVERK = "A_ORDNINGEN";
+    private static final String ARBEIDSFORHOLDTYPER="ordinaertArbeidsforhold,maritimtArbeidsforhold,forenkletOppgjoersordning,frilanserOppdragstakerHonorarPersonerMm";
     private Client client;
     private URI endpoint;
 
@@ -44,6 +45,7 @@ public class ArbeidsforholdConsumer {
                 .path("v1/arbeidstaker/arbeidsforhold")
                 .queryParam("regelverk", REGELVERK)
                 .queryParam("sporingsinformasjon", false)
+                .queryParam("arbeidsforholdtype",ARBEIDSFORHOLDTYPER)
                 .request()
                 .header("Nav-Call-Id", MDC.get(MDCConstants.MDC_CALL_ID))
                 .header("Nav-Consumer-Id", CONSUMER_ID)
