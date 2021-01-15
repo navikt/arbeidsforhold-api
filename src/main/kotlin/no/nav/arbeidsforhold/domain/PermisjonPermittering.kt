@@ -1,5 +1,7 @@
 package no.nav.arbeidsforhold.domain
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties
 
+@JsonIgnoreProperties(ignoreUnknown = true)
 data class PermisjonPermittering (
 
         val periode: Periode? = null,
