@@ -26,6 +26,7 @@ object EnkeltArbeidsforholdTransformer {
                 },
                 utenlandsopphold = UtenlandsoppholdTransformer.toOutboundArray(inbound.utenlandsopphold),
                 permisjonPermittering = PermisjonPermitteringTransformer.toOutboundArray(inbound.permisjonPermitteringer),
+                ansettelsesform = gyldigarbeidsavtale?.ansettelsesform,
                 antallTimerPrUke = gyldigarbeidsavtale?.antallTimerPrUke,
                 stillingsprosent = gyldigarbeidsavtale?.stillingsprosent,
                 arbeidstidsordning = gyldigarbeidsavtale?.arbeidstidsordning,

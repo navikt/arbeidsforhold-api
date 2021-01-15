@@ -4,7 +4,7 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 data class Arbeidsavtale (
-
+        val ansettelsesform: kotlin.String? = null,
         /* Antall timer per uke */
         val antallTimerPrUke: kotlin.Double? = null,
         /* Arbeidstidsordning (kodeverk: Arbeidstidsordninger) */

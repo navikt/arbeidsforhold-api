@@ -7,7 +7,8 @@ object AnsettelsesPeriodeObjectMother {
 
     val withDummyValues = Ansettelsesperiode(
             periode = PeriodeObjectMother.withDummyValues,
-            varslingskode = "testkode"
+            varslingskode = "testkode",
+            sluttaarsak = "arbeidstakerHarSagtOppSelv"
     )
 
 

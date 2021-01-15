@@ -1,7 +1,7 @@
 package no.nav.arbeidsforhold.dto.outbound
 
 data class ArbeidsavtaleDto (
-
+        val ansettelsesform: String? =null,
         val antallTimerPrUke: Double? = null,
         var arbeidstidsordning: String? = null,
         val sisteStillingsendring : String? = null,

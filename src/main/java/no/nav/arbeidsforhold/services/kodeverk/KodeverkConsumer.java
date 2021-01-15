@@ -66,6 +66,11 @@ public class KodeverkConsumer {
         return hentKodeverkBetydning(getBuilder("v1/kodeverk/PermisjonsOgPermitteringsBeskrivelse/koder/betydninger", false));
     }
 
+    @Cacheable("sluttaarsaker")
+    public GetKodeverkKoderBetydningerResponse hentSluttÅrsak() {
+        return hentKodeverkBetydning(getBuilder("v1/kodeverk/SluttårsakAareg/koder/betydninger", false));
+    }
+
     private Invocation.Builder getBuilder(String path, Boolean eksluderUgyldige) {
         return client.target(endpoint)
                 .path(path)
