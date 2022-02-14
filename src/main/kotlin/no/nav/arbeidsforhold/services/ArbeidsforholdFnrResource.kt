@@ -34,7 +34,8 @@ class ArbeidsforholdFnrResource @Autowired constructor(private var arbeidsforhol
 
 
     private fun hentFssToken(): String? {
-        return arbeidsforholdService.hentFSSToken()
+        //return arbeidsforholdService.hentFSSToken()
+        return "dummy" // todo: fiks
     }
 
     private fun hentFnrFraToken(): String {

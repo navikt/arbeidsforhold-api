@@ -47,14 +47,6 @@ public class TestLauncher {
 
         System.setProperty("AAD_B2C_CLIENTID_USERNAME", "");
         System.setProperty("AAD_B2C_DISCOVERY_URL", "");
-        System.setProperty("ARBEIDSFORHOLD_API_KODEVERK_REST_API_APIKEY_USERNAME", "");
-        System.setProperty("ARBEIDSFORHOLD_API_KODEVERK_REST_API_APIKEY_PASSWORD", "");
-        System.setProperty("ARBEIDSFORHOLD_API_EREG_API_APIKEY_USERNAME" ,"");
-        System.setProperty("ARBEIDSFORHOLD_API_EREG_API_APIKEY_PASSWORD", "");
-        System.setProperty("ARBEIDSFORHOLD_API_SECURITY_TOKEN_SERVICE_TOKEN_APIKEY_USERNAME", "");
-        System.setProperty("ARBEIDSFORHOLD_API_SECURITY_TOKEN_SERVICE_TOKEN_APIKEY_PASSWORD", "");
-        System.setProperty("ARBEIDSFORHOLD_API_AAREG_API_APIKEY_USERNAME", "");
-        System.setProperty("ARBEIDSFORHOLD_API_AAREG_API_APIKEY_PASSWORD", "");
         System.setProperty("EREG_API_URL", "");
         System.setProperty("SECURITY_TOKEN_SERVICE_TOKEN_URL", "");
         System.setProperty("KODEVERK_REST_API_URL", "");

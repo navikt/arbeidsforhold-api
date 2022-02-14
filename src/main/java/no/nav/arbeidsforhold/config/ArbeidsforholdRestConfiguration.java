@@ -18,12 +18,6 @@ import java.net.URISyntaxException;
 @Configuration
 public class ArbeidsforholdRestConfiguration {
 
-    @Value("${ARBEIDSFORHOLD_API_AAREG_API_APIKEY_USERNAME}")
-    private String arbeidsforholdApiUsername;
-
-    @Value("${ARBEIDSFORHOLD_API_AAREG_API_APIKEY_PASSWORD}")
-    private String arbeidsforholdApiPassword;
-
     @Bean
     public ArbeidsforholdConsumer arbeidsforholdConsumer(
             @Named("arbeidsforholdClient") Client client,
@@ -39,7 +33,6 @@ public class ArbeidsforholdRestConfiguration {
         Client client =  ClientBuilder.newBuilder()
                 .register(clientObjectMapperResolver)
                 .register(JwtTokenClientRequestFilter.class)
-                .register((ClientRequestFilter) requestContext -> requestContext.getHeaders().putSingle(arbeidsforholdApiUsername, arbeidsforholdApiPassword))
                 .build();
         client.property(ClientProperties.CONNECT_TIMEOUT, connectTimeout);
         client.property(ClientProperties.READ_TIMEOUT, readTimeout);

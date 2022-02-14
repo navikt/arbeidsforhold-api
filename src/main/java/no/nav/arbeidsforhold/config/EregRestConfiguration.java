@@ -17,12 +17,6 @@ import java.net.URISyntaxException;
 @Configuration
 public class EregRestConfiguration {
 
-    @Value("${ARBEIDSFORHOLD_API_EREG_API_APIKEY_USERNAME}")
-    private String eregApiUsername;
-
-    @Value("${ARBEIDSFORHOLD_API_EREG_API_APIKEY_PASSWORD}")
-    private String eregApiPassword;
-
     @Bean
     public EregConsumer eregConsumer(
             @Named("eregClient") Client client,
@@ -35,7 +29,6 @@ public class EregRestConfiguration {
         Client c =  ClientBuilder.newBuilder()
                 .register(clientObjectMapperResolver)
                 .register(JwtTokenClientRequestFilter.class)
-                .register((ClientRequestFilter) requestContext -> requestContext.getHeaders().putSingle(eregApiUsername, eregApiPassword))
                 .build();
         return c;
     }

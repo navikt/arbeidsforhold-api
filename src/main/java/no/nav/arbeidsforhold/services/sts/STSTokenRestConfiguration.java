@@ -38,12 +38,6 @@ public class STSTokenRestConfiguration {
     @Value("${SRVARBEIDSFORHOLD_API_PASSWORD}")
     private String STSPassword;
 
-    @Value("${ARBEIDSFORHOLD_API_SECURITY_TOKEN_SERVICE_TOKEN_APIKEY_USERNAME}")
-    private String STSApiKeyUsername;
-
-    @Value("${ARBEIDSFORHOLD_API_SECURITY_TOKEN_SERVICE_TOKEN_APIKEY_PASSWORD}")
-    private String STSApiKeyPassword;
-
     @Bean
     public STSConsumer stsConsumer(
             @Named("STSClient") Client client,
@@ -68,7 +62,6 @@ public class STSTokenRestConfiguration {
         Client client =  ClientBuilder.newBuilder()
                 .register(clientObjectMapperResolver)
                 .register((ClientRequestFilter) requestContext -> requestContext.getHeaders().put(AUTHORIZATION, singletonList(getBasicAuthentication())))
-                .register((ClientRequestFilter) requestContext -> requestContext.getHeaders().putSingle(STSApiKeyUsername, STSApiKeyPassword))
                 .build();
         client.property(ClientProperties.CONNECT_TIMEOUT, connectTimeout);
         client.property(ClientProperties.READ_TIMEOUT, readTimeout);

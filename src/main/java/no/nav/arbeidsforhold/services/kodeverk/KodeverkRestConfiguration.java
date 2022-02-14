@@ -18,12 +18,6 @@ import java.net.URISyntaxException;
 @Configuration
 public class KodeverkRestConfiguration {
 
-    @Value("${ARBEIDSFORHOLD_API_KODEVERK_REST_API_APIKEY_USERNAME}")
-    private String kodeverkApiKeyUsername;
-
-    @Value("${ARBEIDSFORHOLD_API_KODEVERK_REST_API_APIKEY_PASSWORD}")
-    private String kodeverkApiKeyPassword;
-
     @Bean
     public KodeverkConsumer kodeverkConsumer(
             @Named("kodeverkClient") Client client,
@@ -39,7 +33,6 @@ public class KodeverkRestConfiguration {
         Client client = ClientBuilder.newBuilder()
                 .register(JwtTokenClientRequestFilter.class)
                 .register(clientObjectMapperResolver)
-                .register((ClientRequestFilter) requestContext -> requestContext.getHeaders().putSingle(kodeverkApiKeyUsername,kodeverkApiKeyPassword))
                 .build();
         client.property(ClientProperties.CONNECT_TIMEOUT, connectTimeout);
         client.property(ClientProperties.READ_TIMEOUT, readTimeout);
