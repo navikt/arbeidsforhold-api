@@ -40,7 +40,7 @@ spec:
     requests:
       memory: 1500Mi
   envFrom:
-    - secret: dsop-api-secret
+    - secret: arbeidsforhold-api-secret
     - configmap: loginservice-idporten
   prometheus:
     enabled: true
