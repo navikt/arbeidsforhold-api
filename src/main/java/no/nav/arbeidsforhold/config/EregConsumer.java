@@ -1,35 +1,45 @@
 package no.nav.arbeidsforhold.config;
 
 import no.nav.arbeidsforhold.exceptions.EregConsumerException;
+import no.nav.arbeidsforhold.services.tokendings.TokenDingsService;
 import no.nav.ereg.EregOrganisasjon;
 import no.nav.log.MDCConstants;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.slf4j.MDC;
+import org.springframework.beans.factory.annotation.Value;
 
 import javax.ws.rs.ProcessingException;
 import javax.ws.rs.client.Client;
 import javax.ws.rs.client.Invocation;
+import javax.ws.rs.core.HttpHeaders;
 import javax.ws.rs.core.Response;
 import java.net.URI;
 
 import static javax.ws.rs.core.Response.Status.Family.SUCCESSFUL;
+import static no.nav.arbeidsforhold.util.TokenUtilKt.getToken;
 
 public class EregConsumer {
 
     private static final String CONSUMER_ID = "personbruker-arbeidsforhold-api";
+    private static final String BEARER = "Bearer ";
     private Client client;
     private URI endpoint;
+    private TokenDingsService tokenDingsService;
     private static final Logger log = LoggerFactory.getLogger(EregConsumer.class);
 
-    public EregConsumer(Client client, URI endpoint) {
+    @Value("${PERSONOPPLYSNINGER_PROXY_TARGET_APP}")
+    private String targetApp;
+
+    public EregConsumer(Client client, URI endpoint, TokenDingsService tokenDingsService) {
         this.client = client;
         this.endpoint = endpoint;
+        this.tokenDingsService = tokenDingsService;
     }
 
     public EregOrganisasjon hentOrgnavn(String orgnr, String gyldigDato) {
-        Invocation.Builder request = buildOrgnrRequest(orgnr, gyldigDato);
+        String accessToken = tokenDingsService.exchangeToken(getToken(), targetApp).getAccessToken();
+        Invocation.Builder request = buildOrgnrRequest(orgnr, gyldigDato, accessToken);
         try (Response response = request.get()) {
             return readResponse(response);
         } catch (EregConsumerException e) {
@@ -42,7 +52,7 @@ public class EregConsumer {
         return null;
     }
 
-    private Invocation.Builder buildOrgnrRequest(String orgnr, String gyldigDato) {
+    private Invocation.Builder buildOrgnrRequest(String orgnr, String gyldigDato, String accessToken) {
         if (gyldigDato != null) {
             gyldigDato = gyldigDato.substring(0, 10);
         }
@@ -50,6 +60,8 @@ public class EregConsumer {
                 .path("v1/organisasjon/" + orgnr + "/noekkelinfo")
                 .queryParam("gyldigDato", gyldigDato)
                 .request()
+                .header(HttpHeaders.AUTHORIZATION, BEARER.concat(accessToken))
+                .header("Nav-Selvbetjeningstoken", getToken())
                 .header("Nav-Call-Id", MDC.get(MDCConstants.MDC_CALL_ID))
                 .header("Nav-Consumer-Id", CONSUMER_ID);
 

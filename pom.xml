@@ -26,6 +26,7 @@
         <arrow.version>0.8.1</arrow.version>
         <swagger-codegen-maven-plugin.version>3.0.2</swagger-codegen-maven-plugin.version>
         <jackson-module-kotlin.version>2.9.8</jackson-module-kotlin.version>
+        <konfig-version>1.6.10.0</konfig-version>
         <prometheus.version>0.6.0</prometheus.version>
         <oidc-support.version>1.3.10</oidc-support.version>
     </properties>
@@ -230,6 +231,11 @@
             <groupId>no.nav.common</groupId>
             <artifactId>log</artifactId>
             <version>1.2019.07.11-12.31-0b875ec24c4e</version>
+        </dependency>
+        <dependency>
+            <groupId>com.natpryce</groupId>
+            <artifactId>konfig</artifactId>
+            <version>${konfig-version}</version>
         </dependency>
         <dependency>
             <groupId>io.micrometer</groupId>

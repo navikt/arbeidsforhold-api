@@ -1,4 +1,5 @@
 package no.nav.arbeidsforhold.services
+
 import no.nav.security.token.support.core.api.ProtectedWithClaims
 import no.nav.security.token.support.jaxrs.JaxrsTokenValidationContextHolder
 import org.springframework.beans.factory.annotation.Autowired
@@ -18,37 +19,30 @@ class ArbeidsforholdIdResource @Autowired constructor(private var arbeidsforhold
     @Path("/arbeidstaker/{id}")
     @Produces(MediaType.APPLICATION_JSON)
     fun hentArbeidsforholdArbeidstaker(@PathParam("id") id: String): Response {
-
-        val fssToken = hentFssToken()
         val fodselsnr = hentFnrFraToken()
-        val arbeidsforhold = arbeidsforholdIdService.hentEttArbeidsforholdmedId(fodselsnr, id.toInt(), fssToken)
+        val arbeidsforhold = arbeidsforholdIdService.hentEttArbeidsforholdmedId(fodselsnr, id.toInt())
 
         return Response
-                .ok(arbeidsforhold)
-                .build()
+            .ok(arbeidsforhold)
+            .build()
     }
 
     @GET
     @Path("/arbeidsgiver/{id}")
     @Produces(MediaType.APPLICATION_JSON)
-    fun hentArbeidsforholdArbeidsgiver(@HeaderParam("Fnr-Arbeidstaker") fodselsnr: String, @PathParam("id") id: String): Response {
-
-        val fssToken = hentFssToken()
-        val arbeidsforhold = arbeidsforholdIdService.hentEttArbeidsforholdmedId(fodselsnr, id.toInt(), fssToken)
+    fun hentArbeidsforholdArbeidsgiver(
+        @HeaderParam("Fnr-Arbeidstaker") fodselsnr: String,
+        @PathParam("id") id: String
+    ): Response {
+        val arbeidsforhold = arbeidsforholdIdService.hentEttArbeidsforholdmedId(fodselsnr, id.toInt())
 
         return Response
-                .ok(arbeidsforhold)
-                .build()
-    }
-
-    private fun hentFssToken(): String? {
-        return arbeidsforholdIdService.hentFSSToken()
+            .ok(arbeidsforhold)
+            .build()
     }
 
     private fun hentFnrFraToken(): String {
         val context = JaxrsTokenValidationContextHolder.getHolder()
         return context.tokenValidationContext.getClaims(claimsIssuer).subject
     }
-
-
 }

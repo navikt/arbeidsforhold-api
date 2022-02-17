@@ -1,7 +1,7 @@
 package no.nav.arbeidsforhold.services
+
 import no.nav.security.token.support.core.api.ProtectedWithClaims
 import no.nav.security.token.support.jaxrs.JaxrsTokenValidationContextHolder
-import org.slf4j.LoggerFactory
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.stereotype.Component
 import javax.ws.rs.GET
@@ -11,7 +11,6 @@ import javax.ws.rs.core.MediaType
 import javax.ws.rs.core.Response
 
 private const val claimsIssuer = "selvbetjening"
-private val log = LoggerFactory.getLogger(ArbeidsforholdFnrResource::class.java)
 
 @Component
 @Path("/")
@@ -22,20 +21,12 @@ class ArbeidsforholdFnrResource @Autowired constructor(private var arbeidsforhol
     @Path("/arbeidsforhold")
     @Produces(MediaType.APPLICATION_JSON)
     fun hentArbeidsforhold(): Response {
-        val fssToken = hentFssToken()
         val fodselsnr = hentFnrFraToken()
-
-        val arbeidsforhold = arbeidsforholdService.hentArbeidsforhold(fodselsnr, fssToken)
+        val arbeidsforhold = arbeidsforholdService.hentArbeidsforhold(fodselsnr)
 
         return Response
-                .ok(arbeidsforhold)
-                .build()
-    }
-
-
-    private fun hentFssToken(): String? {
-        //return arbeidsforholdService.hentFSSToken()
-        return "dummy" // todo: fiks
+            .ok(arbeidsforhold)
+            .build()
     }
 
     private fun hentFnrFraToken(): String {

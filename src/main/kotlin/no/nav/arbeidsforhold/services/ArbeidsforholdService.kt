@@ -3,18 +3,17 @@ package no.nav.arbeidsforhold.services
 import no.nav.arbeidsforhold.config.ArbeidsforholdConsumer
 import no.nav.arbeidsforhold.config.EregConsumer
 import no.nav.arbeidsforhold.domain.Arbeidsforhold
+import no.nav.arbeidsforhold.dto.DtoUtils
 import no.nav.arbeidsforhold.dto.outbound.ArbeidsforholdDto
 import no.nav.arbeidsforhold.dto.outbound.PermisjonPermitteringDto
 import no.nav.arbeidsforhold.dto.outbound.UtenlandsoppholdDto
 import no.nav.arbeidsforhold.dto.transformer.ArbeidsavtaleTransformer
 import no.nav.arbeidsforhold.dto.transformer.ArbeidsforholdTransformer
-import no.nav.arbeidsforhold.dto.DtoUtils
 import no.nav.arbeidsforhold.dto.transformer.EnkeltArbeidsforholdTransformer
-import no.nav.arbeidsforhold.services.sts.STSConsumer
-import no.nav.ereg.Navn
 import no.nav.arbeidsforhold.services.kodeverk.KodeverkConsumer
 import no.nav.arbeidsforhold.services.kodeverk.api.GetKodeverkKoderBetydningerResponse
 import no.nav.ereg.EregOrganisasjon
+import no.nav.ereg.Navn
 import org.slf4j.LoggerFactory
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.stereotype.Service
@@ -22,7 +21,6 @@ import org.springframework.stereotype.Service
 @Service
 class ArbeidsforholdService @Autowired constructor(
         private var arbeidsforholdConsumer: ArbeidsforholdConsumer,
-        private var stsConsumer: STSConsumer,
         private var eregConsumer: EregConsumer,
         private var kodeverkConsumer: KodeverkConsumer
 ) {
@@ -31,14 +29,8 @@ class ArbeidsforholdService @Autowired constructor(
     private val organisasjon = "Organisasjon"
     private val kodeverkspraak = "nb"
 
-    fun hentFSSToken(): String? {
-        val fssToken = stsConsumer.fssToken
-        val strippedToken = fssToken.access_token
-        return strippedToken
-    }
-
-    fun hentArbeidsforhold(fodselsnr: String, fssToken: String?): List<ArbeidsforholdDto> {
-        val inbound = arbeidsforholdConsumer.hentArbeidsforholdmedFnr(fodselsnr, fssToken)
+    fun hentArbeidsforhold(fodselsnr: String): List<ArbeidsforholdDto> {
+        val inbound = arbeidsforholdConsumer.hentArbeidsforholdmedFnr(fodselsnr)
         val arbeidsforholdDtos = mutableListOf<ArbeidsforholdDto>()
         for (arbeidsforhold in inbound) {
             var yrke = DtoUtils.hentYrkeForSisteArbeidsavtale(
@@ -50,8 +42,8 @@ class ArbeidsforholdService @Autowired constructor(
         return arbeidsforholdDtos
     }
 
-    fun hentEttArbeidsforholdmedId(fodselsnr: String, id: Int, fssToken: String?): ArbeidsforholdDto {
-        val arbeidsforhold = arbeidsforholdConsumer.hentArbeidsforholdmedId(fodselsnr, id, fssToken)
+    fun hentEttArbeidsforholdmedId(fodselsnr: String, id: Int): ArbeidsforholdDto {
+        val arbeidsforhold = arbeidsforholdConsumer.hentArbeidsforholdmedId(fodselsnr, id)
 
         val arbgivnavn = hentArbGiverOrgNavn(arbeidsforhold)
         val opplarbgivnavn = hentOpplysningspliktigOrgNavn(arbeidsforhold)
