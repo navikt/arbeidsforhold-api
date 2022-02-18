@@ -64,7 +64,6 @@ public class EregConsumer {
                 .header("Nav-Consumer-Token", getToken())
                 .header("Nav-Call-Id", MDC.get(MDCConstants.MDC_CALL_ID))
                 .header("Nav-Consumer-Id", CONSUMER_ID);
-
     }
 
     private EregOrganisasjon readResponse(Response r) {

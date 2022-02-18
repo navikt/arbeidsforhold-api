@@ -4,6 +4,8 @@ import no.nav.arbeidsforhold.domain.Arbeidsforhold;
 import no.nav.arbeidsforhold.exceptions.ArbeidsforholdConsumerException;
 import no.nav.arbeidsforhold.services.tokendings.TokenDingsService;
 import no.nav.log.MDCConstants;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.slf4j.MDC;
 import org.springframework.beans.factory.annotation.Value;
 
@@ -28,6 +30,7 @@ public class ArbeidsforholdConsumer {
     private Client client;
     private URI endpoint;
     private TokenDingsService tokenDingsService;
+    private static final Logger log = LoggerFactory.getLogger(ArbeidsforholdConsumer.class);
 
     @Value("${PERSONOPPLYSNINGER_PROXY_TARGET_APP}")
     private String targetApp;
@@ -39,12 +42,14 @@ public class ArbeidsforholdConsumer {
     }
 
     public List<Arbeidsforhold> hentArbeidsforholdmedFnr(String fnr) {
+        log.info("Target app: " + targetApp);
         String accessToken = tokenDingsService.exchangeToken(getToken(), targetApp).getAccessToken();
         Invocation.Builder request = buildFnrRequest(fnr, accessToken);
         return hentArbeidsforholdmedFnr(request);
     }
 
     public Arbeidsforhold hentArbeidsforholdmedId(String fnr, int id) {
+        log.info("Target app: " + targetApp);
         String accessToken = tokenDingsService.exchangeToken(getToken(), targetApp).getAccessToken();
         Invocation.Builder request = buildForholdIdRequest(fnr, id, accessToken);
         return hentArbeidsforholdmedId(request);
