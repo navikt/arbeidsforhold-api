@@ -61,7 +61,7 @@ public class ArbeidsforholdConsumer {
                 .header(HttpHeaders.AUTHORIZATION, BEARER.concat(accessToken))
                 .header("Nav-Call-Id", MDC.get(MDCConstants.MDC_CALL_ID))
                 .header("Nav-Consumer-Id", CONSUMER_ID)
-                .header("Nav-Selvbetjeningstoken", getToken())
+                .header("Nav-Consumer-Token", getToken())
                 .header("Nav-Personident", fnr);
 
     }
@@ -75,7 +75,7 @@ public class ArbeidsforholdConsumer {
                 .header(HttpHeaders.AUTHORIZATION, BEARER.concat(accessToken))
                 .header("Nav-Call-Id", MDC.get(MDCConstants.MDC_CALL_ID))
                 .header("Nav-Consumer-Id", CONSUMER_ID)
-                .header("Nav-Selvbetjeningstoken", getToken())
+                .header("Nav-Consumer-Token", getToken())
                 .header("Nav-Personident", fnr);
     }
 
