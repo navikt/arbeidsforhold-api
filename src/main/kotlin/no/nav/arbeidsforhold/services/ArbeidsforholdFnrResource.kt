@@ -39,6 +39,6 @@ class ArbeidsforholdFnrResource @Autowired constructor(private var arbeidsforhol
 
     private fun hentFnrFraToken(): String {
         val context = JaxrsTokenValidationContextHolder.getHolder()
-        return context.tokenValidationContext.getClaims(claimsIssuer).subject
+        return context.tokenValidationContext.getClaims(claimsIssuer).getStringClaim("pid")
     }
 }
