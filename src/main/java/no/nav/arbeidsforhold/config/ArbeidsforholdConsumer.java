@@ -42,19 +42,13 @@ public class ArbeidsforholdConsumer {
     }
 
     public List<Arbeidsforhold> hentArbeidsforholdmedFnr(String fnr) {
-        log.info("Target app: " + targetApp);
         String accessToken = tokenDingsService.exchangeToken(getToken(), targetApp).getAccessToken();
-        log.info("Token length: " + accessToken.length());
-        log.info("Token substring: " + accessToken.substring(0, 10));
         Invocation.Builder request = buildFnrRequest(fnr, accessToken);
         return hentArbeidsforholdmedFnr(request);
     }
 
     public Arbeidsforhold hentArbeidsforholdmedId(String fnr, int id) {
-        log.info("Target app: " + targetApp);
         String accessToken = tokenDingsService.exchangeToken(getToken(), targetApp).getAccessToken();
-        log.info("Token length: " + accessToken.length());
-        log.info("Token substring: " + accessToken.substring(0, 10));
         Invocation.Builder request = buildForholdIdRequest(fnr, id, accessToken);
         return hentArbeidsforholdmedId(request);
     }

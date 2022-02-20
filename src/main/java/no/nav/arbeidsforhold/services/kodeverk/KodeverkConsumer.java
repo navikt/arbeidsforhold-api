@@ -38,47 +38,47 @@ public class KodeverkConsumer {
 
     @Cacheable("yrker")
     public GetKodeverkKoderBetydningerResponse hentYrke() {
-        return hentKodeverkBetydning(getBuilder("v1/kodeverk/Yrker/koder/betydninger", false));
+        return hentKodeverkBetydning(getBuilder("/api/v1/kodeverk/Yrker/koder/betydninger", false));
     }
 
     @Cacheable("arbeidsforholdstyper")
     public GetKodeverkKoderBetydningerResponse hentArbeidsforholdstyper() {
-        return hentKodeverkBetydning(getBuilder("v1/kodeverk/Arbeidsforholdstyper/koder/betydninger", false));
+        return hentKodeverkBetydning(getBuilder("/api/v1/kodeverk/Arbeidsforholdstyper/koder/betydninger", false));
     }
 
     @Cacheable("arbeidstidsordninger")
     public GetKodeverkKoderBetydningerResponse hentArbeidstidsordningstyper() {
-        return hentKodeverkBetydning(getBuilder("v1/kodeverk/Arbeidstidsordninger/koder/betydninger", false));
+        return hentKodeverkBetydning(getBuilder("/api/v1/kodeverk/Arbeidstidsordninger/koder/betydninger", false));
     }
 
     @Cacheable("fartsomraader")
     public GetKodeverkKoderBetydningerResponse hentFartsomraade() {
-        return hentKodeverkBetydning(getBuilder("v1/kodeverk/Fartsområder/koder/betydninger", false));
+        return hentKodeverkBetydning(getBuilder("/api/v1/kodeverk/Fartsområder/koder/betydninger", false));
     }
 
     @Cacheable("skipsregistre")
     public GetKodeverkKoderBetydningerResponse hentSkipsregister() {
-        return hentKodeverkBetydning(getBuilder("v1/kodeverk/Skipsregistre/koder/betydninger", false));
+        return hentKodeverkBetydning(getBuilder("/api/v1/kodeverk/Skipsregistre/koder/betydninger", false));
     }
 
     @Cacheable("skipstyper")
     public GetKodeverkKoderBetydningerResponse hentSkipstyper() {
-        return hentKodeverkBetydning(getBuilder("v1/kodeverk/Skipstyper/koder/betydninger", false));
+        return hentKodeverkBetydning(getBuilder("/api/v1/kodeverk/Skipstyper/koder/betydninger", false));
     }
 
     @Cacheable("land")
     public GetKodeverkKoderBetydningerResponse hentLand() {
-        return hentKodeverkBetydning(getBuilder("v1/kodeverk/LandkoderISO2/koder/betydninger", false));
+        return hentKodeverkBetydning(getBuilder("/api/v1/kodeverk/LandkoderISO2/koder/betydninger", false));
     }
 
     @Cacheable("permisjonstyper")
     public GetKodeverkKoderBetydningerResponse hentPermisjonstype() {
-        return hentKodeverkBetydning(getBuilder("v1/kodeverk/PermisjonsOgPermitteringsBeskrivelse/koder/betydninger", false));
+        return hentKodeverkBetydning(getBuilder("/api/v1/kodeverk/PermisjonsOgPermitteringsBeskrivelse/koder/betydninger", false));
     }
 
     @Cacheable("sluttaarsaker")
     public GetKodeverkKoderBetydningerResponse hentSluttÅrsak() {
-        return hentKodeverkBetydning(getBuilder("v1/kodeverk/SluttårsakAareg/koder/betydninger", false));
+        return hentKodeverkBetydning(getBuilder("/api/v1/kodeverk/SluttårsakAareg/koder/betydninger", false));
     }
 
     private Invocation.Builder getBuilder(String path, Boolean eksluderUgyldige) {
