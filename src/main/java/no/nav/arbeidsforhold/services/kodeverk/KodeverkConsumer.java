@@ -11,6 +11,7 @@ import org.springframework.cache.annotation.Cacheable;
 
 import javax.ws.rs.client.Client;
 import javax.ws.rs.client.Invocation;
+import javax.ws.rs.core.HttpHeaders;
 import javax.ws.rs.core.Response;
 import java.net.URI;
 
@@ -87,7 +88,7 @@ public class KodeverkConsumer {
                 .queryParam("spraak", SPRAAK)
                 .queryParam("ekskluderUgyldige", eksluderUgyldige)
                 .request()
-                .header("token-x-authorization", BEARER.concat(accessToken))
+                .header(HttpHeaders.AUTHORIZATION, BEARER.concat(accessToken))
                 .header("Nav-Call-Id", MDC.get(MDCConstants.MDC_CALL_ID))
                 .header("Nav-Consumer-Id", ConsumerFactory.CONSUMER_ID);
     }
