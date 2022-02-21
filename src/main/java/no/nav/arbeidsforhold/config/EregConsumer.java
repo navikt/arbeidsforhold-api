@@ -12,7 +12,6 @@ import org.springframework.beans.factory.annotation.Value;
 import javax.ws.rs.ProcessingException;
 import javax.ws.rs.client.Client;
 import javax.ws.rs.client.Invocation;
-import javax.ws.rs.core.HttpHeaders;
 import javax.ws.rs.core.Response;
 import java.net.URI;
 
@@ -60,7 +59,7 @@ public class EregConsumer {
                 .path("v1/organisasjon/" + orgnr + "/noekkelinfo")
                 .queryParam("gyldigDato", gyldigDato)
                 .request()
-                .header(HttpHeaders.AUTHORIZATION, BEARER.concat(accessToken))
+                .header("token-x-authorization", BEARER.concat(accessToken))
                 .header("Nav-Consumer-Token", getToken())
                 .header("Nav-Call-Id", MDC.get(MDCConstants.MDC_CALL_ID))
                 .header("Nav-Consumer-Id", CONSUMER_ID);
