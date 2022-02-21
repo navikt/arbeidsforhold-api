@@ -29,7 +29,8 @@ import java.util.EnumSet;
         "no.nav.arbeidsforhold.api",
         "no.nav.arbeidsforhold.services",
         "no.nav.arbeidsforhold.config",
-        "no.nav.arbeidsforhold.tasks"})
+        "no.nav.arbeidsforhold.tasks",
+        "no.nav.tokendings"})
 @EnableConfigurationProperties(MultiIssuerProperties.class)
 @Import({RestClientConfiguration.class,
 })
