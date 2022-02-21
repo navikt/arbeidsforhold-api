@@ -5,6 +5,7 @@ import com.fasterxml.jackson.module.kotlin.readValue
 import no.nav.arbeidsforhold.exceptions.ConsumerException
 import no.nav.arbeidsforhold.util.consumerErrorMessage
 import no.nav.tokendings.domain.TokendingsToken
+import org.slf4j.LoggerFactory
 import java.net.URI
 import javax.ws.rs.client.Client
 import javax.ws.rs.client.Entity
@@ -17,8 +18,12 @@ class TokendingsConsumer constructor(
     private val client: Client,
     private val endpoint: URI
 ) {
+    private val log = LoggerFactory.getLogger(TokendingsConsumer::class.java)
 
     fun exchangeToken(subjectToken: String, clientAssertion: String, audience: String?): TokendingsToken {
+        log.info("Subject token length: ${subjectToken.length}")
+        log.info("Client assertion length: ${clientAssertion.length}")
+        log.info("Audience: $audience")
         val form = Form()
             .param("client_assertion_type", "urn:ietf:params:oauth:client-assertion-type:jwt-bearer")
             .param("client_assertion", clientAssertion)
