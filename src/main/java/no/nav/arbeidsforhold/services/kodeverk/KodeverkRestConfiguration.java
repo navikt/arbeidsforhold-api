@@ -1,7 +1,6 @@
 package no.nav.arbeidsforhold.services.kodeverk;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import no.nav.security.token.support.jaxrs.JwtTokenClientRequestFilter;
 import no.nav.tokendings.TokenDingsService;
 import org.glassfish.jersey.client.ClientProperties;
 import org.springframework.beans.factory.annotation.Value;
@@ -32,7 +31,6 @@ public class KodeverkRestConfiguration {
             @Named("defaultConnectTimeoutInMillis") Integer connectTimeout,
             @Named("defaultReadTimeoutInMillis") Integer readTimeout) {
         Client client = ClientBuilder.newBuilder()
-                .register(JwtTokenClientRequestFilter.class)
                 .register(clientObjectMapperResolver)
                 .build();
         client.property(ClientProperties.CONNECT_TIMEOUT, connectTimeout);

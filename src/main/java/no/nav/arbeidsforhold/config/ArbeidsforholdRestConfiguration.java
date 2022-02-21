@@ -1,7 +1,6 @@
 package no.nav.arbeidsforhold.config;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import no.nav.security.token.support.jaxrs.JwtTokenClientRequestFilter;
 import no.nav.tokendings.TokenDingsService;
 import org.glassfish.jersey.client.ClientProperties;
 import org.springframework.beans.factory.annotation.Value;
@@ -33,7 +32,6 @@ public class ArbeidsforholdRestConfiguration {
             @Named("defaultReadTimeoutInMillis") Integer readTimeout) {
         Client client =  ClientBuilder.newBuilder()
                 .register(clientObjectMapperResolver)
-                .register(JwtTokenClientRequestFilter.class)
                 .build();
         client.property(ClientProperties.CONNECT_TIMEOUT, connectTimeout);
         client.property(ClientProperties.READ_TIMEOUT, readTimeout);

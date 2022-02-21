@@ -21,9 +21,6 @@ class TokendingsConsumer constructor(
     private val log = LoggerFactory.getLogger(TokendingsConsumer::class.java)
 
     fun exchangeToken(subjectToken: String, clientAssertion: String, audience: String?): TokendingsToken {
-        log.info("Subject token length: ${subjectToken.length}")
-        log.info("Client assertion length: ${clientAssertion.length}")
-        log.info("Audience: $audience")
         val form = Form()
             .param("client_assertion_type", "urn:ietf:params:oauth:client-assertion-type:jwt-bearer")
             .param("client_assertion", clientAssertion)

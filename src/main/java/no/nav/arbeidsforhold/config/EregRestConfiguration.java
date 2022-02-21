@@ -1,7 +1,6 @@
 package no.nav.arbeidsforhold.config;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import no.nav.security.token.support.jaxrs.JwtTokenClientRequestFilter;
 import no.nav.tokendings.TokenDingsService;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
@@ -29,7 +28,6 @@ public class EregRestConfiguration {
     public Client eregClient(ContextResolver<ObjectMapper> clientObjectMapperResolver) {
         Client c =  ClientBuilder.newBuilder()
                 .register(clientObjectMapperResolver)
-                .register(JwtTokenClientRequestFilter.class)
                 .build();
         return c;
     }
