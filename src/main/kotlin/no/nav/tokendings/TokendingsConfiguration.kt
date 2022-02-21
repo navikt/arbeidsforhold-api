@@ -1,7 +1,7 @@
-package no.nav.arbeidsforhold.services.tokendings
+package no.nav.tokendings
 
 import com.fasterxml.jackson.databind.ObjectMapper
-import no.nav.arbeidsforhold.services.tokendings.metadata.TokendingsMetadataConsumer
+import no.nav.tokendings.metadata.TokendingsMetadataConsumer
 import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Configuration
 import java.net.URI

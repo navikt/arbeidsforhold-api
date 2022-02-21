@@ -1,8 +1,8 @@
 package no.nav.arbeidsforhold.config;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import no.nav.arbeidsforhold.services.tokendings.TokenDingsService;
 import no.nav.security.token.support.jaxrs.JwtTokenClientRequestFilter;
+import no.nav.tokendings.TokenDingsService;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

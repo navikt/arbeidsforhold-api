@@ -1,4 +1,4 @@
-package no.nav.arbeidsforhold.services.tokendings.domain
+package no.nav.tokendings.domain
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties
 import com.fasterxml.jackson.annotation.JsonProperty

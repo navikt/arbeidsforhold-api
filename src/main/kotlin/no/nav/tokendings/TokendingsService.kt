@@ -1,4 +1,4 @@
-package no.nav.arbeidsforhold.services.tokendings
+package no.nav.tokendings
 
 import com.nimbusds.jose.JOSEObjectType
 import com.nimbusds.jose.JWSAlgorithm
@@ -7,8 +7,8 @@ import com.nimbusds.jose.crypto.RSASSASigner
 import com.nimbusds.jose.jwk.RSAKey
 import com.nimbusds.jwt.JWTClaimsSet
 import com.nimbusds.jwt.SignedJWT
-import no.nav.arbeidsforhold.services.tokendings.domain.TokendingsToken
-import no.nav.arbeidsforhold.services.tokendings.metadata.TokendingsMetadataConsumer
+import no.nav.tokendings.domain.TokendingsToken
+import no.nav.tokendings.metadata.TokendingsMetadataConsumer
 import org.springframework.stereotype.Service
 import java.time.Instant
 import java.util.*

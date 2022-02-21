@@ -1,10 +1,10 @@
-package no.nav.arbeidsforhold.services.tokendings.metadata
+package no.nav.tokendings.metadata
 
 import com.fasterxml.jackson.module.kotlin.jacksonObjectMapper
 import com.fasterxml.jackson.module.kotlin.readValue
 import no.nav.arbeidsforhold.exceptions.ConsumerException
-import no.nav.arbeidsforhold.services.tokendings.domain.TokendingsMetaConfiguration
 import no.nav.arbeidsforhold.util.consumerErrorMessage
+import no.nav.tokendings.domain.TokendingsMetaConfiguration
 import java.net.URI
 import javax.ws.rs.client.Client
 import javax.ws.rs.client.Invocation

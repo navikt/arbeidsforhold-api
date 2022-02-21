@@ -2,8 +2,8 @@ package no.nav.arbeidsforhold.config;
 
 import no.nav.arbeidsforhold.domain.Arbeidsforhold;
 import no.nav.arbeidsforhold.exceptions.ArbeidsforholdConsumerException;
-import no.nav.arbeidsforhold.services.tokendings.TokenDingsService;
 import no.nav.log.MDCConstants;
+import no.nav.tokendings.TokenDingsService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.slf4j.MDC;

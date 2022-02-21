@@ -1,4 +1,4 @@
-package no.nav.arbeidsforhold.services.tokendings
+package no.nav.tokendings
 
 import com.natpryce.konfig.*
 
