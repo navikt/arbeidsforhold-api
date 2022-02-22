@@ -20,12 +20,19 @@ spec:
   readiness:
     path: /person/arbeidsforhold-api/internal/isAlive
     initialDelay: 10
-  vault:
-    enabled: true
   replicas:
     min: 2
     max: 4
-  webproxy: true
+  tokenx:
+    enabled: true
+  accessPolicy:
+    rules:
+      - application: personopplysninger-proxy
+        namespace: personbruker
+        cluster: {{ fss-cluster }}
+    outbound:
+      external:
+        - host: {{ proxy-host }}
   resources:
     limits:
       cpu: '3'
@@ -33,6 +40,7 @@ spec:
     requests:
       memory: 1500Mi
   envFrom:
+    - secret: arbeidsforhold-api-secret
     - configmap: loginservice-idporten
   prometheus:
     enabled: true
