@@ -1,7 +1,7 @@
 package no.nav.arbeidsforhold.services
 
+import no.nav.arbeidsforhold.util.hentFnrFraToken
 import no.nav.security.token.support.core.api.ProtectedWithClaims
-import no.nav.security.token.support.jaxrs.JaxrsTokenValidationContextHolder
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.stereotype.Component
 import javax.ws.rs.GET
@@ -27,10 +27,5 @@ class ArbeidsforholdFnrResource @Autowired constructor(private var arbeidsforhol
         return Response
             .ok(arbeidsforhold)
             .build()
-    }
-
-    private fun hentFnrFraToken(): String {
-        val context = JaxrsTokenValidationContextHolder.getHolder()
-        return context.tokenValidationContext.getClaims(claimsIssuer).subject
     }
 }
