@@ -27,7 +27,7 @@
         <swagger-codegen-maven-plugin.version>3.0.2</swagger-codegen-maven-plugin.version>
         <jackson-module-kotlin.version>2.9.8</jackson-module-kotlin.version>
         <konfig-version>1.6.10.0</konfig-version>
-        <prometheus.version>0.6.0</prometheus.version>
+        <prometheus.version>0.15.0</prometheus.version>
         <oidc-support.version>1.3.10</oidc-support.version>
     </properties>
 
