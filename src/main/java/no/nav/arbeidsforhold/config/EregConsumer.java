@@ -23,9 +23,9 @@ public class EregConsumer {
 
     private static final String CONSUMER_ID = "personbruker-arbeidsforhold-api";
     private static final String BEARER = "Bearer ";
-    private Client client;
-    private URI endpoint;
-    private TokenDingsService tokenDingsService;
+    private final Client client;
+    private final URI endpoint;
+    private final TokenDingsService tokenDingsService;
     private static final Logger log = LoggerFactory.getLogger(EregConsumer.class);
 
     @Value("${PERSONOPPLYSNINGER_PROXY_TARGET_APP}")

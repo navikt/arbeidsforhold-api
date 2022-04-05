@@ -22,5 +22,4 @@ class PeriodeTransformerTest {
         assertEquals(inbound.tom, actual.periodeTil)
         assertEquals(inbound.fom, actual.periodeFra)
     }
-
 }

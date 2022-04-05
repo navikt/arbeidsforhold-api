@@ -4,8 +4,6 @@ import no.nav.arbeidsforhold.domain.Arbeidsforhold;
 import no.nav.arbeidsforhold.exceptions.ArbeidsforholdConsumerException;
 import no.nav.log.MDCConstants;
 import no.nav.tokendings.TokenDingsService;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.slf4j.MDC;
 import org.springframework.beans.factory.annotation.Value;
 
@@ -27,10 +25,9 @@ public class ArbeidsforholdConsumer {
     private static final String BEARER = "Bearer ";
     private static final String REGELVERK = "A_ORDNINGEN";
     private static final String ARBEIDSFORHOLDTYPER="ordinaertArbeidsforhold,maritimtArbeidsforhold,forenkletOppgjoersordning,frilanserOppdragstakerHonorarPersonerMm";
-    private Client client;
-    private URI endpoint;
-    private TokenDingsService tokenDingsService;
-    private static final Logger log = LoggerFactory.getLogger(ArbeidsforholdConsumer.class);
+    private final Client client;
+    private final URI endpoint;
+    private final TokenDingsService tokenDingsService;
 
     @Value("${PERSONOPPLYSNINGER_PROXY_TARGET_APP}")
     private String targetApp;
@@ -109,9 +106,8 @@ public class ArbeidsforholdConsumer {
             String msg = "Forsøkte å konsumere REST-tjenesten Arbeidsforhold. endpoint=[" + endpoint + "], HTTP response status=[" + r.getStatus() + "].";
             throw new ArbeidsforholdConsumerException(msg + " - " + readEntity(String.class, r));
         } else {
-            List arbeidsforholdList = r.readEntity(new GenericType<List<Arbeidsforhold>>() {
+            return r.readEntity(new GenericType<List<Arbeidsforhold>>() {
             });
-            return arbeidsforholdList;
         }
     }
 
@@ -120,8 +116,7 @@ public class ArbeidsforholdConsumer {
             String msg = "Forsøkte å konsumere REST-tjenesten Arbeidsforhold. endpoint=[" + endpoint + "], HTTP response status=[" + r.getStatus() + "].";
             throw new ArbeidsforholdConsumerException(msg + " - " + readEntity(String.class, r));
         } else {
-            Arbeidsforhold arbeidsforhold = r.readEntity(Arbeidsforhold.class);
-            return arbeidsforhold;
+            return  r.readEntity(Arbeidsforhold.class);
         }
     }
 

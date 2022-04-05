@@ -2,7 +2,8 @@ package no.nav.arbeidsforhold.services
 
 import no.nav.arbeidsforhold.config.ArbeidsforholdConsumer
 import no.nav.arbeidsforhold.config.EregConsumer
-import no.nav.arbeidsforhold.domain.Arbeidsforhold
+import no.nav.arbeidsforhold.domain.Ansettelsesperiode
+import no.nav.arbeidsforhold.domain.Arbeidsgiver
 import no.nav.arbeidsforhold.dto.DtoUtils
 import no.nav.arbeidsforhold.dto.outbound.ArbeidsforholdDto
 import no.nav.arbeidsforhold.dto.outbound.PermisjonPermitteringDto
@@ -33,10 +34,10 @@ class ArbeidsforholdService @Autowired constructor(
         val inbound = arbeidsforholdConsumer.hentArbeidsforholdmedFnr(fodselsnr)
         val arbeidsforholdDtos = mutableListOf<ArbeidsforholdDto>()
         for (arbeidsforhold in inbound) {
-            var yrke = DtoUtils.hentYrkeForSisteArbeidsavtale(
+            val yrke = DtoUtils.hentYrkeForSisteArbeidsavtale(
                     ArbeidsavtaleTransformer.toOutboundArray(arbeidsforhold.arbeidsavtaler))?.run { getYrkeTerm(kodeverkConsumer.hentYrke(), this, false) }
-            val arbgivnavn = hentArbGiverOrgNavn(arbeidsforhold)
-            val opplarbgivnavn = hentOpplysningspliktigOrgNavn(arbeidsforhold)
+            val arbgivnavn = hentArbGiverOrgNavn(arbeidsforhold.arbeidsgiver, arbeidsforhold.ansettelsesperiode)
+            val opplarbgivnavn = hentArbGiverOrgNavn(arbeidsforhold.opplysningspliktig, arbeidsforhold.ansettelsesperiode)
             arbeidsforholdDtos.add(ArbeidsforholdTransformer.toOutbound(arbeidsforhold, arbgivnavn, opplarbgivnavn, yrke))
         }
         return arbeidsforholdDtos
@@ -45,8 +46,8 @@ class ArbeidsforholdService @Autowired constructor(
     fun hentEttArbeidsforholdmedId(fodselsnr: String, id: Int): ArbeidsforholdDto {
         val arbeidsforhold = arbeidsforholdConsumer.hentArbeidsforholdmedId(fodselsnr, id)
 
-        val arbgivnavn = hentArbGiverOrgNavn(arbeidsforhold)
-        val opplarbgivnavn = hentOpplysningspliktigOrgNavn(arbeidsforhold)
+        val arbgivnavn = hentArbGiverOrgNavn(arbeidsforhold.arbeidsgiver, arbeidsforhold.ansettelsesperiode)
+        val opplarbgivnavn = hentArbGiverOrgNavn(arbeidsforhold.opplysningspliktig, arbeidsforhold.ansettelsesperiode)
         val arbeidsforholdDto = EnkeltArbeidsforholdTransformer.toOutbound(arbeidsforhold, arbgivnavn, opplarbgivnavn)
 
         val yrkeskode = arbeidsforholdDto.yrke
@@ -103,13 +104,13 @@ class ArbeidsforholdService @Autowired constructor(
         }
     }
 
-    private fun settInnKodeverksverdierIUtenlandsopphold(utenlandsoppholdDto: ArrayList<UtenlandsoppholdDto>?) {
+    private fun settInnKodeverksverdierIUtenlandsopphold(utenlandsoppholdDto: List<UtenlandsoppholdDto>?) {
         for (opphold in utenlandsoppholdDto.orEmpty()) {
             opphold.land = getKodeverksTerm(kodeverkConsumer.hentLand(), opphold.land, "Land")
         }
     }
 
-    private fun settInnKodeverksverdierIPermitteringer(permitteringsDto: ArrayList<PermisjonPermitteringDto>?) {
+    private fun settInnKodeverksverdierIPermitteringer(permitteringsDto: List<PermisjonPermitteringDto>?) {
         for (permittering in permitteringsDto.orEmpty()) {
             permittering.type = getKodeverksTerm(kodeverkConsumer.hentPermisjonstype(), permittering.type, "Land")
         }
@@ -125,21 +126,10 @@ class ArbeidsforholdService @Autowired constructor(
         arbeidsforhold.ansettelsesperiode?.sluttaarsak = getKodeverksTerm(sluttaarsak, arbeidsforhold.ansettelsesperiode?.sluttaarsak, "Sluttaarsak")
     }
 
-    private fun hentOpplysningspliktigOrgNavn(arbeidsforhold: Arbeidsforhold): String? {
-        val orgnr = arbeidsforhold.opplysningspliktig?.organisasjonsnummer
-        if (arbeidsforhold.opplysningspliktig?.type.equals(organisasjon)) {
-            val organisasjon: EregOrganisasjon? = eregConsumer.hentOrgnavn(orgnr, arbeidsforhold.ansettelsesperiode?.periode?.tom)
-            if (organisasjon != null) {
-                return concatenateNavn(organisasjon.navn)
-            }
-        }
-        return orgnr
-    }
-
-    private fun hentArbGiverOrgNavn(arbeidsforhold: Arbeidsforhold): String? {
-        val orgnr = arbeidsforhold.arbeidsgiver?.organisasjonsnummer
-        if (arbeidsforhold.arbeidsgiver?.type.equals(organisasjon)) {
-            val organisasjon: EregOrganisasjon? = eregConsumer.hentOrgnavn(orgnr, arbeidsforhold.ansettelsesperiode?.periode?.tom)
+    private fun hentArbGiverOrgNavn(arbeidsgiver: Arbeidsgiver?, ansettelsesperiode: Ansettelsesperiode?): String? {
+        val orgnr = arbeidsgiver?.organisasjonsnummer
+        if (arbeidsgiver?.type.equals(organisasjon)) {
+            val organisasjon: EregOrganisasjon? = eregConsumer.hentOrgnavn(orgnr, ansettelsesperiode?.periode?.tom)
             if (organisasjon != null) {
                 return concatenateNavn(organisasjon.navn)
             }
@@ -149,22 +139,22 @@ class ArbeidsforholdService @Autowired constructor(
 
     private fun getYrkeTerm(yrke: GetKodeverkKoderBetydningerResponse, inbound: String?, inkluderYrkeskode: Boolean): String? {
         try {
-            if (!inbound.isNullOrEmpty() && !yrke.betydninger.getValue(inbound).isEmpty()) {
+            if (!inbound.isNullOrEmpty() && yrke.betydninger.getValue(inbound).isNotEmpty()) {
                 val yrkesterm = yrke.betydninger.getValue(inbound)[0]?.beskrivelser?.getValue(kodeverkspraak)?.term
-                if (yrkesterm.isNullOrEmpty() || !inkluderYrkeskode)
-                    return yrkesterm
+                return if (yrkesterm.isNullOrEmpty() || !inkluderYrkeskode)
+                    yrkesterm
                 else
-                    return yrkesterm + " (Yrkeskode: " + inbound + ")"
+                    "$yrkesterm (Yrkeskode: $inbound)"
             }
         } catch (nse: NoSuchElementException) {
-            log.warn("Element not found in Yrke: " + inbound)
+            log.warn("Element not found in Yrke: $inbound")
         }
         return inbound
     }
 
     private fun getKodeverksTerm(kodeverk: GetKodeverkKoderBetydningerResponse, inbound: String?, type: String): String? {
         try {
-            if (!inbound.isNullOrEmpty() && !kodeverk.betydninger.getValue(inbound).isEmpty()) {
+            if (!inbound.isNullOrEmpty() && kodeverk.betydninger.getValue(inbound).isNotEmpty()) {
                 return kodeverk.betydninger.getValue(inbound)[0]?.beskrivelser?.getValue(kodeverkspraak)?.term
             }
         } catch (nse: NoSuchElementException) {

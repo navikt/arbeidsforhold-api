@@ -6,12 +6,12 @@ import no.nav.arbeidsforhold.dto.outbound.ArbeidsavtaleDto
 
 object ArbeidsavtaleTransformer {
 
-    fun toOutboundArray(inbound: Array<Arbeidsavtale>?): ArrayList<ArbeidsavtaleDto> {
+    fun toOutboundArray(inbound: List<Arbeidsavtale>?): List<ArbeidsavtaleDto> {
 
-        var arbeidsavtaleDtoArray = ArrayList<ArbeidsavtaleDto>()
+        val arbeidsavtaleDtoArray = ArrayList<ArbeidsavtaleDto>()
 
         for (arbeidsavtale in inbound.orEmpty()) {
-            var avtaledto = ArbeidsavtaleDto(
+            val avtaledto = ArbeidsavtaleDto(
                     ansettelsesform = arbeidsavtale.ansettelsesform,
                     antallTimerPrUke = arbeidsavtale.antallTimerPrUke,
                     arbeidstidsordning = arbeidsavtale.arbeidstidsordning,

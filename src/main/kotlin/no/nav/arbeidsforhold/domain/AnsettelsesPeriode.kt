@@ -7,6 +7,6 @@ data class Ansettelsesperiode (
         val periode: Periode? = null,
         val sporingsinformasjon: Sporingsinformasjon? = null,
         /* Varslingskode (kodeverk: Varslingskode_5fAa-registeret) - benyttes hvis ansettelsesperiode er lukket maskinelt */
-        val varslingskode: kotlin.String? = null,
-        val sluttaarsak: kotlin.String? = null
+        val varslingskode: String? = null,
+        val sluttaarsak: String? = null
 )

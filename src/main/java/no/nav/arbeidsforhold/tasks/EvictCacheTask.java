@@ -5,7 +5,8 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.CacheManager;
 import org.springframework.scheduling.annotation.Scheduled;
-import org.springframework.stereotype.Component;
+
+import java.util.Objects;
 
 public class EvictCacheTask {
 
@@ -17,8 +18,8 @@ public class EvictCacheTask {
     @Scheduled(fixedRate = 6 * 60 * 60 * 1000)
     public void evictCache() {
         log.info("Evicting caches.");
-        cacheManager.getCacheNames().stream().forEach(
-                cacheName -> cacheManager.getCache(cacheName).clear());
+        cacheManager.getCacheNames().forEach(
+                cacheName -> Objects.requireNonNull(cacheManager.getCache(cacheName)).clear());
     }
 
 }

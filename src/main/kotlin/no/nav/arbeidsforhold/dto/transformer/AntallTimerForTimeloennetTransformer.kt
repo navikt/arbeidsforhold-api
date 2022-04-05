@@ -2,12 +2,10 @@ package no.nav.arbeidsforhold.dto.transformer
 
 import no.nav.arbeidsforhold.domain.AntallTimerForTimeloennet
 import no.nav.arbeidsforhold.dto.outbound.AntallTimerForTimeloennetDto
-import no.nav.arbeidsforhold.dto.outbound.ArbeidsavtaleDto
-import no.nav.arbeidsforhold.dto.outbound.UtenlandsoppholdDto
 
 object AntallTimerForTimeloennetTransformer {
 
-    fun toOutboundArray(inbound: Array<AntallTimerForTimeloennet>?): ArrayList<AntallTimerForTimeloennetDto>? {
+    fun toOutboundArray(inbound: List<AntallTimerForTimeloennet>?): List<AntallTimerForTimeloennetDto> {
         val antallDtoArray = ArrayList<AntallTimerForTimeloennetDto>()
 
         for (antall in inbound.orEmpty()) {

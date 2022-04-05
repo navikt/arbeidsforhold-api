@@ -5,7 +5,7 @@ import no.nav.arbeidsforhold.dto.outbound.UtenlandsoppholdDto
 
 object UtenlandsoppholdTransformer {
 
-    fun toOutboundArray(inbound: Array<Utenlandsopphold>?): ArrayList<UtenlandsoppholdDto> {
+    fun toOutboundArray(inbound: List<Utenlandsopphold>?): List<UtenlandsoppholdDto> {
         val utenlandsoppholdDtoArray = ArrayList<UtenlandsoppholdDto>()
 
         for (opphold in inbound.orEmpty()) {

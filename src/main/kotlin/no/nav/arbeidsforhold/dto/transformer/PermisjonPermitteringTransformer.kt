@@ -2,21 +2,19 @@ package no.nav.arbeidsforhold.dto.transformer
 
 import no.nav.arbeidsforhold.domain.PermisjonPermittering
 import no.nav.arbeidsforhold.dto.outbound.PermisjonPermitteringDto
-import java.math.RoundingMode
-import kotlin.math.ulp
 
 
 object PermisjonPermitteringTransformer {
 
 
-    fun toOutboundArray(inbound: Array<PermisjonPermittering>?): ArrayList<PermisjonPermitteringDto> {
+    fun toOutboundArray(inbound: List<PermisjonPermittering>?): List<PermisjonPermitteringDto> {
         val permisjonPermitteringDtoArray = ArrayList<PermisjonPermitteringDto>()
 
         for (permisjon in inbound.orEmpty()) {
 
             val prosentstring = permisjon.prosent?.toString()?.split(".")
-            var prosentvist =
-                    if (!prosentstring!![1].equals("0")) {
+            val prosentvist =
+                    if (prosentstring!![1] != "0") {
                         permisjon.prosent.toString() + " %"
                     } else {
                         prosentstring[0] + " %"

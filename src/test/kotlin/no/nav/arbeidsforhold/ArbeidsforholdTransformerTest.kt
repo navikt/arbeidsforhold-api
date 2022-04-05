@@ -20,7 +20,6 @@ class ArbeidsforholdTransformerTest {
         assertEquals(inbound.arbeidsforholdId, actual.eksternArbeidsforholdId)
         assertEquals(inbound.ansettelsesperiode?.periode?.fom, actual.ansettelsesperiode?.periode?.periodeFra)
         assertEquals(inbound.ansettelsesperiode?.periode?.tom, actual.ansettelsesperiode?.periode?.periodeTil)
-        assertEquals(inbound.ansettelsesperiode?.varslingskode, actual.ansettelsesperiode?.varslingskode);
-
+        assertEquals(inbound.ansettelsesperiode?.varslingskode, actual.ansettelsesperiode?.varslingskode)
     }
 }

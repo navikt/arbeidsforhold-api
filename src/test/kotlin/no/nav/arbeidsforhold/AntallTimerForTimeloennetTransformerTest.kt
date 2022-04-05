@@ -14,8 +14,8 @@ class AntallTimerForTimeloennetTransformerTest {
 
     @Test
     fun skalFaaRiktigAntallTimer() {
-        val inbound = AntallTimerForTimeloennetObjectMother.arrayOfDummyValues
-        val actual: ArrayList<AntallTimerForTimeloennetDto>? = AntallTimerForTimeloennetTransformer.toOutboundArray(inbound)
+        val inbound = AntallTimerForTimeloennetObjectMother.dummyValues
+        val actual: List<AntallTimerForTimeloennetDto>? = AntallTimerForTimeloennetTransformer.toOutboundArray(inbound)
         assertNotNull(actual)
         assertEquals(inbound[0].antallTimer.toString(), actual[0].antallTimer)
         assertEquals(inbound[0].rapporteringsperiode,  actual[0].rapporteringsperiode)

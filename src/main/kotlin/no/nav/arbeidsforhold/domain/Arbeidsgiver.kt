@@ -5,8 +5,8 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties
 @JsonIgnoreProperties(ignoreUnknown = true)
 data class Arbeidsgiver (
 
-        val organisasjonsnummer: kotlin.String? = null,
-        val type: kotlin.String? = null,
-        val offentligIdent: kotlin.String? = null
+        val organisasjonsnummer: String? = null,
+        val offentligIdent: String? = null,
+        val type: String? = null
 
 )

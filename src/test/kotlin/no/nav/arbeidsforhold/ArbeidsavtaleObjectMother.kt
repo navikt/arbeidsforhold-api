@@ -15,10 +15,5 @@ object ArbeidsavtaleObjectMother {
 
     )
 
-    val arrayOfDummyValues = arrayOf(
-            ArbeidsavtaleObjectMother.withDummyValues,
-            Arbeidsavtale(
-
-            )
-    )
+    val dummyValues = listOf(withDummyValues, Arbeidsavtale())
 }

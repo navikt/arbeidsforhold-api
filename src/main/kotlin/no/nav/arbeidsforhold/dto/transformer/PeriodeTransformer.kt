@@ -1,6 +1,5 @@
 package no.nav.arbeidsforhold.dto.transformer
 
-import no.nav.arbeidsforhold.domain.Ansettelsesperiode
 import no.nav.arbeidsforhold.domain.Gyldighetsperiode
 import no.nav.arbeidsforhold.domain.Periode
 import no.nav.arbeidsforhold.dto.outbound.PeriodeDto

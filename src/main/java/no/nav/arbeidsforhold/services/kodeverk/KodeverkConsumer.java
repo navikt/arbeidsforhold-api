@@ -21,9 +21,9 @@ import static no.nav.arbeidsforhold.util.TokenUtilKt.getToken;
 
 public class KodeverkConsumer {
 
-    private Client client;
-    private URI endpoint;
-    private TokenDingsService tokenDingsService;
+    private final Client client;
+    private final URI endpoint;
+    private final TokenDingsService tokenDingsService;
     private static final String SPRAAK = "nb";
     private static final String BEARER = "Bearer ";
 
