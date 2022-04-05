@@ -30,7 +30,7 @@ public class TestLauncher {
      */
     @Bean
     @Primary
-    FileResourceRetriever overrideOidcResourceRetriever(){
+    FileResourceRetriever overrideOidcResourceRetriever() {
         return new FileResourceRetriever("/metadata.json", "/jwkset.json");
     }
 

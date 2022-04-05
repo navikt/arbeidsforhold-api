@@ -7,10 +7,10 @@ object ArbeidsgiverTransformer {
 
     fun toOutbound(inbound: Arbeidsgiver?, arbgivnavn: String?) = ArbeidsgiverDto(
 
-            type = inbound?.type,
-            orgnr = inbound?.organisasjonsnummer,
-            fnr = inbound?.offentligIdent,
-            orgnavn = arbgivnavn
+        type = inbound?.type,
+        orgnr = inbound?.organisasjonsnummer,
+        fnr = inbound?.offentligIdent,
+        orgnavn = arbgivnavn
 
     )
 }

@@ -14,16 +14,16 @@ object PermisjonPermitteringTransformer {
 
             val prosentstring = permisjon.prosent?.toString()?.split(".")
             val prosentvist =
-                    if (prosentstring!![1] != "0") {
-                        permisjon.prosent.toString() + " %"
-                    } else {
-                        prosentstring[0] + " %"
-                    }
+                if (prosentstring!![1] != "0") {
+                    permisjon.prosent.toString() + " %"
+                } else {
+                    prosentstring[0] + " %"
+                }
 
             val pdto = PermisjonPermitteringDto(
-                    type = permisjon.type,
-                    prosent = prosentvist,
-                    periode = PeriodeTransformer.toOutboundfromPeriode(permisjon.periode)
+                type = permisjon.type,
+                prosent = prosentvist,
+                periode = PeriodeTransformer.toOutboundfromPeriode(permisjon.periode)
             )
             permisjonPermitteringDtoArray.add(pdto)
         }

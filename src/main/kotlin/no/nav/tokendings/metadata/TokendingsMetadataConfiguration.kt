@@ -17,7 +17,8 @@ open class TokendingsMetadataConfiguration {
     @Bean
     @Throws(URISyntaxException::class)
     open fun tokendingsMetaDataConsumer(
-        @Named("tokendingsMetaDataClient") client: Client): TokendingsMetadataConsumer {
+        @Named("tokendingsMetaDataClient") client: Client
+    ): TokendingsMetadataConsumer {
         return TokendingsMetadataConsumer(client, URI(TokendingsContext().wellKnownUrl))
     }
 

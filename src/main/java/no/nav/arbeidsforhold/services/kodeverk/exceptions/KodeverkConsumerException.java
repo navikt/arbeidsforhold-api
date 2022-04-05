@@ -1,4 +1,5 @@
 package no.nav.arbeidsforhold.services.kodeverk.exceptions;
+
 public class KodeverkConsumerException extends RuntimeException {
 
     public KodeverkConsumerException(String msg, Throwable cause) {

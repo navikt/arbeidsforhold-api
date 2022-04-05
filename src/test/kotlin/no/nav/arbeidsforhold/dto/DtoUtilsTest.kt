@@ -12,26 +12,29 @@ class DtoUtilsTest {
     @Test
     fun testHentSisteArbeidsavtale() {
         val avtaler = ArrayList<ArbeidsavtaleDto>()
-        avtaler.add(ArbeidsavtaleDto(
+        avtaler.add(
+            ArbeidsavtaleDto(
                 gyldighetsperiode = PeriodeDto(
-                        periodeFra = "2018-05-20"
+                    periodeFra = "2018-05-20"
                 ),
                 yrke = "Kokk"
+            )
         )
-        )
-        avtaler.add(ArbeidsavtaleDto(
+        avtaler.add(
+            ArbeidsavtaleDto(
                 gyldighetsperiode = PeriodeDto(
-                        periodeFra = "2019-02-10"
+                    periodeFra = "2019-02-10"
                 ),
                 yrke = "Mekaniker"
+            )
         )
-        )
-        avtaler.add(ArbeidsavtaleDto(
+        avtaler.add(
+            ArbeidsavtaleDto(
                 gyldighetsperiode = PeriodeDto(
-                        periodeFra = "2017-10-30"
+                    periodeFra = "2017-10-30"
                 ),
                 yrke = "Pilot"
-        )
+            )
         )
         assertEquals("Mekaniker", DtoUtils.hentYrkeForSisteArbeidsavtale(avtaler))
 

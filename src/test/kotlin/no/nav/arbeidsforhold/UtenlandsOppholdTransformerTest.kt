@@ -14,7 +14,7 @@ class UtenlandsoppholdTransformerTest {
     @Test
     fun skalFaaUtenlandsopphold() {
         val inbound = UtenlandsOppholdObjectMother.dummyValues
-        val actual:  List<UtenlandsoppholdDto> = UtenlandsoppholdTransformer.toOutboundArray(inbound)
+        val actual: List<UtenlandsoppholdDto> = UtenlandsoppholdTransformer.toOutboundArray(inbound)
         assertNotNull(actual)
         assertEquals(inbound[0].periode?.tom, actual[0].periode?.periodeTil)
         assertEquals(inbound[0].periode?.fom, actual[0].periode?.periodeFra)

@@ -6,13 +6,13 @@ import no.nav.arbeidsforhold.dto.outbound.PeriodeDto
 
 object PeriodeTransformer {
 
-    fun toOutboundfromPeriode(inbound: Periode?) = PeriodeDto (
-            periodeFra = inbound?.fom,
-            periodeTil = inbound?.tom
+    fun toOutboundfromPeriode(inbound: Periode?) = PeriodeDto(
+        periodeFra = inbound?.fom,
+        periodeTil = inbound?.tom
     )
 
-    fun toOutboundfromGyldighetsperiode(inbound: Gyldighetsperiode?) = PeriodeDto (
-            periodeFra = inbound?.fom,
-            periodeTil = inbound?.tom
+    fun toOutboundfromGyldighetsperiode(inbound: Gyldighetsperiode?) = PeriodeDto(
+        periodeFra = inbound?.fom,
+        periodeTil = inbound?.tom
     )
 }

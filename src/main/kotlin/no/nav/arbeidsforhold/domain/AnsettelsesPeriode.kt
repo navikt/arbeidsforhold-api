@@ -1,12 +1,12 @@
 package no.nav.arbeidsforhold.domain
 
 
-data class Ansettelsesperiode (
+data class Ansettelsesperiode(
 
-        val bruksperiode: Bruksperiode? = null,
-        val periode: Periode? = null,
-        val sporingsinformasjon: Sporingsinformasjon? = null,
-        /* Varslingskode (kodeverk: Varslingskode_5fAa-registeret) - benyttes hvis ansettelsesperiode er lukket maskinelt */
-        val varslingskode: String? = null,
-        val sluttaarsak: String? = null
+    val bruksperiode: Bruksperiode? = null,
+    val periode: Periode? = null,
+    val sporingsinformasjon: Sporingsinformasjon? = null,
+    /* Varslingskode (kodeverk: Varslingskode_5fAa-registeret) - benyttes hvis ansettelsesperiode er lukket maskinelt */
+    val varslingskode: String? = null,
+    val sluttaarsak: String? = null
 )

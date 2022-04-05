@@ -10,9 +10,9 @@ object AntallTimerForTimeloennetTransformer {
 
         for (antall in inbound.orEmpty()) {
             val antallDto = AntallTimerForTimeloennetDto(
-                    antallTimer = antall.antallTimer.toString(),
-                    periode = PeriodeTransformer.toOutboundfromPeriode(antall.periode),
-                    rapporteringsperiode = antall.rapporteringsperiode
+                antallTimer = antall.antallTimer.toString(),
+                periode = PeriodeTransformer.toOutboundfromPeriode(antall.periode),
+                rapporteringsperiode = antall.rapporteringsperiode
             )
             antallDtoArray.add(antallDto)
         }

@@ -30,7 +30,7 @@ public class ArbeidsforholdRestConfiguration {
             ContextResolver<ObjectMapper> clientObjectMapperResolver,
             @Named("defaultConnectTimeoutInMillis") Integer connectTimeout,
             @Named("defaultReadTimeoutInMillis") Integer readTimeout) {
-        Client client =  ClientBuilder.newBuilder()
+        Client client = ClientBuilder.newBuilder()
                 .register(clientObjectMapperResolver)
                 .build();
         client.property(ClientProperties.CONNECT_TIMEOUT, connectTimeout);

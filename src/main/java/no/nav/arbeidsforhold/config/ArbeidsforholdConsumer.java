@@ -24,7 +24,7 @@ public class ArbeidsforholdConsumer {
     private static final String CONSUMER_ID = "personbruker-arbeidsforhold-api";
     private static final String BEARER = "Bearer ";
     private static final String REGELVERK = "A_ORDNINGEN";
-    private static final String ARBEIDSFORHOLDTYPER="ordinaertArbeidsforhold,maritimtArbeidsforhold,forenkletOppgjoersordning,frilanserOppdragstakerHonorarPersonerMm";
+    private static final String ARBEIDSFORHOLDTYPER = "ordinaertArbeidsforhold,maritimtArbeidsforhold,forenkletOppgjoersordning,frilanserOppdragstakerHonorarPersonerMm";
     private final Client client;
     private final URI endpoint;
     private final TokenDingsService tokenDingsService;
@@ -56,7 +56,7 @@ public class ArbeidsforholdConsumer {
                 .path("v1/arbeidstaker/arbeidsforhold")
                 .queryParam("regelverk", REGELVERK)
                 .queryParam("sporingsinformasjon", false)
-                .queryParam("arbeidsforholdtype",ARBEIDSFORHOLDTYPER)
+                .queryParam("arbeidsforholdtype", ARBEIDSFORHOLDTYPER)
                 .request()
                 .header(HttpHeaders.AUTHORIZATION, BEARER.concat(accessToken))
                 .header("Nav-Call-Id", MDC.get(MDCConstants.MDC_CALL_ID))
@@ -116,7 +116,7 @@ public class ArbeidsforholdConsumer {
             String msg = "Forsøkte å konsumere REST-tjenesten Arbeidsforhold. endpoint=[" + endpoint + "], HTTP response status=[" + r.getStatus() + "].";
             throw new ArbeidsforholdConsumerException(msg + " - " + readEntity(String.class, r));
         } else {
-            return  r.readEntity(Arbeidsforhold.class);
+            return r.readEntity(Arbeidsforhold.class);
         }
     }
 

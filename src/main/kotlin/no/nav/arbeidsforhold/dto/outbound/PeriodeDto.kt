@@ -1,8 +1,8 @@
 package no.nav.arbeidsforhold.dto.outbound
 
-data class PeriodeDto (
+data class PeriodeDto(
 
-        val periodeFra: String? = null,
-        val periodeTil: String? = null
+    val periodeFra: String? = null,
+    val periodeTil: String? = null
 
 )

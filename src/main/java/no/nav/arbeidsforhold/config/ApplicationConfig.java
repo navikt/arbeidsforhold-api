@@ -36,7 +36,7 @@ import java.util.EnumSet;
 })
 public class ApplicationConfig implements EnvironmentAware {
 
-    static  {
+    static {
         DefaultExports.initialize();
     }
 
