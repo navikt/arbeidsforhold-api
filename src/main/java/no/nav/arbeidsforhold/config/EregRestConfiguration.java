@@ -26,10 +26,9 @@ public class EregRestConfiguration {
 
     @Bean
     public Client eregClient(ContextResolver<ObjectMapper> clientObjectMapperResolver) {
-        Client c = ClientBuilder.newBuilder()
+        return ClientBuilder.newBuilder()
                 .register(clientObjectMapperResolver)
                 .build();
-        return c;
     }
 
 }

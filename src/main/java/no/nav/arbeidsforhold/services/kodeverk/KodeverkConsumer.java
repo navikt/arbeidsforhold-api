@@ -38,55 +38,55 @@ public class KodeverkConsumer {
 
     @Cacheable("yrker")
     public GetKodeverkKoderBetydningerResponse hentYrke() {
-        return hentKodeverkBetydning(getBuilder("/api/v1/kodeverk/Yrker/koder/betydninger", false));
+        return hentKodeverkBetydning(getBuilder("/api/v1/kodeverk/Yrker/koder/betydninger"));
     }
 
     @Cacheable("arbeidsforholdstyper")
     public GetKodeverkKoderBetydningerResponse hentArbeidsforholdstyper() {
-        return hentKodeverkBetydning(getBuilder("/api/v1/kodeverk/Arbeidsforholdstyper/koder/betydninger", false));
+        return hentKodeverkBetydning(getBuilder("/api/v1/kodeverk/Arbeidsforholdstyper/koder/betydninger"));
     }
 
     @Cacheable("arbeidstidsordninger")
     public GetKodeverkKoderBetydningerResponse hentArbeidstidsordningstyper() {
-        return hentKodeverkBetydning(getBuilder("/api/v1/kodeverk/Arbeidstidsordninger/koder/betydninger", false));
+        return hentKodeverkBetydning(getBuilder("/api/v1/kodeverk/Arbeidstidsordninger/koder/betydninger"));
     }
 
     @Cacheable("fartsomraader")
     public GetKodeverkKoderBetydningerResponse hentFartsomraade() {
-        return hentKodeverkBetydning(getBuilder("/api/v1/kodeverk/Fartsområder/koder/betydninger", false));
+        return hentKodeverkBetydning(getBuilder("/api/v1/kodeverk/Fartsområder/koder/betydninger"));
     }
 
     @Cacheable("skipsregistre")
     public GetKodeverkKoderBetydningerResponse hentSkipsregister() {
-        return hentKodeverkBetydning(getBuilder("/api/v1/kodeverk/Skipsregistre/koder/betydninger", false));
+        return hentKodeverkBetydning(getBuilder("/api/v1/kodeverk/Skipsregistre/koder/betydninger"));
     }
 
     @Cacheable("skipstyper")
     public GetKodeverkKoderBetydningerResponse hentSkipstyper() {
-        return hentKodeverkBetydning(getBuilder("/api/v1/kodeverk/Skipstyper/koder/betydninger", false));
+        return hentKodeverkBetydning(getBuilder("/api/v1/kodeverk/Skipstyper/koder/betydninger"));
     }
 
     @Cacheable("land")
     public GetKodeverkKoderBetydningerResponse hentLand() {
-        return hentKodeverkBetydning(getBuilder("/api/v1/kodeverk/LandkoderISO2/koder/betydninger", false));
+        return hentKodeverkBetydning(getBuilder("/api/v1/kodeverk/LandkoderISO2/koder/betydninger"));
     }
 
     @Cacheable("permisjonstyper")
     public GetKodeverkKoderBetydningerResponse hentPermisjonstype() {
-        return hentKodeverkBetydning(getBuilder("/api/v1/kodeverk/PermisjonsOgPermitteringsBeskrivelse/koder/betydninger", false));
+        return hentKodeverkBetydning(getBuilder("/api/v1/kodeverk/PermisjonsOgPermitteringsBeskrivelse/koder/betydninger"));
     }
 
     @Cacheable("sluttaarsaker")
     public GetKodeverkKoderBetydningerResponse hentSluttÅrsak() {
-        return hentKodeverkBetydning(getBuilder("/api/v1/kodeverk/SluttårsakAareg/koder/betydninger", false));
+        return hentKodeverkBetydning(getBuilder("/api/v1/kodeverk/SluttårsakAareg/koder/betydninger"));
     }
 
-    private Invocation.Builder getBuilder(String path, Boolean eksluderUgyldige) {
+    private Invocation.Builder getBuilder(String path) {
         String accessToken = tokenDingsService.exchangeToken(getToken(), targetApp).getAccessToken();
         return client.target(endpoint)
                 .path(path)
                 .queryParam("spraak", SPRAAK)
-                .queryParam("ekskluderUgyldige", eksluderUgyldige)
+                .queryParam("ekskluderUgyldige", false)
                 .request()
                 .header(HttpHeaders.AUTHORIZATION, BEARER.concat(accessToken))
                 .header("Nav-Call-Id", MDC.get(MDCConstants.MDC_CALL_ID))
