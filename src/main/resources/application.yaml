@@ -8,9 +8,6 @@ server:
   servlet:
     context-path: /person/arbeidsforhold-api
 
-logging:
-  config: "classpath:logback-spring.xml"
-
 no.nav.security.oidc:
   issuers: selvbetjening
   issuer.selvbetjening:
