@@ -9,7 +9,7 @@ server:
     context-path: /person/arbeidsforhold-api
 
 logging:
-  config: "classpath:logback-spring.xml"
+  config: "classpath:logback-test.xml"
 
 no.nav.security.oidc:
   issuers: selvbetjening
