@@ -2,7 +2,7 @@ package no.nav.arbeidsforhold.config;
 
 import no.nav.arbeidsforhold.domain.Arbeidsforhold;
 import no.nav.arbeidsforhold.exceptions.ArbeidsforholdConsumerException;
-import no.nav.log.MDCConstants;
+import no.nav.common.log.MDCConstants;
 import no.nav.tokendings.TokenDingsService;
 import org.slf4j.MDC;
 import org.springframework.beans.factory.annotation.Value;

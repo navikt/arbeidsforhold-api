@@ -3,7 +3,7 @@ package no.nav.arbeidsforhold.services.kodeverk;
 import no.nav.arbeidsforhold.ConsumerFactory;
 import no.nav.arbeidsforhold.services.kodeverk.api.GetKodeverkKoderBetydningerResponse;
 import no.nav.arbeidsforhold.services.kodeverk.exceptions.KodeverkConsumerException;
-import no.nav.log.MDCConstants;
+import no.nav.common.log.MDCConstants;
 import no.nav.tokendings.TokenDingsService;
 import org.slf4j.MDC;
 import org.springframework.beans.factory.annotation.Value;

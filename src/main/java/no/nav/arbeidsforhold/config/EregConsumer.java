@@ -1,8 +1,8 @@
 package no.nav.arbeidsforhold.config;
 
 import no.nav.arbeidsforhold.exceptions.EregConsumerException;
+import no.nav.common.log.MDCConstants;
 import no.nav.ereg.EregOrganisasjon;
-import no.nav.log.MDCConstants;
 import no.nav.tokendings.TokenDingsService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
