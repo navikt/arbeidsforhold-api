@@ -1,0 +1,66 @@
+{
+  "navArbeidsforholdId": 47299258,
+  "arbeidstaker": {
+    "type": "Person",
+    "offentligIdent": "***********",
+    "aktoerId": "1493615715581"
+  },
+  "arbeidsgiver": {
+    "type": "Organisasjon",
+    "organisasjonsnummer": "911742233"
+  },
+  "opplysningspliktig": {
+    "type": "Organisasjon",
+    "organisasjonsnummer": "912783936"
+  },
+  "type": "ordinaertArbeidsforhold",
+  "ansettelsesperiode": {
+    "periode": {
+      "fom": "2019-04-25",
+      "tom": "2019-06-30"
+    },
+    "varslingskode": "IBARBG",
+    "bruksperiode": {
+      "fom": "2019-10-09T18:06:18.972"
+    }
+  },
+  "arbeidsavtaler": [
+    {
+      "type": "Ordinaer",
+      "arbeidstidsordning": "ikkeSkift",
+      "yrke": "7421118",
+      "stillingsprosent": 100.0,
+      "antallTimerPrUke": 37.5,
+      "beregnetAntallTimerPrUke": 37.5,
+      "sistLoennsendring": "2019-04-25",
+      "sistStillingsendring": "2019-04-25",
+      "bruksperiode": {
+        "fom": "2019-05-01T18:38:44.144"
+      },
+      "gyldighetsperiode": {
+        "fom": "2019-04-01"
+      }
+    }
+  ],
+  "antallTimerForTimeloennet": [
+    {
+      "periode": {},
+      "antallTimer": 10.47,
+      "rapporteringsperiode": "2019-05"
+    },
+    {
+      "periode": {},
+      "antallTimer": 37.0,
+      "rapporteringsperiode": "2019-06"
+    }
+  ],
+  "varsler": [
+    {
+      "entitet": "ANSETTELSESPERIODE",
+      "varslingskode": "IBARBG"
+    }
+  ],
+  "innrapportertEtterAOrdningen": true,
+  "registrert": "2019-05-01T18:28:23.95",
+  "sistBekreftet": "2019-07-12T10:42:08"
+}
