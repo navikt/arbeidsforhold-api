@@ -102,12 +102,6 @@ public abstract class AbstractIntegrationTest {
         System.setProperty("token.x.private.jwk", mockJwk());
     }
 
-    protected HttpEntity<HttpHeaders> createEntityWithHeaders(Map<String, String> headerMap) {
-        HttpHeaders headers = new HttpHeaders();
-        headerMap.forEach(headers::add);
-        return new HttpEntity<>(headers);
-    }
-
     protected HttpEntity<HttpHeaders> createEntityWithAuthHeader(String subject) {
         return new HttpEntity<>(createAuthHeader(subject));
     }
@@ -165,11 +159,12 @@ public abstract class AbstractIntegrationTest {
     }
 
     private static String mockTokenEndpointResponse() {
-        return "{\n" +
-                "  \"access_token\" : \"dummy\",\n" +
-                "  \"issued_token_type\" : \"dummy\",\n" +
-                "  \"token_type\" : \"dummy\",\n" +
-                "  \"expires_in\" : \"10\"" +
-                "}";
+        return """
+                {
+                  "access_token" : "dummy",
+                  "issued_token_type" : "dummy",
+                  "token_type" : "dummy",
+                  "expires_in" : "10"
+                }""";
     }
 }
