@@ -1,8 +1,8 @@
 package no.nav.arbeidsforhold
 
-import no.nav.arbeidsforhold.domain.Arbeidsavtale
-import no.nav.arbeidsforhold.dto.outbound.ArbeidsavtaleDto
-import no.nav.arbeidsforhold.dto.transformer.ArbeidsavtaleTransformer
+import no.nav.arbeidsforhold.consumer.aareg.domain.Arbeidsavtale
+import no.nav.arbeidsforhold.service.outbound.ArbeidsavtaleDto
+import no.nav.arbeidsforhold.service.transformer.ArbeidsavtaleTransformer
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.TestInstance
 import kotlin.test.assertEquals

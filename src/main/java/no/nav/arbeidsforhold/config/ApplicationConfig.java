@@ -27,10 +27,10 @@ import java.util.EnumSet;
 @SpringBootConfiguration
 @ComponentScan({
         "no.nav.arbeidsforhold.api",
-        "no.nav.arbeidsforhold.services",
+        "no.nav.arbeidsforhold.service",
         "no.nav.arbeidsforhold.config",
         "no.nav.arbeidsforhold.tasks",
-        "no.nav.tokendings"})
+        "no.nav.arbeidsforhold.consumer"})
 @EnableConfigurationProperties(MultiIssuerProperties.class)
 @Import({RestClientConfiguration.class,
 })

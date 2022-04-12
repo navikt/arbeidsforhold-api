@@ -1,6 +1,6 @@
 package no.nav.arbeidsforhold
 
-import no.nav.arbeidsforhold.domain.Ansettelsesperiode
+import no.nav.arbeidsforhold.consumer.aareg.domain.Ansettelsesperiode
 
 
 object AnsettelsesPeriodeObjectMother {

@@ -1,18 +1,5 @@
-package no.nav.arbeidsforhold.services.kodeverk.api;
+package no.nav.arbeidsforhold.consumer.kodeverk.domain
 
-
-public class Beskrivelse {
-
-    private String term;
-
-    private String tekst;
-
-    public String getTerm() {
-        return term;
-    }
-
-    public String getTekst() {
-        return tekst;
-    }
-
+class Beskrivelse {
+    val term: String? = null
 }

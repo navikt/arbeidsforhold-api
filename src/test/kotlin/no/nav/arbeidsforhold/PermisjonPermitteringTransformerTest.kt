@@ -1,7 +1,7 @@
 package no.nav.arbeidsforhold
 
-import no.nav.arbeidsforhold.dto.outbound.PermisjonPermitteringDto
-import no.nav.arbeidsforhold.dto.transformer.PermisjonPermitteringTransformer
+import no.nav.arbeidsforhold.service.outbound.PermisjonPermitteringDto
+import no.nav.arbeidsforhold.service.transformer.PermisjonPermitteringTransformer
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.TestInstance
 import org.junit.jupiter.api.TestInstance.Lifecycle.PER_CLASS

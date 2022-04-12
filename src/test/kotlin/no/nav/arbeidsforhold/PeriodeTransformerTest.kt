@@ -1,9 +1,9 @@
 package no.nav.arbeidsforhold
 
 
-import no.nav.arbeidsforhold.domain.Periode
-import no.nav.arbeidsforhold.dto.outbound.PeriodeDto
-import no.nav.arbeidsforhold.dto.transformer.PeriodeTransformer
+import no.nav.arbeidsforhold.consumer.aareg.domain.Periode
+import no.nav.arbeidsforhold.service.outbound.PeriodeDto
+import no.nav.arbeidsforhold.service.transformer.PeriodeTransformer
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.TestInstance
 import org.junit.jupiter.api.TestInstance.Lifecycle.PER_CLASS

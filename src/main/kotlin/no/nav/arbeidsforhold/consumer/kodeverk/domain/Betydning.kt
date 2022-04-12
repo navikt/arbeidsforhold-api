@@ -1,22 +1,15 @@
-package no.nav.arbeidsforhold.services.kodeverk.api;
+package no.nav.arbeidsforhold.consumer.kodeverk.domain
 
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-
-import java.time.LocalDate;
-import java.util.HashMap;
-import java.util.Map;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties
 
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class Betydning {
-
-    private LocalDate gyldigFra;
-    private LocalDate gyldigTil;
-    private Map<String, Beskrivelse> beskrivelser;
-
-    public Map<String, Beskrivelse> getBeskrivelser() {
-        if (beskrivelser == null) {
-            beskrivelser = new HashMap<>();
+class Betydning {
+    var beskrivelser: Map<String, Beskrivelse>? = null
+        get() {
+            if (field == null) {
+                field = HashMap()
+            }
+            return field
         }
-        return beskrivelser;
-    }
+        private set
 }

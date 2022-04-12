@@ -1,12 +1,6 @@
-package no.nav.arbeidsforhold.exceptions;
+package no.nav.arbeidsforhold.exception
 
-public class EregConsumerException extends RuntimeException {
-
-    public EregConsumerException(String msg, Throwable cause) {
-        super(msg, cause);
-    }
-
-    public EregConsumerException(String msg) {
-        super(msg);
-    }
+class EregConsumerException : RuntimeException {
+    constructor(msg: String?, cause: Throwable?) : super(msg, cause) {}
+    constructor(msg: String?) : super(msg) {}
 }

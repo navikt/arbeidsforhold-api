@@ -1,13 +1,6 @@
-package no.nav.arbeidsforhold.services.kodeverk.exceptions;
+package no.nav.arbeidsforhold.exception
 
-public class KodeverkConsumerException extends RuntimeException {
-
-    public KodeverkConsumerException(String msg, Throwable cause) {
-        super(msg, cause);
-    }
-
-
-    public KodeverkConsumerException(String msg) {
-        super(msg);
-    }
+class KodeverkConsumerException : RuntimeException {
+    constructor(msg: String?, cause: Throwable?) : super(msg, cause) {}
+    constructor(msg: String?) : super(msg) {}
 }

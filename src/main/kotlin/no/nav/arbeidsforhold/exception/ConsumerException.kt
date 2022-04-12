@@ -1,13 +1,6 @@
-package no.nav.arbeidsforhold.exceptions;
+package no.nav.arbeidsforhold.exception
 
-public class ConsumerException extends RuntimeException {
-
-    public ConsumerException(String msg, Throwable cause) {
-        super(msg, cause);
-    }
-
-
-    public ConsumerException(String msg) {
-        super(msg);
-    }
+class ConsumerException : RuntimeException {
+    constructor(msg: String?, cause: Throwable?) : super(msg, cause) {}
+    constructor(msg: String?) : super(msg) {}
 }

@@ -1,7 +1,8 @@
 package no.nav.arbeidsforhold.dto
 
-import no.nav.arbeidsforhold.dto.outbound.ArbeidsavtaleDto
-import no.nav.arbeidsforhold.dto.outbound.PeriodeDto
+import no.nav.arbeidsforhold.service.outbound.ArbeidsavtaleDto
+import no.nav.arbeidsforhold.service.outbound.PeriodeDto
+import no.nav.arbeidsforhold.util.DtoUtils
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.TestInstance
 import kotlin.test.assertEquals

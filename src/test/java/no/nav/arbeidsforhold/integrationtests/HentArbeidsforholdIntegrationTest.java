@@ -1,6 +1,6 @@
 package no.nav.arbeidsforhold.integrationtests;
 
-import no.nav.arbeidsforhold.dto.outbound.ArbeidsforholdDto;
+import no.nav.arbeidsforhold.service.outbound.ArbeidsforholdDto;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.core.ParameterizedTypeReference;

@@ -1,34 +1,33 @@
-package no.nav.arbeidsforhold.config;
+package no.nav.arbeidsforhold.consumer.ereg
 
-import com.fasterxml.jackson.databind.ObjectMapper;
-import no.nav.tokendings.TokenDingsService;
-import org.springframework.beans.factory.annotation.Value;
-import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.Configuration;
-
-import javax.inject.Named;
-import javax.ws.rs.client.Client;
-import javax.ws.rs.client.ClientBuilder;
-import javax.ws.rs.ext.ContextResolver;
-import java.net.URI;
-import java.net.URISyntaxException;
+import com.fasterxml.jackson.databind.ObjectMapper
+import no.nav.arbeidsforhold.consumer.tokendings.TokenDingsService
+import org.springframework.beans.factory.annotation.Value
+import org.springframework.context.annotation.Bean
+import org.springframework.context.annotation.Configuration
+import java.net.URI
+import java.net.URISyntaxException
+import javax.inject.Named
+import javax.ws.rs.client.Client
+import javax.ws.rs.client.ClientBuilder
+import javax.ws.rs.ext.ContextResolver
 
 @Configuration
-public class EregRestConfiguration {
-
+open class EregRestConfiguration {
     @Bean
-    public EregConsumer eregConsumer(
-            @Named("eregClient") Client client,
-            @Value("${EREG_API_URL}") String eregServiceUri,
-            TokenDingsService tokenDingsService) throws URISyntaxException {
-        return new EregConsumer(client, new URI(eregServiceUri), tokenDingsService);
+    @Throws(URISyntaxException::class)
+    open fun eregConsumer(
+        @Named("eregClient") client: Client,
+        @Value("\${EREG_API_URL}") eregServiceUri: String,
+        tokenDingsService: TokenDingsService
+    ): EregConsumer {
+        return EregConsumer(client, URI(eregServiceUri), tokenDingsService)
     }
 
     @Bean
-    public Client eregClient(ContextResolver<ObjectMapper> clientObjectMapperResolver) {
+    open fun eregClient(clientObjectMapperResolver: ContextResolver<ObjectMapper?>?): Client {
         return ClientBuilder.newBuilder()
-                .register(clientObjectMapperResolver)
-                .build();
+            .register(clientObjectMapperResolver)
+            .build()
     }
-
 }

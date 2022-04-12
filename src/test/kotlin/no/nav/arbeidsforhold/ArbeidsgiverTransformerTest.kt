@@ -1,8 +1,8 @@
 package no.nav.arbeidsforhold
 
-import no.nav.arbeidsforhold.domain.Arbeidsgiver
-import no.nav.arbeidsforhold.dto.outbound.ArbeidsgiverDto
-import no.nav.arbeidsforhold.dto.transformer.ArbeidsgiverTransformer
+import no.nav.arbeidsforhold.consumer.aareg.domain.Arbeidsgiver
+import no.nav.arbeidsforhold.service.outbound.ArbeidsgiverDto
+import no.nav.arbeidsforhold.service.transformer.ArbeidsgiverTransformer
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.TestInstance
 import org.junit.jupiter.api.TestInstance.Lifecycle.PER_CLASS

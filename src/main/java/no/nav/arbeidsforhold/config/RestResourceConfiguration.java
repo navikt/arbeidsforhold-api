@@ -1,8 +1,8 @@
 package no.nav.arbeidsforhold.config;
 
-import no.nav.arbeidsforhold.features.status.StatusResource;
-import no.nav.arbeidsforhold.services.ArbeidsforholdFnrResource;
-import no.nav.arbeidsforhold.services.ArbeidsforholdIdResource;
+import no.nav.arbeidsforhold.resource.ArbeidsforholdFnrResource;
+import no.nav.arbeidsforhold.resource.ArbeidsforholdIdResource;
+import no.nav.arbeidsforhold.resource.StatusResource;
 import no.nav.security.token.support.jaxrs.JwtTokenContainerRequestFilter;
 import org.glassfish.jersey.jackson.JacksonFeature;
 import org.glassfish.jersey.server.ResourceConfig;

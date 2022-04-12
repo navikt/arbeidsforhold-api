@@ -1,117 +1,115 @@
-package no.nav.arbeidsforhold.services.kodeverk;
+package no.nav.arbeidsforhold.consumer.kodeverk
 
-import no.nav.arbeidsforhold.ConsumerFactory;
-import no.nav.arbeidsforhold.services.kodeverk.api.GetKodeverkKoderBetydningerResponse;
-import no.nav.arbeidsforhold.services.kodeverk.exceptions.KodeverkConsumerException;
-import no.nav.common.log.MDCConstants;
-import no.nav.tokendings.TokenDingsService;
-import org.slf4j.MDC;
-import org.springframework.beans.factory.annotation.Value;
-import org.springframework.cache.annotation.Cacheable;
+import no.nav.arbeidsforhold.consumer.kodeverk.domain.GetKodeverkKoderBetydningerResponse
+import no.nav.arbeidsforhold.consumer.tokendings.TokenDingsService
+import no.nav.arbeidsforhold.exception.KodeverkConsumerException
+import no.nav.arbeidsforhold.util.getToken
+import no.nav.arbeidsforhold.util.readEntity
+import no.nav.common.log.MDCConstants
+import org.slf4j.MDC
+import org.springframework.beans.factory.annotation.Value
+import org.springframework.cache.annotation.Cacheable
+import java.net.URI
+import javax.ws.rs.client.Client
+import javax.ws.rs.client.Invocation
+import javax.ws.rs.core.HttpHeaders
+import javax.ws.rs.core.Response
 
-import javax.ws.rs.client.Client;
-import javax.ws.rs.client.Invocation;
-import javax.ws.rs.core.HttpHeaders;
-import javax.ws.rs.core.Response;
-import java.net.URI;
+private const val SPRAAK = "nb"
+private const val BEARER = "Bearer "
+private const val CONSUMER_ID = "personbruker-arbeidsforhold-api"
 
-import static javax.ws.rs.core.Response.Status.Family.SUCCESSFUL;
-import static no.nav.arbeidsforhold.ConsumerFactory.readEntity;
-import static no.nav.arbeidsforhold.util.TokenUtilKt.getToken;
-
-public class KodeverkConsumer {
-
-    private final Client client;
-    private final URI endpoint;
-    private final TokenDingsService tokenDingsService;
-    private static final String SPRAAK = "nb";
-    private static final String BEARER = "Bearer ";
-
-    @Value("${PERSONOPPLYSNINGER_PROXY_TARGET_APP}")
-    private String targetApp;
-
-    public KodeverkConsumer(Client client, URI endpoint, TokenDingsService tokenDingsService) {
-        this.client = client;
-        this.endpoint = endpoint;
-        this.tokenDingsService = tokenDingsService;
-    }
+open class KodeverkConsumer(
+    private val client: Client,
+    private val endpoint: URI,
+    private val tokenDingsService: TokenDingsService
+) {
+    @Value("\${PERSONOPPLYSNINGER_PROXY_TARGET_APP}")
+    private val targetApp: String? = null
 
     @Cacheable("yrker")
-    public GetKodeverkKoderBetydningerResponse hentYrke() {
-        return hentKodeverkBetydning(getBuilder("/api/v1/kodeverk/Yrker/koder/betydninger"));
+    open fun hentYrke(): GetKodeverkKoderBetydningerResponse {
+        return hentKodeverkBetydning(getBuilder("/api/v1/kodeverk/Yrker/koder/betydninger"))
     }
 
     @Cacheable("arbeidsforholdstyper")
-    public GetKodeverkKoderBetydningerResponse hentArbeidsforholdstyper() {
-        return hentKodeverkBetydning(getBuilder("/api/v1/kodeverk/Arbeidsforholdstyper/koder/betydninger"));
+    open fun hentArbeidsforholdstyper(): GetKodeverkKoderBetydningerResponse {
+        return hentKodeverkBetydning(getBuilder("/api/v1/kodeverk/Arbeidsforholdstyper/koder/betydninger"))
     }
 
     @Cacheable("arbeidstidsordninger")
-    public GetKodeverkKoderBetydningerResponse hentArbeidstidsordningstyper() {
-        return hentKodeverkBetydning(getBuilder("/api/v1/kodeverk/Arbeidstidsordninger/koder/betydninger"));
+    open fun hentArbeidstidsordningstyper(): GetKodeverkKoderBetydningerResponse {
+        return hentKodeverkBetydning(getBuilder("/api/v1/kodeverk/Arbeidstidsordninger/koder/betydninger"))
     }
 
     @Cacheable("fartsomraader")
-    public GetKodeverkKoderBetydningerResponse hentFartsomraade() {
-        return hentKodeverkBetydning(getBuilder("/api/v1/kodeverk/Fartsområder/koder/betydninger"));
+    open fun hentFartsomraade(): GetKodeverkKoderBetydningerResponse {
+        return hentKodeverkBetydning(getBuilder("/api/v1/kodeverk/Fartsområder/koder/betydninger"))
     }
 
     @Cacheable("skipsregistre")
-    public GetKodeverkKoderBetydningerResponse hentSkipsregister() {
-        return hentKodeverkBetydning(getBuilder("/api/v1/kodeverk/Skipsregistre/koder/betydninger"));
+    open fun hentSkipsregister(): GetKodeverkKoderBetydningerResponse {
+        return hentKodeverkBetydning(getBuilder("/api/v1/kodeverk/Skipsregistre/koder/betydninger"))
     }
 
     @Cacheable("skipstyper")
-    public GetKodeverkKoderBetydningerResponse hentSkipstyper() {
-        return hentKodeverkBetydning(getBuilder("/api/v1/kodeverk/Skipstyper/koder/betydninger"));
+    open fun hentSkipstyper(): GetKodeverkKoderBetydningerResponse {
+        return hentKodeverkBetydning(getBuilder("/api/v1/kodeverk/Skipstyper/koder/betydninger"))
     }
 
     @Cacheable("land")
-    public GetKodeverkKoderBetydningerResponse hentLand() {
-        return hentKodeverkBetydning(getBuilder("/api/v1/kodeverk/LandkoderISO2/koder/betydninger"));
+    open fun hentLand(): GetKodeverkKoderBetydningerResponse {
+        return hentKodeverkBetydning(getBuilder("/api/v1/kodeverk/LandkoderISO2/koder/betydninger"))
     }
 
     @Cacheable("permisjonstyper")
-    public GetKodeverkKoderBetydningerResponse hentPermisjonstype() {
-        return hentKodeverkBetydning(getBuilder("/api/v1/kodeverk/PermisjonsOgPermitteringsBeskrivelse/koder/betydninger"));
+    open fun hentPermisjonstype(): GetKodeverkKoderBetydningerResponse {
+        return hentKodeverkBetydning(getBuilder("/api/v1/kodeverk/PermisjonsOgPermitteringsBeskrivelse/koder/betydninger"))
     }
 
     @Cacheable("sluttaarsaker")
-    public GetKodeverkKoderBetydningerResponse hentSluttÅrsak() {
-        return hentKodeverkBetydning(getBuilder("/api/v1/kodeverk/SluttårsakAareg/koder/betydninger"));
+    open fun hentSluttAarsak(): GetKodeverkKoderBetydningerResponse {
+        return hentKodeverkBetydning(getBuilder("/api/v1/kodeverk/SluttårsakAareg/koder/betydninger"))
     }
 
-    private Invocation.Builder getBuilder(String path) {
-        String accessToken = tokenDingsService.exchangeToken(getToken(), targetApp).getAccessToken();
+    private fun getBuilder(path: String): Invocation.Builder {
+        val accessToken = tokenDingsService.exchangeToken(getToken(), targetApp).accessToken
         return client.target(endpoint)
-                .path(path)
-                .queryParam("spraak", SPRAAK)
-                .queryParam("ekskluderUgyldige", false)
-                .request()
-                .header(HttpHeaders.AUTHORIZATION, BEARER.concat(accessToken))
-                .header("Nav-Call-Id", MDC.get(MDCConstants.MDC_CALL_ID))
-                .header("Nav-Consumer-Id", ConsumerFactory.CONSUMER_ID);
+            .path(path)
+            .queryParam("spraak", SPRAAK)
+            .queryParam("ekskluderUgyldige", false)
+            .request()
+            .header(HttpHeaders.AUTHORIZATION, BEARER + accessToken)
+            .header("Nav-Call-Id", MDC.get(MDCConstants.MDC_CALL_ID))
+            .header("Nav-Consumer-Id", CONSUMER_ID)
     }
 
-    private GetKodeverkKoderBetydningerResponse hentKodeverkBetydning(Invocation.Builder request) {
-        try (Response response = request.get()) {
-            return readResponseBetydning(response);
-        } catch (KodeverkConsumerException e) {
-            throw e;
-        } catch (Exception e) {
-            String msg = "Forsøkte å konsumere kodeverk. endpoint=[" + endpoint + "].";
-            throw new KodeverkConsumerException(msg, e);
+    private fun hentKodeverkBetydning(request: Invocation.Builder): GetKodeverkKoderBetydningerResponse {
+        try {
+            request.get().use { response -> return readResponseBetydning(response) }
+        } catch (e: KodeverkConsumerException) {
+            throw e
+        } catch (e: Exception) {
+            val msg = "Forsøkte å konsumere kodeverk. endpoint=[$endpoint]."
+            throw KodeverkConsumerException(msg, e)
         }
     }
 
-    private GetKodeverkKoderBetydningerResponse readResponseBetydning(Response r) {
-        if (!SUCCESSFUL.equals(r.getStatusInfo().getFamily())) {
-            String msg = "Forsøkte å konsumere kodeverk. endpoint=[" + endpoint + "], HTTP response status=[" + r.getStatus() + "].";
-            throw new KodeverkConsumerException(msg + " - " + readEntity(String.class, r));
+    private fun readResponseBetydning(r: Response): GetKodeverkKoderBetydningerResponse {
+        return if (Response.Status.Family.SUCCESSFUL != r.statusInfo.family) {
+            val msg =
+                "Forsøkte å konsumere kodeverk. endpoint=[" + endpoint + "], HTTP response status=[" + r.status + "]."
+            throw KodeverkConsumerException(
+                "$msg - " + readEntity(
+                    String::class.java,
+                    r
+                )
+            )
         } else {
-            return readEntity(GetKodeverkKoderBetydningerResponse.class, r);
+            readEntity(
+                GetKodeverkKoderBetydningerResponse::class.java,
+                r
+            )
         }
     }
-
 }
-

@@ -1,89 +1,67 @@
-package no.nav.arbeidsforhold.config;
+package no.nav.arbeidsforhold.consumer.ereg
 
-import no.nav.arbeidsforhold.exceptions.EregConsumerException;
-import no.nav.common.log.MDCConstants;
-import no.nav.ereg.EregOrganisasjon;
-import no.nav.tokendings.TokenDingsService;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-import org.slf4j.MDC;
-import org.springframework.beans.factory.annotation.Value;
+import no.nav.arbeidsforhold.consumer.ereg.domain.EregOrganisasjon
+import no.nav.arbeidsforhold.consumer.tokendings.TokenDingsService
+import no.nav.arbeidsforhold.exception.EregConsumerException
+import no.nav.arbeidsforhold.util.getToken
+import no.nav.arbeidsforhold.util.readEntity
+import no.nav.common.log.MDCConstants
+import org.slf4j.LoggerFactory
+import org.slf4j.MDC
+import org.springframework.beans.factory.annotation.Value
+import java.net.URI
+import javax.ws.rs.client.Client
+import javax.ws.rs.client.Invocation
+import javax.ws.rs.core.HttpHeaders
+import javax.ws.rs.core.Response
 
-import javax.ws.rs.ProcessingException;
-import javax.ws.rs.client.Client;
-import javax.ws.rs.client.Invocation;
-import javax.ws.rs.core.HttpHeaders;
-import javax.ws.rs.core.Response;
-import java.net.URI;
+private const val CONSUMER_ID = "personbruker-arbeidsforhold-api"
+private const val BEARER = "Bearer "
 
-import static javax.ws.rs.core.Response.Status.Family.SUCCESSFUL;
-import static no.nav.arbeidsforhold.util.TokenUtilKt.getToken;
+class EregConsumer(
+    private val client: Client,
+    private val endpoint: URI,
+    private val tokenDingsService: TokenDingsService
+) {
+    private val log = LoggerFactory.getLogger(EregConsumer::class.java)
 
-public class EregConsumer {
+    @Value("\${PERSONOPPLYSNINGER_PROXY_TARGET_APP}")
+    private val targetApp: String? = null
 
-    private static final String CONSUMER_ID = "personbruker-arbeidsforhold-api";
-    private static final String BEARER = "Bearer ";
-    private final Client client;
-    private final URI endpoint;
-    private final TokenDingsService tokenDingsService;
-    private static final Logger log = LoggerFactory.getLogger(EregConsumer.class);
-
-    @Value("${PERSONOPPLYSNINGER_PROXY_TARGET_APP}")
-    private String targetApp;
-
-    public EregConsumer(Client client, URI endpoint, TokenDingsService tokenDingsService) {
-        this.client = client;
-        this.endpoint = endpoint;
-        this.tokenDingsService = tokenDingsService;
-    }
-
-    public EregOrganisasjon hentOrgnavn(String orgnr, String gyldigDato) {
-        String accessToken = tokenDingsService.exchangeToken(getToken(), targetApp).getAccessToken();
-        Invocation.Builder request = buildOrgnrRequest(orgnr, gyldigDato, accessToken);
-        try (Response response = request.get()) {
-            return readResponse(response);
-        } catch (EregConsumerException e) {
-            String msg = String.format("Oppslag på orgnr %s med dato %s feilet. ", orgnr, gyldigDato);
-            log.error(msg.concat(e.getMessage()));
-        } catch (Exception e) {
-            String msg = "Forsøkte å konsumere REST-tjenesten Enhetsregisteret. endpoint=[" + endpoint + "]. Exception message=";
-            log.error(msg.concat(e.getMessage()));
-        }
-        return null;
-    }
-
-    private Invocation.Builder buildOrgnrRequest(String orgnr, String gyldigDato, String accessToken) {
-        if (gyldigDato != null) {
-            gyldigDato = gyldigDato.substring(0, 10);
-        }
-        return client.target(endpoint)
-                .path("v1/organisasjon/" + orgnr + "/noekkelinfo")
-                .queryParam("gyldigDato", gyldigDato)
-                .request()
-                .header(HttpHeaders.AUTHORIZATION, BEARER.concat(accessToken))
-                .header("Nav-Consumer-Token", getToken())
-                .header("Nav-Call-Id", MDC.get(MDCConstants.MDC_CALL_ID))
-                .header("Nav-Consumer-Id", CONSUMER_ID);
-    }
-
-    private EregOrganisasjon readResponse(Response r) {
-        if (!SUCCESSFUL.equals(r.getStatusInfo().getFamily())) {
-            String msg = "Forsøkte å konsumere REST-tjenesten Enhetsregister. endpoint=[" + endpoint + "], HTTP response status=[" + r.getStatus() + "].";
-            throw new EregConsumerException(msg + " - " + readEntity(String.class, r));
-        } else {
-            return readEntity(EregOrganisasjon.class, r);
-        }
-    }
-
-    private <T> T readEntity(Class<T> responsklasse, Response response) {
+    fun hentOrgnavn(orgnr: String?, gyldigDato: String?): EregOrganisasjon? {
+        val accessToken = tokenDingsService.exchangeToken(getToken(), targetApp).accessToken
+        val request = buildOrgnrRequest(orgnr, gyldigDato, accessToken)
         try {
-            return response.readEntity(responsklasse);
-        } catch (ProcessingException e) {
-            throw new EregConsumerException("Prosesseringsfeil på responsobjekt. Responsklasse: " + responsklasse.getName(), e);
-        } catch (IllegalStateException e) {
-            throw new EregConsumerException("Ulovlig tilstand på responsobjekt. Responsklasse: " + responsklasse.getName(), e);
-        } catch (Exception e) {
-            throw new EregConsumerException("Uventet feil på responsobjektet. Responsklasse: " + responsklasse.getName(), e);
+            request.get().use { response -> return readResponse(response) }
+        } catch (e: EregConsumerException) {
+            val msg = String.format("Oppslag på orgnr %s med dato %s feilet. ", orgnr, gyldigDato)
+            log.error(msg + e.message)
+        } catch (e: Exception) {
+            val msg = "Forsøkte å konsumere REST-tjenesten Enhetsregisteret. endpoint=[$endpoint]. Exception message="
+            log.error(msg + e.message)
+        }
+        return null
+    }
+
+    private fun buildOrgnrRequest(orgnr: String?, gyldigDato: String?, accessToken: String): Invocation.Builder {
+        val gyldigDatoSubstring = gyldigDato?.substring(0, 10)
+        return client.target(endpoint)
+            .path("v1/organisasjon/$orgnr/noekkelinfo")
+            .queryParam("gyldigDato", gyldigDatoSubstring)
+            .request()
+            .header(HttpHeaders.AUTHORIZATION, BEARER + accessToken)
+            .header("Nav-Consumer-Token", getToken())
+            .header("Nav-Call-Id", MDC.get(MDCConstants.MDC_CALL_ID))
+            .header("Nav-Consumer-Id", CONSUMER_ID)
+    }
+
+    private fun readResponse(r: Response): EregOrganisasjon {
+        return if (Response.Status.Family.SUCCESSFUL != r.statusInfo.family) {
+            val msg =
+                "Forsøkte å konsumere REST-tjenesten Enhetsregister. endpoint=[" + endpoint + "], HTTP response status=[" + r.status + "]."
+            throw EregConsumerException(msg + " - " + readEntity(String::class.java, r))
+        } else {
+            readEntity(EregOrganisasjon::class.java, r)
         }
     }
 }

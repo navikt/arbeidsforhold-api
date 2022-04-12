@@ -1,6 +1,6 @@
 package no.nav.arbeidsforhold
 
-import no.nav.arbeidsforhold.domain.AntallTimerForTimeloennet
+import no.nav.arbeidsforhold.consumer.aareg.domain.AntallTimerForTimeloennet
 
 object AntallTimerForTimeloennetObjectMother {
     val withDummyValues = AntallTimerForTimeloennet(

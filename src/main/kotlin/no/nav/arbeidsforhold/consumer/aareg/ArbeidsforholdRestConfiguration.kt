@@ -1,40 +1,41 @@
-package no.nav.arbeidsforhold.config;
+package no.nav.arbeidsforhold.consumer.aareg
 
-import com.fasterxml.jackson.databind.ObjectMapper;
-import no.nav.tokendings.TokenDingsService;
-import org.glassfish.jersey.client.ClientProperties;
-import org.springframework.beans.factory.annotation.Value;
-import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.Configuration;
-
-import javax.inject.Named;
-import javax.ws.rs.client.Client;
-import javax.ws.rs.client.ClientBuilder;
-import javax.ws.rs.ext.ContextResolver;
-import java.net.URI;
-import java.net.URISyntaxException;
+import com.fasterxml.jackson.databind.ObjectMapper
+import no.nav.arbeidsforhold.consumer.tokendings.TokenDingsService
+import org.glassfish.jersey.client.ClientProperties
+import org.springframework.beans.factory.annotation.Value
+import org.springframework.context.annotation.Bean
+import org.springframework.context.annotation.Configuration
+import java.net.URI
+import java.net.URISyntaxException
+import javax.inject.Named
+import javax.ws.rs.client.Client
+import javax.ws.rs.client.ClientBuilder
+import javax.ws.rs.ext.ContextResolver
 
 @Configuration
-public class ArbeidsforholdRestConfiguration {
-
+open class ArbeidsforholdRestConfiguration {
     @Bean
-    public ArbeidsforholdConsumer arbeidsforholdConsumer(
-            @Named("arbeidsforholdClient") Client client,
-            @Value("${AAREG_API_URL}") String aaregServiceUri,
-            TokenDingsService tokenDingsService) throws URISyntaxException {
-        return new ArbeidsforholdConsumer(client, new URI(aaregServiceUri), tokenDingsService);
+    @Throws(URISyntaxException::class)
+    open fun arbeidsforholdConsumer(
+        @Named("arbeidsforholdClient") client: Client,
+        @Value("\${AAREG_API_URL}") aaregServiceUri: String,
+        tokenDingsService: TokenDingsService
+    ): ArbeidsforholdConsumer {
+        return ArbeidsforholdConsumer(client, URI(aaregServiceUri), tokenDingsService)
     }
 
     @Bean
-    public Client arbeidsforholdClient(
-            ContextResolver<ObjectMapper> clientObjectMapperResolver,
-            @Named("defaultConnectTimeoutInMillis") Integer connectTimeout,
-            @Named("defaultReadTimeoutInMillis") Integer readTimeout) {
-        Client client = ClientBuilder.newBuilder()
-                .register(clientObjectMapperResolver)
-                .build();
-        client.property(ClientProperties.CONNECT_TIMEOUT, connectTimeout);
-        client.property(ClientProperties.READ_TIMEOUT, readTimeout);
-        return client;
+    open fun arbeidsforholdClient(
+        clientObjectMapperResolver: ContextResolver<ObjectMapper?>?,
+        @Named("defaultConnectTimeoutInMillis") connectTimeout: Int?,
+        @Named("defaultReadTimeoutInMillis") readTimeout: Int?
+    ): Client {
+        val client = ClientBuilder.newBuilder()
+            .register(clientObjectMapperResolver)
+            .build()
+        client.property(ClientProperties.CONNECT_TIMEOUT, connectTimeout)
+        client.property(ClientProperties.READ_TIMEOUT, readTimeout)
+        return client
     }
 }
