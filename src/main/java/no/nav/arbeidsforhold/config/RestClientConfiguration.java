@@ -13,12 +13,12 @@ public class RestClientConfiguration {
 
     @Bean
     public Integer defaultConnectTimeoutInMillis() {
-        return Integer.valueOf(10 * 1000);
+        return 10 * 1000;
     }
 
     @Bean
     public Integer defaultReadTimeoutInMillis() {
-        return Integer.valueOf(10 * 1000);
+        return 10 * 1000;
     }
 
     @Bean

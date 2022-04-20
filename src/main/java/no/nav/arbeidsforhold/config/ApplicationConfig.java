@@ -1,7 +1,7 @@
 package no.nav.arbeidsforhold.config;
 
-import io.prometheus.client.hotspot.DefaultExports;
-import no.nav.log.LogFilter;
+import no.nav.common.log.LogFilter;
+import no.nav.common.utils.EnvironmentUtils;
 import no.nav.security.token.support.core.configuration.MultiIssuerConfiguration;
 import no.nav.security.token.support.core.configuration.ProxyAwareResourceRetriever;
 import no.nav.security.token.support.jaxrs.servlet.JaxrsJwtTokenValidationFilter;
@@ -27,18 +27,14 @@ import java.util.EnumSet;
 @SpringBootConfiguration
 @ComponentScan({
         "no.nav.arbeidsforhold.api",
-        "no.nav.arbeidsforhold.services",
+        "no.nav.arbeidsforhold.service",
         "no.nav.arbeidsforhold.config",
         "no.nav.arbeidsforhold.tasks",
-        "no.nav.tokendings"})
+        "no.nav.arbeidsforhold.consumer"})
 @EnableConfigurationProperties(MultiIssuerProperties.class)
 @Import({RestClientConfiguration.class,
 })
 public class ApplicationConfig implements EnvironmentAware {
-
-    static  {
-        DefaultExports.initialize();
-    }
 
     private static final Logger log = LoggerFactory.getLogger(ApplicationConfig.class);
 
@@ -93,7 +89,7 @@ public class ApplicationConfig implements EnvironmentAware {
     public FilterRegistrationBean<LogFilter> logFilter() {
         log.info("Registering LogFilter filter");
         final FilterRegistrationBean<LogFilter> filterRegistration = new FilterRegistrationBean<>();
-        filterRegistration.setFilter(new LogFilter());
+        filterRegistration.setFilter(new LogFilter(EnvironmentUtils.requireApplicationName()));
         filterRegistration.setOrder(1);
         return filterRegistration;
     }

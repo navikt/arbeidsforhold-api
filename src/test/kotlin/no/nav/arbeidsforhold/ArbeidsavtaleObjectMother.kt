@@ -1,24 +1,19 @@
 package no.nav.arbeidsforhold
 
-import no.nav.arbeidsforhold.domain.Arbeidsavtale
+import no.nav.arbeidsforhold.consumer.aareg.domain.Arbeidsavtale
 
 object ArbeidsavtaleObjectMother {
 
     val withDummyValues = Arbeidsavtale(
-            ansettelsesform = "fast",
-            antallTimerPrUke = 37.5,
-            arbeidstidsordning = "Fast",
-            stillingsprosent = 100.0,
-            yrke = "YRK",
-            sistStillingsendring = "IFJOR",
-            sistLoennsendring = "IFJOR"
+        ansettelsesform = "fast",
+        antallTimerPrUke = 37.5,
+        arbeidstidsordning = "Fast",
+        stillingsprosent = 100.0,
+        yrke = "YRK",
+        sistStillingsendring = "IFJOR",
+        sistLoennsendring = "IFJOR"
 
     )
 
-    val arrayOfDummyValues = arrayOf(
-            ArbeidsavtaleObjectMother.withDummyValues,
-            Arbeidsavtale(
-
-            )
-    )
+    val dummyValues = listOf(withDummyValues, Arbeidsavtale())
 }

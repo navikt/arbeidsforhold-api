@@ -1,0 +1,10 @@
+SRVARBEIDSFORHOLD_API_USERNAME: dummy
+SRVARBEIDSFORHOLD_API_PASSWORD: dummy
+PERSONOPPLYSNINGER_PROXY_TARGET_APP: dummy
+
+KODEVERK_REST_API_URL: http://localhost:${wiremock.server.port}/kodeverk
+EREG_API_URL: http://localhost:${wiremock.server.port}/ereg
+AAREG_API_URL: http://localhost:${wiremock.server.port}/aareg
+
+LOGINSERVICE_IDPORTEN_DISCOVERY_URL: http://localhost:${mock-oauth2-server.port}/selvbetjening/.well-known/openid-configuration
+LOGINSERVICE_IDPORTEN_AUDIENCE: someaudience

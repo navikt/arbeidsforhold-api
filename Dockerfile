@@ -1,4 +1,4 @@
-FROM navikt/java:11-appdynamics
+FROM navikt/java:17
 COPY target/arbeidsforhold-api.jar app.jar
 ENV APPD_ENABLED=true
 ENV APP_LOG_HOME="/tmp"

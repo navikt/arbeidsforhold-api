@@ -1,8 +1,8 @@
 package no.nav.arbeidsforhold
 
-import no.nav.arbeidsforhold.domain.Arbeidsavtale
-import no.nav.arbeidsforhold.dto.outbound.ArbeidsavtaleDto
-import no.nav.arbeidsforhold.dto.transformer.ArbeidsavtaleTransformer
+import no.nav.arbeidsforhold.consumer.aareg.domain.Arbeidsavtale
+import no.nav.arbeidsforhold.service.outbound.ArbeidsavtaleDto
+import no.nav.arbeidsforhold.service.transformer.ArbeidsavtaleTransformer
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.TestInstance
 import kotlin.test.assertEquals
@@ -13,7 +13,7 @@ class ArbeidsavtaleTransformerTest {
 
     @Test
     fun skalFaaArbeidsavtale() {
-        val inbound: Array<Arbeidsavtale> = ArbeidsavtaleObjectMother.arrayOfDummyValues
+        val inbound: List<Arbeidsavtale> = ArbeidsavtaleObjectMother.dummyValues
         val actual: List<ArbeidsavtaleDto> = ArbeidsavtaleTransformer.toOutboundArray(inbound)
         assertNotNull(actual)
         assertEquals(inbound[0].skipsregister, actual[0].skipsregister)
@@ -21,6 +21,5 @@ class ArbeidsavtaleTransformerTest {
         assertEquals(inbound[0].fartsomraade, actual[0].fartsomraade)
         assertEquals(inbound[0].arbeidstidsordning, actual[0].arbeidstidsordning)
         assertEquals(inbound[0].sistStillingsendring, actual[0].sisteStillingsendring)
-
     }
 }

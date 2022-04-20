@@ -1,8 +1,8 @@
 package no.nav.arbeidsforhold
 
-import no.nav.arbeidsforhold.domain.Arbeidsforhold
-import no.nav.arbeidsforhold.dto.outbound.ArbeidsforholdDto
-import no.nav.arbeidsforhold.dto.transformer.ArbeidsforholdTransformer
+import no.nav.arbeidsforhold.consumer.aareg.domain.Arbeidsforhold
+import no.nav.arbeidsforhold.service.outbound.ArbeidsforholdDto
+import no.nav.arbeidsforhold.service.transformer.ArbeidsforholdTransformer
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.TestInstance
 import kotlin.test.assertEquals
@@ -20,7 +20,6 @@ class ArbeidsforholdTransformerTest {
         assertEquals(inbound.arbeidsforholdId, actual.eksternArbeidsforholdId)
         assertEquals(inbound.ansettelsesperiode?.periode?.fom, actual.ansettelsesperiode?.periode?.periodeFra)
         assertEquals(inbound.ansettelsesperiode?.periode?.tom, actual.ansettelsesperiode?.periode?.periodeTil)
-        assertEquals(inbound.ansettelsesperiode?.varslingskode, actual.ansettelsesperiode?.varslingskode);
-
+        assertEquals(inbound.ansettelsesperiode?.varslingskode, actual.ansettelsesperiode?.varslingskode)
     }
 }

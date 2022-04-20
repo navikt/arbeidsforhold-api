@@ -45,3 +45,5 @@ spec:
   prometheus:
     enabled: true
     path: /person/arbeidsforhold-api/internal/prometheus
+  secureLogs:
+    enabled: true

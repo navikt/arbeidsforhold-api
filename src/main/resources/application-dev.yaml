@@ -9,11 +9,4 @@ server:
     context-path: /person/arbeidsforhold-api
 
 logging:
-  config: "classpath:logback-spring.xml"
-
-no.nav.security.oidc:
-  issuers: selvbetjening
-  issuer.selvbetjening:
-    discoveryurl: http://metadata
-    accepted_audience: aud-localhost
-    cookie_name: localhost-idtoken
+  config: "classpath:logback-test.xml"

@@ -1,0 +1,28 @@
+{
+  "organisasjonsnummer": "911742233",
+  "navn": {
+    "redigertnavn": "MANGVYK AS",
+    "navnelinje1": "MANGVYK AS",
+    "bruksperiode": {
+      "fom": "2014-05-25T16:34:01.701"
+    },
+    "gyldighetsperiode": {
+      "fom": "2014-05-21"
+    }
+  },
+  "enhetstype": "BEDR",
+  "adresse": {
+    "type": "Forretningsadresse",
+    "adresselinje1": "Sveinsvollvegen 111",
+    "postnummer": "4354",
+    "landkode": "NO",
+    "kommunenummer": "1120",
+    "bruksperiode": {
+      "fom": "2015-05-20T04:03:18.225"
+    },
+    "gyldighetsperiode": {
+      "fom": "2015-05-19"
+    }
+  },
+  "opphoersdato": "2021-09-15"
+}
