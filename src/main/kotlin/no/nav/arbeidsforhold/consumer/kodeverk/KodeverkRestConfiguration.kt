@@ -1,7 +1,6 @@
 package no.nav.arbeidsforhold.consumer.kodeverk
 
 import com.fasterxml.jackson.databind.ObjectMapper
-import no.nav.arbeidsforhold.consumer.tokendings.TokenDingsService
 import org.glassfish.jersey.client.ClientProperties
 import org.springframework.beans.factory.annotation.Value
 import org.springframework.context.annotation.Bean
@@ -19,10 +18,9 @@ open class KodeverkRestConfiguration {
     @Throws(URISyntaxException::class)
     open fun kodeverkConsumer(
         @Named("kodeverkClient") client: Client,
-        @Value("\${KODEVERK_REST_API_URL}") kodeServiceUri: String?,
-        tokenDingsService: TokenDingsService
+        @Value("\${KODEVERK_REST_API_URL}") kodeServiceUri: String
     ): KodeverkConsumer {
-        return KodeverkConsumer(client, URI(kodeServiceUri), tokenDingsService)
+        return KodeverkConsumer(client, URI(kodeServiceUri))
     }
 
     @Bean

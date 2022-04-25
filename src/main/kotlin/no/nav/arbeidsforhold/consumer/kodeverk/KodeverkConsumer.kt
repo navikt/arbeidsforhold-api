@@ -1,32 +1,23 @@
 package no.nav.arbeidsforhold.consumer.kodeverk
 
 import no.nav.arbeidsforhold.consumer.kodeverk.domain.GetKodeverkKoderBetydningerResponse
-import no.nav.arbeidsforhold.consumer.tokendings.TokenDingsService
 import no.nav.arbeidsforhold.exception.KodeverkConsumerException
-import no.nav.arbeidsforhold.util.getToken
 import no.nav.arbeidsforhold.util.readEntity
 import no.nav.common.log.MDCConstants
 import org.slf4j.MDC
-import org.springframework.beans.factory.annotation.Value
 import org.springframework.cache.annotation.Cacheable
 import java.net.URI
 import javax.ws.rs.client.Client
 import javax.ws.rs.client.Invocation
-import javax.ws.rs.core.HttpHeaders
 import javax.ws.rs.core.Response
 
 private const val SPRAAK = "nb"
-private const val BEARER = "Bearer "
 private const val CONSUMER_ID = "personbruker-arbeidsforhold-api"
 
 open class KodeverkConsumer(
     private val client: Client,
     private val endpoint: URI,
-    private val tokenDingsService: TokenDingsService
 ) {
-    @Value("\${PERSONOPPLYSNINGER_PROXY_TARGET_APP}")
-    private val targetApp: String? = null
-
     @Cacheable("yrker")
     open fun hentYrke(): GetKodeverkKoderBetydningerResponse {
         return hentKodeverkBetydning(getBuilder("/api/v1/kodeverk/Yrker/koder/betydninger"))
@@ -73,13 +64,11 @@ open class KodeverkConsumer(
     }
 
     private fun getBuilder(path: String): Invocation.Builder {
-        val accessToken = tokenDingsService.exchangeToken(getToken(), targetApp).accessToken
         return client.target(endpoint)
             .path(path)
             .queryParam("spraak", SPRAAK)
             .queryParam("ekskluderUgyldige", false)
             .request()
-            .header(HttpHeaders.AUTHORIZATION, BEARER + accessToken)
             .header("Nav-Call-Id", MDC.get(MDCConstants.MDC_CALL_ID))
             .header("Nav-Consumer-Id", CONSUMER_ID)
     }
