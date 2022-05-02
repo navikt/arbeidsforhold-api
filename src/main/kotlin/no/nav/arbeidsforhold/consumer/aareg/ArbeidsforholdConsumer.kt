@@ -26,8 +26,9 @@ class ArbeidsforholdConsumer(
     private val endpoint: URI,
     private val tokenDingsService: TokenDingsService
 ) {
-    @Value("\${PERSONOPPLYSNINGER_PROXY_TARGET_APP}")
+    @Value("\${AAREG_TARGET_APP}")
     private val targetApp: String? = null
+
     fun hentArbeidsforholdmedFnr(fnr: String): List<Arbeidsforhold> {
         val accessToken = tokenDingsService.exchangeToken(getToken(), targetApp).accessToken
         val request = buildFnrRequest(fnr, accessToken)
@@ -42,7 +43,7 @@ class ArbeidsforholdConsumer(
 
     private fun buildFnrRequest(fnr: String, accessToken: String): Invocation.Builder {
         return client.target(endpoint)
-            .path("v1/arbeidstaker/arbeidsforhold")
+            .path("api/v1/arbeidstaker/arbeidsforhold")
             .queryParam("regelverk", REGELVERK)
             .queryParam("sporingsinformasjon", false)
             .queryParam("arbeidsforholdtype", ARBEIDSFORHOLDTYPER)
@@ -50,20 +51,18 @@ class ArbeidsforholdConsumer(
             .header(HttpHeaders.AUTHORIZATION, BEARER + accessToken)
             .header("Nav-Call-Id", MDC.get(MDCConstants.MDC_CALL_ID))
             .header("Nav-Consumer-Id", CONSUMER_ID)
-            .header("Nav-Consumer-Token", getToken())
             .header("Nav-Personident", fnr)
     }
 
     private fun buildForholdIdRequest(fnr: String, id: Int, accessToken: String): Invocation.Builder {
         return client.target(endpoint)
-            .path("v1/arbeidsforhold/$id")
+            .path("api/v1/arbeidsforhold/$id")
             .queryParam("historikk", true)
             .queryParam("sporingsinformasjon", false)
             .request()
             .header(HttpHeaders.AUTHORIZATION, BEARER + accessToken)
             .header("Nav-Call-Id", MDC.get(MDCConstants.MDC_CALL_ID))
             .header("Nav-Consumer-Id", CONSUMER_ID)
-            .header("Nav-Consumer-Token", getToken())
             .header("Nav-Personident", fnr)
     }
 

@@ -46,6 +46,8 @@ jobs:
           image: $IMAGE_REGISTRY/$IMAGE_NAME
           version: $IMAGE_VERSION
           proxy-host: https://personopplysninger-proxy.prod-fss-pub.nais.io,
+          aareg-host: https://aareg-services.prod-fss-pub.nais.io,
+          aareg-app-name: aareg-services-nais,
           fss-cluster: prod-fss
           EOF
       - uses: nais/deploy/actions/deploy@master
