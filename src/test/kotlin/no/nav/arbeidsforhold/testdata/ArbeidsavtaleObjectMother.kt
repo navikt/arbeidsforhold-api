@@ -5,11 +5,11 @@ import no.nav.arbeidsforhold.consumer.aareg.domain.Ansettelsesdetaljer
 object ArbeidsavtaleObjectMother {
 
     val withDummyValues = Ansettelsesdetaljer(
-        ansettelsesform = "fast",
+        ansettelsesform = KodeverksentitetObjectMother.withDummyValues,
         antallTimerPrUke = 37.5,
-        arbeidstidsordning = "Fast",
+        arbeidstidsordning = KodeverksentitetObjectMother.withDummyValues,
         avtaltStillingsprosent = 100.0,
-        yrke = "YRK",
+        yrke = KodeverksentitetObjectMother.withDummyValues,
         sisteStillingsprosentendring = "IFJOR",
         sisteLoennsendring = "IFJOR"
 

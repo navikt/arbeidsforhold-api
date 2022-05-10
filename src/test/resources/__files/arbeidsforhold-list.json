@@ -1,68 +1,129 @@
 [
   {
-    "navArbeidsforholdId": 47299258,
-    "arbeidstaker": {
-      "type": "Person",
-      "offentligIdent": "***********",
-      "aktoerId": "1493615715581"
+    "id": "V911050676R16054L0001",
+    "type": {
+      "kode": "ordinaertArbeidsforhold",
+      "beskrivelse": "Ordinært arbeidsforhold"
     },
-    "arbeidsgiver": {
-      "type": "Organisasjon",
-      "organisasjonsnummer": "911742233"
+    "arbeidstaker": {
+      "identer": [
+        {
+          "type": "AKTORID",
+          "ident": "2175141353812",
+          "gjeldende": true
+        },
+        {
+          "type": "FOLKEREGISTERIDENT",
+          "ident": "30063000562",
+          "gjeldende": true
+        }
+      ]
+    },
+    "arbeidssted": {
+      "type": "Underenhet",
+      "identer": [
+        {
+          "type": "ORGANISASJONSNUMMER",
+          "ident": "910825518"
+        }
+      ]
     },
     "opplysningspliktig": {
-      "type": "Organisasjon",
-      "organisasjonsnummer": "912783936"
+      "type": "Hovedenhet",
+      "identer": [
+        {
+          "type": "ORGANISASJONSNUMMER",
+          "ident": "810825472"
+        }
+      ]
     },
-    "type": "ordinaertArbeidsforhold",
     "ansettelsesperiode": {
-      "periode": {
-        "fom": "2019-04-25",
-        "tom": "2019-06-30"
-      },
-      "varslingskode": "IBARBG",
-      "bruksperiode": {
-        "fom": "2019-10-09T18:06:18.972"
-      }
+      "startdato": "2014-01-01"
     },
-    "arbeidsavtaler": [
+    "ansettelsesdetaljer": [
       {
         "type": "Ordinaer",
-        "arbeidstidsordning": "ikkeSkift",
-        "yrke": "7421118",
-        "stillingsprosent": 100.0,
-        "antallTimerPrUke": 37.5,
-        "beregnetAntallTimerPrUke": 37.5,
-        "sistLoennsendring": "2019-04-25",
-        "sistStillingsendring": "2019-04-25",
-        "bruksperiode": {
-          "fom": "2019-05-01T18:38:44.144"
+        "arbeidstidsordning": {
+          "kode": "ikkeSkift",
+          "beskrivelse": "Ikke skift"
         },
-        "gyldighetsperiode": {
-          "fom": "2019-04-01"
+        "ansettelsesform": {
+          "kode": "fast",
+          "beskrivelse": "Fast ansettelse"
+        },
+        "yrke": {
+          "kode": "1231119",
+          "beskrivelse": "KONTORLEDER"
+        },
+        "antallTimerPrUke": 37.5,
+        "avtaltStillingsprosent": 100,
+        "sisteStillingsprosentendring": "2014-01-01",
+        "sisteLoennsendring": "2014-01-01",
+        "rapporteringsmaaneder": {
+          "fra": "2019-11",
+          "til": null
+        }
+      },
+      {
+        "type": "Ordinaer",
+        "arbeidstidsordning": {
+          "kode": "ikkeSkift",
+          "beskrivelse": "Ikke skift"
+        },
+        "ansettelsesform": {
+          "kode": "fast",
+          "beskrivelse": "Fast ansettelse"
+        },
+        "yrke": {
+          "kode": "1231119",
+          "beskrivelse": "KONTORLEDER"
+        },
+        "antallTimerPrUke": 37.5,
+        "avtaltStillingsprosent": 100,
+        "sisteStillingsprosentendring": "2016-01-01",
+        "sisteLoennsendring": "2016-01-01",
+        "rapporteringsmaaneder": {
+          "fra": "2016-01",
+          "til": "2019-10"
         }
       }
     ],
-    "antallTimerForTimeloennet": [
+    "permisjoner": [
       {
-        "periode": {},
-        "antallTimer": 10.47,
-        "rapporteringsperiode": "2019-05"
-      },
-      {
-        "periode": {},
-        "antallTimer": 37.0,
-        "rapporteringsperiode": "2019-06"
+        "id": "68796",
+        "type": {
+          "kode": "permisjonMedForeldrepenger",
+          "beskrivelse": "Permisjon med foreldrepenger"
+        },
+        "startdato": "2021-01-29",
+        "prosent": 50
       }
     ],
-    "varsler": [
+    "permitteringer": [
       {
-        "entitet": "ANSETTELSESPERIODE",
-        "varslingskode": "IBARBG"
+        "id": "54232",
+        "type": {
+          "kode": "permittering",
+          "beskrivelse": "Permittering"
+        },
+        "startdato": "2020-10-30",
+        "prosent": 50
       }
     ],
     "innrapportertEtterAOrdningen": true,
-    "registrert": "2019-05-01T18:28:23.95",
-    "sistBekreftet": "2019-07-12T10:42:08"
+    "rapporteringsordning": {
+      "kode": "a-ordningen",
+      "beskrivelse": "Rapportert via a-ordningen (2015-d.d.)"
+    },
+    "navArbeidsforholdId": 12345,
+    "navVersjon": 5,
+    "navUuid": "28199f29-29e3-42fc-8784-049772bc72fe",
+    "opprettet": "2020-05-28T08:52:01.793",
+    "sistBekreftet": "2020-09-15T08:19:53",
+    "sistEndret": "2020-07-03T14:13:00",
+    "bruksperiode": {
+      "fom": "2020-07-03T14:06:00.286",
+      "tom": null
+    }
   }
 ]

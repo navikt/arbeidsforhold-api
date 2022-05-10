@@ -14,7 +14,7 @@ object ArbeidsforholdObjectMother {
         permisjoner = PermisjonPermitteringObjectMother.dummyValues,
         permitteringer = PermisjonPermitteringObjectMother.dummyValues,
         sistBekreftet = "01.01.2016",
-        type = "Organisasjon",
+        type = KodeverksentitetObjectMother.withDummyValues,
         utenlandsopphold = UtenlandsOppholdObjectMother.dummyValues
     )
 

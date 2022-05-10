@@ -6,7 +6,7 @@ object UtenlandsOppholdObjectMother {
     val withDummyValues = Utenlandsopphold(
         startdato = "01.01.2018",
         sluttdato = "01.01.2019",
-        land = "NOR"
+        land = KodeverksentitetObjectMother.withDummyValues,
     )
 
     val dummyValues = listOf(withDummyValues, Utenlandsopphold())

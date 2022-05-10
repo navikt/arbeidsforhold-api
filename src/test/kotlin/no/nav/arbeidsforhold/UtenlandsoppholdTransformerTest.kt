@@ -19,7 +19,7 @@ class UtenlandsoppholdTransformerTest {
         assertNotNull(actual)
         assertEquals(inbound[0].sluttdato, actual[0].periode?.periodeTil)
         assertEquals(inbound[0].startdato, actual[0].periode?.periodeFra)
-        assertEquals(inbound[0].land, actual[0].land)
+        assertEquals(inbound[0].land?.beskrivelse, actual[0].land)
         assertEquals(inbound[0].rapporteringsmaaned, actual[0].rapporteringsperiode)
     }
 

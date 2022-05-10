@@ -8,7 +8,7 @@ object PermisjonPermitteringObjectMother {
             startdato = "01.01.2018",
             sluttdato = "01.01.2019",
             prosent = 50.0,
-            type = "Permisjon"
+            type = KodeverksentitetObjectMother.withDummyValues,
         )
 
     val dummyValues = listOf(
@@ -17,7 +17,7 @@ object PermisjonPermitteringObjectMother {
             startdato = "01.01.2018",
             sluttdato = "01.01.2019",
             prosent = 50.9,
-            type = "Permisjon"
+            type = KodeverksentitetObjectMother.withDummyValues,
         )
     )
 }

@@ -8,8 +8,8 @@ object AnsettelsesPeriodeObjectMother {
     val withDummyValues = Ansettelsesperiode(
         startdato = "01.01.2018",
         sluttdato = "01.01.2019",
-        varsling = "testkode",
-        sluttaarsak = "arbeidstakerHarSagtOppSelv"
+        varsling = KodeverksentitetObjectMother.withDummyValues,
+        sluttaarsak = KodeverksentitetObjectMother.withDummyValues,
     )
 
 

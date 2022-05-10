@@ -1,5 +1,8 @@
 package no.nav.arbeidsforhold.consumer.aareg.domain
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties
+
+@JsonIgnoreProperties(ignoreUnknown = true)
 data class Ansettelsesperiode(
 
     /* Varslingskode (kodeverk: Varslingskode_5fAa-registeret) - benyttes hvis ansettelsesperiode er lukket maskinelt */

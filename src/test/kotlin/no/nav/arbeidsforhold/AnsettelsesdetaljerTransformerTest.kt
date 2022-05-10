@@ -17,10 +17,10 @@ class AnsettelsesdetaljerTransformerTest {
         val inbound: List<Ansettelsesdetaljer> = ArbeidsavtaleObjectMother.dummyValues
         val actual: List<ArbeidsavtaleDto> = ArbeidsavtaleTransformer.toOutboundArray(inbound)
         assertNotNull(actual)
-        assertEquals(inbound[0].skipsregister, actual[0].skipsregister)
-        assertEquals(inbound[0].fartoeystype, actual[0].skipstype)
-        assertEquals(inbound[0].fartsomraade, actual[0].fartsomraade)
-        assertEquals(inbound[0].arbeidstidsordning, actual[0].arbeidstidsordning)
+        assertEquals(inbound[0].skipsregister?.beskrivelse, actual[0].skipsregister)
+        assertEquals(inbound[0].fartoeystype?.beskrivelse, actual[0].skipstype)
+        assertEquals(inbound[0].fartsomraade?.beskrivelse, actual[0].fartsomraade)
+        assertEquals(inbound[0].arbeidstidsordning?.beskrivelse, actual[0].arbeidstidsordning)
         assertEquals(inbound[0].sisteStillingsprosentendring, actual[0].sisteStillingsendring)
     }
 }
