@@ -12,17 +12,17 @@ object ArbeidsavtaleTransformer {
 
         for (arbeidsavtale in inbound.orEmpty()) {
             val avtaledto = ArbeidsavtaleDto(
-                ansettelsesform = arbeidsavtale.ansettelsesform,
+                ansettelsesform = arbeidsavtale.ansettelsesform?.beskrivelse,
                 antallTimerPrUke = arbeidsavtale.antallTimerPrUke,
-                arbeidstidsordning = arbeidsavtale.arbeidstidsordning,
+                arbeidstidsordning = arbeidsavtale.arbeidstidsordning?.beskrivelse,
                 sisteStillingsendring = arbeidsavtale.sisteStillingsprosentendring,
                 stillingsprosent = arbeidsavtale.avtaltStillingsprosent,
                 sisteLoennsendring = arbeidsavtale.sisteLoennsendring,
-                yrke = arbeidsavtale.yrke,
+                yrke = arbeidsavtale.yrke?.beskrivelse,
                 gyldighetsperiode = PeriodeTransformer.toOutboundfromGyldighetsperiode(arbeidsavtale.rapporteringsmaaneder),
-                fartsomraade = arbeidsavtale.fartsomraade,
-                skipsregister = arbeidsavtale.skipsregister,
-                skipstype = arbeidsavtale.fartoeystype
+                fartsomraade = arbeidsavtale.fartsomraade?.beskrivelse,
+                skipsregister = arbeidsavtale.skipsregister?.beskrivelse,
+                skipstype = arbeidsavtale.fartoeystype?.beskrivelse
             )
             arbeidsavtaleDtoArray.add(avtaledto)
         }

@@ -1,8 +1,5 @@
 package no.nav.arbeidsforhold.consumer.aareg.domain
 
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties
-
-@JsonIgnoreProperties(ignoreUnknown = true)
 data class PermisjonPermittering(
 
     val startdato: String? = null,
@@ -12,5 +9,5 @@ data class PermisjonPermittering(
     /* Prosent for permisjon eller permittering */
     val prosent: Double? = null,
     /* Permisjon-/permitteringstype (kodeverk: PermisjonsOgPermitteringsBeskrivelse) */
-    val type: String? = null
+    val type: Kodeverksentitet? = null
 )

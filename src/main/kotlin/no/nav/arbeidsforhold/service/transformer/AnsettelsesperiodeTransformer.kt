@@ -7,7 +7,7 @@ object AnsettelsesperiodeTransformer {
 
     fun toOutbound(inbound: Ansettelsesperiode?) = AnsettelsesperiodeDto(
         periode = PeriodeTransformer.toOutboundfromPeriode(inbound?.startdato, inbound?.sluttdato),
-        varslingskode = inbound?.varsling,
-        sluttaarsak = inbound?.sluttaarsak
+        varslingskode = inbound?.varsling?.beskrivelse,
+        sluttaarsak = inbound?.sluttaarsak?.beskrivelse
     )
 }

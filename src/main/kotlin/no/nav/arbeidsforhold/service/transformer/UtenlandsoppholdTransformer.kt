@@ -10,7 +10,7 @@ object UtenlandsoppholdTransformer {
 
         for (opphold in inbound.orEmpty()) {
             val udto = UtenlandsoppholdDto(
-                land = opphold.land,
+                land = opphold.land?.beskrivelse,
                 periode = PeriodeTransformer.toOutboundfromPeriode(opphold.startdato, opphold.sluttdato),
                 rapporteringsperiode = opphold.rapporteringsmaaned
             )

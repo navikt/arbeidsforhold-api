@@ -1,8 +1,5 @@
 package no.nav.arbeidsforhold.consumer.aareg.domain
 
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties
-
-@JsonIgnoreProperties(ignoreUnknown = true)
 data class Arbeidsforhold(
 
     val ansettelsesperiode: Ansettelsesperiode? = null,
@@ -22,7 +19,7 @@ data class Arbeidsforhold(
     /* Tidspunkt for siste bekreftelse av arbeidsforhold, format (ISO-8601): yyyy-MM-dd'T'HH:mm[:ss[.SSSSSSSSS]] */
     val sistBekreftet: String? = null,
     /* Arbeidsforholdtype (kodeverk: Arbeidsforholdtyper) */
-    val type: String? = null,
+    val type: Kodeverksentitet? = null,
     /* Utenlandsopphold */
     val utenlandsopphold: List<Utenlandsopphold>? = null
 )

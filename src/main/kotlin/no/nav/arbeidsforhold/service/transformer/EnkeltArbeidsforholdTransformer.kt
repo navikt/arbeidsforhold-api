@@ -13,7 +13,7 @@ object EnkeltArbeidsforholdTransformer {
         return ArbeidsforholdDto(
             navArbeidsforholdId = inbound.navArbeidsforholdId,
             eksternArbeidsforholdId = inbound.id,
-            type = inbound.type,
+            type = inbound.type?.beskrivelse,
             sistBekreftet = inbound.sistBekreftet,
             arbeidsgiver = ArbeidsgiverTransformer.toOutbound(inbound.arbeidsgiver, arbgivnavn),
             opplysningspliktigarbeidsgiver = ArbeidsgiverTransformer.toOutbound(
