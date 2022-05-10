@@ -8,11 +8,11 @@ object EnkeltArbeidsforholdTransformer {
 
     fun toOutbound(inbound: Arbeidsforhold, arbgivnavn: String?, opplarbgivnavn: String?): ArbeidsforholdDto {
 
-        val gyldigarbeidsavtale = gyldigArbeidsavtale(ArbeidsavtaleTransformer.toOutboundArray(inbound.arbeidsavtaler))
+        val gyldigarbeidsavtale = gyldigArbeidsavtale(ArbeidsavtaleTransformer.toOutboundArray(inbound.ansettelsesdetaljer))
 
         return ArbeidsforholdDto(
             navArbeidsforholdId = inbound.navArbeidsforholdId,
-            eksternArbeidsforholdId = inbound.arbeidsforholdId,
+            eksternArbeidsforholdId = inbound.id,
             type = inbound.type,
             sistBekreftet = inbound.sistBekreftet,
             arbeidsgiver = ArbeidsgiverTransformer.toOutbound(inbound.arbeidsgiver, arbgivnavn),
@@ -21,13 +21,13 @@ object EnkeltArbeidsforholdTransformer {
                 opplarbgivnavn
             ),
             ansettelsesperiode = AnsettelsesperiodeTransformer.toOutbound(inbound.ansettelsesperiode),
-            arbeidsavtaler = if (inbound.arbeidsavtaler?.size != 1) {
-                ArbeidsavtaleTransformer.toOutboundArray(inbound.arbeidsavtaler)
+            arbeidsavtaler = if (inbound.ansettelsesdetaljer?.size != 1) {
+                ArbeidsavtaleTransformer.toOutboundArray(inbound.ansettelsesdetaljer)
             } else {
                 ArrayList()
             },
             utenlandsopphold = UtenlandsoppholdTransformer.toOutboundArray(inbound.utenlandsopphold),
-            permisjonPermittering = PermisjonPermitteringTransformer.toOutboundArray(inbound.permisjonPermitteringer),
+            permisjonPermittering = PermisjonPermitteringTransformer.toOutboundArray(inbound.permitteringer.orEmpty() + inbound.permisjoner.orEmpty()),
             ansettelsesform = gyldigarbeidsavtale?.ansettelsesform,
             antallTimerPrUke = gyldigarbeidsavtale?.antallTimerPrUke,
             stillingsprosent = gyldigarbeidsavtale?.stillingsprosent,
@@ -38,7 +38,7 @@ object EnkeltArbeidsforholdTransformer {
             fartsomraade = gyldigarbeidsavtale?.fartsomraade,
             skipsregister = gyldigarbeidsavtale?.skipsregister,
             skipstype = gyldigarbeidsavtale?.skipstype,
-            antallTimerForTimelonnet = AntallTimerForTimeloennetTransformer.toOutboundArray(inbound.antallTimerForTimeloennet)
+            antallTimerForTimelonnet = AntallTimerForTimeloennetTransformer.toOutboundArray(inbound.timerMedTimeloenn)
         )
     }
 

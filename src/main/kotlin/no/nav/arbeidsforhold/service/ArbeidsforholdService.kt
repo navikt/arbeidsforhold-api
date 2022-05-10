@@ -2,7 +2,7 @@ package no.nav.arbeidsforhold.service
 
 import no.nav.arbeidsforhold.consumer.aareg.ArbeidsforholdConsumer
 import no.nav.arbeidsforhold.consumer.aareg.domain.Ansettelsesperiode
-import no.nav.arbeidsforhold.consumer.aareg.domain.Arbeidsgiver
+import no.nav.arbeidsforhold.consumer.aareg.domain.Identer
 import no.nav.arbeidsforhold.consumer.ereg.EregConsumer
 import no.nav.arbeidsforhold.consumer.ereg.domain.EregOrganisasjon
 import no.nav.arbeidsforhold.consumer.ereg.domain.Navn
@@ -15,6 +15,8 @@ import no.nav.arbeidsforhold.service.transformer.ArbeidsavtaleTransformer
 import no.nav.arbeidsforhold.service.transformer.ArbeidsforholdTransformer
 import no.nav.arbeidsforhold.service.transformer.EnkeltArbeidsforholdTransformer
 import no.nav.arbeidsforhold.util.DtoUtils
+import no.nav.arbeidsforhold.util.ORGANISASJONSNUMMER
+import no.nav.arbeidsforhold.util.hentIdent
 import org.slf4j.LoggerFactory
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.stereotype.Service
@@ -35,7 +37,7 @@ class ArbeidsforholdService @Autowired constructor(
         val arbeidsforholdDtos = mutableListOf<ArbeidsforholdDto>()
         for (arbeidsforhold in inbound) {
             val yrke = DtoUtils.hentYrkeForSisteArbeidsavtale(
-                ArbeidsavtaleTransformer.toOutboundArray(arbeidsforhold.arbeidsavtaler)
+                ArbeidsavtaleTransformer.toOutboundArray(arbeidsforhold.ansettelsesdetaljer)
             )?.run { getYrkeTerm(kodeverkConsumer.hentYrke(), this, false) }
             val arbgivnavn = hentArbGiverOrgNavn(arbeidsforhold.arbeidsgiver, arbeidsforhold.ansettelsesperiode)
             val opplarbgivnavn =
@@ -60,7 +62,6 @@ class ArbeidsforholdService @Autowired constructor(
         val arbeidsforholdDto = EnkeltArbeidsforholdTransformer.toOutbound(arbeidsforhold, arbgivnavn, opplarbgivnavn)
 
         val yrkeskode = arbeidsforholdDto.yrke
-        val typekode = arbeidsforholdDto.type
         val arbeidstidsordningkode = arbeidsforholdDto.arbeidstidsordning
         val skipstypekode = arbeidsforholdDto.skipstype
         val skipsregisterkode = arbeidsforholdDto.skipsregister
@@ -176,10 +177,10 @@ class ArbeidsforholdService @Autowired constructor(
             getKodeverksTerm(sluttaarsak, arbeidsforhold.ansettelsesperiode?.sluttaarsak, "Sluttaarsak")
     }
 
-    private fun hentArbGiverOrgNavn(arbeidsgiver: Arbeidsgiver?, ansettelsesperiode: Ansettelsesperiode?): String? {
-        val orgnr = arbeidsgiver?.organisasjonsnummer
-        if (arbeidsgiver?.type.equals(organisasjon)) {
-            val organisasjon: EregOrganisasjon? = eregConsumer.hentOrgnavn(orgnr, ansettelsesperiode?.periode?.tom)
+    private fun hentArbGiverOrgNavn(identer: Identer?, ansettelsesperiode: Ansettelsesperiode?): String? {
+        val orgnr = hentIdent(identer?.identer, ORGANISASJONSNUMMER)
+        if (identer?.type.equals(organisasjon)) {
+            val organisasjon: EregOrganisasjon? = eregConsumer.hentOrgnavn(orgnr, ansettelsesperiode?.sluttdato)
             if (organisasjon != null) {
                 return concatenateNavn(organisasjon.navn)
             }

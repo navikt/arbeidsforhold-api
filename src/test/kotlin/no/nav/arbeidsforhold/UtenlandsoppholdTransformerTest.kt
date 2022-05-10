@@ -2,6 +2,7 @@ package no.nav.arbeidsforhold
 
 import no.nav.arbeidsforhold.service.outbound.UtenlandsoppholdDto
 import no.nav.arbeidsforhold.service.transformer.UtenlandsoppholdTransformer
+import no.nav.arbeidsforhold.testdata.UtenlandsOppholdObjectMother
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.TestInstance
 import org.junit.jupiter.api.TestInstance.Lifecycle.PER_CLASS
@@ -16,10 +17,10 @@ class UtenlandsoppholdTransformerTest {
         val inbound = UtenlandsOppholdObjectMother.dummyValues
         val actual: List<UtenlandsoppholdDto> = UtenlandsoppholdTransformer.toOutboundArray(inbound)
         assertNotNull(actual)
-        assertEquals(inbound[0].periode?.tom, actual[0].periode?.periodeTil)
-        assertEquals(inbound[0].periode?.fom, actual[0].periode?.periodeFra)
-        assertEquals(inbound[0].landkode, actual[0].land)
-        assertEquals(inbound[0].rapporteringsperiode, actual[0].rapporteringsperiode)
+        assertEquals(inbound[0].sluttdato, actual[0].periode?.periodeTil)
+        assertEquals(inbound[0].startdato, actual[0].periode?.periodeFra)
+        assertEquals(inbound[0].land, actual[0].land)
+        assertEquals(inbound[0].rapporteringsmaaned, actual[0].rapporteringsperiode)
     }
 
 }

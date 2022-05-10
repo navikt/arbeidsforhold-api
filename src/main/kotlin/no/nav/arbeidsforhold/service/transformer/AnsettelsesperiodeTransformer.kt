@@ -6,8 +6,8 @@ import no.nav.arbeidsforhold.service.outbound.AnsettelsesperiodeDto
 object AnsettelsesperiodeTransformer {
 
     fun toOutbound(inbound: Ansettelsesperiode?) = AnsettelsesperiodeDto(
-        periode = PeriodeTransformer.toOutboundfromPeriode(inbound?.periode),
-        varslingskode = inbound?.varslingskode,
+        periode = PeriodeTransformer.toOutboundfromPeriode(inbound?.startdato, inbound?.sluttdato),
+        varslingskode = inbound?.varsling,
         sluttaarsak = inbound?.sluttaarsak
     )
 }

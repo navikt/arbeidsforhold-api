@@ -23,7 +23,7 @@ object PermisjonPermitteringTransformer {
             val pdto = PermisjonPermitteringDto(
                 type = permisjon.type,
                 prosent = prosentvist,
-                periode = PeriodeTransformer.toOutboundfromPeriode(permisjon.periode)
+                periode = PeriodeTransformer.toOutboundfromPeriode(permisjon.startdato, permisjon.sluttdato)
             )
             permisjonPermitteringDtoArray.add(pdto)
         }

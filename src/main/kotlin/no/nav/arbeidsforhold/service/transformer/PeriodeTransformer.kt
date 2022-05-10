@@ -1,18 +1,17 @@
 package no.nav.arbeidsforhold.service.transformer
 
-import no.nav.arbeidsforhold.consumer.aareg.domain.Gyldighetsperiode
-import no.nav.arbeidsforhold.consumer.aareg.domain.Periode
+import no.nav.arbeidsforhold.consumer.aareg.domain.Rapporteringsmaaneder
 import no.nav.arbeidsforhold.service.outbound.PeriodeDto
 
 object PeriodeTransformer {
 
-    fun toOutboundfromPeriode(inbound: Periode?) = PeriodeDto(
-        periodeFra = inbound?.fom,
-        periodeTil = inbound?.tom
+    fun toOutboundfromPeriode(startdato: String?, sluttdato: String?) = PeriodeDto(
+        periodeFra = startdato,
+        periodeTil = sluttdato
     )
 
-    fun toOutboundfromGyldighetsperiode(inbound: Gyldighetsperiode?) = PeriodeDto(
-        periodeFra = inbound?.fom,
-        periodeTil = inbound?.tom
+    fun toOutboundfromGyldighetsperiode(inbound: Rapporteringsmaaneder?) = PeriodeDto(
+        periodeFra = inbound?.fra,
+        periodeTil = inbound?.til
     )
 }

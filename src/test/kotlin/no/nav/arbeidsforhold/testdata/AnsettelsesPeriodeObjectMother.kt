@@ -1,4 +1,4 @@
-package no.nav.arbeidsforhold
+package no.nav.arbeidsforhold.testdata
 
 import no.nav.arbeidsforhold.consumer.aareg.domain.Ansettelsesperiode
 
@@ -6,8 +6,9 @@ import no.nav.arbeidsforhold.consumer.aareg.domain.Ansettelsesperiode
 object AnsettelsesPeriodeObjectMother {
 
     val withDummyValues = Ansettelsesperiode(
-        periode = PeriodeObjectMother.withDummyValues,
-        varslingskode = "testkode",
+        startdato = "01.01.2018",
+        sluttdato = "01.01.2019",
+        varsling = "testkode",
         sluttaarsak = "arbeidstakerHarSagtOppSelv"
     )
 

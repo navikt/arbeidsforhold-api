@@ -1,12 +1,12 @@
 package no.nav.arbeidsforhold.service.transformer
 
-import no.nav.arbeidsforhold.consumer.aareg.domain.Arbeidsavtale
+import no.nav.arbeidsforhold.consumer.aareg.domain.Ansettelsesdetaljer
 import no.nav.arbeidsforhold.service.outbound.ArbeidsavtaleDto
 
 
 object ArbeidsavtaleTransformer {
 
-    fun toOutboundArray(inbound: List<Arbeidsavtale>?): List<ArbeidsavtaleDto> {
+    fun toOutboundArray(inbound: List<Ansettelsesdetaljer>?): List<ArbeidsavtaleDto> {
 
         val arbeidsavtaleDtoArray = ArrayList<ArbeidsavtaleDto>()
 
@@ -15,14 +15,14 @@ object ArbeidsavtaleTransformer {
                 ansettelsesform = arbeidsavtale.ansettelsesform,
                 antallTimerPrUke = arbeidsavtale.antallTimerPrUke,
                 arbeidstidsordning = arbeidsavtale.arbeidstidsordning,
-                sisteStillingsendring = arbeidsavtale.sistStillingsendring,
-                stillingsprosent = arbeidsavtale.stillingsprosent,
-                sisteLoennsendring = arbeidsavtale.sistLoennsendring,
+                sisteStillingsendring = arbeidsavtale.sisteStillingsprosentendring,
+                stillingsprosent = arbeidsavtale.avtaltStillingsprosent,
+                sisteLoennsendring = arbeidsavtale.sisteLoennsendring,
                 yrke = arbeidsavtale.yrke,
-                gyldighetsperiode = PeriodeTransformer.toOutboundfromGyldighetsperiode(arbeidsavtale.gyldighetsperiode),
+                gyldighetsperiode = PeriodeTransformer.toOutboundfromGyldighetsperiode(arbeidsavtale.rapporteringsmaaneder),
                 fartsomraade = arbeidsavtale.fartsomraade,
                 skipsregister = arbeidsavtale.skipsregister,
-                skipstype = arbeidsavtale.skipstype
+                skipstype = arbeidsavtale.fartoeystype
             )
             arbeidsavtaleDtoArray.add(avtaledto)
         }

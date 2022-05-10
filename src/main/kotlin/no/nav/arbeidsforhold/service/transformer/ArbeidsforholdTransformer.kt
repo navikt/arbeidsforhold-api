@@ -9,7 +9,7 @@ object ArbeidsforholdTransformer {
         ArbeidsforholdDto(
 
             navArbeidsforholdId = inbound.navArbeidsforholdId,
-            eksternArbeidsforholdId = inbound.arbeidsforholdId,
+            eksternArbeidsforholdId = inbound.id,
             yrke = yrke,
             arbeidsgiver = ArbeidsgiverTransformer.toOutbound(inbound.arbeidsgiver, arbgivnavn),
             opplysningspliktigarbeidsgiver = ArbeidsgiverTransformer.toOutbound(
@@ -18,7 +18,7 @@ object ArbeidsforholdTransformer {
             ),
             ansettelsesperiode = AnsettelsesperiodeTransformer.toOutbound(inbound.ansettelsesperiode),
             utenlandsopphold = UtenlandsoppholdTransformer.toOutboundArray(inbound.utenlandsopphold),
-            permisjonPermittering = PermisjonPermitteringTransformer.toOutboundArray(inbound.permisjonPermitteringer)
+            permisjonPermittering = PermisjonPermitteringTransformer.toOutboundArray(inbound.permisjoner.orEmpty() + inbound.permitteringer.orEmpty())
 
         )
 }
