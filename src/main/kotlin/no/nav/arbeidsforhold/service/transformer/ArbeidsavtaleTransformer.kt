@@ -6,7 +6,10 @@ import no.nav.arbeidsforhold.service.outbound.ArbeidsavtaleDto
 
 object ArbeidsavtaleTransformer {
 
-    fun toOutboundArray(inbound: List<Ansettelsesdetaljer>?): List<ArbeidsavtaleDto> {
+    fun toOutboundArray(
+        inbound: List<Ansettelsesdetaljer>?,
+        inkluderYrkeskode: Boolean = false
+    ): List<ArbeidsavtaleDto> {
 
         val arbeidsavtaleDtoArray = ArrayList<ArbeidsavtaleDto>()
 
@@ -18,7 +21,7 @@ object ArbeidsavtaleTransformer {
                 sisteStillingsendring = arbeidsavtale.sisteStillingsprosentendring,
                 stillingsprosent = arbeidsavtale.avtaltStillingsprosent,
                 sisteLoennsendring = arbeidsavtale.sisteLoennsendring,
-                yrke = arbeidsavtale.yrke?.beskrivelse,
+                yrke = if (inkluderYrkeskode) "${arbeidsavtale.yrke?.beskrivelse} (Yrkeskode: ${arbeidsavtale.yrke?.kode})" else arbeidsavtale.yrke?.beskrivelse,
                 gyldighetsperiode = PeriodeTransformer.toOutboundfromGyldighetsperiode(arbeidsavtale.rapporteringsmaaneder),
                 fartsomraade = arbeidsavtale.fartsomraade?.beskrivelse,
                 skipsregister = arbeidsavtale.skipsregister?.beskrivelse,

@@ -8,7 +8,7 @@ object EnkeltArbeidsforholdTransformer {
 
     fun toOutbound(inbound: Arbeidsforhold, arbgivnavn: String?, opplarbgivnavn: String?): ArbeidsforholdDto {
 
-        val gyldigarbeidsavtale = gyldigArbeidsavtale(ArbeidsavtaleTransformer.toOutboundArray(inbound.ansettelsesdetaljer))
+        val gyldigarbeidsavtale = gyldigArbeidsavtale(ArbeidsavtaleTransformer.toOutboundArray(inbound.ansettelsesdetaljer, true))
 
         return ArbeidsforholdDto(
             navArbeidsforholdId = inbound.navArbeidsforholdId,
@@ -22,7 +22,7 @@ object EnkeltArbeidsforholdTransformer {
             ),
             ansettelsesperiode = AnsettelsesperiodeTransformer.toOutbound(inbound.ansettelsesperiode),
             arbeidsavtaler = if (inbound.ansettelsesdetaljer?.size != 1) {
-                ArbeidsavtaleTransformer.toOutboundArray(inbound.ansettelsesdetaljer)
+                ArbeidsavtaleTransformer.toOutboundArray(inbound.ansettelsesdetaljer, true)
             } else {
                 ArrayList()
             },
