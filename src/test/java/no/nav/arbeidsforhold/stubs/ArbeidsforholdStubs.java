@@ -11,13 +11,13 @@ public class ArbeidsforholdStubs {
     }
 
     public static void stubAareg200() {
-        stubFor(get(urlPathMatching("/aareg/api/v1/arbeidsforhold/.*"))
+        stubFor(get(urlPathMatching("/aareg/api/v2/arbeidsforhold/.*"))
                 .willReturn(aResponse()
                         .withStatus(200)
                         .withBodyFile("arbeidsforhold-single.json")
                         .withHeader(HttpHeaders.CONTENT_TYPE, "application/json")));
 
-        stubFor(get(urlPathMatching("/aareg/api/v1/arbeidstaker/arbeidsforhold"))
+        stubFor(get(urlPathMatching("/aareg/api/v2/arbeidstaker/arbeidsforhold"))
                 .willReturn(aResponse()
                         .withStatus(200)
                         .withBodyFile("arbeidsforhold-list.json")
@@ -26,13 +26,13 @@ public class ArbeidsforholdStubs {
     }
 
     public static void stubAareg500() {
-        stubFor(get(urlPathMatching("/aareg/api/v1/arbeidsforhold/.*"))
+        stubFor(get(urlPathMatching("/aareg/api/v2/arbeidsforhold/.*"))
                 .willReturn(aResponse()
                         .withStatus(500)
                         .withBody("Noe gikk galt")
                         .withHeader(HttpHeaders.CONTENT_TYPE, "application/json")));
 
-        stubFor(get(urlPathMatching("/aareg/api/v1/arbeidstaker/arbeidsforhold"))
+        stubFor(get(urlPathMatching("/aareg/api/v2/arbeidstaker/arbeidsforhold"))
                 .willReturn(aResponse()
                         .withStatus(500)
                         .withBody("Noe gikk galt")
