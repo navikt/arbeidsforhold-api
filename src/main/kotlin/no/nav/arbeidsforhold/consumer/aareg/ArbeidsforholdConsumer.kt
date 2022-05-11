@@ -43,7 +43,7 @@ class ArbeidsforholdConsumer(
 
     private fun buildFnrRequest(fnr: String, accessToken: String): Invocation.Builder {
         return client.target(endpoint)
-            .path("api/v1/arbeidstaker/arbeidsforhold")
+            .path("api/v2/arbeidstaker/arbeidsforhold")
             .queryParam("regelverk", REGELVERK)
             .queryParam("sporingsinformasjon", false)
             .queryParam("arbeidsforholdtype", ARBEIDSFORHOLDTYPER)
@@ -56,7 +56,7 @@ class ArbeidsforholdConsumer(
 
     private fun buildForholdIdRequest(fnr: String, id: Int, accessToken: String): Invocation.Builder {
         return client.target(endpoint)
-            .path("api/v1/arbeidsforhold/$id")
+            .path("api/v2/arbeidsforhold/$id")
             .queryParam("historikk", true)
             .queryParam("sporingsinformasjon", false)
             .request()

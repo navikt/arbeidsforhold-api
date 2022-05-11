@@ -13,6 +13,7 @@ import no.nav.arbeidsforhold.service.transformer.EnkeltArbeidsforholdTransformer
 import no.nav.arbeidsforhold.util.DtoUtils
 import no.nav.arbeidsforhold.util.ORGANISASJONSNUMMER
 import no.nav.arbeidsforhold.util.hentIdent
+import no.nav.arbeidsforhold.util.isOrganisasjon
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.stereotype.Service
 
@@ -22,14 +23,12 @@ class ArbeidsforholdService @Autowired constructor(
     private var eregConsumer: EregConsumer,
 ) {
 
-    private val organisasjon = "Organisasjon"
-
     fun hentArbeidsforhold(fodselsnr: String): List<ArbeidsforholdDto> {
         val inbound = arbeidsforholdConsumer.hentArbeidsforholdmedFnr(fodselsnr)
         val arbeidsforholdDtos = mutableListOf<ArbeidsforholdDto>()
         for (arbeidsforhold in inbound) {
             val yrke = DtoUtils.hentYrkeForSisteArbeidsavtale(ArbeidsavtaleTransformer.toOutboundArray(arbeidsforhold.ansettelsesdetaljer))
-            val arbgivnavn = hentArbGiverOrgNavn(arbeidsforhold.arbeidsgiver, arbeidsforhold.ansettelsesperiode)
+            val arbgivnavn = hentArbGiverOrgNavn(arbeidsforhold.arbeidssted, arbeidsforhold.ansettelsesperiode)
             val opplarbgivnavn =
                 hentArbGiverOrgNavn(arbeidsforhold.opplysningspliktig, arbeidsforhold.ansettelsesperiode)
             arbeidsforholdDtos.add(
@@ -47,7 +46,7 @@ class ArbeidsforholdService @Autowired constructor(
     fun hentEttArbeidsforholdmedId(fodselsnr: String, id: Int): ArbeidsforholdDto {
         val arbeidsforhold = arbeidsforholdConsumer.hentArbeidsforholdmedId(fodselsnr, id)
 
-        val arbgivnavn = hentArbGiverOrgNavn(arbeidsforhold.arbeidsgiver, arbeidsforhold.ansettelsesperiode)
+        val arbgivnavn = hentArbGiverOrgNavn(arbeidsforhold.arbeidssted, arbeidsforhold.ansettelsesperiode)
         val opplarbgivnavn = hentArbGiverOrgNavn(arbeidsforhold.opplysningspliktig, arbeidsforhold.ansettelsesperiode)
         val arbeidsforholdDto = EnkeltArbeidsforholdTransformer.toOutbound(arbeidsforhold, arbgivnavn, opplarbgivnavn)
 
@@ -57,7 +56,7 @@ class ArbeidsforholdService @Autowired constructor(
 
     private fun hentArbGiverOrgNavn(identer: Identer?, ansettelsesperiode: Ansettelsesperiode?): String? {
         val orgnr = hentIdent(identer?.identer, ORGANISASJONSNUMMER)
-        if (identer?.type.equals(organisasjon)) {
+        if (isOrganisasjon(identer)) {
             val organisasjon: EregOrganisasjon? = eregConsumer.hentOrgnavn(orgnr, ansettelsesperiode?.sluttdato)
             if (organisasjon != null) {
                 return concatenateNavn(organisasjon.navn)

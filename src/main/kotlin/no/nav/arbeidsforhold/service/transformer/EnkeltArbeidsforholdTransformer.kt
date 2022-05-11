@@ -15,7 +15,7 @@ object EnkeltArbeidsforholdTransformer {
             eksternArbeidsforholdId = inbound.id,
             type = inbound.type?.beskrivelse,
             sistBekreftet = inbound.sistBekreftet,
-            arbeidsgiver = ArbeidsgiverTransformer.toOutbound(inbound.arbeidsgiver, arbgivnavn),
+            arbeidsgiver = ArbeidsgiverTransformer.toOutbound(inbound.arbeidssted, arbgivnavn),
             opplysningspliktigarbeidsgiver = ArbeidsgiverTransformer.toOutbound(
                 inbound.opplysningspliktig,
                 opplarbgivnavn

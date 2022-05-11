@@ -10,7 +10,7 @@ object ArbeidsforholdObjectMother {
         ansettelsesdetaljer = ArbeidsavtaleObjectMother.dummyValues,
         navArbeidsforholdId = 1111,
         id = "1111",
-        arbeidsgiver = ArbeidsgiverObjectMother.withDummyValues,
+        arbeidssted = ArbeidsgiverObjectMother.withDummyValues,
         permisjoner = PermisjonPermitteringObjectMother.dummyValues,
         permitteringer = PermisjonPermitteringObjectMother.dummyValues,
         sistBekreftet = "01.01.2016",

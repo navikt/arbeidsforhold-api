@@ -11,7 +11,7 @@ object ArbeidsforholdTransformer {
             navArbeidsforholdId = inbound.navArbeidsforholdId,
             eksternArbeidsforholdId = inbound.id,
             yrke = yrke,
-            arbeidsgiver = ArbeidsgiverTransformer.toOutbound(inbound.arbeidsgiver, arbgivnavn),
+            arbeidsgiver = ArbeidsgiverTransformer.toOutbound(inbound.arbeidssted, arbgivnavn),
             opplysningspliktigarbeidsgiver = ArbeidsgiverTransformer.toOutbound(
                 inbound.opplysningspliktig,
                 opplarbgivnavn

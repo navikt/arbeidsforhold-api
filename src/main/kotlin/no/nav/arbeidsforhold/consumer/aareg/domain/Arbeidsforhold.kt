@@ -12,11 +12,11 @@ data class Arbeidsforhold(
     val ansettelsesdetaljer: List<Ansettelsesdetaljer>? = null,
     /* Arbeidsforhold-id fra opplysningspliktig */
     val id: String? = null,
-    val arbeidsgiver: Identer? = null, // todo: Arbeidssted?
-    val arbeidstaker: Identer? = null, // todo: Fikse
+    val arbeidssted: Identer? = null,
+    val arbeidstaker: Identer? = null,
     /* Arbeidsforhold-id i AAREG */
     val navArbeidsforholdId: Long? = null,
-    val opplysningspliktig: Identer? = null, // todo: fikse
+    val opplysningspliktig: Identer? = null,
     val permisjoner: List<PermisjonPermittering>? = null,
     val permitteringer: List<PermisjonPermittering>? = null,
     /* Tidspunkt for siste bekreftelse av arbeidsforhold, format (ISO-8601): yyyy-MM-dd'T'HH:mm[:ss[.SSSSSSSSS]] */
