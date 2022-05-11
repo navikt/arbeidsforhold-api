@@ -16,7 +16,7 @@ class PermisjonPermitteringTransformerTest {
     fun skalFaaPermisjonPermittering() {
         val inbound = PermisjonPermitteringObjectMother.dummyValues
 
-        val actual: List<PermisjonPermitteringDto> = PermisjonPermitteringTransformer.toOutboundArray(inbound)
+        val actual: List<PermisjonPermitteringDto> = PermisjonPermitteringTransformer.toOutboundArray(inbound, emptyList())
 
         assertNotNull(actual)
         assertEquals(inbound[0].sluttdato, actual[0].periode?.periodeTil)
