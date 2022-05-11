@@ -20,6 +20,7 @@ private const val BEARER = "Bearer "
 private const val REGELVERK = "A_ORDNINGEN"
 private const val ARBEIDSFORHOLDTYPER =
     "ordinaertArbeidsforhold,maritimtArbeidsforhold,forenkletOppgjoersordning,frilanserOppdragstakerHonorarPersonerMm"
+private const val ARBEIDSFORHOLDSTATUS = "AKTIV,FREMTIDIG,AVSLUTTET"
 
 class ArbeidsforholdConsumer(
     private val client: Client,
@@ -47,6 +48,7 @@ class ArbeidsforholdConsumer(
             .queryParam("regelverk", REGELVERK)
             .queryParam("sporingsinformasjon", false)
             .queryParam("arbeidsforholdtype", ARBEIDSFORHOLDTYPER)
+            .queryParam("arbeidsforholdstatus", ARBEIDSFORHOLDSTATUS)
             .request()
             .header(HttpHeaders.AUTHORIZATION, BEARER + accessToken)
             .header("Nav-Call-Id", MDC.get(MDCConstants.MDC_CALL_ID))
