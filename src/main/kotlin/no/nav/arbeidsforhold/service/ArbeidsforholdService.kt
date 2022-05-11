@@ -48,9 +48,8 @@ class ArbeidsforholdService @Autowired constructor(
 
         val arbgivnavn = hentArbGiverOrgNavn(arbeidsforhold.arbeidssted, arbeidsforhold.ansettelsesperiode)
         val opplarbgivnavn = hentArbGiverOrgNavn(arbeidsforhold.opplysningspliktig, arbeidsforhold.ansettelsesperiode)
-        val arbeidsforholdDto = EnkeltArbeidsforholdTransformer.toOutbound(arbeidsforhold, arbgivnavn, opplarbgivnavn)
 
-        return arbeidsforholdDto
+        return EnkeltArbeidsforholdTransformer.toOutbound(arbeidsforhold, arbgivnavn, opplarbgivnavn)
     }
 
 

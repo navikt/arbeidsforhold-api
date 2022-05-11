@@ -17,7 +17,7 @@ fun hentIdent(identer: List<Ident>?, identType: String): String? {
         return null
     }
     return identer.stream()
-        .filter { i -> identType.equals(i.type) }
+        .filter { i -> identType == i.type }
         .findFirst().orElse(null)?.ident
 }
 
