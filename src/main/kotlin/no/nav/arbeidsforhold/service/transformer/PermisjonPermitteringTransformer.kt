@@ -28,7 +28,7 @@ object PermisjonPermitteringTransformer {
             permisjonPermitteringDtoArray.add(pdto)
         }
 
-        return permisjonPermitteringDtoArray
+        return permisjonPermitteringDtoArray.sortedBy { it.periode?.periodeFra }
     }
 
 }
