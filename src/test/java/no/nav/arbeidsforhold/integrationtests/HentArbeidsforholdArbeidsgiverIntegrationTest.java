@@ -9,8 +9,6 @@ import static no.nav.arbeidsforhold.stubs.ArbeidsforholdStubs.stubAareg200;
 import static no.nav.arbeidsforhold.stubs.ArbeidsforholdStubs.stubAareg500;
 import static no.nav.arbeidsforhold.stubs.EregStubs.stubEreg200;
 import static no.nav.arbeidsforhold.stubs.EregStubs.stubEreg500;
-import static no.nav.arbeidsforhold.stubs.KodeverkStubs.stubKodeverk200;
-import static no.nav.arbeidsforhold.stubs.KodeverkStubs.stubKodeverk500;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.equalTo;
 import static org.hamcrest.core.Is.is;
@@ -19,7 +17,6 @@ class HentArbeidsforholdArbeidsgiverIntegrationTest extends AbstractIntegrationT
 
     @BeforeEach
     void setup() {
-        stubKodeverk200();
         stubAareg200();
         stubEreg200();
     }
@@ -70,19 +67,6 @@ class HentArbeidsforholdArbeidsgiverIntegrationTest extends AbstractIntegrationT
                 String.class);
 
         assertThat(response.getStatusCode(), is(equalTo(HttpStatus.OK)));
-    }
-
-    @Test
-    void skalGi500MedFeilMotKodeverk() {
-        stubKodeverk500();
-
-        ResponseEntity<String> response = restTemplate.exchange(
-                "/arbeidsforholdinnslag/arbeidsgiver/1337",
-                HttpMethod.GET,
-                createEntityWithAuthAndFnr(),
-                String.class);
-
-        assertThat(response.getStatusCode(), is(equalTo(HttpStatus.INTERNAL_SERVER_ERROR)));
     }
 
     private HttpEntity<HttpHeaders> createEntityWithAuthAndFnr() {

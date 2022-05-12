@@ -1,7 +1,6 @@
 PERSONOPPLYSNINGER_PROXY_TARGET_APP: dummy
 AAREG_TARGET_APP: dummy
 
-KODEVERK_REST_API_URL: http://localhost:${wiremock.server.port}/kodeverk
 EREG_API_URL: http://localhost:${wiremock.server.port}/ereg
 AAREG_API_URL: http://localhost:${wiremock.server.port}/aareg
 

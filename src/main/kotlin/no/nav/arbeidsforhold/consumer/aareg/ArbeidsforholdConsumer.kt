@@ -20,6 +20,7 @@ private const val BEARER = "Bearer "
 private const val REGELVERK = "A_ORDNINGEN"
 private const val ARBEIDSFORHOLDTYPER =
     "ordinaertArbeidsforhold,maritimtArbeidsforhold,forenkletOppgjoersordning,frilanserOppdragstakerHonorarPersonerMm"
+private const val ARBEIDSFORHOLDSTATUS = "AKTIV,FREMTIDIG,AVSLUTTET"
 
 class ArbeidsforholdConsumer(
     private val client: Client,
@@ -43,10 +44,11 @@ class ArbeidsforholdConsumer(
 
     private fun buildFnrRequest(fnr: String, accessToken: String): Invocation.Builder {
         return client.target(endpoint)
-            .path("api/v1/arbeidstaker/arbeidsforhold")
+            .path("api/v2/arbeidstaker/arbeidsforhold")
             .queryParam("regelverk", REGELVERK)
             .queryParam("sporingsinformasjon", false)
             .queryParam("arbeidsforholdtype", ARBEIDSFORHOLDTYPER)
+            .queryParam("arbeidsforholdstatus", ARBEIDSFORHOLDSTATUS)
             .request()
             .header(HttpHeaders.AUTHORIZATION, BEARER + accessToken)
             .header("Nav-Call-Id", MDC.get(MDCConstants.MDC_CALL_ID))
@@ -56,7 +58,7 @@ class ArbeidsforholdConsumer(
 
     private fun buildForholdIdRequest(fnr: String, id: Int, accessToken: String): Invocation.Builder {
         return client.target(endpoint)
-            .path("api/v1/arbeidsforhold/$id")
+            .path("api/v2/arbeidsforhold/$id")
             .queryParam("historikk", true)
             .queryParam("sporingsinformasjon", false)
             .request()
