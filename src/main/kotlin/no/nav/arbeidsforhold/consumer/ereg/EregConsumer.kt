@@ -35,10 +35,10 @@ class EregConsumer(
             request.get().use { response -> return readResponse(response) }
         } catch (e: EregConsumerException) {
             val msg = String.format("Oppslag på orgnr %s med dato %s feilet. ", orgnr, gyldigDato)
-            log.error(msg + e.message)
+            log.warn(msg + e.message)
         } catch (e: Exception) {
             val msg = "Forsøkte å konsumere REST-tjenesten Enhetsregisteret. endpoint=[$endpoint]. Exception message="
-            log.error(msg + e.message)
+            log.warn(msg + e.message)
         }
         return null
     }
