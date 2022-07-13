@@ -1,0 +1,9 @@
+{
+  "ingresses": [
+    "https://person.dev.nav.no/person/arbeidsforhold-api"
+  ],
+  "proxy-host": "https://personopplysninger-proxy.dev-fss-pub.nais.io",
+  "aareg-host": "https://aareg-services-q1.dev-fss-pub.nais.io",
+  "aareg-app-name": "aareg-services-nais-q1",
+  "fss-cluster": "dev-fss"
+}

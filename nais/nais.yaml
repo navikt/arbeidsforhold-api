@@ -1,19 +1,13 @@
----
-apiVersion: nais.io/v1alpha1
-kind: Application
+apiVersion: "nais.io/v1alpha1"
+kind: "Application"
 metadata:
   name: arbeidsforhold-api
-  namespace: {{namespace}}
+  namespace: personbruker
   labels:
     team: personbruker
 spec:
-  image: {{image}}:{{version}}
-  team: personbruker
+  image: {{version}}
   port: 8080
-  ingresses:
-  {{#each ingresses as |url|}}
-     - {{url}}
-  {{/each}}
   liveness:
     path: /person/arbeidsforhold-api/internal/isAlive
     initialDelay: 10
@@ -23,6 +17,7 @@ spec:
   replicas:
     min: 2
     max: 4
+  webproxy: true
   tokenx:
     enabled: true
   accessPolicy:
@@ -37,17 +32,17 @@ spec:
       external:
         - host: {{ proxy-host }}
         - host: {{ aareg-host }}
+  ingresses:
+  {{#each ingresses}}
+     - "{{this}}"
+         {{/each}}
+  envFrom:
+    - configmap: loginservice-idporten
+    - secret: arbeidsforhold-api-secret
   resources:
     limits:
-      cpu: '3'
-      memory: 1500Mi
+      cpu: "3"
+      memory: 768Mi
     requests:
-      memory: 1500Mi
-  envFrom:
-    - secret: arbeidsforhold-api-secret
-    - configmap: loginservice-idporten
-  prometheus:
-    enabled: true
-    path: /person/arbeidsforhold-api/internal/prometheus
-  secureLogs:
-    enabled: true
+      cpu: "500m"
+      memory: 384Mi
