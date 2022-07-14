@@ -111,11 +111,6 @@ object NAV {
 
 }
 
-object Shadow {
-    const val version = "7.1.2"
-    const val pluginId = "com.github.johnrengelman.shadow"
-}
-
 object Slf4j {
     private const val version = "1.7.36"
     private const val groupId = "org.slf4j"

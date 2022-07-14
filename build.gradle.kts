@@ -8,7 +8,6 @@ plugins {
     kotlin("plugin.serialization").version(Kotlin.version)
 
     id(SpringBoot.plugin) version (SpringBoot.version)
-    id(Shadow.pluginId) version (Shadow.version)
     id(Versions.pluginId) version Versions.version // ./gradlew dependencyUpdates to check for new versions
     application
 }
@@ -50,10 +49,6 @@ dependencies {
     testImplementation(SpringCloud.stubRunner)
 }
 
-application {
-    mainClassName = "no.nav.arbeidsforhold.api.Launcher"
-}
-
 tasks {
     withType<Test> {
         useJUnitPlatform()
@@ -74,5 +69,3 @@ tasks {
         classpath = sourceSets["main"].runtimeClasspath
     }
 }
-
-apply(plugin = Shadow.pluginId)
