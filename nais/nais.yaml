@@ -38,6 +38,8 @@ spec:
   envFrom:
     - configmap: loginservice-idporten
     - secret: arbeidsforhold-api-secret
+  secureLogs:
+    enabled: true
   resources:
     limits:
       cpu: "3"
