@@ -9,10 +9,10 @@ spec:
   image: {{version}}
   port: 8080
   liveness:
-    path: /person/arbeidsforhold-api/internal/isAlive
+    path: /internal/isAlive
     initialDelay: 10
   readiness:
-    path: /person/arbeidsforhold-api/internal/isAlive
+    path: /internal/isAlive
     initialDelay: 10
   replicas:
     min: 2
