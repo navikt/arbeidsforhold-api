@@ -7,6 +7,7 @@ plugins {
     kotlin("plugin.allopen").version(Kotlin.version)
     kotlin("plugin.serialization").version(Kotlin.version)
 
+    id(SpringBoot.plugin) version (SpringBoot.version)
     id(Shadow.pluginId) version (Shadow.version)
     id(Versions.pluginId) version Versions.version // ./gradlew dependencyUpdates to check for new versions
     application
@@ -47,10 +48,6 @@ dependencies {
     testImplementation(NAV.Security.tokenValidatorSpringTest)
     testImplementation(Tomakehurst.wiremock)
     testImplementation(SpringCloud.stubRunner)
-}
-
-application {
-    mainClassName = "io.ktor.server.netty.EngineMain"
 }
 
 tasks {

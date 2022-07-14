@@ -124,13 +124,15 @@ object Slf4j {
 }
 
 object SpringBoot {
-    private const val version = "2.6.6"
+    const val version = "2.6.6"
     private const val groupId = "org.springframework.boot"
 
     const val starterJetty = "$groupId:spring-boot-starter-jetty:$version"
     const val starterJersey = "$groupId:spring-boot-starter-jersey:$version"
     const val starterWeb = "$groupId:spring-boot-starter-web:$version"
     const val starterTest = "$groupId:spring-boot-starter-test:$version"
+
+    const val plugin = "org.springframework.boot"
 }
 
 object Versions {
