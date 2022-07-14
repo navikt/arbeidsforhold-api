@@ -50,6 +50,10 @@ dependencies {
     testImplementation(SpringCloud.stubRunner)
 }
 
+application {
+    mainClassName = "no.nav.arbeidsforhold.api.Launcher"
+}
+
 tasks {
     withType<Test> {
         useJUnitPlatform()
