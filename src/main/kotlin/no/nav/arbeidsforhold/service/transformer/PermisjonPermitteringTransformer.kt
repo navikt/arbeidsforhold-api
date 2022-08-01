@@ -1,6 +1,6 @@
 package no.nav.arbeidsforhold.service.transformer
 
-import no.nav.arbeidsforhold.consumer.aareg.domain.PermisjonPermittering
+import no.nav.arbeidsforhold.consumer.aareg.dto.PermisjonPermittering
 import no.nav.arbeidsforhold.service.outbound.PermisjonPermitteringDto
 
 

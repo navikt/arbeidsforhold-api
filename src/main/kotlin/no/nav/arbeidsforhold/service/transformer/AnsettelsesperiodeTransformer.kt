@@ -1,6 +1,6 @@
 package no.nav.arbeidsforhold.service.transformer
 
-import no.nav.arbeidsforhold.consumer.aareg.domain.Ansettelsesperiode
+import no.nav.arbeidsforhold.consumer.aareg.dto.Ansettelsesperiode
 import no.nav.arbeidsforhold.service.outbound.AnsettelsesperiodeDto
 
 object AnsettelsesperiodeTransformer {

@@ -1,6 +1,6 @@
 package no.nav.arbeidsforhold.testdata
 
-import no.nav.arbeidsforhold.consumer.aareg.domain.Kodeverksentitet
+import no.nav.arbeidsforhold.consumer.aareg.dto.Kodeverksentitet
 
 
 object KodeverksentitetObjectMother {

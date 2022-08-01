@@ -1,6 +1,6 @@
 package no.nav.arbeidsforhold.service.transformer
 
-import no.nav.arbeidsforhold.consumer.aareg.domain.Utenlandsopphold
+import no.nav.arbeidsforhold.consumer.aareg.dto.Utenlandsopphold
 import no.nav.arbeidsforhold.service.outbound.UtenlandsoppholdDto
 
 object UtenlandsoppholdTransformer {
