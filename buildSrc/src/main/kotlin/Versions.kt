@@ -56,7 +56,7 @@ object Shadow {
 }
 
 object TmsKtorTokenSupport {
-    private const val version = "2022.05.19-09.32-5076b2435b0a"
+    private const val version = "2.0.0"
     private const val groupId = "com.github.navikt.tms-ktor-token-support"
 
     const val tokendingsExchange = "$groupId:token-support-tokendings-exchange:$version"
