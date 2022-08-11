@@ -42,7 +42,7 @@ class AaregConsumer(
         return if (aaregResponse.status.isSuccess()) {
             aaregResponse.body()
         } else {
-            throw RuntimeException("Oppslag mot AAREG med fnr feilet med status: ${aaregResponse.status} og melding: ${aaregResponse.body<String>()}")
+            throw RuntimeException("Oppslag mot AAREG med fnr feilet med status: ${aaregResponse.status}")
         }
     }
 
@@ -60,7 +60,7 @@ class AaregConsumer(
         return if (aaregResponse.status.isSuccess()) {
             aaregResponse.body()
         } else {
-            throw RuntimeException("Oppslag mot AAREG med id feilet med status: ${aaregResponse.status} og melding: ${aaregResponse.body<String>()}")
+            throw RuntimeException("Oppslag mot AAREG med id feilet med status: ${aaregResponse.status}")
         }
     }
 }

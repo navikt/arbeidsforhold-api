@@ -1,3 +1,10 @@
+object Auth0 {
+    private const val version = "4.0.0"
+    private const val groupId = "com.auth0"
+
+    const val jwt = "$groupId:java-jwt:$version"
+}
+
 object DittNAV {
     object Common {
         private const val version = "2022.04.19-11.11-1043a85c4f6f"
@@ -30,6 +37,7 @@ object Ktor {
     const val serverTestHost = "$groupId:ktor-server-test-host:$version"
     const val clientContentNegotiation = "$groupId:ktor-client-content-negotiation:$version"
     const val clientApache = "$groupId:ktor-client-apache:$version"
+    const val clientMock = "$groupId:ktor-client-mock:$version"
 }
 
 object Logback {

@@ -23,6 +23,7 @@ repositories {
 
 dependencies {
     implementation(DittNAV.Common.logging)
+    implementation(Auth0.jwt)
     implementation(Ktor.serverNetty)
     implementation(Ktor.serverCallLogging)
     implementation(Ktor.serverCore)
@@ -40,6 +41,7 @@ dependencies {
     implementation(TmsKtorTokenSupport.tokendingsExchange)
     testImplementation(Kotlin.junit5)
     testImplementation(Ktor.serverTestHost)
+    testImplementation(Ktor.clientMock)
 }
 
 application {
