@@ -1,5 +1,6 @@
 package no.nav.arbeidsforhold.config
 
+import no.nav.arbeidsforhold.config.mock.setupMockedClient
 import no.nav.arbeidsforhold.consumer.aareg.AaregConsumer
 import no.nav.arbeidsforhold.consumer.ereg.EregConsumer
 import no.nav.arbeidsforhold.service.ArbeidsforholdService
