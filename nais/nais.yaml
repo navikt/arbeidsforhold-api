@@ -21,15 +21,11 @@ spec:
     enabled: true
   accessPolicy:
     rules:
-      - application: personopplysninger-proxy
-        namespace: personbruker
-        cluster: {{ fss-cluster }}
       - application: {{ aareg-app-name }}
         namespace: personbruker
         cluster: {{ fss-cluster }}
     outbound:
       external:
-        - host: {{ proxy-host }}
         - host: {{ aareg-host }}
   ingresses:
   {{#each ingresses}}

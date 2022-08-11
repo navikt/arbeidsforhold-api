@@ -30,7 +30,7 @@ class EregConsumer(private val client: HttpClient, private val environment: Envi
             val eregOrganisasjon = eregResponse.body<EregOrganisasjon>()
             eregOrganisasjon.navn.getNavn()
         } else {
-            logger.warn("Oppslag mot EEREG feilet med status: ${eregResponse.status}")
+            logger.warn("Oppslag mot EREG feilet med status: ${eregResponse.status}")
             orgnr
         }
     }
