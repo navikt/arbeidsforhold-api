@@ -1,6 +1,6 @@
 package no.nav.arbeidsforhold.testdata
 
-import no.nav.arbeidsforhold.consumer.aareg.domain.Ansettelsesdetaljer
+import no.nav.arbeidsforhold.consumer.aareg.dto.Ansettelsesdetaljer
 
 object ArbeidsavtaleObjectMother {
 

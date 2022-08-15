@@ -1,10 +1,9 @@
 package no.nav.arbeidsforhold.util
 
-import no.nav.arbeidsforhold.consumer.aareg.domain.Ident
-import no.nav.arbeidsforhold.consumer.aareg.domain.Identer
+import no.nav.arbeidsforhold.consumer.aareg.dto.Ident
+import no.nav.arbeidsforhold.consumer.aareg.dto.Identer
 
 const val ORGANISASJONSNUMMER = "ORGANISASJONSNUMMER"
-const val AKTORID = "AKTORID"
 const val FOLKEREGISTERIDENT = "FOLKEREGISTERIDENT"
 
 private const val HOVEDENHET = "Hovedenhet"

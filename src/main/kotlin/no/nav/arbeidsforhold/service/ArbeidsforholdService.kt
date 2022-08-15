@@ -1,11 +1,9 @@
 package no.nav.arbeidsforhold.service
 
-import no.nav.arbeidsforhold.consumer.aareg.ArbeidsforholdConsumer
-import no.nav.arbeidsforhold.consumer.aareg.domain.Ansettelsesperiode
-import no.nav.arbeidsforhold.consumer.aareg.domain.Identer
+import no.nav.arbeidsforhold.consumer.aareg.AaregConsumer
+import no.nav.arbeidsforhold.consumer.aareg.dto.Ansettelsesperiode
+import no.nav.arbeidsforhold.consumer.aareg.dto.Identer
 import no.nav.arbeidsforhold.consumer.ereg.EregConsumer
-import no.nav.arbeidsforhold.consumer.ereg.domain.EregOrganisasjon
-import no.nav.arbeidsforhold.consumer.ereg.domain.Navn
 import no.nav.arbeidsforhold.service.outbound.ArbeidsforholdDto
 import no.nav.arbeidsforhold.service.transformer.ArbeidsavtaleTransformer
 import no.nav.arbeidsforhold.service.transformer.ArbeidsforholdTransformer
@@ -14,20 +12,18 @@ import no.nav.arbeidsforhold.util.DtoUtils
 import no.nav.arbeidsforhold.util.ORGANISASJONSNUMMER
 import no.nav.arbeidsforhold.util.hentIdent
 import no.nav.arbeidsforhold.util.isOrganisasjon
-import org.springframework.beans.factory.annotation.Autowired
-import org.springframework.stereotype.Service
 
-@Service
-class ArbeidsforholdService @Autowired constructor(
-    private var arbeidsforholdConsumer: ArbeidsforholdConsumer,
+class ArbeidsforholdService(
+    private var aaregConsumer: AaregConsumer,
     private var eregConsumer: EregConsumer,
 ) {
 
-    fun hentArbeidsforhold(fodselsnr: String): List<ArbeidsforholdDto> {
-        val inbound = arbeidsforholdConsumer.hentArbeidsforholdmedFnr(fodselsnr)
+    suspend fun hentArbeidsforhold(token: String, fodselsnr: String): List<ArbeidsforholdDto> {
+        val inbound = aaregConsumer.hentArbeidsforholdmedFnr(token, fodselsnr)
         val arbeidsforholdDtos = mutableListOf<ArbeidsforholdDto>()
         for (arbeidsforhold in inbound) {
-            val yrke = DtoUtils.hentYrkeForSisteArbeidsavtale(ArbeidsavtaleTransformer.toOutboundArray(arbeidsforhold.ansettelsesdetaljer))
+            val yrke =
+                DtoUtils.hentYrkeForSisteArbeidsavtale(ArbeidsavtaleTransformer.toOutboundArray(arbeidsforhold.ansettelsesdetaljer))
             val arbgivnavn = hentArbGiverOrgNavn(arbeidsforhold.arbeidssted, arbeidsforhold.ansettelsesperiode)
             val opplarbgivnavn =
                 hentArbGiverOrgNavn(arbeidsforhold.opplysningspliktig, arbeidsforhold.ansettelsesperiode)
@@ -43,8 +39,8 @@ class ArbeidsforholdService @Autowired constructor(
         return arbeidsforholdDtos
     }
 
-    fun hentEttArbeidsforholdmedId(fodselsnr: String, id: Int): ArbeidsforholdDto {
-        val arbeidsforhold = arbeidsforholdConsumer.hentArbeidsforholdmedId(fodselsnr, id)
+    suspend fun hentEttArbeidsforholdmedId(token: String, fodselsnr: String, id: Int): ArbeidsforholdDto {
+        val arbeidsforhold = aaregConsumer.hentArbeidsforholdmedId(token, fodselsnr, id)
 
         val arbgivnavn = hentArbGiverOrgNavn(arbeidsforhold.arbeidssted, arbeidsforhold.ansettelsesperiode)
         val opplarbgivnavn = hentArbGiverOrgNavn(arbeidsforhold.opplysningspliktig, arbeidsforhold.ansettelsesperiode)
@@ -53,25 +49,11 @@ class ArbeidsforholdService @Autowired constructor(
     }
 
 
-    private fun hentArbGiverOrgNavn(identer: Identer?, ansettelsesperiode: Ansettelsesperiode?): String? {
-        val orgnr = hentIdent(identer?.identer, ORGANISASJONSNUMMER)
+    private suspend fun hentArbGiverOrgNavn(identer: Identer?, ansettelsesperiode: Ansettelsesperiode?): String {
+        val orgnr = hentIdent(identer?.identer, ORGANISASJONSNUMMER)!!
         if (isOrganisasjon(identer)) {
-            val organisasjon: EregOrganisasjon? = eregConsumer.hentOrgnavn(orgnr, ansettelsesperiode?.sluttdato)
-            if (organisasjon != null) {
-                return concatenateNavn(organisasjon.navn)
-            }
+            return eregConsumer.hentOrgnavn(orgnr, ansettelsesperiode?.sluttdato)
         }
         return orgnr
-    }
-
-    private fun concatenateNavn(navn: Navn?): String {
-        var orgnavn = ""
-        if (!navn?.navnelinje1.isNullOrEmpty()) orgnavn += navn?.navnelinje1.orEmpty()
-        if (!navn?.navnelinje2.isNullOrEmpty()) orgnavn += " " + navn?.navnelinje2.orEmpty()
-        if (!navn?.navnelinje3.isNullOrEmpty()) orgnavn += " " + navn?.navnelinje3.orEmpty()
-        if (!navn?.navnelinje4.isNullOrEmpty()) orgnavn += " " + navn?.navnelinje4.orEmpty()
-        if (!navn?.navnelinje5.isNullOrEmpty()) orgnavn += " " + navn?.navnelinje5.orEmpty()
-
-        return orgnavn
     }
 }

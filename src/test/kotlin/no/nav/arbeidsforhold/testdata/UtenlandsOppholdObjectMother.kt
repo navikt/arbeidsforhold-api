@@ -1,6 +1,6 @@
 package no.nav.arbeidsforhold.testdata
 
-import no.nav.arbeidsforhold.consumer.aareg.domain.Utenlandsopphold
+import no.nav.arbeidsforhold.consumer.aareg.dto.Utenlandsopphold
 
 object UtenlandsOppholdObjectMother {
     val withDummyValues = Utenlandsopphold(

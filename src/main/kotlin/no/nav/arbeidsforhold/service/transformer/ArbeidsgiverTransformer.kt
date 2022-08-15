@@ -1,6 +1,6 @@
 package no.nav.arbeidsforhold.service.transformer
 
-import no.nav.arbeidsforhold.consumer.aareg.domain.Identer
+import no.nav.arbeidsforhold.consumer.aareg.dto.Identer
 import no.nav.arbeidsforhold.service.outbound.ArbeidsgiverDto
 import no.nav.arbeidsforhold.util.FOLKEREGISTERIDENT
 import no.nav.arbeidsforhold.util.ORGANISASJON

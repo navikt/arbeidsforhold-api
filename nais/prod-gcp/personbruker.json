@@ -2,7 +2,6 @@
   "ingresses": [
     "https://www.nav.no/person/arbeidsforhold-api"
   ],
-  "proxy-host": "https://personopplysninger-proxy.prod-fss-pub.nais.io",
   "aareg-host": "https://aareg-services.prod-fss-pub.nais.io",
   "aareg-app-name": "aareg-services-nais",
   "fss-cluster": "prod-fss"

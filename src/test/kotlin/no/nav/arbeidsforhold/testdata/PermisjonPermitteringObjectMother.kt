@@ -1,6 +1,6 @@
 package no.nav.arbeidsforhold.testdata
 
-import no.nav.arbeidsforhold.consumer.aareg.domain.PermisjonPermittering
+import no.nav.arbeidsforhold.consumer.aareg.dto.PermisjonPermittering
 
 object PermisjonPermitteringObjectMother {
     val withDummyValues =

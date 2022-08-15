@@ -1,6 +1,6 @@
 package no.nav.arbeidsforhold.service.transformer
 
-import no.nav.arbeidsforhold.consumer.aareg.domain.Arbeidsforhold
+import no.nav.arbeidsforhold.consumer.aareg.dto.Arbeidsforhold
 import no.nav.arbeidsforhold.service.outbound.ArbeidsavtaleDto
 import no.nav.arbeidsforhold.service.outbound.ArbeidsforholdDto
 

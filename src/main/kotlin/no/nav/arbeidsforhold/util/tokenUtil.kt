@@ -1,16 +1,16 @@
 package no.nav.arbeidsforhold.util
 
-import no.nav.security.token.support.jaxrs.JaxrsTokenValidationContextHolder
+import io.ktor.server.application.ApplicationCall
+import no.nav.security.token.support.core.jwt.JwtToken
 
-private const val CLAIMS_ISSUER = "selvbetjening"
-private const val PID_CLAIM_KEY = "pid"
 
-fun getToken(): String {
-    val context = JaxrsTokenValidationContextHolder.getHolder()
-    return context.tokenValidationContext.getJwtToken(CLAIMS_ISSUER).tokenAsString
+private const val PID_CLAIM = "pid"
+private const val OIDC_COOKIE_NAME = "selvbetjening-idtoken"
+
+fun getSelvbetjeningTokenFromCall(call: ApplicationCall): String {
+    return call.request.cookies[OIDC_COOKIE_NAME]!!
 }
 
-fun hentFnrFraToken(): String {
-    val context = JaxrsTokenValidationContextHolder.getHolder()
-    return context.tokenValidationContext.getClaims(CLAIMS_ISSUER).getStringClaim(PID_CLAIM_KEY)
+fun getFnrFromToken(token: String): String {
+    return JwtToken(token).jwtTokenClaims.getStringClaim(PID_CLAIM)
 }

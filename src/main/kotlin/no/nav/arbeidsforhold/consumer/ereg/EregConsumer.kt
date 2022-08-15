@@ -1,67 +1,37 @@
 package no.nav.arbeidsforhold.consumer.ereg
 
-import no.nav.arbeidsforhold.consumer.ereg.domain.EregOrganisasjon
-import no.nav.arbeidsforhold.consumer.tokendings.TokenDingsService
-import no.nav.arbeidsforhold.exception.EregConsumerException
-import no.nav.arbeidsforhold.util.getToken
-import no.nav.arbeidsforhold.util.readEntity
-import no.nav.common.log.MDCConstants
+import io.ktor.client.HttpClient
+import io.ktor.client.call.body
+import io.ktor.client.request.get
+import io.ktor.client.request.header
+import io.ktor.client.request.parameter
+import io.ktor.client.statement.HttpResponse
+import io.ktor.http.isSuccess
+import no.nav.arbeidsforhold.config.Environment
+import no.nav.arbeidsforhold.config.MDC_CALL_ID
+import no.nav.arbeidsforhold.consumer.ereg.dto.EregOrganisasjon
 import org.slf4j.LoggerFactory
 import org.slf4j.MDC
-import org.springframework.beans.factory.annotation.Value
-import java.net.URI
-import javax.ws.rs.client.Client
-import javax.ws.rs.client.Invocation
-import javax.ws.rs.core.HttpHeaders
-import javax.ws.rs.core.Response
 
-private const val CONSUMER_ID = "personbruker-arbeidsforhold-api"
-private const val BEARER = "Bearer "
 
-class EregConsumer(
-    private val client: Client,
-    private val endpoint: URI,
-    private val tokenDingsService: TokenDingsService
-) {
-    private val log = LoggerFactory.getLogger(EregConsumer::class.java)
+class EregConsumer(private val client: HttpClient, private val environment: Environment) {
 
-    @Value("\${PERSONOPPLYSNINGER_PROXY_TARGET_APP}")
-    private val targetApp: String? = null
+    private val logger = LoggerFactory.getLogger(EregConsumer::class.java)
 
-    fun hentOrgnavn(orgnr: String?, gyldigDato: String?): EregOrganisasjon? {
-        val accessToken = tokenDingsService.exchangeToken(getToken(), targetApp).accessToken
-        val request = buildOrgnrRequest(orgnr, gyldigDato, accessToken)
-        try {
-            request.get().use { response -> return readResponse(response) }
-        } catch (e: EregConsumerException) {
-            val msg = String.format("Oppslag på orgnr %s med dato %s feilet. ", orgnr, gyldigDato)
-            log.warn(msg + e.message)
-        } catch (e: Exception) {
-            val msg = "Forsøkte å konsumere REST-tjenesten Enhetsregisteret. endpoint=[$endpoint]. Exception message="
-            log.warn(msg + e.message)
-        }
-        return null
-    }
+    suspend fun hentOrgnavn(orgnr: String, gyldigDato: String?): String {
+        val gyldigDatoSubstring = gyldigDato?.substring(0, 10) // TODO: Nødvendig?
 
-    private fun buildOrgnrRequest(orgnr: String?, gyldigDato: String?, accessToken: String): Invocation.Builder {
-        val gyldigDatoSubstring = gyldigDato?.substring(0, 10)
-        return client.target(endpoint)
-            .path("v1/organisasjon/$orgnr/noekkelinfo")
-            .queryParam("gyldigDato", gyldigDatoSubstring)
-            .request()
-            .header(HttpHeaders.AUTHORIZATION, BEARER + accessToken)
-            .header("Nav-Consumer-Token", getToken())
-            .header("Nav-Call-Id", MDC.get(MDCConstants.MDC_CALL_ID))
-            .header("Nav-Consumer-Id", CONSUMER_ID)
-    }
-
-    private fun readResponse(r: Response): EregOrganisasjon {
-        return if (Response.Status.Family.SUCCESSFUL != r.statusInfo.family) {
-            val msg =
-                "Forsøkte å konsumere REST-tjenesten Enhetsregister. endpoint=[" + endpoint + "], HTTP response status=[" + r.status + "]."
-            throw EregConsumerException(msg + " - " + readEntity(String::class.java, r))
+        val eregResponse: HttpResponse =
+            client.get(environment.eregApiUrl.plus("/v1/organisasjon/$orgnr/noekkelinfo")) {
+                parameter("gyldigDato", gyldigDatoSubstring)
+                header("Nav-Call-Id", MDC.get(MDC_CALL_ID))
+            }
+        return if (eregResponse.status.isSuccess()) {
+            val eregOrganisasjon = eregResponse.body<EregOrganisasjon>()
+            eregOrganisasjon.navn.getNavn()
         } else {
-            readEntity(EregOrganisasjon::class.java, r)
+            logger.warn("Oppslag mot EREG feilet med status: ${eregResponse.status}")
+            orgnr
         }
     }
 }

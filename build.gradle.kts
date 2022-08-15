@@ -7,7 +7,7 @@ plugins {
     kotlin("plugin.allopen").version(Kotlin.version)
     kotlin("plugin.serialization").version(Kotlin.version)
 
-    id(SpringBoot.plugin) version (SpringBoot.version)
+    id(Shadow.pluginId) version (Shadow.version)
     id(Versions.pluginId) version Versions.version // ./gradlew dependencyUpdates to check for new versions
     application
 }
@@ -22,31 +22,30 @@ repositories {
 }
 
 dependencies {
-    implementation(NAV.Security.tokenValidatorCore)
-    implementation(NAV.Security.tokenValidatorJaxrs)
-    implementation(NAV.Common.rest)
-    implementation(NAV.Common.log)
-    implementation(Arrow.core)
-    implementation(SpringBoot.starterJetty)
-    implementation(SpringBoot.starterJersey)
-    implementation(SpringBoot.starterWeb)
-    implementation(Kotlin.jdk8)
-    implementation(Kotlin.junit5)
-    implementation(Slf4j.api)
-    implementation(CommonsLogging.logging)
+    implementation(DittNAV.Common.logging)
+    implementation(Auth0.jwt)
+    implementation(Ktor.serverNetty)
+    implementation(Ktor.serverCallLogging)
+    implementation(Ktor.serverCore)
+    implementation(Ktor.serialization)
+    implementation(Ktor.serializationGson)
+    implementation(Ktor.serverCors)
+    implementation(Ktor.serverStatusPages)
+    implementation(Ktor.serverContentNegotiation)
+    implementation(Ktor.serverAuth)
+    implementation(Ktor.clientContentNegotiation)
+    implementation(Ktor.clientApache)
+    implementation(Logback.classic)
     implementation(Logstash.logbackEncoder)
-    implementation(Microutils.kotlinLogging)
-    implementation(Jackson.kotlinModule)
-    implementation(Natpryce.konfig)
-    implementation(Micrometer.registryPrometheus)
-    implementation(Jakarta.xmlBindApi)
-    implementation(Jaxb.runtime)
-    testImplementation(SpringBoot.starterTest)
-    testImplementation(Junit.api)
-    testImplementation(Junit.engine)
-    testImplementation(NAV.Security.tokenValidatorSpringTest)
-    testImplementation(Tomakehurst.wiremock)
-    testImplementation(SpringCloud.stubRunner)
+    implementation(NAV.Security.tokenValidationKtor)
+    implementation(TmsKtorTokenSupport.tokendingsExchange)
+    testImplementation(Kotlin.junit5)
+    testImplementation(Ktor.serverTestHost)
+    testImplementation(Ktor.clientMock)
+}
+
+application {
+    mainClassName = "io.ktor.server.netty.EngineMain"
 }
 
 tasks {
@@ -69,3 +68,5 @@ tasks {
         classpath = sourceSets["main"].runtimeClasspath
     }
 }
+
+apply(plugin = Shadow.pluginId)
