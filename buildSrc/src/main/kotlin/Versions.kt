@@ -15,14 +15,14 @@ object DittNAV {
 }
 
 object Kotlin {
-    const val version = "1.6.21"
+    const val version = "1.7.10"
     private const val groupId = "org.jetbrains.kotlin"
 
     const val junit5 = "$groupId:kotlin-test-junit5:$version"
 }
 
 object Ktor {
-    private const val version = "2.0.3"
+    private const val version = "2.1.0"
     private const val groupId = "io.ktor"
 
     const val serverNetty = "$groupId:ktor-server-netty:$version"
@@ -52,7 +52,7 @@ object Logstash {
 
 object NAV {
     object Security {
-        private const val version = "2.1.2"
+        private const val version = "2.1.3"
         private const val groupId = "no.nav.security"
         const val tokenValidationKtor = "$groupId:token-validation-ktor-v2:$version"
     }
