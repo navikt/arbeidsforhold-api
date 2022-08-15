@@ -36,11 +36,12 @@ fun Application.mainModule(appContext: ApplicationContext = ApplicationContext()
     }
 
     val conf = this.environment.config
+    val acceptedIssuer = conf.property("no.nav.security.jwt.issuers.0.issuer_name").getString()
     install(Authentication) {
         tokenValidationSupport(
             config = conf,
             requiredClaims = RequiredClaims(
-                issuer = "https://oidc-ver2.difi.no/idporten-oidc-provider/",
+                issuer = acceptedIssuer,
                 claimMap = arrayOf("acr=Level4")
             )
         )
