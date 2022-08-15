@@ -20,6 +20,7 @@ import io.ktor.server.routing.routing
 import no.nav.arbeidsforhold.health.health
 import no.nav.arbeidsforhold.routes.arbeidsforholdFnr
 import no.nav.arbeidsforhold.routes.arbeidsforholdId
+import no.nav.security.token.support.v2.RequiredClaims
 import no.nav.security.token.support.v2.tokenValidationSupport
 import org.slf4j.LoggerFactory
 
@@ -36,7 +37,13 @@ fun Application.mainModule(appContext: ApplicationContext = ApplicationContext()
 
     val conf = this.environment.config
     install(Authentication) {
-        tokenValidationSupport(config = conf)
+        tokenValidationSupport(
+            config = conf,
+            requiredClaims = RequiredClaims(
+                issuer = "selvbetjening",
+                claimMap = arrayOf("acr=Level4")
+            )
+        )
     }
 
     install(CallLogging) {
