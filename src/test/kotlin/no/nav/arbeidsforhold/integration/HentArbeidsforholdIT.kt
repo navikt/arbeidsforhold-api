@@ -7,15 +7,15 @@ import no.nav.arbeidsforhold.config.mock.setupMockedClient
 import org.junit.jupiter.api.Assertions.assertEquals
 import kotlin.test.Test
 
-class HentArbeidsforholdArbeidsgiverIT : IntegrationTest() {
+class HentArbeidsforholdIT : IntegrationTest() {
 
-    val HENT_ARBEIDSFORHOLD_ARBEIDSGIVER_PATH = "/arbeidsforholdinnslag/arbeidsgiver/1337"
+    val HENT_ARBEIDSFORHOLD_FNR_PATH = "/arbeidsforhold"
 
     @Test
     fun hentArbeidsforhold200() = integrationTest(setupMockedClient()) {
         val client = createClient { install(ContentNegotiation) { gson() } }
 
-        val response = get(client, HENT_ARBEIDSFORHOLD_ARBEIDSGIVER_PATH, setFnrHeader = true)
+        val response = get(client, HENT_ARBEIDSFORHOLD_FNR_PATH)
 
         assertEquals(HttpStatusCode.OK, response.status)
     }
@@ -25,7 +25,7 @@ class HentArbeidsforholdArbeidsgiverIT : IntegrationTest() {
         integrationTest(setupMockedClient(aaregStatus = HttpStatusCode.InternalServerError)) {
             val client = createClient { install(ContentNegotiation) { gson() } }
 
-            val response = get(client, HENT_ARBEIDSFORHOLD_ARBEIDSGIVER_PATH, setFnrHeader = true)
+            val response = get(client, HENT_ARBEIDSFORHOLD_FNR_PATH)
 
             assertEquals(HttpStatusCode.InternalServerError, response.status)
         }
@@ -35,18 +35,8 @@ class HentArbeidsforholdArbeidsgiverIT : IntegrationTest() {
         integrationTest(setupMockedClient(eregStatus = HttpStatusCode.InternalServerError)) {
             val client = createClient { install(ContentNegotiation) { gson() } }
 
-            val response = get(client, HENT_ARBEIDSFORHOLD_ARBEIDSGIVER_PATH, setFnrHeader = true)
+            val response = get(client, HENT_ARBEIDSFORHOLD_FNR_PATH)
 
             assertEquals(HttpStatusCode.OK, response.status)
-        }
-
-    @Test
-    fun manglendeFnrHeaderSkalGi400() =
-        integrationTest(setupMockedClient(eregStatus = HttpStatusCode.InternalServerError)) {
-            val client = createClient { install(ContentNegotiation) { gson() } }
-
-            val response = get(client, HENT_ARBEIDSFORHOLD_ARBEIDSGIVER_PATH, setFnrHeader = false)
-
-            assertEquals(HttpStatusCode.BadRequest, response.status)
         }
 }

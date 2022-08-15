@@ -1,14 +1,13 @@
 package no.nav.arbeidsforhold.config
 
-import no.nav.arbeidsforhold.config.mock.setupMockedClient
+import io.ktor.client.HttpClient
 import no.nav.arbeidsforhold.consumer.aareg.AaregConsumer
 import no.nav.arbeidsforhold.consumer.ereg.EregConsumer
 import no.nav.arbeidsforhold.service.ArbeidsforholdService
 
-class TestApplicationContext {
+class TestApplicationContext(httpClient: HttpClient) {
 
     val env = Environment()
-    val httpClient = setupMockedClient()
 
     val tokendingsService = DummyTokendingsService()
     val aaregConsumer = AaregConsumer(httpClient, env, tokendingsService)

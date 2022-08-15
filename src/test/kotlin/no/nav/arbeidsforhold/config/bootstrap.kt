@@ -9,7 +9,7 @@ import no.nav.arbeidsforhold.routes.arbeidsforholdFnr
 import no.nav.arbeidsforhold.routes.arbeidsforholdId
 
 
-fun Application.testModule(appContext: TestApplicationContext = TestApplicationContext()) {
+fun Application.testModule(appContext: TestApplicationContext) {
 
     install(ContentNegotiation) {
         gson {

@@ -5,30 +5,35 @@ import com.auth0.jwt.algorithms.Algorithm
 import io.ktor.client.HttpClient
 import io.ktor.client.request.cookie
 import io.ktor.client.request.get
+import io.ktor.client.request.header
 import io.ktor.client.statement.HttpResponse
 import io.ktor.server.config.ApplicationConfig
 import io.ktor.server.testing.ApplicationTestBuilder
 import io.ktor.server.testing.testApplication
+import no.nav.arbeidsforhold.config.FNR_ARBEIDSTAKER
+import no.nav.arbeidsforhold.config.TestApplicationContext
 import no.nav.arbeidsforhold.config.testModule
 
 open class IntegrationTest {
 
-    fun integrationTest(block: suspend ApplicationTestBuilder.() -> Unit) = testApplication {
+    fun integrationTest(httpClient: HttpClient, block: suspend ApplicationTestBuilder.() -> Unit) = testApplication {
         environment {
             config = ApplicationConfig("application-test.conf")
         }
         application {
-            testModule()
+            testModule(TestApplicationContext(httpClient))
         }
-
         block()
     }
 
-    suspend fun get(client: HttpClient, path: String): HttpResponse {
+    suspend fun get(client: HttpClient, path: String, setFnrHeader: Boolean = false): HttpResponse {
         val token = createAccessToken("12341234123")
 
         return client.get(path) {
             cookie("selvbetjening-idtoken", token)
+            if (setFnrHeader) {
+                header(FNR_ARBEIDSTAKER, "12345678911")
+            }
         }
     }
 

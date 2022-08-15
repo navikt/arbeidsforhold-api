@@ -37,9 +37,9 @@ fun Route.arbeidsforholdId(arbeidsforholdService: ArbeidsforholdService) {
 
                 if (fnr.isNullOrEmpty()) {
                     call.respond(HttpStatusCode.BadRequest, "Mangler header $FNR_ARBEIDSTAKER")
+                } else {
+                    call.respond(arbeidsforholdService.hentEttArbeidsforholdmedId(selvbetjeningIdtoken, fnr, id))
                 }
-
-                call.respond(arbeidsforholdService.hentEttArbeidsforholdmedId(selvbetjeningIdtoken, fnr!!, id))
             } catch (e: Exception) {
                 logger.error("Noe gikk galt ved henting av arbeidsforhold", e)
                 call.respond(HttpStatusCode.InternalServerError, HttpStatusCode.InternalServerError.description)
