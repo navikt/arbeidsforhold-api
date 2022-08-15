@@ -40,7 +40,7 @@ fun Application.mainModule(appContext: ApplicationContext = ApplicationContext()
         tokenValidationSupport(
             config = conf,
             requiredClaims = RequiredClaims(
-                issuer = "selvbetjening",
+                issuer = "https://oidc-ver2.difi.no/idporten-oidc-provider/",
                 claimMap = arrayOf("acr=Level4")
             )
         )
