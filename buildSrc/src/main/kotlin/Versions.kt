@@ -15,7 +15,7 @@ object DittNAV {
 }
 
 object Kotlin {
-    private const val version = "1.6.21"
+    const val version = "1.6.21"
     private const val groupId = "org.jetbrains.kotlin"
 
     const val junit5 = "$groupId:kotlin-test-junit5:$version"
