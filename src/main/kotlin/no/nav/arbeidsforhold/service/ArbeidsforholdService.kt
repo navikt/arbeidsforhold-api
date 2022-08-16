@@ -24,9 +24,12 @@ class ArbeidsforholdService(
         for (arbeidsforhold in inbound) {
             val yrke =
                 DtoUtils.hentYrkeForSisteArbeidsavtale(ArbeidsavtaleTransformer.toOutboundArray(arbeidsforhold.ansettelsesdetaljer))
-            val arbgivnavn = hentArbGiverOrgNavn(arbeidsforhold.arbeidssted, arbeidsforhold.ansettelsesperiode)
-            val opplarbgivnavn =
-                hentArbGiverOrgNavn(arbeidsforhold.opplysningspliktig, arbeidsforhold.ansettelsesperiode)
+            val arbgivnavn = arbeidsforhold.arbeidssted?.let {
+                hentArbGiverOrgNavn(it, arbeidsforhold.ansettelsesperiode)
+            }
+            val opplarbgivnavn = arbeidsforhold.opplysningspliktig?.let {
+                hentArbGiverOrgNavn(it, arbeidsforhold.ansettelsesperiode)
+            }
             arbeidsforholdDtos.add(
                 ArbeidsforholdTransformer.toOutbound(
                     arbeidsforhold,
@@ -42,15 +45,18 @@ class ArbeidsforholdService(
     suspend fun hentEttArbeidsforholdmedId(token: String, fodselsnr: String, id: Int): ArbeidsforholdDto {
         val arbeidsforhold = aaregConsumer.hentArbeidsforholdmedId(token, fodselsnr, id)
 
-        val arbgivnavn = hentArbGiverOrgNavn(arbeidsforhold.arbeidssted, arbeidsforhold.ansettelsesperiode)
-        val opplarbgivnavn = hentArbGiverOrgNavn(arbeidsforhold.opplysningspliktig, arbeidsforhold.ansettelsesperiode)
+        val arbgivnavn = arbeidsforhold.arbeidssted?.let { hentArbGiverOrgNavn(it, arbeidsforhold.ansettelsesperiode) }
+        val opplarbgivnavn = arbeidsforhold.opplysningspliktig?.let {
+            hentArbGiverOrgNavn(it, arbeidsforhold.ansettelsesperiode)
+        }
 
         return EnkeltArbeidsforholdTransformer.toOutbound(arbeidsforhold, arbgivnavn, opplarbgivnavn)
     }
 
 
-    private suspend fun hentArbGiverOrgNavn(identer: Identer?, ansettelsesperiode: Ansettelsesperiode?): String {
-        val orgnr = hentIdent(identer?.identer, ORGANISASJONSNUMMER)!!
+    private suspend fun hentArbGiverOrgNavn(identer: Identer, ansettelsesperiode: Ansettelsesperiode?): String? {
+        val orgnr = identer.identer?.let { hentIdent(it, ORGANISASJONSNUMMER) } ?: return null
+
         if (isOrganisasjon(identer)) {
             return eregConsumer.hentOrgnavn(orgnr, ansettelsesperiode?.sluttdato)
         }
