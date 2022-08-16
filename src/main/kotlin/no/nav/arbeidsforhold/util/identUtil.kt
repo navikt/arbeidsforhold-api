@@ -11,10 +11,7 @@ private const val UNDERENHET = "Underenhet"
 
 const val ORGANISASJON = "Organisasjon"
 
-fun hentIdent(identer: List<Ident>?, identType: String): String? {
-    if (identer == null) {
-        return null
-    }
+fun hentIdent(identer: List<Ident>, identType: String): String? {
     return identer.stream()
         .filter { i -> identType == i.type }
         .findFirst().orElse(null)?.ident

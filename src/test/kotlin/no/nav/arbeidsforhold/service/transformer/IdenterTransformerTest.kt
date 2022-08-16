@@ -22,8 +22,8 @@ class IdenterTransformerTest {
         val actual: ArbeidsgiverDto = ArbeidsgiverTransformer.toOutbound(inbound, "NAV")
         assertNotNull(actual)
         assertEquals(inbound.type.toString(), actual.type)
-        assertEquals(hentIdent(inbound.identer, FOLKEREGISTERIDENT), actual.fnr)
-        assertEquals(hentIdent(inbound.identer, ORGANISASJONSNUMMER), actual.orgnr)
+        assertEquals(inbound.identer?.let { hentIdent(it, FOLKEREGISTERIDENT) }, actual.fnr)
+        assertEquals(inbound.identer?.let { hentIdent(it, ORGANISASJONSNUMMER) }, actual.orgnr)
     }
 
 }

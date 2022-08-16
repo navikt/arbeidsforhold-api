@@ -12,8 +12,8 @@ object ArbeidsgiverTransformer {
 
     fun toOutbound(inbound: Identer?, arbgivnavn: String?) = ArbeidsgiverDto(
         type = if (isOrganisasjon(inbound)) ORGANISASJON else inbound?.type,
-        orgnr = hentIdent(inbound?.identer, ORGANISASJONSNUMMER),
-        fnr = hentIdent(inbound?.identer, FOLKEREGISTERIDENT),
+        orgnr = inbound?.identer?.let { hentIdent(it, ORGANISASJONSNUMMER) },
+        fnr = inbound?.identer?.let { hentIdent(it, FOLKEREGISTERIDENT) },
         orgnavn = arbgivnavn
     )
 }
