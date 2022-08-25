@@ -3,7 +3,7 @@ package no.nav.arbeidsforhold.integration
 import io.ktor.client.plugins.contentnegotiation.ContentNegotiation
 import io.ktor.http.HttpStatusCode
 import io.ktor.serialization.gson.gson
-import no.nav.arbeidsforhold.config.mock.setupMockedClient
+import no.nav.arbeidsforhold.config.mocks.setupMockedClient
 import org.junit.jupiter.api.Assertions.assertEquals
 import kotlin.test.Test
 

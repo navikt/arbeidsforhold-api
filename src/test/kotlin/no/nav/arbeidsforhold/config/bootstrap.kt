@@ -7,7 +7,7 @@ import io.ktor.server.engine.embeddedServer
 import io.ktor.server.netty.Netty
 import io.ktor.server.plugins.contentnegotiation.ContentNegotiation
 import io.ktor.server.routing.routing
-import no.nav.arbeidsforhold.config.mock.setupMockedClient
+import no.nav.arbeidsforhold.config.mocks.setupMockedClient
 import no.nav.arbeidsforhold.routes.arbeidsforholdFnr
 import no.nav.arbeidsforhold.routes.arbeidsforholdId
 

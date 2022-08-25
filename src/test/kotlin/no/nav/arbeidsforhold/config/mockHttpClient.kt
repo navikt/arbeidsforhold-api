@@ -1,4 +1,4 @@
-package no.nav.arbeidsforhold.config.mock
+package no.nav.arbeidsforhold.config.mocks
 
 import io.ktor.client.HttpClient
 import io.ktor.client.engine.mock.MockEngine
