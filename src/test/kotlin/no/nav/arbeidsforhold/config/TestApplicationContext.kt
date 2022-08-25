@@ -7,7 +7,13 @@ import no.nav.arbeidsforhold.service.ArbeidsforholdService
 
 class TestApplicationContext(httpClient: HttpClient) {
 
-    val env = Environment()
+    val env = Environment(
+        corsAllowedOrigins = "",
+        corsAllowedSchemes = "https",
+        eregApiUrl = "https://ereg",
+        aaregApiUrl = "https://aareg",
+        aaregTargetApp = "",
+    )
 
     val tokendingsService = DummyTokendingsService()
     val aaregConsumer = AaregConsumer(httpClient, env, tokendingsService)
