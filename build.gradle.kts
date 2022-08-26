@@ -28,7 +28,7 @@ dependencies {
     implementation(Ktor.serverCallLogging)
     implementation(Ktor.serverCore)
     implementation(Ktor.serialization)
-    implementation(Ktor.serializationGson)
+    implementation(Ktor.serializationKotlinx)
     implementation(Ktor.serverCors)
     implementation(Ktor.serverStatusPages)
     implementation(Ktor.serverContentNegotiation)
@@ -42,6 +42,7 @@ dependencies {
     testImplementation(Kotlin.junit5)
     testImplementation(Ktor.serverTestHost)
     testImplementation(Ktor.clientMock)
+    testImplementation(Mockk.mockk)
 }
 
 application {

@@ -1,7 +1,9 @@
 package no.nav.arbeidsforhold.service.outbound
 
-data class ArbeidsgiverDto(
+import kotlinx.serialization.Serializable
 
+@Serializable
+class ArbeidsgiverDto(
     val orgnr: String? = null,
     val fnr: String? = null,
     val type: String? = null,

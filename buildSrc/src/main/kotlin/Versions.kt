@@ -29,7 +29,7 @@ object Ktor {
     const val serverCallLogging = "$groupId:ktor-server-call-logging:$version"
     const val serverCore = "$groupId:ktor-server-core:$version"
     const val serialization = "$groupId:ktor-serialization:$version"
-    const val serializationGson = "$groupId:ktor-serialization-gson:$version"
+    const val serializationKotlinx = "$groupId:ktor-serialization-kotlinx-json:$version"
     const val serverCors = "$groupId:ktor-server-cors:$version"
     const val serverStatusPages = "$groupId:ktor-server-status-pages:$version"
     const val serverContentNegotiation = "$groupId:ktor-server-content-negotiation:$version"
@@ -48,6 +48,11 @@ object Logback {
 object Logstash {
     private const val version = "7.2"
     const val logbackEncoder = "net.logstash.logback:logstash-logback-encoder:$version"
+}
+
+object Mockk {
+    private const val version = "1.12.7"
+    const val mockk = "io.mockk:mockk:$version"
 }
 
 object NAV {

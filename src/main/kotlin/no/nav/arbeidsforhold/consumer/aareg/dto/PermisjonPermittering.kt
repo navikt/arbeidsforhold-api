@@ -1,7 +1,9 @@
 package no.nav.arbeidsforhold.consumer.aareg.dto
 
-data class PermisjonPermittering(
+import kotlinx.serialization.Serializable
 
+@Serializable
+data class PermisjonPermittering(
     val startdato: String? = null,
     val sluttdato: String? = null,
     /* Id fra opplysningspliktig */

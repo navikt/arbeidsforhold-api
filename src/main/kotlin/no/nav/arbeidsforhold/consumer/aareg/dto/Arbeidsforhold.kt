@@ -1,7 +1,9 @@
 package no.nav.arbeidsforhold.consumer.aareg.dto
 
-data class Arbeidsforhold(
+import kotlinx.serialization.Serializable
 
+@Serializable
+data class Arbeidsforhold(
     val ansettelsesperiode: Ansettelsesperiode? = null,
     /* Antall timer med timel&oslash;nn */
     val timerMedTimeloenn: List<TimerMedTimeloenn>? = null,

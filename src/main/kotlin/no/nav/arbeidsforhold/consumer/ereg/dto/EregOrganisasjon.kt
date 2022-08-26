@@ -1,9 +1,13 @@
 package no.nav.arbeidsforhold.consumer.ereg.dto
 
+import kotlinx.serialization.Serializable
+
+@Serializable
 data class EregOrganisasjon(
     val navn: Navn
 )
 
+@Serializable
 data class Navn(
     val navnelinje1: String? = null,
     val navnelinje2: String? = null,

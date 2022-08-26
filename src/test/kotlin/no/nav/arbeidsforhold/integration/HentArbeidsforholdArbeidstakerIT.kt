@@ -2,7 +2,7 @@ package no.nav.arbeidsforhold.integration
 
 import io.ktor.client.plugins.contentnegotiation.ContentNegotiation
 import io.ktor.http.HttpStatusCode
-import io.ktor.serialization.gson.gson
+import io.ktor.serialization.kotlinx.json.json
 import no.nav.arbeidsforhold.config.mocks.setupMockedClient
 import org.junit.jupiter.api.Assertions.assertEquals
 import kotlin.test.Test
@@ -13,7 +13,7 @@ class HentArbeidsforholdArbeidstakerIT : IntegrationTest() {
 
     @Test
     fun hentArbeidsforhold200() = integrationTest(setupMockedClient()) {
-        val client = createClient { install(ContentNegotiation) { gson() } }
+        val client = createClient { install(ContentNegotiation) { json() } }
 
         val response = get(client, HENT_ARBEIDSFORHOLD_ARBEIDSTAKER_PATH)
 
@@ -23,7 +23,7 @@ class HentArbeidsforholdArbeidstakerIT : IntegrationTest() {
     @Test
     fun feilMotAaregSkalGi500() =
         integrationTest(setupMockedClient(aaregStatus = HttpStatusCode.InternalServerError)) {
-            val client = createClient { install(ContentNegotiation) { gson() } }
+            val client = createClient { install(ContentNegotiation) { json() } }
 
             val response = get(client, HENT_ARBEIDSFORHOLD_ARBEIDSTAKER_PATH)
 
@@ -33,7 +33,7 @@ class HentArbeidsforholdArbeidstakerIT : IntegrationTest() {
     @Test
     fun feilMotEregSkalGi200() =
         integrationTest(setupMockedClient(eregStatus = HttpStatusCode.InternalServerError)) {
-            val client = createClient { install(ContentNegotiation) { gson() } }
+            val client = createClient { install(ContentNegotiation) { json() } }
 
             val response = get(client, HENT_ARBEIDSFORHOLD_ARBEIDSTAKER_PATH)
 

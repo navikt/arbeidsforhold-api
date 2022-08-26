@@ -1,5 +1,8 @@
 package no.nav.arbeidsforhold.consumer.aareg.dto
 
+import kotlinx.serialization.Serializable
+
+@Serializable
 data class Ansettelsesdetaljer(
     val ansettelsesform: Kodeverksentitet? = null,
     /* Antall timer per uke */

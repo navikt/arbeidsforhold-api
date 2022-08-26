@@ -1,8 +1,9 @@
 package no.nav.arbeidsforhold.service.outbound
 
-data class PeriodeDto(
+import kotlinx.serialization.Serializable
 
+@Serializable
+data class PeriodeDto(
     val periodeFra: String? = null,
     val periodeTil: String? = null
-
 )
