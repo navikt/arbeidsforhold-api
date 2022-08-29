@@ -19,11 +19,9 @@ class EregConsumer(private val client: HttpClient, private val environment: Envi
     private val logger = LoggerFactory.getLogger(EregConsumer::class.java)
 
     suspend fun hentOrgnavn(orgnr: String, gyldigDato: String?): String {
-        val gyldigDatoSubstring = gyldigDato?.substring(0, 10) // TODO: Nødvendig?
-
         val eregResponse: HttpResponse =
             client.get(environment.eregApiUrl.plus("/v1/organisasjon/$orgnr/noekkelinfo")) {
-                parameter("gyldigDato", gyldigDatoSubstring)
+                parameter("gyldigDato", gyldigDato)
                 header("Nav-Call-Id", MDC.get(MDC_CALL_ID))
             }
         return if (eregResponse.status.isSuccess()) {

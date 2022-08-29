@@ -1,5 +1,8 @@
 package no.nav.arbeidsforhold.service.outbound
 
+import kotlinx.serialization.Serializable
+
+@Serializable
 data class ArbeidsavtaleDto(
     val ansettelsesform: String? = null,
     val antallTimerPrUke: Double? = null,

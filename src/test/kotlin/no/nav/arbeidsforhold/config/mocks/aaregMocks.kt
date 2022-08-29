@@ -1,4 +1,4 @@
-package no.nav.arbeidsforhold.config.mock
+package no.nav.arbeidsforhold.config.mocks
 
 import io.ktor.client.engine.mock.MockRequestHandleScope
 import io.ktor.client.engine.mock.respond
@@ -11,23 +11,22 @@ import io.ktor.http.headersOf
 import io.ktor.http.isSuccess
 
 
-fun MockRequestHandleScope.mockEreg(request: HttpRequestData, status: HttpStatusCode) =
+fun MockRequestHandleScope.mockAareg(request: HttpRequestData, status: HttpStatusCode) =
     if (status.isSuccess()) {
         respond(
-            readEregResponse(request.url.encodedPath),
+            readAaregResponse(request.url.encodedPath),
             headers = headersOf(HttpHeaders.ContentType, ContentType.Application.Json.toString())
         )
     } else {
-        respondError(HttpStatusCode.InternalServerError)
+        respondError(status)
     }
 
-private fun readEregResponse(path: String): String {
-    return if (path.startsWith("/v1/organisasjon/911742233")) {
-        readJson("/json/ereg-arbeidsgiver.json")
-    } else if (path.startsWith("/v1/organisasjon/912783936")) {
-        readJson("/json/ereg-opplysningspliktig.json")
+private fun readAaregResponse(path: String): String {
+    return if (path.startsWith("/api/v2/arbeidstaker")) {
+        readJson("/json/arbeidsforhold-list.json")
+    } else if (path.startsWith("/api/v2/arbeidsforhold")) {
+        readJson("/json/arbeidsforhold-single.json")
     } else {
         throw RuntimeException("Fant ikke mock for path")
     }
 }
-

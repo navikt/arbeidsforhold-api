@@ -1,8 +1,9 @@
 package no.nav.arbeidsforhold.consumer.aareg.dto
 
+import kotlinx.serialization.Serializable
 
+@Serializable
 data class Utenlandsopphold(
-
     val startdato: String? = null,
     val sluttdato: String? = null,
     /* Landkode (kodeverk: Landkoder) */

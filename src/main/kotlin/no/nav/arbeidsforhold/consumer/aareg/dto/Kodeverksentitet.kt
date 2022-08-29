@@ -1,8 +1,9 @@
 package no.nav.arbeidsforhold.consumer.aareg.dto
 
-data class Kodeverksentitet(
+import kotlinx.serialization.Serializable
 
+@Serializable
+data class Kodeverksentitet(
     val kode: String,
     val beskrivelse: String
-
 )

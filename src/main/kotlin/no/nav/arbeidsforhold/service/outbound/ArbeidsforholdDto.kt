@@ -1,7 +1,9 @@
 package no.nav.arbeidsforhold.service.outbound
 
-data class ArbeidsforholdDto(
+import kotlinx.serialization.Serializable
 
+@Serializable
+data class ArbeidsforholdDto(
     val navArbeidsforholdId: Long? = null,
     val eksternArbeidsforholdId: String? = null,
     var type: String? = null,
@@ -23,5 +25,4 @@ data class ArbeidsforholdDto(
     var fartsomraade: String? = null,
     var skipsregister: String? = null,
     var skipstype: String? = null
-
 )

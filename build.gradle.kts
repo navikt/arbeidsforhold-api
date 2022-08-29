@@ -28,7 +28,7 @@ dependencies {
     implementation(Ktor.serverCallLogging)
     implementation(Ktor.serverCore)
     implementation(Ktor.serialization)
-    implementation(Ktor.serializationGson)
+    implementation(Ktor.serializationKotlinx)
     implementation(Ktor.serverCors)
     implementation(Ktor.serverStatusPages)
     implementation(Ktor.serverContentNegotiation)
@@ -42,10 +42,11 @@ dependencies {
     testImplementation(Kotlin.junit5)
     testImplementation(Ktor.serverTestHost)
     testImplementation(Ktor.clientMock)
+    testImplementation(Mockk.mockk)
 }
 
 application {
-    mainClassName = "io.ktor.server.netty.EngineMain"
+    mainClass.set("io.ktor.server.netty.EngineMain")
 }
 
 tasks {
@@ -55,17 +56,6 @@ tasks {
             exceptionFormat = TestExceptionFormat.FULL
             events("passed", "skipped", "failed")
         }
-    }
-
-    register("runServer", JavaExec::class) {
-
-        environment("CORS_ALLOWED_ORIGINS", "localhost:9002")
-
-        environment("NAIS_CLUSTER_NAME", "dev-gcp")
-        environment("NAIS_NAMESPACE", "personbruker")
-
-        main = application.mainClassName
-        classpath = sourceSets["main"].runtimeClasspath
     }
 }
 
