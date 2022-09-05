@@ -1,6 +1,8 @@
 package no.nav.arbeidsforhold.config
 
 import io.ktor.client.HttpClient
+import io.micrometer.prometheus.PrometheusConfig
+import io.micrometer.prometheus.PrometheusMeterRegistry
 import no.nav.arbeidsforhold.consumer.aareg.AaregConsumer
 import no.nav.arbeidsforhold.consumer.ereg.EregConsumer
 import no.nav.arbeidsforhold.service.ArbeidsforholdService
@@ -14,6 +16,8 @@ class TestApplicationContext(httpClient: HttpClient) {
         aaregApiUrl = "https://aareg",
         aaregTargetApp = "",
     )
+
+    val appMicrometerRegistry = PrometheusMeterRegistry(PrometheusConfig.DEFAULT)
 
     val tokendingsService = DummyTokendingsService()
     val aaregConsumer = AaregConsumer(httpClient, env, tokendingsService)

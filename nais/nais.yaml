@@ -14,6 +14,9 @@ spec:
   readiness:
     path: /person/arbeidsforhold-api/internal/isAlive
     initialDelay: 10
+  prometheus:
+    enabled: true
+    path: /person/arbeidsforhold-api/metrics
   replicas:
     min: 2
     max: 4
