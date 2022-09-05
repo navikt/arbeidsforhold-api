@@ -34,3 +34,4 @@ spec:
       expr: (100 * (sum by (backend) (rate(response_total{status_code=~"^4\\d\\d", namespace="personbruker", app="arbeidsforhold-api"}[3m])) / sum by (backend) (rate(response_total{namespace="personbruker>", app="arbeidsforhold-api"}[3m])))) > 10
       for: 3m
       action: "Sjekk loggene for å se hvorfor {{ $labels.backend }} returnerer HTTP feilresponser"
+
