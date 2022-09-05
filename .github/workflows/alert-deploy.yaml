@@ -2,7 +2,7 @@ name: Deploy alerts to NAIS
 on:
   push:
     branches:
-      - metrics
+      - master
     paths:
       - './nais/alerts.yaml'
 jobs:
