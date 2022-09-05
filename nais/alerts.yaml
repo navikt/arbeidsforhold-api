@@ -8,7 +8,7 @@ metadata:
 spec:
   receivers:
     slack:
-      channel: "team-navno-backend-alerts"
+      channel: "#team-navno-backend-alerts"
       prependText: "<!here> | "
   alerts:
     - alert: applikasjon nede
