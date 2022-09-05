@@ -28,10 +28,9 @@ fun Routing.health(
             statusFor(alive).let { call.respondText("Alive: $it", status = it) }
         }
 
+        get("/metrics") {
+            call.respond(collectorRegistry.scrape())
+        }
     }
-    get("/metrics") {
-        call.respond(collectorRegistry.scrape())
-    }
-
 }
 
