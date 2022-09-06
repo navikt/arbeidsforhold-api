@@ -1,6 +1,11 @@
-name: Deploy alerts to NAIS
+name: Deploy alerts
 on:
-  workflow_dispatch
+  push:
+    branches:
+      - master
+    paths:
+      - 'nais/alerts.yaml'
+      - '.github/workflows/alert-deploy.yaml'
 
 jobs:
   apply-alerts:
