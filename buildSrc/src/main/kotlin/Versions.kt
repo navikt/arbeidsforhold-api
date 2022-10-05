@@ -33,7 +33,7 @@ object Ktor {
 }
 
 object Logback {
-    private const val version = "1.3.3"
+    private const val version = "1.4.3"
     const val classic = "ch.qos.logback:logback-classic:$version"
 }
 
