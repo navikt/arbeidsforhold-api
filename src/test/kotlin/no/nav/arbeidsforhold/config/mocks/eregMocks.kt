@@ -22,9 +22,9 @@ fun MockRequestHandleScope.mockEreg(request: HttpRequestData, status: HttpStatus
     }
 
 private fun readEregResponse(path: String): String {
-    return if (path.startsWith("/v1/organisasjon/911742233")) {
+    return if (path.startsWith("/v2/organisasjon/911742233")) {
         readJson("/json/ereg-arbeidsgiver.json")
-    } else if (path.startsWith("/v1/organisasjon/912783936")) {
+    } else if (path.startsWith("/v2/organisasjon/912783936")) {
         readJson("/json/ereg-opplysningspliktig.json")
     } else {
         throw RuntimeException("Fant ikke mock for path")

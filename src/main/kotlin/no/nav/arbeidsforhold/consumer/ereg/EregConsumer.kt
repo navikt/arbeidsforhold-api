@@ -18,15 +18,15 @@ class EregConsumer(private val client: HttpClient, private val environment: Envi
 
     private val logger = LoggerFactory.getLogger(EregConsumer::class.java)
 
-    suspend fun hentOrgnavn(orgnr: String, gyldigDato: String?): String {
+    suspend fun hentOrgnavn(orgnr: String, gyldigDato: String?): String? {
         val eregResponse: HttpResponse =
-            client.get(environment.eregApiUrl.plus("/v1/organisasjon/$orgnr/noekkelinfo")) {
+            client.get(environment.eregApiUrl.plus("/v2/organisasjon/$orgnr/noekkelinfo")) {
                 parameter("gyldigDato", gyldigDato)
                 header("Nav-Call-Id", MDC.get(MDC_CALL_ID))
             }
         return if (eregResponse.status.isSuccess()) {
             val eregOrganisasjon = eregResponse.body<EregOrganisasjon>()
-            eregOrganisasjon.navn.getNavn()
+            eregOrganisasjon.navn.sammensattnavn
         } else {
             logger.warn("Oppslag mot EREG feilet med status: ${eregResponse.status}")
             orgnr
