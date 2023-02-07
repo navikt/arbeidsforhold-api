@@ -4,5 +4,7 @@
   ],
   "aareg-host": "https://aareg-services-q1.dev-fss-pub.nais.io",
   "aareg-app-name": "aareg-services-nais-q1",
-  "fss-cluster": "dev-fss"
+  "fss-cluster": "dev-fss",
+  "min-replicas": 1,
+  "max-replicas": 1
 }
