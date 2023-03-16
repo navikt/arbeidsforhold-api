@@ -1,6 +1,7 @@
 {
   "ingresses": [
-    "https://person.dev.nav.no/person/arbeidsforhold-api"
+    "https://person.dev.nav.no/person/arbeidsforhold-api",
+    "https://person.ekstern.dev.nav.no/person/arbeidsforhold-api"
   ],
   "aareg-host": "https://aareg-services-q1.dev-fss-pub.nais.io",
   "aareg-app-name": "aareg-services-nais-q1",
