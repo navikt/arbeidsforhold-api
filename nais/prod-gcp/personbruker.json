@@ -2,9 +2,8 @@
   "ingresses": [
     "https://www.nav.no/person/arbeidsforhold-api"
   ],
+  "ereg-host": "https://ereg-services.prod-fss-pub.nais.io",
   "aareg-host": "https://aareg-services.prod-fss-pub.nais.io",
-  "aareg-app-name": "aareg-services-nais",
-  "fss-cluster": "prod-fss",
   "min-replicas": 2,
   "max-replicas": 4
 }
