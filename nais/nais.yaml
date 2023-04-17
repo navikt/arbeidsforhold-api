@@ -23,13 +23,10 @@ spec:
   tokenx:
     enabled: true
   accessPolicy:
-    rules:
-      - application: {{ aareg-app-name }}
-        namespace: personbruker
-        cluster: {{ fss-cluster }}
     outbound:
       external:
         - host: {{ aareg-host }}
+        - host: {{ ereg-host }}
   ingresses:
   {{#each ingresses}}
      - "{{this}}"
