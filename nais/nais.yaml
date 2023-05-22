@@ -22,6 +22,10 @@ spec:
     max: {{ max-replicas }}
   tokenx:
     enabled: true
+  idporten:
+    enabled: true
+    sidecar:
+      enabled: true
   accessPolicy:
     outbound:
       external:
@@ -32,7 +36,6 @@ spec:
      - "{{this}}"
          {{/each}}
   envFrom:
-    - configmap: loginservice-idporten
     - secret: arbeidsforhold-api-secret
   secureLogs:
     enabled: true
