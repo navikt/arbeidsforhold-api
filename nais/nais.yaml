@@ -31,6 +31,10 @@ spec:
       external:
         - host: {{ aareg-host }}
         - host: {{ ereg-host }}
+    inbound:
+      rules:
+        - application: aareg-innsyn-arbeidsgiver
+          namespace: arbeidsforhold
   ingresses:
   {{#each ingresses}}
      - "{{this}}"
