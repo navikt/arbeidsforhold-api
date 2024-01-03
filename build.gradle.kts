@@ -2,7 +2,7 @@ import org.gradle.api.tasks.testing.logging.TestExceptionFormat
 
 plugins {
     val versions = object {
-        val kotlin = "1.9.0"
+        val kotlin = "1.9.22"
         val shadow = "8.1.1"
         val versions = "0.50.0"
     }
@@ -28,15 +28,15 @@ repositories {
 dependencies {
     val versions = object {
         val auth0Jwt = "4.4.0"
-        val ktor = "2.3.6"
+        val ktor = "2.3.7"
         val kotlinxSerialization = "1.3.0"
-        val micrometer = "1.12.0"
-        val logback = "1.4.11"
+        val micrometer = "1.12.1"
+        val logback = "1.4.14"
         val logstash = "7.4"
-        val navSecurity = "3.1.8"
+        val navSecurity = "3.2.0"
         val mockk = "1.13.8"
-        val kotlin = "1.9.0"
-        val tmsKtorTokenSupport = "3.0.0"
+        val kotlin = "1.9.22"
+        val tmsKtorTokenSupport = "4.0.0"
     }
 
     implementation("com.auth0:java-jwt:${versions.auth0Jwt}")
@@ -56,7 +56,7 @@ dependencies {
     implementation("ch.qos.logback:logback-classic:${versions.logback}")
     implementation("net.logstash.logback:logstash-logback-encoder:${versions.logstash}")
     implementation("no.nav.security:token-validation-ktor-v2:${versions.navSecurity}")
-    implementation("com.github.navikt.tms-ktor-token-support:token-support-tokendings-exchange:${versions.tmsKtorTokenSupport}")
+    implementation("com.github.navikt.tms-ktor-token-support:tokendings-exchange:${versions.tmsKtorTokenSupport}")
     testImplementation("org.jetbrains.kotlin:kotlin-test-junit5:${versions.kotlin}")
     testImplementation("io.ktor:ktor-server-test-host:${versions.ktor}")
     testImplementation("io.ktor:ktor-client-mock:${versions.ktor}")
