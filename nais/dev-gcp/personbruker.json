@@ -1,6 +1,7 @@
 {
   "ingresses": [
     "https://www.ansatt.dev.nav.no/person/arbeidsforhold-api"
+    "https://www.intern.dev.nav.no/person/arbeidsforhold-api"
   ],
   "ereg-host": "ereg-services.dev-fss-pub.nais.io",
   "aareg-host": "aareg-services-q1.dev-fss-pub.nais.io",
