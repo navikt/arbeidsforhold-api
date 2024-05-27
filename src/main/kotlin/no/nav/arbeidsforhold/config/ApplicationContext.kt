@@ -1,7 +1,7 @@
 package no.nav.arbeidsforhold.config
 
-import io.micrometer.prometheus.PrometheusConfig
-import io.micrometer.prometheus.PrometheusMeterRegistry
+import io.micrometer.prometheusmetrics.PrometheusConfig
+import io.micrometer.prometheusmetrics.PrometheusMeterRegistry
 import no.nav.arbeidsforhold.consumer.aareg.AaregConsumer
 import no.nav.arbeidsforhold.consumer.ereg.EregConsumer
 import no.nav.arbeidsforhold.service.ArbeidsforholdService
