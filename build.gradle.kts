@@ -33,7 +33,7 @@ dependencies {
     val auth0JwtVersion = "4.4.0"
     val ktorVersion = "2.3.12"
     val micrometerVersion = "1.13.3"
-    val logbackVersion = "1.5.6"
+    val logbackVersion = "1.5.7"
     val logstashVersion = "8.0"
     val navSecurityVersion = "5.0.2"
     val mockkVersion = "1.13.12"
