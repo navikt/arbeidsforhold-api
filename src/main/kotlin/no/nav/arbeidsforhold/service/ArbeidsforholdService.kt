@@ -5,9 +5,9 @@ import no.nav.arbeidsforhold.consumer.aareg.dto.Ansettelsesperiode
 import no.nav.arbeidsforhold.consumer.aareg.dto.Identer
 import no.nav.arbeidsforhold.consumer.ereg.EregConsumer
 import no.nav.arbeidsforhold.service.outbound.ArbeidsforholdDto
-import no.nav.arbeidsforhold.service.transformer.ArbeidsavtaleTransformer
-import no.nav.arbeidsforhold.service.transformer.ArbeidsforholdTransformer
-import no.nav.arbeidsforhold.service.transformer.EnkeltArbeidsforholdTransformer
+import no.nav.arbeidsforhold.service.transformer.ArbeidsavtaleTransformer.toOutboundArray
+import no.nav.arbeidsforhold.service.transformer.ArbeidsforholdTransformer.toOutbound
+import no.nav.arbeidsforhold.service.transformer.EnkeltArbeidsforholdTransformer.toOutbound
 import no.nav.arbeidsforhold.util.DtoUtils
 import no.nav.arbeidsforhold.util.ORGANISASJONSNUMMER
 import no.nav.arbeidsforhold.util.hentIdent
@@ -23,7 +23,7 @@ class ArbeidsforholdService(
         val arbeidsforholdDtos = mutableListOf<ArbeidsforholdDto>()
         for (arbeidsforhold in inbound) {
             val yrke =
-                DtoUtils.hentYrkeForSisteArbeidsavtale(ArbeidsavtaleTransformer.toOutboundArray(arbeidsforhold.ansettelsesdetaljer, false))
+                DtoUtils.hentYrkeForSisteArbeidsavtale(arbeidsforhold.ansettelsesdetaljer.toOutboundArray(false))
             val arbgivnavn = arbeidsforhold.arbeidssted?.let {
                 hentArbGiverOrgNavn(it, arbeidsforhold.ansettelsesperiode)
             }
@@ -31,8 +31,7 @@ class ArbeidsforholdService(
                 hentArbGiverOrgNavn(it, arbeidsforhold.ansettelsesperiode)
             }
             arbeidsforholdDtos.add(
-                ArbeidsforholdTransformer.toOutbound(
-                    arbeidsforhold,
+                arbeidsforhold.toOutbound(
                     arbgivnavn,
                     opplarbgivnavn,
                     yrke
@@ -50,7 +49,7 @@ class ArbeidsforholdService(
             hentArbGiverOrgNavn(it, arbeidsforhold.ansettelsesperiode)
         }
 
-        return EnkeltArbeidsforholdTransformer.toOutbound(arbeidsforhold, arbgivnavn, opplarbgivnavn)
+        return arbeidsforhold.toOutbound(arbgivnavn, opplarbgivnavn)
     }
 
 

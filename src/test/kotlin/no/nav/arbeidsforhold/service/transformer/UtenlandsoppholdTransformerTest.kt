@@ -1,6 +1,7 @@
 package no.nav.arbeidsforhold.service.transformer
 
 import no.nav.arbeidsforhold.service.outbound.UtenlandsoppholdDto
+import no.nav.arbeidsforhold.service.transformer.UtenlandsoppholdTransformer.toOutboundArray
 import no.nav.arbeidsforhold.testdata.UtenlandsOppholdObjectMother
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.TestInstance
@@ -14,7 +15,7 @@ class UtenlandsoppholdTransformerTest {
     @Test
     fun skalFaaUtenlandsopphold() {
         val inbound = UtenlandsOppholdObjectMother.dummyValues
-        val actual: List<UtenlandsoppholdDto> = UtenlandsoppholdTransformer.toOutboundArray(inbound)
+        val actual: List<UtenlandsoppholdDto> = inbound.toOutboundArray()
         assertNotNull(actual)
         assertEquals(inbound[0].sluttdato, actual[0].periode?.periodeTil)
         assertEquals(inbound[0].startdato, actual[0].periode?.periodeFra)

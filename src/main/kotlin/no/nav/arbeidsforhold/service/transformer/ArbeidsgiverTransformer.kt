@@ -10,10 +10,12 @@ import no.nav.arbeidsforhold.util.isOrganisasjon
 
 object ArbeidsgiverTransformer {
 
-    fun toOutbound(inbound: Identer?, arbgivnavn: String?) = ArbeidsgiverDto(
-        type = if (isOrganisasjon(inbound)) ORGANISASJON else inbound?.type,
-        orgnr = inbound?.identer?.let { hentIdent(it, ORGANISASJONSNUMMER) },
-        fnr = inbound?.identer?.let { hentIdent(it, FOLKEREGISTERIDENT) },
-        orgnavn = arbgivnavn
-    )
+    fun Identer?.toOutbound(arbgivnavn: String?): ArbeidsgiverDto {
+        return ArbeidsgiverDto(
+            type = if (isOrganisasjon(this)) ORGANISASJON else this?.type,
+            orgnr = this?.identer?.let { hentIdent(it, ORGANISASJONSNUMMER) },
+            fnr = this?.identer?.let { hentIdent(it, FOLKEREGISTERIDENT) },
+            orgnavn = arbgivnavn
+        )
+    }
 }

@@ -1,6 +1,7 @@
 package no.nav.arbeidsforhold.service.transformer
 
 import no.nav.arbeidsforhold.service.outbound.PermisjonPermitteringDto
+import no.nav.arbeidsforhold.service.transformer.PermisjonPermitteringTransformer.toOutboundArray
 import no.nav.arbeidsforhold.testdata.PermisjonPermitteringObjectMother
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.TestInstance
@@ -15,7 +16,7 @@ class PermisjonPermitteringTransformerTest {
     fun skalFaaPermisjonPermittering() {
         val inbound = PermisjonPermitteringObjectMother.dummyValues
 
-        val actual: List<PermisjonPermitteringDto> = PermisjonPermitteringTransformer.toOutboundArray(inbound, emptyList())
+        val actual: List<PermisjonPermitteringDto> = inbound.toOutboundArray()
 
         assertNotNull(actual)
         assertEquals(inbound[0].sluttdato, actual[0].periode?.periodeTil)

@@ -2,6 +2,7 @@ package no.nav.arbeidsforhold.service.transformer
 
 import no.nav.arbeidsforhold.consumer.aareg.dto.Identer
 import no.nav.arbeidsforhold.service.outbound.ArbeidsgiverDto
+import no.nav.arbeidsforhold.service.transformer.ArbeidsgiverTransformer.toOutbound
 import no.nav.arbeidsforhold.testdata.ArbeidsgiverObjectMother
 import no.nav.arbeidsforhold.util.FOLKEREGISTERIDENT
 import no.nav.arbeidsforhold.util.ORGANISASJONSNUMMER
@@ -19,7 +20,7 @@ class IdenterTransformerTest {
     fun skalFaArbeidsgiver() {
         val inbound: Identer = ArbeidsgiverObjectMother.withDummyValues
 
-        val actual: ArbeidsgiverDto = ArbeidsgiverTransformer.toOutbound(inbound, "NAV")
+        val actual: ArbeidsgiverDto = inbound.toOutbound("NAV")
         assertNotNull(actual)
         assertEquals(inbound.type.toString(), actual.type)
         assertEquals(inbound.identer?.let { hentIdent(it, FOLKEREGISTERIDENT) }, actual.fnr)

@@ -2,12 +2,18 @@ package no.nav.arbeidsforhold.service.transformer
 
 import no.nav.arbeidsforhold.consumer.aareg.dto.Ansettelsesperiode
 import no.nav.arbeidsforhold.service.outbound.AnsettelsesperiodeDto
+import no.nav.arbeidsforhold.service.outbound.PeriodeDto
 
 object AnsettelsesperiodeTransformer {
 
-    fun toOutbound(inbound: Ansettelsesperiode?) = AnsettelsesperiodeDto(
-        periode = PeriodeTransformer.toOutboundfromPeriode(inbound?.startdato, inbound?.sluttdato),
-        varslingskode = inbound?.varsling?.beskrivelse,
-        sluttaarsak = inbound?.sluttaarsak?.beskrivelse
-    )
+    fun Ansettelsesperiode?.toOutbound(): AnsettelsesperiodeDto {
+        return AnsettelsesperiodeDto(
+            periode = PeriodeDto(
+                periodeFra = this?.startdato,
+                periodeTil = this?.sluttdato
+            ),
+            varslingskode = this?.varsling?.beskrivelse,
+            sluttaarsak = this?.sluttaarsak?.beskrivelse
+        )
+    }
 }

@@ -2,14 +2,15 @@ package no.nav.arbeidsforhold.service.transformer
 
 import no.nav.arbeidsforhold.consumer.aareg.dto.TimerMedTimeloenn
 import no.nav.arbeidsforhold.service.outbound.AntallTimerForTimeloennetDto
+import no.nav.arbeidsforhold.service.outbound.PeriodeDto
 
 object AntallTimerForTimeloennetTransformer {
 
-    fun toOutboundArray(inbound: List<TimerMedTimeloenn>): List<AntallTimerForTimeloennetDto> {
-        return inbound.map {
+    fun List<TimerMedTimeloenn>.toOutboundArray(): List<AntallTimerForTimeloennetDto> {
+        return map {
             AntallTimerForTimeloennetDto(
                 antallTimer = it.antall.toString(),
-                periode = PeriodeTransformer.toOutboundfromPeriode(it.startdato, it.sluttdato),
+                periode = PeriodeDto(it.startdato, it.sluttdato),
                 rapporteringsperiode = it.rapporteringsmaaned
             )
         }

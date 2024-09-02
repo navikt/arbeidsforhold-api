@@ -2,6 +2,7 @@ package no.nav.arbeidsforhold.service.transformer
 
 import no.nav.arbeidsforhold.consumer.aareg.dto.Arbeidsforhold
 import no.nav.arbeidsforhold.service.outbound.ArbeidsforholdDto
+import no.nav.arbeidsforhold.service.transformer.ArbeidsforholdTransformer.toOutbound
 import no.nav.arbeidsforhold.testdata.ArbeidsforholdObjectMother
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.TestInstance
@@ -14,7 +15,7 @@ class ArbeidsforholdTransformerTest {
     @Test
     fun skalFaaArbeidsforhold() {
         val inbound: Arbeidsforhold = ArbeidsforholdObjectMother.withDummyValues
-        val actual: ArbeidsforholdDto = ArbeidsforholdTransformer.toOutbound(inbound, "NAV IKT", "NAV", null)
+        val actual: ArbeidsforholdDto = inbound.toOutbound("NAV IKT", "NAV", null)
         assertNotNull(actual)
         assertEquals(inbound.navArbeidsforholdId, actual.navArbeidsforholdId)
         assertEquals(inbound.id, actual.eksternArbeidsforholdId)

@@ -1,15 +1,16 @@
 package no.nav.arbeidsforhold.service.transformer
 
 import no.nav.arbeidsforhold.consumer.aareg.dto.Utenlandsopphold
+import no.nav.arbeidsforhold.service.outbound.PeriodeDto
 import no.nav.arbeidsforhold.service.outbound.UtenlandsoppholdDto
 
 object UtenlandsoppholdTransformer {
 
-    fun toOutboundArray(inbound: List<Utenlandsopphold>): List<UtenlandsoppholdDto> {
-        return inbound.map {
+    fun List<Utenlandsopphold>.toOutboundArray(): List<UtenlandsoppholdDto> {
+        return map {
             UtenlandsoppholdDto(
                 land = it.land?.beskrivelse,
-                periode = PeriodeTransformer.toOutboundfromPeriode(it.startdato, it.sluttdato),
+                periode = PeriodeDto(it.startdato, it.sluttdato),
                 rapporteringsperiode = it.rapporteringsmaaned
             )
         }

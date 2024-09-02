@@ -2,6 +2,7 @@ package no.nav.arbeidsforhold.service.transformer
 
 import no.nav.arbeidsforhold.consumer.aareg.dto.Ansettelsesdetaljer
 import no.nav.arbeidsforhold.service.outbound.ArbeidsavtaleDto
+import no.nav.arbeidsforhold.service.transformer.ArbeidsavtaleTransformer.toOutboundArray
 import no.nav.arbeidsforhold.testdata.ArbeidsavtaleObjectMother
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.TestInstance
@@ -14,7 +15,7 @@ class AnsettelsesdetaljerTransformerTest {
     @Test
     fun skalFaaArbeidsavtale() {
         val inbound: List<Ansettelsesdetaljer> = ArbeidsavtaleObjectMother.dummyValues
-        val actual: List<ArbeidsavtaleDto> = ArbeidsavtaleTransformer.toOutboundArray(inbound, false)
+        val actual: List<ArbeidsavtaleDto> = inbound.toOutboundArray(false)
         assertNotNull(actual)
         assertEquals(inbound[0].skipsregister?.beskrivelse, actual[0].skipsregister)
         assertEquals(inbound[0].fartoeystype?.beskrivelse, actual[0].skipstype)

@@ -5,13 +5,8 @@ import no.nav.arbeidsforhold.service.outbound.PeriodeDto
 
 object PeriodeTransformer {
 
-    fun toOutboundfromPeriode(startdato: String?, sluttdato: String?) = PeriodeDto(
-        periodeFra = startdato,
-        periodeTil = sluttdato
-    )
-
-    fun toOutboundfromGyldighetsperiode(inbound: Rapporteringsmaaneder?) = PeriodeDto(
-        periodeFra = inbound?.fra,
-        periodeTil = inbound?.til
+    fun Rapporteringsmaaneder?.toOutbound() = PeriodeDto(
+        periodeFra = this?.fra,
+        periodeTil = this?.til
     )
 }
