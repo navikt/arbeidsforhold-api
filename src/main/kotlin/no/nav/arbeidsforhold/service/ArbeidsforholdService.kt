@@ -14,8 +14,8 @@ import no.nav.arbeidsforhold.util.hentIdent
 import no.nav.arbeidsforhold.util.isOrganisasjon
 
 class ArbeidsforholdService(
-    private var aaregConsumer: AaregConsumer,
-    private var eregConsumer: EregConsumer,
+    private val aaregConsumer: AaregConsumer,
+    private val eregConsumer: EregConsumer,
 ) {
 
     suspend fun hentArbeidsforhold(token: String, fodselsnr: String): List<ArbeidsforholdDto> {
