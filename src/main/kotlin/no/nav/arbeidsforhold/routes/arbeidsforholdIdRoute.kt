@@ -49,4 +49,4 @@ fun Route.arbeidsforholdId(arbeidsforholdService: ArbeidsforholdService) {
     }
 }
 
-private fun Parameters.requireId() = requireNotNull(this["id"]?.toInt()) { "Id-parameter er null" }
+private fun Parameters.requireId() = requireNotNull(this["id"]) { "Id-parameter er null" }.toInt()

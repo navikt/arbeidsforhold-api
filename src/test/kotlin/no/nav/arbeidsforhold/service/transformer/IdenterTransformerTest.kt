@@ -6,7 +6,7 @@ import no.nav.arbeidsforhold.service.transformer.ArbeidsgiverTransformer.toOutbo
 import no.nav.arbeidsforhold.testdata.ArbeidsgiverObjectMother
 import no.nav.arbeidsforhold.util.FOLKEREGISTERIDENT
 import no.nav.arbeidsforhold.util.ORGANISASJONSNUMMER
-import no.nav.arbeidsforhold.util.hentIdent
+import no.nav.arbeidsforhold.util.firstOfTypeOrNull
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.TestInstance
 import org.junit.jupiter.api.TestInstance.Lifecycle.PER_CLASS
@@ -23,8 +23,8 @@ class IdenterTransformerTest {
         val actual: ArbeidsgiverDto = inbound.toOutbound("NAV")
         assertNotNull(actual)
         assertEquals(inbound.type.toString(), actual.type)
-        assertEquals(inbound.identer?.let { hentIdent(it, FOLKEREGISTERIDENT) }, actual.fnr)
-        assertEquals(inbound.identer?.let { hentIdent(it, ORGANISASJONSNUMMER) }, actual.orgnr)
+        assertEquals(inbound.identer?.firstOfTypeOrNull(FOLKEREGISTERIDENT), actual.fnr)
+        assertEquals(inbound.identer?.firstOfTypeOrNull(ORGANISASJONSNUMMER), actual.orgnr)
     }
 
 }

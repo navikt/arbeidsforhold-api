@@ -7,10 +7,8 @@ import no.nav.security.token.support.core.jwt.JwtToken
 private const val PID_CLAIM = "pid"
 
 fun getAuthTokenFromRequest(request: ApplicationRequest): String {
-    return request.authorization()?.replace("Bearer ", "")
-        ?: throw RuntimeException("Kunne ikke utlede token fra request")
+    return requireNotNull(request.authorization()) {"Auth-header er null"}
+        .removePrefix("Bearer ")
 }
 
-fun getFnrFromToken(token: String): String {
-    return JwtToken(token).jwtTokenClaims.getStringClaim(PID_CLAIM)
-}
+fun getFnrFromToken(token: String): String = JwtToken(token).jwtTokenClaims.getStringClaim(PID_CLAIM)

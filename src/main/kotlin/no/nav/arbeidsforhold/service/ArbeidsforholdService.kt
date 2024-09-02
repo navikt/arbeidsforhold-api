@@ -10,7 +10,7 @@ import no.nav.arbeidsforhold.service.transformer.ArbeidsavtaleTransformer.toOutb
 import no.nav.arbeidsforhold.service.transformer.ArbeidsforholdTransformer.toOutbound
 import no.nav.arbeidsforhold.service.transformer.EnkeltArbeidsforholdTransformer.toOutbound
 import no.nav.arbeidsforhold.util.ORGANISASJONSNUMMER
-import no.nav.arbeidsforhold.util.hentIdent
+import no.nav.arbeidsforhold.util.firstOfTypeOrNull
 import no.nav.arbeidsforhold.util.isOrganisasjon
 
 class ArbeidsforholdService(
@@ -40,10 +40,10 @@ class ArbeidsforholdService(
     }
 
     private suspend fun Identer.orgnavnForPeriode(ansettelsesperiode: Ansettelsesperiode?): String? {
-        val orgnr = identer?.let { hentIdent(it, ORGANISASJONSNUMMER) }
+        val orgnr = identer?.firstOfTypeOrNull(ORGANISASJONSNUMMER)
 
         return when {
-            orgnr != null && isOrganisasjon(this) -> eregConsumer.hentOrgnavn(orgnr, ansettelsesperiode?.sluttdato)
+            orgnr != null && this.isOrganisasjon() -> eregConsumer.hentOrgnavn(orgnr, ansettelsesperiode?.sluttdato)
             else -> orgnr
         }
     }
