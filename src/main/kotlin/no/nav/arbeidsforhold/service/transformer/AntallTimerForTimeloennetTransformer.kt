@@ -5,18 +5,13 @@ import no.nav.arbeidsforhold.service.outbound.AntallTimerForTimeloennetDto
 
 object AntallTimerForTimeloennetTransformer {
 
-    fun toOutboundArray(inbound: List<TimerMedTimeloenn>?): List<AntallTimerForTimeloennetDto> {
-        val antallDtoArray = ArrayList<AntallTimerForTimeloennetDto>()
-
-        for (antall in inbound.orEmpty()) {
-            val antallDto = AntallTimerForTimeloennetDto(
-                antallTimer = antall.antall.toString(),
-                periode = PeriodeTransformer.toOutboundfromPeriode(antall.startdato, antall.sluttdato),
-                rapporteringsperiode = antall.rapporteringsmaaned
+    fun toOutboundArray(inbound: List<TimerMedTimeloenn>): List<AntallTimerForTimeloennetDto> {
+        return inbound.map {
+            AntallTimerForTimeloennetDto(
+                antallTimer = it.antall.toString(),
+                periode = PeriodeTransformer.toOutboundfromPeriode(it.startdato, it.sluttdato),
+                rapporteringsperiode = it.rapporteringsmaaned
             )
-            antallDtoArray.add(antallDto)
         }
-
-        return antallDtoArray
     }
 }

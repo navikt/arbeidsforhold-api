@@ -7,30 +7,27 @@ import no.nav.arbeidsforhold.service.outbound.ArbeidsavtaleDto
 object ArbeidsavtaleTransformer {
 
     fun toOutboundArray(
-        inbound: List<Ansettelsesdetaljer>?,
-        inkluderYrkeskode: Boolean = false
+        inbound: List<Ansettelsesdetaljer>,
+        inkluderYrkeskode: Boolean,
     ): List<ArbeidsavtaleDto> {
-
-        val arbeidsavtaleDtoArray = ArrayList<ArbeidsavtaleDto>()
-
-        for (arbeidsavtale in inbound.orEmpty()) {
-            val avtaledto = ArbeidsavtaleDto(
-                ansettelsesform = arbeidsavtale.ansettelsesform?.beskrivelse,
-                antallTimerPrUke = arbeidsavtale.antallTimerPrUke,
-                arbeidstidsordning = arbeidsavtale.arbeidstidsordning?.beskrivelse,
-                sisteStillingsendring = arbeidsavtale.sisteStillingsprosentendring,
-                stillingsprosent = arbeidsavtale.avtaltStillingsprosent,
-                sisteLoennsendring = arbeidsavtale.sisteLoennsendring,
-                yrke = if (inkluderYrkeskode) "${arbeidsavtale.yrke?.beskrivelse} (Yrkeskode: ${arbeidsavtale.yrke?.kode})" else arbeidsavtale.yrke?.beskrivelse,
-                gyldighetsperiode = PeriodeTransformer.toOutboundfromGyldighetsperiode(arbeidsavtale.rapporteringsmaaneder),
-                fartsomraade = arbeidsavtale.fartsomraade?.beskrivelse,
-                skipsregister = arbeidsavtale.skipsregister?.beskrivelse,
-                skipstype = arbeidsavtale.fartoeystype?.beskrivelse
+        return inbound.map {
+            ArbeidsavtaleDto(
+                ansettelsesform = it.ansettelsesform?.beskrivelse,
+                antallTimerPrUke = it.antallTimerPrUke,
+                arbeidstidsordning = it.arbeidstidsordning?.beskrivelse,
+                sisteStillingsendring = it.sisteStillingsprosentendring,
+                stillingsprosent = it.avtaltStillingsprosent,
+                sisteLoennsendring = it.sisteLoennsendring,
+                yrke = buildString {
+                    append(it.yrke?.beskrivelse)
+                    if (inkluderYrkeskode) append(" (Yrkeskode: ${it.yrke?.kode})")
+                },
+                gyldighetsperiode = PeriodeTransformer.toOutboundfromGyldighetsperiode(it.rapporteringsmaaneder),
+                fartsomraade = it.fartsomraade?.beskrivelse,
+                skipsregister = it.skipsregister?.beskrivelse,
+                skipstype = it.fartoeystype?.beskrivelse
             )
-            arbeidsavtaleDtoArray.add(avtaledto)
         }
-
-        return arbeidsavtaleDtoArray
     }
 
 }

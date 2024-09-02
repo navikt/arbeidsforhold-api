@@ -23,7 +23,7 @@ class ArbeidsforholdService(
         val arbeidsforholdDtos = mutableListOf<ArbeidsforholdDto>()
         for (arbeidsforhold in inbound) {
             val yrke =
-                DtoUtils.hentYrkeForSisteArbeidsavtale(ArbeidsavtaleTransformer.toOutboundArray(arbeidsforhold.ansettelsesdetaljer))
+                DtoUtils.hentYrkeForSisteArbeidsavtale(ArbeidsavtaleTransformer.toOutboundArray(arbeidsforhold.ansettelsesdetaljer, false))
             val arbgivnavn = arbeidsforhold.arbeidssted?.let {
                 hentArbGiverOrgNavn(it, arbeidsforhold.ansettelsesperiode)
             }

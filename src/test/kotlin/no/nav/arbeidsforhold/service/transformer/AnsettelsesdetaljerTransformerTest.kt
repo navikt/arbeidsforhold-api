@@ -14,7 +14,7 @@ class AnsettelsesdetaljerTransformerTest {
     @Test
     fun skalFaaArbeidsavtale() {
         val inbound: List<Ansettelsesdetaljer> = ArbeidsavtaleObjectMother.dummyValues
-        val actual: List<ArbeidsavtaleDto> = ArbeidsavtaleTransformer.toOutboundArray(inbound)
+        val actual: List<ArbeidsavtaleDto> = ArbeidsavtaleTransformer.toOutboundArray(inbound, false)
         assertNotNull(actual)
         assertEquals(inbound[0].skipsregister?.beskrivelse, actual[0].skipsregister)
         assertEquals(inbound[0].fartoeystype?.beskrivelse, actual[0].skipstype)

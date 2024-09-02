@@ -7,7 +7,6 @@ object ArbeidsforholdTransformer {
 
     fun toOutbound(inbound: Arbeidsforhold, arbgivnavn: String?, opplarbgivnavn: String?, yrke: String?) =
         ArbeidsforholdDto(
-
             navArbeidsforholdId = inbound.navArbeidsforholdId,
             eksternArbeidsforholdId = inbound.id,
             yrke = yrke,
@@ -18,7 +17,10 @@ object ArbeidsforholdTransformer {
             ),
             ansettelsesperiode = AnsettelsesperiodeTransformer.toOutbound(inbound.ansettelsesperiode),
             utenlandsopphold = UtenlandsoppholdTransformer.toOutboundArray(inbound.utenlandsopphold),
-            permisjonPermittering = PermisjonPermitteringTransformer.toOutboundArray(inbound.permitteringer, inbound.permisjoner)
+            permisjonPermittering = PermisjonPermitteringTransformer.toOutboundArray(
+                inbound.permitteringer,
+                inbound.permisjoner
+            )
 
         )
 }

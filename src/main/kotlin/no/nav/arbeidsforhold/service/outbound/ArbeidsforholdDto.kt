@@ -13,7 +13,7 @@ data class ArbeidsforholdDto(
     val ansettelsesperiode: AnsettelsesperiodeDto? = null,
     val utenlandsopphold: List<UtenlandsoppholdDto>? = null,
     val permisjonPermittering: List<PermisjonPermitteringDto>? = null,
-    val arbeidsavtaler: List<ArbeidsavtaleDto>? = null,
+    val arbeidsavtaler: List<ArbeidsavtaleDto> = emptyList(),
     val ansettelsesform: String? = null,
     val antallTimerForTimelonnet: List<AntallTimerForTimeloennetDto>? = null,
     val antallTimerPrUke: Double? = null,
