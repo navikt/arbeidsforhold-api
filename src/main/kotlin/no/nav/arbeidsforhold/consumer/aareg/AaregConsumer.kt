@@ -18,13 +18,6 @@ class AaregConsumer(
     private val environment: Environment,
     private val tokenDingsService: TokendingsService
 ) {
-    private val BEARER = "Bearer "
-    private val REGELVERK = "A_ORDNINGEN"
-    private val ARBEIDSFORHOLDTYPER =
-        "ordinaertArbeidsforhold,maritimtArbeidsforhold,forenkletOppgjoersordning,frilanserOppdragstakerHonorarPersonerMm"
-    private val ARBEIDSFORHOLDSTATUS = "AKTIV,FREMTIDIG,AVSLUTTET"
-
-
     suspend fun hentArbeidsforholdmedFnr(token: String, fnr: String): List<Arbeidsforhold> {
         val accessToken = tokenDingsService.exchangeToken(token, environment.aaregTargetApp)
 
@@ -61,5 +54,13 @@ class AaregConsumer(
         } else {
             throw RuntimeException("Oppslag mot AAREG med id feilet med status: ${response.status}")
         }
+    }
+
+    companion object {
+        private const val BEARER = "Bearer "
+        private const val REGELVERK = "A_ORDNINGEN"
+        private const val ARBEIDSFORHOLDTYPER =
+            "ordinaertArbeidsforhold,maritimtArbeidsforhold,forenkletOppgjoersordning,frilanserOppdragstakerHonorarPersonerMm"
+        private const val ARBEIDSFORHOLDSTATUS = "AKTIV,FREMTIDIG,AVSLUTTET"
     }
 }
