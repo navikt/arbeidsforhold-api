@@ -15,9 +15,7 @@ object ArbeidsforholdTransformer {
             eksternArbeidsforholdId = id,
             yrke = yrke,
             arbeidsgiver = arbeidssted.toOutbound(arbgivnavn),
-            opplysningspliktigarbeidsgiver = opplysningspliktig.toOutbound(
-                opplarbgivnavn
-            ),
+            opplysningspliktigarbeidsgiver = opplysningspliktig.toOutbound(opplarbgivnavn),
             ansettelsesperiode = ansettelsesperiode.toOutbound(),
             utenlandsopphold = utenlandsopphold.toOutboundArray(),
             permisjonPermittering = permisjoner.plus(permitteringer).toOutboundArray()
