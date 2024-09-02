@@ -39,7 +39,6 @@ class ArbeidsforholdService(
         return arbeidsforhold.toOutbound(arbgivnavn, opplarbgivnavn)
     }
 
-
     private suspend fun Identer.orgnavnForPeriode(ansettelsesperiode: Ansettelsesperiode?): String? {
         val orgnr = identer?.let { hentIdent(it, ORGANISASJONSNUMMER) }
 
