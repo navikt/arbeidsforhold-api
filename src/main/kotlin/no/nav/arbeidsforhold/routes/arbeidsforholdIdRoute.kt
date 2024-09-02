@@ -1,6 +1,7 @@
 package no.nav.arbeidsforhold.routes
 
 import io.ktor.http.HttpStatusCode
+import io.ktor.http.Parameters
 import io.ktor.server.application.call
 import io.ktor.server.response.respond
 import io.ktor.server.routing.Route
@@ -20,7 +21,7 @@ fun Route.arbeidsforholdId(arbeidsforholdService: ArbeidsforholdService) {
             try {
                 val authToken = getAuthTokenFromRequest(call.request)
                 val fnr = getFnrFromToken(authToken)
-                val id = call.parameters["id"]!!.toInt()
+                val id = call.parameters.requireId()
 
                 call.respond(arbeidsforholdService.hentEttArbeidsforholdmedId(authToken, fnr, id))
             } catch (e: Exception) {
@@ -33,7 +34,7 @@ fun Route.arbeidsforholdId(arbeidsforholdService: ArbeidsforholdService) {
             try {
                 val authToken = getAuthTokenFromRequest(call.request)
                 val fnr = call.request.headers[FNR_ARBEIDSTAKER]
-                val id = call.parameters["id"]!!.toInt()
+                val id = call.parameters.requireId()
 
                 if (fnr.isNullOrEmpty()) {
                     call.respond(HttpStatusCode.BadRequest, "Mangler header $FNR_ARBEIDSTAKER")
@@ -47,3 +48,5 @@ fun Route.arbeidsforholdId(arbeidsforholdService: ArbeidsforholdService) {
         }
     }
 }
+
+private fun Parameters.requireId() = requireNotNull(this["id"]?.toInt()) { "Id-parameter er null" }
