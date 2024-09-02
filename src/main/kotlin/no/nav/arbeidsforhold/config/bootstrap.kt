@@ -68,7 +68,7 @@ fun Application.mainModule(appContext: ApplicationContext = ApplicationContext()
     }
 
     install(CORS) {
-        allowHost(environment.corsAllowedOrigins, schemes = listOf(environment.corsAllowedSchemes))
+        allowHost(host = environment.corsAllowedOrigins, schemes = listOf(environment.corsAllowedSchemes))
         allowCredentials = true
         allowHeader(HttpHeaders.ContentType)
     }
