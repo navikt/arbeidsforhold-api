@@ -35,7 +35,7 @@ dependencies {
     val micrometerVersion = "1.13.3"
     val logbackVersion = "1.5.6"
     val logstashVersion = "8.0"
-    val navSecurityVersion = "5.0.2"
+    val navSecurityVersion = "5.0.5"
     val mockkVersion = "1.13.12"
     val kotlinVersion = "2.0.0"
     val tmsKtorTokenSupportVersion = "4.1.1"
