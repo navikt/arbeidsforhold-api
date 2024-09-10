@@ -6,13 +6,11 @@ import no.nav.arbeidsforhold.service.outbound.PeriodeDto
 
 object AntallTimerForTimeloennetTransformer {
 
-    fun List<TimerMedTimeloenn>.toOutboundArray(): List<AntallTimerForTimeloennetDto> {
-        return map {
-            AntallTimerForTimeloennetDto(
-                antallTimer = it.antall.toString(),
-                periode = PeriodeDto(it.startdato, it.sluttdato),
-                rapporteringsperiode = it.rapporteringsmaaned
-            )
-        }
+    fun TimerMedTimeloenn.toOutbound(): AntallTimerForTimeloennetDto {
+        return AntallTimerForTimeloennetDto(
+            antallTimer = antall.toString(),
+            periode = PeriodeDto(startdato, sluttdato),
+            rapporteringsperiode = rapporteringsmaaned
+        )
     }
 }

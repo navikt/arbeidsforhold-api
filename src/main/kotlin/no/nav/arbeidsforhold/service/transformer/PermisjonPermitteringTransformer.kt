@@ -6,15 +6,19 @@ import no.nav.arbeidsforhold.service.outbound.PermisjonPermitteringDto
 
 object PermisjonPermitteringTransformer {
 
-    fun List<PermisjonPermittering>.toOutboundArray(): List<PermisjonPermitteringDto> {
-        return this.sortedBy { it.id }
-            .map {
-                PermisjonPermitteringDto(
-                    type = it.type?.beskrivelse,
-                    prosent = requireNotNull(it.prosent).asPercentageString(),
-                    periode = PeriodeDto(it.startdato, it.sluttdato)
-                )
-            }
+    fun PermisjonPermittering.toOutbound(): PermisjonPermitteringDto {
+        return PermisjonPermitteringDto(
+            type = type?.beskrivelse,
+            prosent = requireNotNull(prosent).asPercentageString(),
+            periode = PeriodeDto(startdato, sluttdato)
+        )
+    }
+
+    fun joinToSortedList(
+        first: List<PermisjonPermittering>,
+        second: List<PermisjonPermittering>
+    ): List<PermisjonPermittering> {
+        return first.plus(second).sortedBy { it.id }
     }
 
     private fun Double.asPercentageString(): String {

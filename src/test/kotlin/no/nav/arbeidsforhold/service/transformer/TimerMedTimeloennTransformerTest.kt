@@ -2,7 +2,7 @@ package no.nav.arbeidsforhold.service.transformer
 
 
 import no.nav.arbeidsforhold.service.outbound.AntallTimerForTimeloennetDto
-import no.nav.arbeidsforhold.service.transformer.AntallTimerForTimeloennetTransformer.toOutboundArray
+import no.nav.arbeidsforhold.service.transformer.AntallTimerForTimeloennetTransformer.toOutbound
 import no.nav.arbeidsforhold.testdata.AntallTimerForTimeloennetObjectMother
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.TestInstance
@@ -16,7 +16,7 @@ class TimerMedTimeloennTransformerTest {
     @Test
     fun skalFaaRiktigAntallTimer() {
         val inbound = AntallTimerForTimeloennetObjectMother.dummyValues
-        val actual: List<AntallTimerForTimeloennetDto> = inbound.toOutboundArray()
+        val actual: List<AntallTimerForTimeloennetDto> = inbound.map { it.toOutbound() }
         assertNotNull(actual)
         assertEquals(inbound[0].antall.toString(), actual[0].antallTimer)
         assertEquals(inbound[0].rapporteringsmaaned, actual[0].rapporteringsperiode)
