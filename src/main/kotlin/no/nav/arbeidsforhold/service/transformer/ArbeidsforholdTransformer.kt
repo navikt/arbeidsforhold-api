@@ -36,6 +36,7 @@ object ArbeidsforholdTransformer {
         val gyldigArbeidsavtale = ansettelsesdetaljer.gyldigArbeidsavtale()?.toOutbound()
 
         return this.toOutbound(arbeidsgiverNavn, opplysningspliktigNavn).copy(
+            yrke = gyldigArbeidsavtale?.yrke,
             type = type?.beskrivelse,
             sistBekreftet = sistBekreftet,
             arbeidsavtaler = when {
