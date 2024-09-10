@@ -4,7 +4,6 @@ import no.nav.arbeidsforhold.consumer.aareg.dto.Ansettelsesdetaljer
 import no.nav.arbeidsforhold.service.outbound.ArbeidsavtaleDto
 import no.nav.arbeidsforhold.service.transformer.PeriodeTransformer.toOutbound
 
-
 object ArbeidsavtaleTransformer {
 
     fun List<Ansettelsesdetaljer>.toOutboundArray(inkluderYrkeskode: Boolean): List<ArbeidsavtaleDto> {

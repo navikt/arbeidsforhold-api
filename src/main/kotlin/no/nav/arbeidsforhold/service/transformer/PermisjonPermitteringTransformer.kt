@@ -4,7 +4,6 @@ import no.nav.arbeidsforhold.consumer.aareg.dto.PermisjonPermittering
 import no.nav.arbeidsforhold.service.outbound.PeriodeDto
 import no.nav.arbeidsforhold.service.outbound.PermisjonPermitteringDto
 
-
 object PermisjonPermitteringTransformer {
 
     fun List<PermisjonPermittering>.toOutboundArray(): List<PermisjonPermitteringDto> {
