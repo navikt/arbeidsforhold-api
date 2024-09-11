@@ -9,7 +9,7 @@ import kotlin.test.assertNotNull
 class ArbeidsavtaleMapperTest {
 
     @Test
-    fun skalFaaArbeidsavtale() {
+    fun `should map all fields correctly`() {
         val inbound = createAnsettelsesdetaljer()
         val outbound = inbound.toOutbound()
 

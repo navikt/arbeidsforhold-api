@@ -9,7 +9,7 @@ import kotlin.test.assertNotNull
 class PermisjonPermitteringMapperTest {
 
     @Test
-    fun skalFaaPermisjonPermittering() {
+    fun `should map all fields correctly`() {
         val inbound = createPermisjonPermittering()
         val outbound = inbound.toOutbound()
 

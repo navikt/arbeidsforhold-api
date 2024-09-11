@@ -12,7 +12,7 @@ import kotlin.test.assertNotNull
 class ArbeidsgiverMapperTest {
 
     @Test
-    fun skalFaArbeidsgiver() {
+    fun `should map all fields correctly`() {
         val inbound = createIdenter()
         val outbound = inbound.toOutbound("NAV")
 

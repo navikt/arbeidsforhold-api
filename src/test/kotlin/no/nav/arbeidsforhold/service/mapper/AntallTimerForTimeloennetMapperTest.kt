@@ -10,7 +10,7 @@ import kotlin.test.assertNotNull
 class AntallTimerForTimeloennetMapperTest {
 
     @Test
-    fun skalFaaRiktigAntallTimer() {
+    fun `should map all fields correctly`() {
         val inbound = createTimerMedTimeloenn()
         val outbound = inbound.toOutbound()
         

@@ -9,7 +9,7 @@ import kotlin.test.assertNotNull
 class UtenlandsoppholdMapperTest {
 
     @Test
-    fun skalFaaUtenlandsopphold() {
+    fun `should map all fields correctly`() {
         val inbound = createUtenlandsopphold()
         val outbound = inbound.toOutbound()
 
