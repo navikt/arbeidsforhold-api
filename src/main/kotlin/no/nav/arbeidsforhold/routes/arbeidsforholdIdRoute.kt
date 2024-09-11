@@ -23,7 +23,7 @@ fun Route.arbeidsforholdId(arbeidsforholdService: ArbeidsforholdService) {
                 val fnr = getFnrFromToken(authToken)
                 val id = call.parameters.requireId()
 
-                call.respond(arbeidsforholdService.hentEttArbeidsforholdmedId(authToken, fnr, id))
+                call.respond(arbeidsforholdService.hentDetaljertArbeidsforhold(authToken, fnr, id))
             } catch (e: Exception) {
                 logger.error("Noe gikk galt ved henting av arbeidsforhold", e)
                 call.respond(HttpStatusCode.InternalServerError, HttpStatusCode.InternalServerError.description)
@@ -39,7 +39,7 @@ fun Route.arbeidsforholdId(arbeidsforholdService: ArbeidsforholdService) {
                 if (fnr.isNullOrEmpty()) {
                     call.respond(HttpStatusCode.BadRequest, "Mangler header $FNR_ARBEIDSTAKER")
                 } else {
-                    call.respond(arbeidsforholdService.hentEttArbeidsforholdmedId(authToken, fnr, id))
+                    call.respond(arbeidsforholdService.hentDetaljertArbeidsforhold(authToken, fnr, id))
                 }
             } catch (e: Exception) {
                 logger.error("Noe gikk galt ved henting av arbeidsforhold", e)

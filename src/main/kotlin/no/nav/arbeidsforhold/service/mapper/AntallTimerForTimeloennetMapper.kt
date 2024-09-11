@@ -4,13 +4,8 @@ import no.nav.arbeidsforhold.consumer.aareg.dto.TimerMedTimeloenn
 import no.nav.arbeidsforhold.service.outbound.AntallTimerForTimeloennetDto
 import no.nav.arbeidsforhold.service.outbound.PeriodeDto
 
-object AntallTimerForTimeloennetMapper {
-
-    fun TimerMedTimeloenn.toOutbound(): AntallTimerForTimeloennetDto {
-        return AntallTimerForTimeloennetDto(
-            antallTimer = antall.toString(),
-            periode = PeriodeDto(startdato, sluttdato),
-            rapporteringsperiode = rapporteringsmaaned
-        )
-    }
-}
+fun TimerMedTimeloenn.toOutbound() = AntallTimerForTimeloennetDto(
+    antallTimer = antall.toString(),
+    periode = PeriodeDto(startdato, sluttdato),
+    rapporteringsperiode = rapporteringsmaaned
+)

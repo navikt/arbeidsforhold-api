@@ -1,6 +1,5 @@
 package no.nav.arbeidsforhold.service.mapper
 
-import no.nav.arbeidsforhold.service.mapper.UtenlandsoppholdMapper.toOutbound
 import no.nav.arbeidsforhold.testdata.UtenlandsoppholdFactory.createUtenlandsopphold
 import org.junit.jupiter.api.Test
 import kotlin.test.assertEquals

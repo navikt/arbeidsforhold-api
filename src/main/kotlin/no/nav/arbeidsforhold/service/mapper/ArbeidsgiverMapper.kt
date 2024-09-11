@@ -8,14 +8,9 @@ import no.nav.arbeidsforhold.util.ORGANISASJONSNUMMER
 import no.nav.arbeidsforhold.util.firstOfTypeOrNull
 import no.nav.arbeidsforhold.util.isOrganisasjon
 
-object ArbeidsgiverMapper {
-
-    fun Identer?.toOutbound(arbgivnavn: String?): ArbeidsgiverDto {
-        return ArbeidsgiverDto(
-            type = if (this.isOrganisasjon()) ORGANISASJON else this?.type,
-            orgnr = this?.identer?.firstOfTypeOrNull(ORGANISASJONSNUMMER),
-            fnr = this?.identer?.firstOfTypeOrNull(FOLKEREGISTERIDENT),
-            orgnavn = arbgivnavn
-        )
-    }
-}
+fun Identer?.toOutbound(arbgivnavn: String?) = ArbeidsgiverDto(
+    type = if (this.isOrganisasjon()) ORGANISASJON else this?.type,
+    orgnr = this?.identer?.firstOfTypeOrNull(ORGANISASJONSNUMMER),
+    fnr = this?.identer?.firstOfTypeOrNull(FOLKEREGISTERIDENT),
+    orgnavn = arbgivnavn
+)

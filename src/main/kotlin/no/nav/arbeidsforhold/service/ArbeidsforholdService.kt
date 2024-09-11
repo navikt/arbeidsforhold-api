@@ -5,8 +5,8 @@ import no.nav.arbeidsforhold.consumer.aareg.dto.Ansettelsesperiode
 import no.nav.arbeidsforhold.consumer.aareg.dto.Arbeidsforhold
 import no.nav.arbeidsforhold.consumer.aareg.dto.Identer
 import no.nav.arbeidsforhold.consumer.ereg.EregConsumer
-import no.nav.arbeidsforhold.service.mapper.ArbeidsforholdMapper.toOutbound
-import no.nav.arbeidsforhold.service.mapper.ArbeidsforholdMapper.toOutboundDetaljert
+import no.nav.arbeidsforhold.service.mapper.toOutbound
+import no.nav.arbeidsforhold.service.mapper.toOutboundDetaljert
 import no.nav.arbeidsforhold.service.outbound.ArbeidsforholdDto
 import no.nav.arbeidsforhold.util.ORGANISASJONSNUMMER
 import no.nav.arbeidsforhold.util.firstOfTypeOrNull
@@ -16,26 +16,22 @@ class ArbeidsforholdService(
     private val aaregConsumer: AaregConsumer,
     private val eregConsumer: EregConsumer,
 ) {
-
-    suspend fun hentArbeidsforhold(token: String, fodselsnr: String): List<ArbeidsforholdDto> {
-        return aaregConsumer.hentArbeidsforholdmedFnr(token, fodselsnr).map { arbeidsforhold ->
-            val (arbeidsgiver, opplysningspliktig) = arbeidsforhold.orgnavn()
-            arbeidsforhold.toOutbound(arbeidsgiver, opplysningspliktig)
-        }
+    suspend fun hentAlleArbeidsforhold(token: String, fodselsnr: String): List<ArbeidsforholdDto> {
+        val arbeidsforhold = aaregConsumer.hentArbeidsforholdmedFnr(token, fodselsnr)
+        return arbeidsforhold.map { it.fetchOrgnavnAndMapToOutbound(Arbeidsforhold::toOutbound) }
     }
 
-    suspend fun hentEttArbeidsforholdmedId(token: String, fodselsnr: String, id: Int): ArbeidsforholdDto {
-        aaregConsumer.hentArbeidsforholdmedId(token, fodselsnr, id).let { arbeidsforhold ->
-            val (arbeidsgiver, opplysningspliktig) = arbeidsforhold.orgnavn()
-            return arbeidsforhold.toOutboundDetaljert(arbeidsgiver, opplysningspliktig)
-        }
+    suspend fun hentDetaljertArbeidsforhold(token: String, fodselsnr: String, id: Int): ArbeidsforholdDto {
+        val arbeidsforhold = aaregConsumer.hentArbeidsforholdmedId(token, fodselsnr, id)
+        return arbeidsforhold.fetchOrgnavnAndMapToOutbound(Arbeidsforhold::toOutboundDetaljert)
     }
 
-    private suspend fun Arbeidsforhold.orgnavn(): Pair<String?, String?> {
+    private suspend fun Arbeidsforhold.fetchOrgnavnAndMapToOutbound(
+        mapper: (Arbeidsforhold, String?, String?) -> ArbeidsforholdDto
+    ): ArbeidsforholdDto {
         val arbeidsgiver = arbeidssted?.orgnavnForPeriode(ansettelsesperiode)
         val opplysningspliktig = opplysningspliktig?.orgnavnForPeriode(ansettelsesperiode)
-
-        return arbeidsgiver to opplysningspliktig
+        return mapper(this, arbeidsgiver, opplysningspliktig)
     }
 
     private suspend fun Identer.orgnavnForPeriode(ansettelsesperiode: Ansettelsesperiode?): String? {

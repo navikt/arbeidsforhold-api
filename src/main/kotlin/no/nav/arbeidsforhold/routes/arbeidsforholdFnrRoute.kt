@@ -18,7 +18,7 @@ fun Route.arbeidsforholdFnr(arbeidsforholdService: ArbeidsforholdService) {
             val authToken = getAuthTokenFromRequest(call.request)
             val fnr = getFnrFromToken(authToken)
 
-            call.respond(arbeidsforholdService.hentArbeidsforhold(authToken, fnr))
+            call.respond(arbeidsforholdService.hentAlleArbeidsforhold(authToken, fnr))
         } catch (e: Exception) {
             logger.error("Noe gikk galt ved henting av arbeidsforhold", e)
             call.respond(HttpStatusCode.InternalServerError, HttpStatusCode.InternalServerError.description)

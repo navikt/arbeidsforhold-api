@@ -1,6 +1,5 @@
 package no.nav.arbeidsforhold.service.mapper
 
-import no.nav.arbeidsforhold.service.mapper.ArbeidsgiverMapper.toOutbound
 import no.nav.arbeidsforhold.testdata.IdenterFactory.createIdenter
 import no.nav.arbeidsforhold.util.FOLKEREGISTERIDENT
 import no.nav.arbeidsforhold.util.ORGANISASJONSNUMMER

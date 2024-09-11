@@ -1,7 +1,6 @@
 package no.nav.arbeidsforhold.service.mapper
 
 
-import no.nav.arbeidsforhold.service.mapper.AntallTimerForTimeloennetMapper.toOutbound
 import no.nav.arbeidsforhold.testdata.TimerMedTimeloennFactory.createTimerMedTimeloenn
 import org.junit.jupiter.api.Test
 import kotlin.test.assertEquals
