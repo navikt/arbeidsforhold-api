@@ -1,0 +1,3 @@
+package no.nav.arbeidsforhold.service.mapper
+
+class AnsettelsesperiodeMapperTest

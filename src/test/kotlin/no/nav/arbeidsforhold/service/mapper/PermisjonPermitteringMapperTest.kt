@@ -1,8 +1,7 @@
 package no.nav.arbeidsforhold.service.mapper
 
 import no.nav.arbeidsforhold.service.mapper.PermisjonPermitteringMapper.toOutbound
-import no.nav.arbeidsforhold.service.outbound.PermisjonPermitteringDto
-import no.nav.arbeidsforhold.testdata.PermisjonPermitteringObjectMother
+import no.nav.arbeidsforhold.testdata.PermisjonPermitteringFactory.createPermisjonPermittering
 import org.junit.jupiter.api.Test
 import kotlin.test.assertEquals
 import kotlin.test.assertNotNull
@@ -11,15 +10,13 @@ class PermisjonPermitteringMapperTest {
 
     @Test
     fun skalFaaPermisjonPermittering() {
-        val inbound = PermisjonPermitteringObjectMother.dummyValues
+        val inbound = createPermisjonPermittering()
+        val outbound = inbound.toOutbound()
 
-        val actual: List<PermisjonPermitteringDto> = inbound.map { it.toOutbound() }
-
-        assertNotNull(actual)
-        assertEquals(inbound[0].sluttdato, actual[0].periode?.periodeTil)
-        assertEquals(inbound[0].startdato, actual[0].periode?.periodeFra)
-        assertEquals(inbound[0].prosent.toString().split(".")[0] + " %", actual[0].prosent)
-        assertEquals(inbound[0].type?.beskrivelse, actual[0].type)
+        assertNotNull(outbound)
+        assertEquals(inbound.sluttdato, outbound.periode?.periodeTil)
+        assertEquals(inbound.startdato, outbound.periode?.periodeFra)
+        assertEquals("${inbound.prosent.toString().split(".")[0]} %", outbound.prosent)
+        assertEquals(inbound.type?.beskrivelse, outbound.type)
     }
-
 }

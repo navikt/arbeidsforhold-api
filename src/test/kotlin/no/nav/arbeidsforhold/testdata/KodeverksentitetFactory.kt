@@ -3,12 +3,10 @@ package no.nav.arbeidsforhold.testdata
 import no.nav.arbeidsforhold.consumer.aareg.dto.Kodeverksentitet
 
 
-object KodeverksentitetObjectMother {
+object KodeverksentitetFactory {
 
-    val withDummyValues = Kodeverksentitet(
+    fun createKodeverksentitet() = Kodeverksentitet(
         kode = "dummy kode",
         beskrivelse = "dummy beskrivelse"
     )
-
-
 }

@@ -2,8 +2,7 @@ package no.nav.arbeidsforhold.service.mapper
 
 
 import no.nav.arbeidsforhold.service.mapper.AntallTimerForTimeloennetMapper.toOutbound
-import no.nav.arbeidsforhold.service.outbound.AntallTimerForTimeloennetDto
-import no.nav.arbeidsforhold.testdata.AntallTimerForTimeloennetObjectMother
+import no.nav.arbeidsforhold.testdata.TimerMedTimeloennFactory.createTimerMedTimeloenn
 import org.junit.jupiter.api.Test
 import kotlin.test.assertEquals
 import kotlin.test.assertNotNull
@@ -12,12 +11,13 @@ class AntallTimerForTimeloennetMapperTest {
 
     @Test
     fun skalFaaRiktigAntallTimer() {
-        val inbound = AntallTimerForTimeloennetObjectMother.dummyValues
-        val actual: List<AntallTimerForTimeloennetDto> = inbound.map { it.toOutbound() }
-        assertNotNull(actual)
-        assertEquals(inbound[0].antall.toString(), actual[0].antallTimer)
-        assertEquals(inbound[0].rapporteringsmaaned, actual[0].rapporteringsperiode)
-        assertEquals(inbound[0].startdato, actual[0].periode?.periodeFra)
-        assertEquals(inbound[0].sluttdato, actual[0].periode?.periodeTil)
+        val inbound = createTimerMedTimeloenn()
+        val outbound = inbound.toOutbound()
+        
+        assertNotNull(outbound)
+        assertEquals(inbound.antall.toString(), outbound.antallTimer)
+        assertEquals(inbound.rapporteringsmaaned, outbound.rapporteringsperiode)
+        assertEquals(inbound.startdato, outbound.periode?.periodeFra)
+        assertEquals(inbound.sluttdato, outbound.periode?.periodeTil)
     }
 }
