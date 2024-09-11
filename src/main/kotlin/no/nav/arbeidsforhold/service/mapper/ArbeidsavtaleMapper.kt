@@ -1,10 +1,10 @@
-package no.nav.arbeidsforhold.service.transformer
+package no.nav.arbeidsforhold.service.mapper
 
 import no.nav.arbeidsforhold.consumer.aareg.dto.Ansettelsesdetaljer
+import no.nav.arbeidsforhold.service.mapper.PeriodeMapper.toOutbound
 import no.nav.arbeidsforhold.service.outbound.ArbeidsavtaleDto
-import no.nav.arbeidsforhold.service.transformer.PeriodeTransformer.toOutbound
 
-object ArbeidsavtaleTransformer {
+object ArbeidsavtaleMapper {
 
     fun Ansettelsesdetaljer.toOutbound(): ArbeidsavtaleDto {
         return ArbeidsavtaleDto(

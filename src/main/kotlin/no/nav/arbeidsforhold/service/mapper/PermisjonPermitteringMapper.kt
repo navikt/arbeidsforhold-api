@@ -1,10 +1,10 @@
-package no.nav.arbeidsforhold.service.transformer
+package no.nav.arbeidsforhold.service.mapper
 
 import no.nav.arbeidsforhold.consumer.aareg.dto.PermisjonPermittering
 import no.nav.arbeidsforhold.service.outbound.PeriodeDto
 import no.nav.arbeidsforhold.service.outbound.PermisjonPermitteringDto
 
-object PermisjonPermitteringTransformer {
+object PermisjonPermitteringMapper {
 
     fun PermisjonPermittering.toOutbound(): PermisjonPermitteringDto {
         return PermisjonPermitteringDto(

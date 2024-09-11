@@ -1,14 +1,14 @@
-package no.nav.arbeidsforhold.service.transformer
+package no.nav.arbeidsforhold.service.mapper
 
 
+import no.nav.arbeidsforhold.service.mapper.AntallTimerForTimeloennetMapper.toOutbound
 import no.nav.arbeidsforhold.service.outbound.AntallTimerForTimeloennetDto
-import no.nav.arbeidsforhold.service.transformer.AntallTimerForTimeloennetTransformer.toOutbound
 import no.nav.arbeidsforhold.testdata.AntallTimerForTimeloennetObjectMother
 import org.junit.jupiter.api.Test
 import kotlin.test.assertEquals
 import kotlin.test.assertNotNull
 
-class TimerMedTimeloennTransformerTest {
+class AntallTimerForTimeloennetMapperTest {
 
     @Test
     fun skalFaaRiktigAntallTimer() {

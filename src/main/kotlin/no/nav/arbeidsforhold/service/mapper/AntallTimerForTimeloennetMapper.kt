@@ -1,10 +1,10 @@
-package no.nav.arbeidsforhold.service.transformer
+package no.nav.arbeidsforhold.service.mapper
 
 import no.nav.arbeidsforhold.consumer.aareg.dto.TimerMedTimeloenn
 import no.nav.arbeidsforhold.service.outbound.AntallTimerForTimeloennetDto
 import no.nav.arbeidsforhold.service.outbound.PeriodeDto
 
-object AntallTimerForTimeloennetTransformer {
+object AntallTimerForTimeloennetMapper {
 
     fun TimerMedTimeloenn.toOutbound(): AntallTimerForTimeloennetDto {
         return AntallTimerForTimeloennetDto(

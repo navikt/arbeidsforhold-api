@@ -5,9 +5,9 @@ import no.nav.arbeidsforhold.consumer.aareg.dto.Ansettelsesperiode
 import no.nav.arbeidsforhold.consumer.aareg.dto.Arbeidsforhold
 import no.nav.arbeidsforhold.consumer.aareg.dto.Identer
 import no.nav.arbeidsforhold.consumer.ereg.EregConsumer
+import no.nav.arbeidsforhold.service.mapper.ArbeidsforholdMapper.toOutbound
+import no.nav.arbeidsforhold.service.mapper.ArbeidsforholdMapper.toOutboundDetaljert
 import no.nav.arbeidsforhold.service.outbound.ArbeidsforholdDto
-import no.nav.arbeidsforhold.service.transformer.ArbeidsforholdTransformer.toOutbound
-import no.nav.arbeidsforhold.service.transformer.ArbeidsforholdTransformer.toOutboundDetaljert
 import no.nav.arbeidsforhold.util.ORGANISASJONSNUMMER
 import no.nav.arbeidsforhold.util.firstOfTypeOrNull
 import no.nav.arbeidsforhold.util.isOrganisasjon

@@ -1,17 +1,17 @@
-package no.nav.arbeidsforhold.service.transformer
+package no.nav.arbeidsforhold.service.mapper
 
 import no.nav.arbeidsforhold.consumer.aareg.dto.Ansettelsesdetaljer
 import no.nav.arbeidsforhold.consumer.aareg.dto.Arbeidsforhold
+import no.nav.arbeidsforhold.service.mapper.AnsettelsesperiodeMapper.toOutbound
+import no.nav.arbeidsforhold.service.mapper.AntallTimerForTimeloennetMapper.toOutbound
+import no.nav.arbeidsforhold.service.mapper.ArbeidsavtaleMapper.toOutbound
+import no.nav.arbeidsforhold.service.mapper.ArbeidsgiverMapper.toOutbound
+import no.nav.arbeidsforhold.service.mapper.PermisjonPermitteringMapper.joinToSortedList
+import no.nav.arbeidsforhold.service.mapper.PermisjonPermitteringMapper.toOutbound
+import no.nav.arbeidsforhold.service.mapper.UtenlandsoppholdMapper.toOutbound
 import no.nav.arbeidsforhold.service.outbound.ArbeidsforholdDto
-import no.nav.arbeidsforhold.service.transformer.AnsettelsesperiodeTransformer.toOutbound
-import no.nav.arbeidsforhold.service.transformer.AntallTimerForTimeloennetTransformer.toOutbound
-import no.nav.arbeidsforhold.service.transformer.ArbeidsavtaleTransformer.toOutbound
-import no.nav.arbeidsforhold.service.transformer.ArbeidsgiverTransformer.toOutbound
-import no.nav.arbeidsforhold.service.transformer.PermisjonPermitteringTransformer.joinToSortedList
-import no.nav.arbeidsforhold.service.transformer.PermisjonPermitteringTransformer.toOutbound
-import no.nav.arbeidsforhold.service.transformer.UtenlandsoppholdTransformer.toOutbound
 
-object ArbeidsforholdTransformer {
+object ArbeidsforholdMapper {
 
     fun Arbeidsforhold.toOutbound(
         arbeidsgiverNavn: String?,

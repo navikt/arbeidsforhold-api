@@ -1,13 +1,13 @@
-package no.nav.arbeidsforhold.service.transformer
+package no.nav.arbeidsforhold.service.mapper
 
+import no.nav.arbeidsforhold.service.mapper.PermisjonPermitteringMapper.toOutbound
 import no.nav.arbeidsforhold.service.outbound.PermisjonPermitteringDto
-import no.nav.arbeidsforhold.service.transformer.PermisjonPermitteringTransformer.toOutbound
 import no.nav.arbeidsforhold.testdata.PermisjonPermitteringObjectMother
 import org.junit.jupiter.api.Test
 import kotlin.test.assertEquals
 import kotlin.test.assertNotNull
 
-class PermisjonPermitteringTransformerTest {
+class PermisjonPermitteringMapperTest {
 
     @Test
     fun skalFaaPermisjonPermittering() {

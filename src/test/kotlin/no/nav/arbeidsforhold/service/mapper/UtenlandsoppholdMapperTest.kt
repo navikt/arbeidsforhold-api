@@ -1,13 +1,13 @@
-package no.nav.arbeidsforhold.service.transformer
+package no.nav.arbeidsforhold.service.mapper
 
+import no.nav.arbeidsforhold.service.mapper.UtenlandsoppholdMapper.toOutbound
 import no.nav.arbeidsforhold.service.outbound.UtenlandsoppholdDto
-import no.nav.arbeidsforhold.service.transformer.UtenlandsoppholdTransformer.toOutbound
 import no.nav.arbeidsforhold.testdata.UtenlandsOppholdObjectMother
 import org.junit.jupiter.api.Test
 import kotlin.test.assertEquals
 import kotlin.test.assertNotNull
 
-class UtenlandsoppholdTransformerTest {
+class UtenlandsoppholdMapperTest {
 
     @Test
     fun skalFaaUtenlandsopphold() {

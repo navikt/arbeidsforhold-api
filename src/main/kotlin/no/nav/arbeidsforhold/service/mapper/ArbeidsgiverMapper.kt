@@ -1,4 +1,4 @@
-package no.nav.arbeidsforhold.service.transformer
+package no.nav.arbeidsforhold.service.mapper
 
 import no.nav.arbeidsforhold.consumer.aareg.dto.Identer
 import no.nav.arbeidsforhold.service.outbound.ArbeidsgiverDto
@@ -8,7 +8,7 @@ import no.nav.arbeidsforhold.util.ORGANISASJONSNUMMER
 import no.nav.arbeidsforhold.util.firstOfTypeOrNull
 import no.nav.arbeidsforhold.util.isOrganisasjon
 
-object ArbeidsgiverTransformer {
+object ArbeidsgiverMapper {
 
     fun Identer?.toOutbound(arbgivnavn: String?): ArbeidsgiverDto {
         return ArbeidsgiverDto(

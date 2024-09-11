@@ -1,14 +1,14 @@
-package no.nav.arbeidsforhold.service.transformer
+package no.nav.arbeidsforhold.service.mapper
 
 import no.nav.arbeidsforhold.consumer.aareg.dto.Arbeidsforhold
+import no.nav.arbeidsforhold.service.mapper.ArbeidsforholdMapper.toOutbound
 import no.nav.arbeidsforhold.service.outbound.ArbeidsforholdDto
-import no.nav.arbeidsforhold.service.transformer.ArbeidsforholdTransformer.toOutbound
 import no.nav.arbeidsforhold.testdata.ArbeidsforholdObjectMother
 import org.junit.jupiter.api.Test
 import kotlin.test.assertEquals
 import kotlin.test.assertNotNull
 
-class ArbeidsforholdTransformerTest {
+class ArbeidsforholdMapperTest {
 
     @Test
     fun skalFaaArbeidsforhold() {
