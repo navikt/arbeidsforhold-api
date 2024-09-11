@@ -5,11 +5,9 @@ import no.nav.arbeidsforhold.service.outbound.ArbeidsavtaleDto
 import no.nav.arbeidsforhold.service.transformer.ArbeidsavtaleTransformer.toOutbound
 import no.nav.arbeidsforhold.testdata.ArbeidsavtaleObjectMother
 import org.junit.jupiter.api.Test
-import org.junit.jupiter.api.TestInstance
 import kotlin.test.assertEquals
 import kotlin.test.assertNotNull
 
-@TestInstance(TestInstance.Lifecycle.PER_CLASS)
 class AnsettelsesdetaljerTransformerTest {
 
     @Test

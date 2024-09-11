@@ -5,12 +5,9 @@ import no.nav.arbeidsforhold.service.outbound.AntallTimerForTimeloennetDto
 import no.nav.arbeidsforhold.service.transformer.AntallTimerForTimeloennetTransformer.toOutbound
 import no.nav.arbeidsforhold.testdata.AntallTimerForTimeloennetObjectMother
 import org.junit.jupiter.api.Test
-import org.junit.jupiter.api.TestInstance
-import org.junit.jupiter.api.TestInstance.Lifecycle.PER_CLASS
 import kotlin.test.assertEquals
 import kotlin.test.assertNotNull
 
-@TestInstance(PER_CLASS)
 class TimerMedTimeloennTransformerTest {
 
     @Test

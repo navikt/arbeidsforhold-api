@@ -4,12 +4,9 @@ import no.nav.arbeidsforhold.service.outbound.PermisjonPermitteringDto
 import no.nav.arbeidsforhold.service.transformer.PermisjonPermitteringTransformer.toOutbound
 import no.nav.arbeidsforhold.testdata.PermisjonPermitteringObjectMother
 import org.junit.jupiter.api.Test
-import org.junit.jupiter.api.TestInstance
-import org.junit.jupiter.api.TestInstance.Lifecycle.PER_CLASS
 import kotlin.test.assertEquals
 import kotlin.test.assertNotNull
 
-@TestInstance(PER_CLASS)
 class PermisjonPermitteringTransformerTest {
 
     @Test
