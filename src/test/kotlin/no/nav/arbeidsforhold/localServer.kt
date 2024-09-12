@@ -5,7 +5,7 @@ import io.ktor.server.netty.Netty
 import io.mockk.coEvery
 import io.mockk.mockkStatic
 import no.nav.arbeidsforhold.config.TestApplicationContext
-import no.nav.arbeidsforhold.config.mocks.setupMockedClient
+import no.nav.arbeidsforhold.config.setupMockedClient
 import no.nav.arbeidsforhold.config.testModule
 import no.nav.arbeidsforhold.util.getAuthTokenFromRequest
 import no.nav.arbeidsforhold.util.getFnrFromToken

@@ -1,4 +1,4 @@
-package no.nav.arbeidsforhold.config.mocks
+package no.nav.arbeidsforhold.config
 
 import io.ktor.client.HttpClient
 import io.ktor.client.engine.mock.MockEngine
@@ -7,7 +7,8 @@ import io.ktor.client.plugins.HttpTimeout
 import io.ktor.client.plugins.contentnegotiation.ContentNegotiation
 import io.ktor.http.HttpStatusCode
 import io.ktor.serialization.kotlinx.json.json
-import no.nav.arbeidsforhold.config.jsonConfig
+import no.nav.arbeidsforhold.config.mocks.mockAareg
+import no.nav.arbeidsforhold.config.mocks.mockEreg
 
 
 fun setupMockedClient(
@@ -40,8 +41,4 @@ fun setupMockedClient(
         install(HttpTimeout)
         expectSuccess = false
     }
-}
-
-fun readJson(name: String): String {
-    return object {}.javaClass.getResource(name)?.readText()!!
 }

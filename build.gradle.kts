@@ -64,6 +64,7 @@ dependencies {
     testImplementation("io.ktor:ktor-client-mock:$ktorVersion")
     testImplementation("io.mockk:mockk:$mockkVersion")
     testImplementation("io.kotest:kotest-runner-junit5:$kotestVersion")
+    testImplementation("io.kotest:kotest-assertions-json:$kotestVersion")
 }
 
 application {

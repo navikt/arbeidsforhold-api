@@ -9,6 +9,7 @@ import io.ktor.http.HttpHeaders
 import io.ktor.http.HttpStatusCode
 import io.ktor.http.headersOf
 import io.ktor.http.isSuccess
+import no.nav.arbeidsforhold.testutils.JsonUtils.readJsonFile
 
 
 fun MockRequestHandleScope.mockEreg(request: HttpRequestData, status: HttpStatusCode) =
@@ -23,9 +24,9 @@ fun MockRequestHandleScope.mockEreg(request: HttpRequestData, status: HttpStatus
 
 private fun readEregResponse(path: String): String {
     return if (path.startsWith("/v2/organisasjon/911742233")) {
-        readJson("/json/ereg-arbeidsgiver.json")
+        readJsonFile("/json/mocks/ereg-arbeidsgiver.json")
     } else if (path.startsWith("/v2/organisasjon/912783936")) {
-        readJson("/json/ereg-opplysningspliktig.json")
+        readJsonFile("/json/mocks/ereg-opplysningspliktig.json")
     } else {
         throw RuntimeException("Fant ikke mock for path")
     }

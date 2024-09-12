@@ -9,6 +9,7 @@ import io.ktor.http.HttpHeaders
 import io.ktor.http.HttpStatusCode
 import io.ktor.http.headersOf
 import io.ktor.http.isSuccess
+import no.nav.arbeidsforhold.testutils.JsonUtils.readJsonFile
 
 
 fun MockRequestHandleScope.mockAareg(request: HttpRequestData, status: HttpStatusCode) =
@@ -23,9 +24,9 @@ fun MockRequestHandleScope.mockAareg(request: HttpRequestData, status: HttpStatu
 
 private fun readAaregResponse(path: String): String {
     return if (path.startsWith("/api/v2/arbeidstaker")) {
-        readJson("/json/arbeidsforhold-list.json")
+        readJsonFile("/json/mocks/arbeidsforhold-list.json")
     } else if (path.startsWith("/api/v2/arbeidsforhold")) {
-        readJson("/json/arbeidsforhold-single.json")
+        readJsonFile("/json/mocks/arbeidsforhold-single.json")
     } else {
         throw RuntimeException("Fant ikke mock for path")
     }

@@ -1,0 +1,90 @@
+{
+  "navArbeidsforholdId": 12345,
+  "eksternArbeidsforholdId": "V911050676R16054L0001",
+  "type": "Ordinært arbeidsforhold",
+  "sistBekreftet": "2020-09-15T08:19:53",
+  "arbeidsgiver": {
+    "orgnr": "911742233",
+    "fnr": null,
+    "type": "Organisasjon",
+    "orgnavn": "911742233"
+  },
+  "opplysningspliktigarbeidsgiver": {
+    "orgnr": "912783936",
+    "fnr": null,
+    "type": "Organisasjon",
+    "orgnavn": "912783936"
+  },
+  "ansettelsesperiode": {
+    "periode": {
+      "periodeFra": "2014-01-01",
+      "periodeTil": null
+    },
+    "varslingskode": null,
+    "sluttaarsak": null
+  },
+  "utenlandsopphold": [],
+  "permisjonPermittering": [
+    {
+      "periode": {
+        "periodeFra": "2020-10-30",
+        "periodeTil": null
+      },
+      "type": "Permittering",
+      "prosent": "50 %"
+    },
+    {
+      "periode": {
+        "periodeFra": "2021-01-29",
+        "periodeTil": null
+      },
+      "type": "Permisjon med foreldrepenger",
+      "prosent": "50 %"
+    }
+  ],
+  "arbeidsavtaler": [
+    {
+      "ansettelsesform": "Fast ansettelse",
+      "antallTimerPrUke": 37.5,
+      "arbeidstidsordning": "Ikke skift",
+      "sisteStillingsendring": "2014-01-01",
+      "sisteLoennsendring": "2014-01-01",
+      "yrke": "KONTORLEDER (Yrkeskode: 1231119)",
+      "gyldighetsperiode": {
+        "periodeFra": "2019-11",
+        "periodeTil": null
+      },
+      "stillingsprosent": 100.0,
+      "fartsomraade": null,
+      "skipsregister": null,
+      "skipstype": null
+    },
+    {
+      "ansettelsesform": "Fast ansettelse",
+      "antallTimerPrUke": 37.5,
+      "arbeidstidsordning": "Ikke skift",
+      "sisteStillingsendring": "2016-01-01",
+      "sisteLoennsendring": "2016-01-01",
+      "yrke": "KONTORLEDER (Yrkeskode: 1231119)",
+      "gyldighetsperiode": {
+        "periodeFra": "2016-01",
+        "periodeTil": "2019-10"
+      },
+      "stillingsprosent": 100.0,
+      "fartsomraade": null,
+      "skipsregister": null,
+      "skipstype": null
+    }
+  ],
+  "ansettelsesform": "Fast ansettelse",
+  "antallTimerForTimelonnet": [],
+  "antallTimerPrUke": 37.5,
+  "arbeidstidsordning": "Ikke skift",
+  "sisteStillingsendring": "2014-01-01",
+  "sisteLoennsendring": "2014-01-01",
+  "stillingsprosent": 100.0,
+  "yrke": "KONTORLEDER (Yrkeskode: 1231119)",
+  "fartsomraade": null,
+  "skipsregister": null,
+  "skipstype": null
+}

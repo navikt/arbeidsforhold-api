@@ -1,12 +1,13 @@
 package no.nav.arbeidsforhold.integration
 
-import io.kotest.matchers.nulls.shouldNotBeNull
+import io.kotest.assertions.json.shouldEqualJson
 import io.kotest.matchers.shouldBe
 import io.ktor.client.plugins.contentnegotiation.ContentNegotiation
 import io.ktor.client.statement.bodyAsText
 import io.ktor.http.HttpStatusCode
 import io.ktor.serialization.kotlinx.json.json
-import no.nav.arbeidsforhold.config.mocks.setupMockedClient
+import no.nav.arbeidsforhold.config.setupMockedClient
+import no.nav.arbeidsforhold.testutils.JsonUtils.readJsonFile
 import kotlin.test.Test
 
 class HentArbeidsforholdArbeidsgiverIT : IntegrationTest() {
@@ -20,7 +21,7 @@ class HentArbeidsforholdArbeidsgiverIT : IntegrationTest() {
         val response = get(client, HENT_ARBEIDSFORHOLD_ARBEIDSGIVER_PATH, setFnrHeader = true)
 
         response.status shouldBe HttpStatusCode.OK
-        response.bodyAsText().shouldNotBeNull()
+        response.bodyAsText() shouldEqualJson readJsonFile("/json/expected-response/arbeidsforhold-single.json")
     }
 
     @Test
@@ -39,6 +40,7 @@ class HentArbeidsforholdArbeidsgiverIT : IntegrationTest() {
         val response = get(client, HENT_ARBEIDSFORHOLD_ARBEIDSGIVER_PATH, setFnrHeader = true)
 
         response.status shouldBe HttpStatusCode.OK
+        response.bodyAsText() shouldEqualJson readJsonFile("/json/expected-response/arbeidsforhold-single-with-ereg-down.json")
     }
 
     @Test

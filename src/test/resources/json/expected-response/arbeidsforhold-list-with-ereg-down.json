@@ -1,0 +1,59 @@
+[
+  {
+    "navArbeidsforholdId": 12345,
+    "eksternArbeidsforholdId": "V911050676R16054L0001",
+    "type": null,
+    "sistBekreftet": null,
+    "arbeidsgiver": {
+      "orgnr": "911742233",
+      "fnr": null,
+      "type": "Organisasjon",
+      "orgnavn": "911742233"
+    },
+    "opplysningspliktigarbeidsgiver": {
+      "orgnr": "912783936",
+      "fnr": null,
+      "type": "Organisasjon",
+      "orgnavn": "912783936"
+    },
+    "ansettelsesperiode": {
+      "periode": {
+        "periodeFra": "2014-01-01",
+        "periodeTil": null
+      },
+      "varslingskode": null,
+      "sluttaarsak": null
+    },
+    "utenlandsopphold": [],
+    "permisjonPermittering": [
+      {
+        "periode": {
+          "periodeFra": "2020-10-30",
+          "periodeTil": null
+        },
+        "type": "Permittering",
+        "prosent": "50 %"
+      },
+      {
+        "periode": {
+          "periodeFra": "2021-01-29",
+          "periodeTil": null
+        },
+        "type": "Permisjon med foreldrepenger",
+        "prosent": "50 %"
+      }
+    ],
+    "arbeidsavtaler": [],
+    "ansettelsesform": null,
+    "antallTimerForTimelonnet": null,
+    "antallTimerPrUke": null,
+    "arbeidstidsordning": null,
+    "sisteStillingsendring": null,
+    "sisteLoennsendring": null,
+    "stillingsprosent": null,
+    "yrke": "KONTORLEDER",
+    "fartsomraade": null,
+    "skipsregister": null,
+    "skipstype": null
+  }
+]
