@@ -1,10 +1,10 @@
 package no.nav.arbeidsforhold.integration
 
+import io.kotest.matchers.shouldBe
 import io.ktor.client.plugins.contentnegotiation.ContentNegotiation
 import io.ktor.http.HttpStatusCode
 import io.ktor.serialization.kotlinx.json.json
 import no.nav.arbeidsforhold.config.mocks.setupMockedClient
-import org.junit.jupiter.api.Assertions.assertEquals
 import kotlin.test.Test
 
 class HentArbeidsforholdIT : IntegrationTest() {
@@ -17,26 +17,24 @@ class HentArbeidsforholdIT : IntegrationTest() {
 
         val response = get(client, HENT_ARBEIDSFORHOLD_FNR_PATH)
 
-        assertEquals(HttpStatusCode.OK, response.status)
+        response.status shouldBe HttpStatusCode.OK
     }
 
     @Test
-    fun feilMotAaregSkalGi500() =
-        integrationTest(setupMockedClient(aaregStatus = HttpStatusCode.InternalServerError)) {
-            val client = createClient { install(ContentNegotiation) { json() } }
+    fun feilMotAaregSkalGi500() = integrationTest(setupMockedClient(aaregStatus = HttpStatusCode.InternalServerError)) {
+        val client = createClient { install(ContentNegotiation) { json() } }
 
-            val response = get(client, HENT_ARBEIDSFORHOLD_FNR_PATH)
+        val response = get(client, HENT_ARBEIDSFORHOLD_FNR_PATH)
 
-            assertEquals(HttpStatusCode.InternalServerError, response.status)
-        }
+        response.status shouldBe HttpStatusCode.InternalServerError
+    }
 
     @Test
-    fun feilMotEregSkalGi200() =
-        integrationTest(setupMockedClient(eregStatus = HttpStatusCode.InternalServerError)) {
-            val client = createClient { install(ContentNegotiation) { json() } }
+    fun feilMotEregSkalGi200() = integrationTest(setupMockedClient(eregStatus = HttpStatusCode.InternalServerError)) {
+        val client = createClient { install(ContentNegotiation) { json() } }
 
-            val response = get(client, HENT_ARBEIDSFORHOLD_FNR_PATH)
+        val response = get(client, HENT_ARBEIDSFORHOLD_FNR_PATH)
 
-            assertEquals(HttpStatusCode.OK, response.status)
-        }
+        response.status shouldBe HttpStatusCode.OK
+    }
 }
