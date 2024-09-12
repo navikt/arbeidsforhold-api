@@ -1,6 +1,5 @@
 package no.nav.arbeidsforhold.service.mapper
 
-import no.nav.arbeidsforhold.consumer.aareg.dto.Ansettelsesdetaljer
 import no.nav.arbeidsforhold.consumer.aareg.dto.Arbeidsforhold
 import no.nav.arbeidsforhold.service.outbound.ArbeidsforholdDto
 
@@ -10,7 +9,7 @@ fun Arbeidsforhold.toOutbound(
 ) = ArbeidsforholdDto(
     navArbeidsforholdId = navArbeidsforholdId,
     eksternArbeidsforholdId = id,
-    yrke = ansettelsesdetaljer.gyldigArbeidsavtale()?.yrke?.beskrivelse,
+    yrke = ansettelsesdetaljer.firstOrNull { it.rapporteringsmaaneder?.til == null }?.yrke?.beskrivelse,
     arbeidsgiver = arbeidssted.toOutbound(arbeidsgiverNavn),
     opplysningspliktigarbeidsgiver = opplysningspliktig.toOutbound(opplysningspliktigNavn),
     ansettelsesperiode = ansettelsesperiode.toOutbound(),
@@ -22,14 +21,15 @@ fun Arbeidsforhold.toOutboundDetaljert(
     arbeidsgiverNavn: String?,
     opplysningspliktigNavn: String?
 ): ArbeidsforholdDto {
-    val gyldigArbeidsavtale = ansettelsesdetaljer.gyldigArbeidsavtale()?.toOutbound()
+    val arbeidsavtaler = ansettelsesdetaljer.map { it.toOutbound() }
+    val gyldigArbeidsavtale = arbeidsavtaler.firstOrNull { it.gyldighetsperiode?.periodeTil == null }
 
     return this.toOutbound(arbeidsgiverNavn, opplysningspliktigNavn).copy(
-        yrke = gyldigArbeidsavtale?.yrke,
+        yrke = gyldigArbeidsavtale?.yrke, // Bruker mappet verdi for å få med yrkeskode
         type = type?.beskrivelse,
         sistBekreftet = sistBekreftet,
         arbeidsavtaler = when {
-            ansettelsesdetaljer.size > 1 -> ansettelsesdetaljer.map { it.toOutbound() }
+            arbeidsavtaler.size > 1 -> arbeidsavtaler
             else -> emptyList()
         },
         ansettelsesform = gyldigArbeidsavtale?.ansettelsesform,
@@ -44,5 +44,3 @@ fun Arbeidsforhold.toOutboundDetaljert(
         antallTimerForTimelonnet = timerMedTimeloenn.map { it.toOutbound() }
     )
 }
-
-private fun List<Ansettelsesdetaljer>.gyldigArbeidsavtale() = firstOrNull { it.rapporteringsmaaneder?.til == null }

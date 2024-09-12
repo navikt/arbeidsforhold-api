@@ -1,24 +1,43 @@
 package no.nav.arbeidsforhold.service.mapper
 
-import no.nav.arbeidsforhold.testdata.IdenterFactory.createIdenter
-import no.nav.arbeidsforhold.util.FOLKEREGISTERIDENT
-import no.nav.arbeidsforhold.util.ORGANISASJONSNUMMER
-import no.nav.arbeidsforhold.util.firstOfTypeOrNull
+import io.kotest.assertions.assertSoftly
+import io.kotest.matchers.nulls.shouldBeNull
+import io.kotest.matchers.shouldBe
+import no.nav.arbeidsforhold.consumer.aareg.dto.Identer
+import no.nav.arbeidsforhold.service.outbound.ArbeidsgiverDto
+import no.nav.arbeidsforhold.testdata.IdenterFactory.createIdenterArbeidssted
+import no.nav.arbeidsforhold.testdata.IdenterFactory.createIdenterArbeidstaker
 import org.junit.jupiter.api.Test
-import kotlin.test.assertEquals
-import kotlin.test.assertNotNull
 
 class ArbeidsgiverMapperTest {
 
     @Test
-    fun `should map all fields correctly`() {
-        val inbound = createIdenter()
-        val outbound = inbound.toOutbound("NAV")
+    fun `should map all fields correctly for organisasjon`() {
+        val inbound: Identer = createIdenterArbeidssted()
+        val outbound: ArbeidsgiverDto = inbound.toOutbound(ARBEIDSGIVER_NAVN)
 
-        assertNotNull(outbound)
-        assertEquals(inbound.type.toString(), outbound.type)
-        assertEquals(inbound.identer?.firstOfTypeOrNull(FOLKEREGISTERIDENT), outbound.fnr)
-        assertEquals(inbound.identer?.firstOfTypeOrNull(ORGANISASJONSNUMMER), outbound.orgnr)
+        assertSoftly(outbound) {
+            orgnr shouldBe "123456789"
+            fnr.shouldBeNull()
+            type shouldBe "Organisasjon"
+            orgnavn shouldBe ARBEIDSGIVER_NAVN
+        }
     }
 
+    @Test
+    fun `should map all fields correctly for ikke-organisasjon`() {
+        val inbound: Identer = createIdenterArbeidstaker()
+        val outbound: ArbeidsgiverDto = inbound.toOutbound(ARBEIDSGIVER_NAVN)
+
+        assertSoftly(outbound) {
+            orgnr.shouldBeNull()
+            fnr shouldBe "54321"
+            type.shouldBeNull()
+            orgnavn shouldBe ARBEIDSGIVER_NAVN
+        }
+    }
+
+    companion object {
+        private const val ARBEIDSGIVER_NAVN = "arbeidsgiver navn"
+    }
 }

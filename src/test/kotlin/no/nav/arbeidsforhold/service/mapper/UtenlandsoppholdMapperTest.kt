@@ -1,21 +1,24 @@
 package no.nav.arbeidsforhold.service.mapper
 
+import io.kotest.assertions.assertSoftly
+import io.kotest.matchers.shouldBe
+import no.nav.arbeidsforhold.consumer.aareg.dto.Utenlandsopphold
+import no.nav.arbeidsforhold.service.outbound.PeriodeDto
+import no.nav.arbeidsforhold.service.outbound.UtenlandsoppholdDto
 import no.nav.arbeidsforhold.testdata.UtenlandsoppholdFactory.createUtenlandsopphold
 import org.junit.jupiter.api.Test
-import kotlin.test.assertEquals
-import kotlin.test.assertNotNull
 
 class UtenlandsoppholdMapperTest {
 
     @Test
     fun `should map all fields correctly`() {
-        val inbound = createUtenlandsopphold()
-        val outbound = inbound.toOutbound()
+        val inbound: Utenlandsopphold = createUtenlandsopphold()
+        val outbound: UtenlandsoppholdDto = inbound.toOutbound()
 
-        assertNotNull(outbound)
-        assertEquals(inbound.sluttdato, outbound.periode?.periodeTil)
-        assertEquals(inbound.startdato, outbound.periode?.periodeFra)
-        assertEquals(inbound.land?.beskrivelse, outbound.land)
-        assertEquals(inbound.rapporteringsmaaned, outbound.rapporteringsperiode)
+        assertSoftly(outbound) {
+            periode shouldBe PeriodeDto("01.01.2018", "01.01.2019")
+            rapporteringsperiode shouldBe "rapporteringsmaaned"
+            land shouldBe "land beskrivelse"
+        }
     }
 }

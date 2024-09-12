@@ -1,22 +1,25 @@
 package no.nav.arbeidsforhold.service.mapper
 
 
+import io.kotest.assertions.assertSoftly
+import io.kotest.matchers.shouldBe
+import no.nav.arbeidsforhold.consumer.aareg.dto.TimerMedTimeloenn
+import no.nav.arbeidsforhold.service.outbound.AntallTimerForTimeloennetDto
+import no.nav.arbeidsforhold.service.outbound.PeriodeDto
 import no.nav.arbeidsforhold.testdata.TimerMedTimeloennFactory.createTimerMedTimeloenn
 import org.junit.jupiter.api.Test
-import kotlin.test.assertEquals
-import kotlin.test.assertNotNull
 
 class AntallTimerForTimeloennetMapperTest {
 
     @Test
     fun `should map all fields correctly`() {
-        val inbound = createTimerMedTimeloenn()
-        val outbound = inbound.toOutbound()
-        
-        assertNotNull(outbound)
-        assertEquals(inbound.antall.toString(), outbound.antallTimer)
-        assertEquals(inbound.rapporteringsmaaned, outbound.rapporteringsperiode)
-        assertEquals(inbound.startdato, outbound.periode?.periodeFra)
-        assertEquals(inbound.sluttdato, outbound.periode?.periodeTil)
+        val inbound: TimerMedTimeloenn = createTimerMedTimeloenn()
+        val outbound: AntallTimerForTimeloennetDto = inbound.toOutbound()
+
+        assertSoftly(outbound) {
+            antallTimer shouldBe "37.5"
+            periode shouldBe PeriodeDto("01.01.2018", "01.01.2019")
+            rapporteringsperiode shouldBe "MAI"
+        }
     }
 }

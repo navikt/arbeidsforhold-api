@@ -6,6 +6,9 @@ import no.nav.arbeidsforhold.service.outbound.UtenlandsoppholdDto
 
 fun Utenlandsopphold.toOutbound() = UtenlandsoppholdDto(
     land = land?.beskrivelse,
-    periode = PeriodeDto(startdato, sluttdato),
+    periode = PeriodeDto(
+        periodeFra = startdato,
+        periodeTil = sluttdato
+    ),
     rapporteringsperiode = rapporteringsmaaned,
 )

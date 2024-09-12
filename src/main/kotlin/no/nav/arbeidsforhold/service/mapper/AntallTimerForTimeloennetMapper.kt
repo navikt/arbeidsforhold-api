@@ -6,6 +6,9 @@ import no.nav.arbeidsforhold.service.outbound.PeriodeDto
 
 fun TimerMedTimeloenn.toOutbound() = AntallTimerForTimeloennetDto(
     antallTimer = antall.toString(),
-    periode = PeriodeDto(startdato, sluttdato),
+    periode = PeriodeDto(
+        periodeFra = startdato,
+        periodeTil = sluttdato
+    ),
     rapporteringsperiode = rapporteringsmaaned
 )
