@@ -10,9 +10,9 @@ fun Arbeidsforhold.toOutbound(
     navArbeidsforholdId = navArbeidsforholdId,
     eksternArbeidsforholdId = id,
     yrke = ansettelsesdetaljer.firstOrNull { it.rapporteringsmaaneder?.til == null }?.yrke?.beskrivelse,
-    arbeidsgiver = arbeidssted.toOutbound(arbeidsgiverNavn),
-    opplysningspliktigarbeidsgiver = opplysningspliktig.toOutbound(opplysningspliktigNavn),
-    ansettelsesperiode = ansettelsesperiode.toOutbound(),
+    arbeidsgiver = arbeidssted?.toOutbound(arbeidsgiverNavn),
+    opplysningspliktigarbeidsgiver = opplysningspliktig?.toOutbound(opplysningspliktigNavn),
+    ansettelsesperiode = ansettelsesperiode?.toOutbound(),
     utenlandsopphold = utenlandsopphold.map { it.toOutbound() },
     permisjonPermittering = joinToSortedList(permisjoner, permitteringer).map { it.toOutbound() }
 )

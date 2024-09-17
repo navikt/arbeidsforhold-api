@@ -8,9 +8,9 @@ import no.nav.arbeidsforhold.utils.ORGANISASJONSNUMMER
 import no.nav.arbeidsforhold.utils.firstOfTypeOrNull
 import no.nav.arbeidsforhold.utils.isOrganisasjon
 
-fun Identer?.toOutbound(arbgivnavn: String?) = ArbeidsgiverDto(
-    type = if (this.isOrganisasjon()) ORGANISASJON else this?.type,
-    orgnr = this?.identer?.firstOfTypeOrNull(ORGANISASJONSNUMMER),
-    fnr = this?.identer?.firstOfTypeOrNull(FOLKEREGISTERIDENT),
+fun Identer.toOutbound(arbgivnavn: String?) = ArbeidsgiverDto(
+    type = if (isOrganisasjon()) ORGANISASJON else type,
+    orgnr = identer?.firstOfTypeOrNull(ORGANISASJONSNUMMER),
+    fnr = identer?.firstOfTypeOrNull(FOLKEREGISTERIDENT),
     orgnavn = arbgivnavn
 )
