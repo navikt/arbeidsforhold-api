@@ -9,8 +9,8 @@ import io.ktor.server.routing.get
 import io.ktor.server.routing.route
 import no.nav.arbeidsforhold.config.FNR_ARBEIDSTAKER
 import no.nav.arbeidsforhold.service.ArbeidsforholdService
-import no.nav.arbeidsforhold.util.getAuthTokenFromRequest
-import no.nav.arbeidsforhold.util.getFnrFromToken
+import no.nav.arbeidsforhold.utils.getAuthTokenFromRequest
+import no.nav.arbeidsforhold.utils.getFnrFromToken
 import org.slf4j.LoggerFactory
 
 private val logger = LoggerFactory.getLogger("arbeidsforholdIdRoute")

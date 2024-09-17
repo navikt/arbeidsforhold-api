@@ -1,4 +1,4 @@
-package no.nav.arbeidsforhold.util
+package no.nav.arbeidsforhold.utils
 
 import io.ktor.server.request.ApplicationRequest
 import io.ktor.server.request.authorization

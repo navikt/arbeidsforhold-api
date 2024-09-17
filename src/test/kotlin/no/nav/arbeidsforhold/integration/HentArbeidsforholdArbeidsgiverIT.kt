@@ -12,8 +12,6 @@ import kotlin.test.Test
 
 class HentArbeidsforholdArbeidsgiverIT : IntegrationTest() {
 
-    val HENT_ARBEIDSFORHOLD_ARBEIDSGIVER_PATH = "/arbeidsforholdinnslag/arbeidsgiver/1337"
-
     @Test
     fun hentArbeidsforhold200() = integrationTest(setupMockedClient()) {
         val client = createClient { install(ContentNegotiation) { json() } }
@@ -50,5 +48,9 @@ class HentArbeidsforholdArbeidsgiverIT : IntegrationTest() {
         val response = get(client, HENT_ARBEIDSFORHOLD_ARBEIDSGIVER_PATH, setFnrHeader = false)
 
         response.status shouldBe HttpStatusCode.BadRequest
+    }
+
+    companion object {
+        private const val HENT_ARBEIDSFORHOLD_ARBEIDSGIVER_PATH = "/arbeidsforholdinnslag/arbeidsgiver/1337"
     }
 }

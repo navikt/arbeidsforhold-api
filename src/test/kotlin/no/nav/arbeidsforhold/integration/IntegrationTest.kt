@@ -26,17 +26,21 @@ open class IntegrationTest {
     }
 
     suspend fun get(client: HttpClient, path: String, setFnrHeader: Boolean = false): HttpResponse {
-        val token = createAccessToken("12341234123")
+        val token = createAccessToken()
 
         return client.get(path) {
             header("Authorization", "Bearer $token")
             if (setFnrHeader) {
-                header(FNR_ARBEIDSTAKER, "12345678911")
+                header(FNR_ARBEIDSTAKER, FNR)
             }
         }
     }
 
-    private fun createAccessToken(fnr: String): String {
+    private fun createAccessToken(fnr: String = FNR): String {
         return JWT.create().withClaim("pid", fnr).sign(Algorithm.HMAC256("1"))
+    }
+
+    companion object {
+        private const val FNR = "12345678911"
     }
 }

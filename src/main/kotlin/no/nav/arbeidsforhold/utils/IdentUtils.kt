@@ -1,4 +1,4 @@
-package no.nav.arbeidsforhold.util
+package no.nav.arbeidsforhold.utils
 
 import no.nav.arbeidsforhold.consumer.aareg.dto.Ident
 import no.nav.arbeidsforhold.consumer.aareg.dto.Identer

@@ -8,9 +8,9 @@ import no.nav.arbeidsforhold.consumer.ereg.EregConsumer
 import no.nav.arbeidsforhold.service.mapper.toOutbound
 import no.nav.arbeidsforhold.service.mapper.toOutboundDetaljert
 import no.nav.arbeidsforhold.service.outbound.ArbeidsforholdDto
-import no.nav.arbeidsforhold.util.ORGANISASJONSNUMMER
-import no.nav.arbeidsforhold.util.firstOfTypeOrNull
-import no.nav.arbeidsforhold.util.isOrganisasjon
+import no.nav.arbeidsforhold.utils.ORGANISASJONSNUMMER
+import no.nav.arbeidsforhold.utils.firstOfTypeOrNull
+import no.nav.arbeidsforhold.utils.isOrganisasjon
 
 class ArbeidsforholdService(
     private val aaregConsumer: AaregConsumer,

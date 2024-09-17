@@ -12,8 +12,6 @@ import kotlin.test.Test
 
 class HentArbeidsforholdIT : IntegrationTest() {
 
-    val HENT_ARBEIDSFORHOLD_FNR_PATH = "/arbeidsforhold"
-
     @Test
     fun hentArbeidsforhold200() = integrationTest(setupMockedClient()) {
         val client = createClient { install(ContentNegotiation) { json() } }
@@ -41,5 +39,9 @@ class HentArbeidsforholdIT : IntegrationTest() {
 
         response.status shouldBe HttpStatusCode.OK
         response.bodyAsText() shouldEqualJson readJsonFile("/json/expected-response/arbeidsforhold-list-with-ereg-down.json")
+    }
+
+    companion object {
+        private const val HENT_ARBEIDSFORHOLD_FNR_PATH = "/arbeidsforhold"
     }
 }
