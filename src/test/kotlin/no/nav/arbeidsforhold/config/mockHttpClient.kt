@@ -10,27 +10,20 @@ import io.ktor.serialization.kotlinx.json.json
 import no.nav.arbeidsforhold.config.mocks.mockAareg
 import no.nav.arbeidsforhold.config.mocks.mockEreg
 
+private const val AAREG = "aareg"
+private const val EREG = "ereg"
 
 fun setupMockedClient(
     aaregStatus: HttpStatusCode = HttpStatusCode.OK,
     eregStatus: HttpStatusCode = HttpStatusCode.OK
 ): HttpClient {
-    val AAREG = "aareg"
-    val EREG = "ereg"
-
     return HttpClient(MockEngine) {
         engine {
             addHandler { request ->
                 when (request.url.host) {
-                    AAREG -> {
-                        mockAareg(request, aaregStatus)
-                    }
-                    EREG -> {
-                        mockEreg(request, eregStatus)
-                    }
-                    else -> {
-                        respondError(HttpStatusCode.NotFound)
-                    }
+                    AAREG -> mockAareg(request, aaregStatus)
+                    EREG -> mockEreg(request, eregStatus)
+                    else -> respondError(HttpStatusCode.NotFound)
                 }
             }
 

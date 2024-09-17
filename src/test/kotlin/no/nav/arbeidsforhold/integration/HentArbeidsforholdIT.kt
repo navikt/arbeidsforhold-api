@@ -7,7 +7,7 @@ import io.ktor.client.statement.bodyAsText
 import io.ktor.http.HttpStatusCode
 import io.ktor.serialization.kotlinx.json.json
 import no.nav.arbeidsforhold.config.setupMockedClient
-import no.nav.arbeidsforhold.testutils.JsonUtils.readJsonFile
+import no.nav.arbeidsforhold.testutils.readJsonFile
 import kotlin.test.Test
 
 class HentArbeidsforholdIT : IntegrationTest() {
