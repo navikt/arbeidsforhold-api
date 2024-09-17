@@ -6,13 +6,13 @@ import kotlinx.serialization.Serializable
 data class ArbeidsavtaleDto(
     val ansettelsesform: String? = null,
     val antallTimerPrUke: Double? = null,
-    var arbeidstidsordning: String? = null,
+    val arbeidstidsordning: String? = null,
     val sisteStillingsendring: String? = null,
     val sisteLoennsendring: String? = null,
-    var yrke: String? = null,
+    val yrke: String? = null,
     val gyldighetsperiode: PeriodeDto? = null,
     val stillingsprosent: Double? = null,
-    var fartsomraade: String? = null,
-    var skipsregister: String? = null,
-    var skipstype: String? = null
+    val fartsomraade: String? = null,
+    val skipsregister: String? = null,
+    val skipstype: String? = null
 )

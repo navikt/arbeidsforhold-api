@@ -6,5 +6,5 @@ import kotlinx.serialization.Serializable
 data class AnsettelsesperiodeDto(
     val periode: PeriodeDto? = null,
     val varslingskode: String? = null,
-    var sluttaarsak: String? = null
+    val sluttaarsak: String? = null
 )

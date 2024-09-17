@@ -1,16 +1,12 @@
 # Arbeidsforhold-API
 
-![Deploy-to-prod](https://github.com/navikt/arbeidsforhold-api/workflows/Deploy-to-prod/badge.svg) | ![Deploy-to-dev](https://github.com/navikt/arbeidsforhold-api/workflows/Deploy-to-dev/badge.svg)
-
 Ktor-backend som skal gi brukeren innsikt i informasjonen NAV har lagret.
 
-Secrets ligger i [Google Secret Manager](https://doc.nais.io/security/secrets/google-secrets-manager/).
+Secrets ligger i [Nais Console](https://console.nav.cloud.nais.io/team/personbruker/secrets).
 
 ## Lokal kjøring
 
-Kjør main-funksjon i [localServer](src/test/kotlin/no/nav/arbeidsforhold/localServer.kt). Endepunkter eksponeres da på localhost:8080, og kan kalles uten token. Merk at alle eksterne avhengigheter er mocket ut.
-
-Appen kan kjøres opp i development mode med auto-reload dersom man legger til `-Dio.ktor.development=true` under VM options under Run/Debug configurations i IntelliJ. Merk at IntelliJ ikke bygger prosjektet automatisk ved endringer, så man må fortsatt bygge manuelt for at endringer skal registreres.
+Kjør main-funksjon i [localServer](src/test/kotlin/no/nav/arbeidsforhold/LocalServer.kt). Endepunkter eksponeres da på localhost:8080, og kan kalles uten token. Merk at alle eksterne avhengigheter er mocket ut.
 
 ## Deploy til dev
 
@@ -20,7 +16,7 @@ Appen kan kjøres opp i development mode med auto-reload dersom man legger til `
 
 -   Lag en PR til master, og merge inn etter godkjenning
 -   Lag en release på master med versjon-bump, beskrivende tittel og oppsummering av endringene dine
--   Publiser release'en for å starte deploy til prod
+-   Publiser release for å starte deploy til prod
 
 ## Logging
 

@@ -2,64 +2,44 @@ package no.nav.arbeidsforhold.service
 
 import no.nav.arbeidsforhold.consumer.aareg.AaregConsumer
 import no.nav.arbeidsforhold.consumer.aareg.dto.Ansettelsesperiode
+import no.nav.arbeidsforhold.consumer.aareg.dto.Arbeidsforhold
 import no.nav.arbeidsforhold.consumer.aareg.dto.Identer
 import no.nav.arbeidsforhold.consumer.ereg.EregConsumer
+import no.nav.arbeidsforhold.service.mapper.toOutbound
+import no.nav.arbeidsforhold.service.mapper.toOutboundDetaljert
 import no.nav.arbeidsforhold.service.outbound.ArbeidsforholdDto
-import no.nav.arbeidsforhold.service.transformer.ArbeidsavtaleTransformer
-import no.nav.arbeidsforhold.service.transformer.ArbeidsforholdTransformer
-import no.nav.arbeidsforhold.service.transformer.EnkeltArbeidsforholdTransformer
-import no.nav.arbeidsforhold.util.DtoUtils
-import no.nav.arbeidsforhold.util.ORGANISASJONSNUMMER
-import no.nav.arbeidsforhold.util.hentIdent
-import no.nav.arbeidsforhold.util.isOrganisasjon
+import no.nav.arbeidsforhold.utils.ORGANISASJONSNUMMER
+import no.nav.arbeidsforhold.utils.firstOfTypeOrNull
+import no.nav.arbeidsforhold.utils.isOrganisasjon
 
 class ArbeidsforholdService(
-    private var aaregConsumer: AaregConsumer,
-    private var eregConsumer: EregConsumer,
+    private val aaregConsumer: AaregConsumer,
+    private val eregConsumer: EregConsumer,
 ) {
-
-    suspend fun hentArbeidsforhold(token: String, fodselsnr: String): List<ArbeidsforholdDto> {
-        val inbound = aaregConsumer.hentArbeidsforholdmedFnr(token, fodselsnr)
-        val arbeidsforholdDtos = mutableListOf<ArbeidsforholdDto>()
-        for (arbeidsforhold in inbound) {
-            val yrke =
-                DtoUtils.hentYrkeForSisteArbeidsavtale(ArbeidsavtaleTransformer.toOutboundArray(arbeidsforhold.ansettelsesdetaljer))
-            val arbgivnavn = arbeidsforhold.arbeidssted?.let {
-                hentArbGiverOrgNavn(it, arbeidsforhold.ansettelsesperiode)
-            }
-            val opplarbgivnavn = arbeidsforhold.opplysningspliktig?.let {
-                hentArbGiverOrgNavn(it, arbeidsforhold.ansettelsesperiode)
-            }
-            arbeidsforholdDtos.add(
-                ArbeidsforholdTransformer.toOutbound(
-                    arbeidsforhold,
-                    arbgivnavn,
-                    opplarbgivnavn,
-                    yrke
-                )
-            )
-        }
-        return arbeidsforholdDtos
+    suspend fun hentAlleArbeidsforhold(token: String, fodselsnr: String): List<ArbeidsforholdDto> {
+        val arbeidsforhold = aaregConsumer.hentArbeidsforholdmedFnr(token, fodselsnr)
+        return arbeidsforhold.map { it.fetchOrgnavnAndMapToOutbound(Arbeidsforhold::toOutbound) }
     }
 
-    suspend fun hentEttArbeidsforholdmedId(token: String, fodselsnr: String, id: Int): ArbeidsforholdDto {
+    suspend fun hentDetaljertArbeidsforhold(token: String, fodselsnr: String, id: Int): ArbeidsforholdDto {
         val arbeidsforhold = aaregConsumer.hentArbeidsforholdmedId(token, fodselsnr, id)
-
-        val arbgivnavn = arbeidsforhold.arbeidssted?.let { hentArbGiverOrgNavn(it, arbeidsforhold.ansettelsesperiode) }
-        val opplarbgivnavn = arbeidsforhold.opplysningspliktig?.let {
-            hentArbGiverOrgNavn(it, arbeidsforhold.ansettelsesperiode)
-        }
-
-        return EnkeltArbeidsforholdTransformer.toOutbound(arbeidsforhold, arbgivnavn, opplarbgivnavn)
+        return arbeidsforhold.fetchOrgnavnAndMapToOutbound(Arbeidsforhold::toOutboundDetaljert)
     }
 
+    private suspend fun Arbeidsforhold.fetchOrgnavnAndMapToOutbound(
+        mapper: (Arbeidsforhold, String?, String?) -> ArbeidsforholdDto
+    ): ArbeidsforholdDto {
+        val arbeidsgiver = arbeidssted?.orgnavnForPeriode(ansettelsesperiode)
+        val opplysningspliktig = opplysningspliktig?.orgnavnForPeriode(ansettelsesperiode)
+        return mapper(this, arbeidsgiver, opplysningspliktig)
+    }
 
-    private suspend fun hentArbGiverOrgNavn(identer: Identer, ansettelsesperiode: Ansettelsesperiode?): String? {
-        val orgnr = identer.identer?.let { hentIdent(it, ORGANISASJONSNUMMER) } ?: return null
-
-        if (isOrganisasjon(identer)) {
-            return eregConsumer.hentOrgnavn(orgnr, ansettelsesperiode?.sluttdato)
+    private suspend fun Identer.orgnavnForPeriode(ansettelsesperiode: Ansettelsesperiode?): String? {
+        return identer?.firstOfTypeOrNull(ORGANISASJONSNUMMER).let { orgnr ->
+            when {
+                orgnr != null && this.isOrganisasjon() -> eregConsumer.hentOrgnavn(orgnr, ansettelsesperiode?.sluttdato)
+                else -> orgnr
+            }
         }
-        return orgnr
     }
 }

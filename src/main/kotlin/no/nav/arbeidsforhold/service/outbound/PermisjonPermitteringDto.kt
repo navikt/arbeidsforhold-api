@@ -4,7 +4,7 @@ import kotlinx.serialization.Serializable
 
 @Serializable
 data class PermisjonPermitteringDto(
-    var periode: PeriodeDto? = null,
-    var type: String? = null,
-    var prosent: String? = null
+    val periode: PeriodeDto? = null,
+    val type: String? = null,
+    val prosent: String? = null
 )

@@ -5,7 +5,6 @@ import io.ktor.client.call.body
 import io.ktor.client.request.get
 import io.ktor.client.request.header
 import io.ktor.client.request.parameter
-import io.ktor.client.statement.HttpResponse
 import io.ktor.http.HttpHeaders
 import io.ktor.http.isSuccess
 import no.nav.arbeidsforhold.config.Environment
@@ -19,48 +18,49 @@ class AaregConsumer(
     private val environment: Environment,
     private val tokenDingsService: TokendingsService
 ) {
-    private val BEARER = "Bearer "
-    private val REGELVERK = "A_ORDNINGEN"
-    private val ARBEIDSFORHOLDTYPER =
-        "ordinaertArbeidsforhold,maritimtArbeidsforhold,forenkletOppgjoersordning,frilanserOppdragstakerHonorarPersonerMm"
-    private val ARBEIDSFORHOLDSTATUS = "AKTIV,FREMTIDIG,AVSLUTTET"
-
-
     suspend fun hentArbeidsforholdmedFnr(token: String, fnr: String): List<Arbeidsforhold> {
         val accessToken = tokenDingsService.exchangeToken(token, environment.aaregTargetApp)
 
-        val aaregResponse: HttpResponse =
-            client.get(environment.aaregApiUrl.plus("/api/v2/arbeidstaker/arbeidsforhold")) {
-                parameter("regelverk", REGELVERK)
-                parameter("sporingsinformasjon", false)
-                parameter("arbeidsforholdtype", ARBEIDSFORHOLDTYPER)
-                parameter("arbeidsforholdstatus", ARBEIDSFORHOLDSTATUS)
-                header(HttpHeaders.Authorization, BEARER + accessToken)
-                header("Nav-Call-Id", MDC.get(MDC_CALL_ID))
-                header("Nav-Personident", fnr)
-            }
-        return if (aaregResponse.status.isSuccess()) {
-            aaregResponse.body()
+        val response = client.get(environment.aaregApiUrl.plus("/api/v2/arbeidstaker/arbeidsforhold")) {
+            parameter("regelverk", REGELVERK)
+            parameter("sporingsinformasjon", false)
+            parameter("arbeidsforholdtype", ARBEIDSFORHOLDTYPER)
+            parameter("arbeidsforholdstatus", ARBEIDSFORHOLDSTATUS)
+            header(HttpHeaders.Authorization, BEARER + accessToken)
+            header("Nav-Call-Id", MDC.get(MDC_CALL_ID))
+            header("Nav-Personident", fnr)
+        }
+
+        if (response.status.isSuccess()) {
+            return response.body()
         } else {
-            throw RuntimeException("Oppslag mot AAREG med fnr feilet med status: ${aaregResponse.status}")
+            throw RuntimeException("Oppslag mot AAREG med fnr feilet med status: ${response.status}")
         }
     }
 
     suspend fun hentArbeidsforholdmedId(token: String, fnr: String, id: Int): Arbeidsforhold {
         val accessToken = tokenDingsService.exchangeToken(token, environment.aaregTargetApp)
 
-        val aaregResponse: HttpResponse =
-            client.get(environment.aaregApiUrl.plus("/api/v2/arbeidsforhold/$id")) {
-                parameter("historikk", true)
-                parameter("sporingsinformasjon", false)
-                header(HttpHeaders.Authorization, BEARER + accessToken)
-                header("Nav-Call-Id", MDC.get(MDC_CALL_ID))
-                header("Nav-Personident", fnr)
-            }
-        return if (aaregResponse.status.isSuccess()) {
-            aaregResponse.body()
-        } else {
-            throw RuntimeException("Oppslag mot AAREG med id feilet med status: ${aaregResponse.status}")
+        val response = client.get(environment.aaregApiUrl.plus("/api/v2/arbeidsforhold/$id")) {
+            parameter("historikk", true)
+            parameter("sporingsinformasjon", false)
+            header(HttpHeaders.Authorization, BEARER + accessToken)
+            header("Nav-Call-Id", MDC.get(MDC_CALL_ID))
+            header("Nav-Personident", fnr)
         }
+
+        if (response.status.isSuccess()) {
+            return response.body()
+        } else {
+            throw RuntimeException("Oppslag mot AAREG med id feilet med status: ${response.status}")
+        }
+    }
+
+    companion object {
+        private const val BEARER = "Bearer "
+        private const val REGELVERK = "A_ORDNINGEN"
+        private const val ARBEIDSFORHOLDTYPER =
+            "ordinaertArbeidsforhold,maritimtArbeidsforhold,forenkletOppgjoersordning,frilanserOppdragstakerHonorarPersonerMm"
+        private const val ARBEIDSFORHOLDSTATUS = "AKTIV,FREMTIDIG,AVSLUTTET"
     }
 }
