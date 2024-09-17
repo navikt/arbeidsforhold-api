@@ -25,6 +25,6 @@ fun MockRequestHandleScope.mockEreg(request: HttpRequestData, status: HttpStatus
 private fun readEregResponse(path: String) = when {
     path.startsWith("/v2/organisasjon/911742233") -> readJsonFile("/json/mocks/ereg-arbeidsgiver.json")
     path.startsWith("/v2/organisasjon/912783936") -> readJsonFile("/json/mocks/ereg-opplysningspliktig.json")
-    else -> throw RuntimeException("Fant ikke mock for path")
+    else -> throw IllegalArgumentException("Fant ikke mock for path: $path")
 }
 

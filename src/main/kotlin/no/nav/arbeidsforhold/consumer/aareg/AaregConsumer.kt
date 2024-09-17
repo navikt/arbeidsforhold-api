@@ -10,6 +10,7 @@ import io.ktor.http.isSuccess
 import no.nav.arbeidsforhold.config.Environment
 import no.nav.arbeidsforhold.config.MDC_CALL_ID
 import no.nav.arbeidsforhold.consumer.aareg.dto.Arbeidsforhold
+import no.nav.arbeidsforhold.exception.ConsumerException
 import no.nav.tms.token.support.tokendings.exchange.TokendingsService
 import org.slf4j.MDC
 
@@ -34,7 +35,7 @@ class AaregConsumer(
         if (response.status.isSuccess()) {
             return response.body()
         } else {
-            throw RuntimeException("Oppslag mot AAREG med fnr feilet med status: ${response.status}")
+            throw ConsumerException("Oppslag mot AAREG med fnr feilet med status: ${response.status}")
         }
     }
 
@@ -52,7 +53,7 @@ class AaregConsumer(
         if (response.status.isSuccess()) {
             return response.body()
         } else {
-            throw RuntimeException("Oppslag mot AAREG med id feilet med status: ${response.status}")
+            throw ConsumerException("Oppslag mot AAREG med id feilet med status: ${response.status}")
         }
     }
 

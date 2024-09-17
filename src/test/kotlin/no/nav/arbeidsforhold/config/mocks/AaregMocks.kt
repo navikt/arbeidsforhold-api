@@ -25,5 +25,5 @@ fun MockRequestHandleScope.mockAareg(request: HttpRequestData, status: HttpStatu
 private fun readAaregResponse(path: String) = when {
     path.startsWith("/api/v2/arbeidstaker") -> readJsonFile("/json/mocks/arbeidsforhold-list.json")
     path.startsWith("/api/v2/arbeidsforhold") -> readJsonFile("/json/mocks/arbeidsforhold-single.json")
-    else -> throw RuntimeException("Fant ikke mock for path")
+    else -> throw IllegalArgumentException("Fant ikke mock for path: $path")
 }

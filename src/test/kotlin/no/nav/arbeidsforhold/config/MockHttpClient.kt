@@ -32,6 +32,5 @@ fun setupMockedClient(
             json(jsonConfig())
         }
         install(HttpTimeout)
-        expectSuccess = false
     }
 }
