@@ -38,7 +38,7 @@ class HentArbeidsforholdIT : IntegrationTest() {
         val response = get(client, HENT_ARBEIDSFORHOLD_FNR_PATH)
 
         response.status shouldBe HttpStatusCode.OK
-        response.bodyAsText() shouldEqualJson readJsonFile("/json/expected-response/arbeidsforhold-list-with-ereg-down.json")
+        response.bodyAsText() shouldEqualJson readJsonFile("/json/expected-response/arbeidsforhold-list-with-ereg-error.json")
     }
 
     companion object {
