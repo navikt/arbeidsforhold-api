@@ -5,7 +5,7 @@ import io.kotest.matchers.shouldBe
 import no.nav.arbeidsforhold.consumer.aareg.dto.Utenlandsopphold
 import no.nav.arbeidsforhold.service.outbound.PeriodeDto
 import no.nav.arbeidsforhold.service.outbound.UtenlandsoppholdDto
-import no.nav.arbeidsforhold.testdata.UtenlandsoppholdFactory.createUtenlandsopphold
+import no.nav.arbeidsforhold.testdata.createUtenlandsopphold
 import org.junit.jupiter.api.Test
 
 class UtenlandsoppholdMapperTest {

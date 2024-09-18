@@ -6,7 +6,7 @@ import io.kotest.matchers.shouldBe
 import no.nav.arbeidsforhold.consumer.aareg.dto.TimerMedTimeloenn
 import no.nav.arbeidsforhold.service.outbound.AntallTimerForTimeloennetDto
 import no.nav.arbeidsforhold.service.outbound.PeriodeDto
-import no.nav.arbeidsforhold.testdata.TimerMedTimeloennFactory.createTimerMedTimeloenn
+import no.nav.arbeidsforhold.testdata.createTimerMedTimeloenn
 import org.junit.jupiter.api.Test
 
 class AntallTimerForTimeloennetMapperTest {

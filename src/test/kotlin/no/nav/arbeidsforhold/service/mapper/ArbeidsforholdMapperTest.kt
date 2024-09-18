@@ -9,7 +9,7 @@ import io.kotest.matchers.nulls.shouldNotBeNull
 import io.kotest.matchers.shouldBe
 import no.nav.arbeidsforhold.consumer.aareg.dto.Arbeidsforhold
 import no.nav.arbeidsforhold.service.outbound.ArbeidsforholdDto
-import no.nav.arbeidsforhold.testdata.ArbeidsforholdFactory.createArbeidsforhold
+import no.nav.arbeidsforhold.testdata.createArbeidsforhold
 import org.junit.jupiter.api.Test
 
 class ArbeidsforholdMapperTest {

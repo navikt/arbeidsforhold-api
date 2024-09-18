@@ -5,7 +5,7 @@ import io.kotest.matchers.shouldBe
 import no.nav.arbeidsforhold.consumer.aareg.dto.Ansettelsesdetaljer
 import no.nav.arbeidsforhold.service.outbound.ArbeidsavtaleDto
 import no.nav.arbeidsforhold.service.outbound.PeriodeDto
-import no.nav.arbeidsforhold.testdata.AnsettelsesdetaljerFactory.createAnsettelsesdetaljer
+import no.nav.arbeidsforhold.testdata.createAnsettelsesdetaljer
 import org.junit.jupiter.api.Test
 
 class ArbeidsavtaleMapperTest {

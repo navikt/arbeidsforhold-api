@@ -5,7 +5,7 @@ import io.kotest.matchers.shouldBe
 import no.nav.arbeidsforhold.consumer.aareg.dto.PermisjonPermittering
 import no.nav.arbeidsforhold.service.outbound.PeriodeDto
 import no.nav.arbeidsforhold.service.outbound.PermisjonPermitteringDto
-import no.nav.arbeidsforhold.testdata.PermisjonPermitteringFactory.createPermisjonPermittering
+import no.nav.arbeidsforhold.testdata.createPermisjonPermittering
 import org.junit.jupiter.api.Test
 
 class PermisjonPermitteringMapperTest {

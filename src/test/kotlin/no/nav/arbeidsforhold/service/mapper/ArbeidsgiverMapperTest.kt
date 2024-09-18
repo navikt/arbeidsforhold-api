@@ -5,8 +5,8 @@ import io.kotest.matchers.nulls.shouldBeNull
 import io.kotest.matchers.shouldBe
 import no.nav.arbeidsforhold.consumer.aareg.dto.Identer
 import no.nav.arbeidsforhold.service.outbound.ArbeidsgiverDto
-import no.nav.arbeidsforhold.testdata.IdenterFactory.createIdenterArbeidssted
-import no.nav.arbeidsforhold.testdata.IdenterFactory.createIdenterArbeidstaker
+import no.nav.arbeidsforhold.testdata.createIdenterArbeidssted
+import no.nav.arbeidsforhold.testdata.createIdenterArbeidstaker
 import org.junit.jupiter.api.Test
 
 class ArbeidsgiverMapperTest {
