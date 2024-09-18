@@ -39,7 +39,7 @@ dependencies {
     val mockkVersion = "1.13.12"
     val kotlinVersion = "2.0.0"
     val tmsKtorTokenSupportVersion = "4.1.1"
-    val kotestVersion = "5.7.2"
+    val kotestVersion = "5.9.1"
 
     implementation("com.auth0:java-jwt:$auth0JwtVersion")
     implementation("io.ktor:ktor-server-netty:$ktorVersion")
