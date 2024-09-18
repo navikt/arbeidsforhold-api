@@ -3,7 +3,7 @@ package no.nav.arbeidsforhold.testdata
 import no.nav.arbeidsforhold.consumer.aareg.dto.Ident
 import no.nav.arbeidsforhold.consumer.aareg.dto.Identer
 
-fun createIdenterArbeidstaker() = Identer(
+val defaultIdenterArbeidstaker = Identer(
     identer = listOf(
         Ident(
             ident = "12345",
@@ -16,7 +16,7 @@ fun createIdenterArbeidstaker() = Identer(
     )
 )
 
-fun createIdenterArbeidssted() = Identer(
+val defaultIdenterArbeidssted = Identer(
     type = "Underenhet",
     identer = listOf(
         Ident(
@@ -26,7 +26,7 @@ fun createIdenterArbeidssted() = Identer(
     )
 )
 
-fun createIdenterOpplysningspliktig() = Identer(
+val defaultIdenterOpplysningspliktig = Identer(
     type = "Hovedenhet",
     identer = listOf(
         Ident(

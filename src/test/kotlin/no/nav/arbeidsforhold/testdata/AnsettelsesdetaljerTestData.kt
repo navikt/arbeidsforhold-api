@@ -3,7 +3,7 @@ package no.nav.arbeidsforhold.testdata
 import no.nav.arbeidsforhold.consumer.aareg.dto.Ansettelsesdetaljer
 import no.nav.arbeidsforhold.consumer.aareg.dto.Kodeverksentitet
 
-fun createAnsettelsesdetaljer() = Ansettelsesdetaljer(
+val defaultAnsettelsesdetaljer = Ansettelsesdetaljer(
     ansettelsesform = Kodeverksentitet(
         kode = "ansettelsesform kode",
         beskrivelse = "ansettelsesform beskrivelse"
@@ -13,7 +13,7 @@ fun createAnsettelsesdetaljer() = Ansettelsesdetaljer(
         kode = "arbeidstidsordning kode",
         beskrivelse = "arbeidstidsordning beskrivelse"
     ),
-    rapporteringsmaaneder = createRapporteringsmaaneder(),
+    rapporteringsmaaneder = defaultRapporteringsmaaneder,
     avtaltStillingsprosent = 100.0,
     yrke = Kodeverksentitet(
         kode = "yrke kode",

@@ -5,14 +5,14 @@ import io.kotest.matchers.shouldBe
 import no.nav.arbeidsforhold.consumer.aareg.dto.PermisjonPermittering
 import no.nav.arbeidsforhold.service.outbound.PeriodeDto
 import no.nav.arbeidsforhold.service.outbound.PermisjonPermitteringDto
-import no.nav.arbeidsforhold.testdata.createPermisjonPermittering
+import no.nav.arbeidsforhold.testdata.defaultPermisjonPermittering
 import org.junit.jupiter.api.Test
 
 class PermisjonPermitteringMapperTest {
 
     @Test
     fun `should map all fields correctly`() {
-        val inbound: PermisjonPermittering = createPermisjonPermittering()
+        val inbound: PermisjonPermittering = defaultPermisjonPermittering
         val outbound: PermisjonPermitteringDto = inbound.toOutbound()
 
         assertSoftly(outbound) {
@@ -24,7 +24,7 @@ class PermisjonPermitteringMapperTest {
 
     @Test
     fun `should map decimal percentage correctly`() {
-        val inbound: PermisjonPermittering = createPermisjonPermittering().copy(prosent = 40.5)
+        val inbound: PermisjonPermittering = defaultPermisjonPermittering.copy(prosent = 40.5)
         val outbound: PermisjonPermitteringDto = inbound.toOutbound()
 
         outbound.prosent shouldBe "40.5 %"

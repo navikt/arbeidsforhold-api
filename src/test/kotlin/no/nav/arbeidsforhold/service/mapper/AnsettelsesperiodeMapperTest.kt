@@ -5,14 +5,14 @@ import io.kotest.matchers.shouldBe
 import no.nav.arbeidsforhold.consumer.aareg.dto.Ansettelsesperiode
 import no.nav.arbeidsforhold.service.outbound.AnsettelsesperiodeDto
 import no.nav.arbeidsforhold.service.outbound.PeriodeDto
-import no.nav.arbeidsforhold.testdata.createAnsettelsesperiode
+import no.nav.arbeidsforhold.testdata.defaultAnsettelsesperiode
 import org.junit.jupiter.api.Test
 
 class AnsettelsesperiodeMapperTest {
 
     @Test
     fun `should map all fields correctly`() {
-        val inbound: Ansettelsesperiode = createAnsettelsesperiode()
+        val inbound: Ansettelsesperiode = defaultAnsettelsesperiode
         val outbound: AnsettelsesperiodeDto = inbound.toOutbound()
 
         assertSoftly(outbound) {

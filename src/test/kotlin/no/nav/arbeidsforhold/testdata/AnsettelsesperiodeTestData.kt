@@ -3,7 +3,7 @@ package no.nav.arbeidsforhold.testdata
 import no.nav.arbeidsforhold.consumer.aareg.dto.Ansettelsesperiode
 import no.nav.arbeidsforhold.consumer.aareg.dto.Kodeverksentitet
 
-fun createAnsettelsesperiode() = Ansettelsesperiode(
+val defaultAnsettelsesperiode = Ansettelsesperiode(
     startdato = "01.01.2018",
     sluttdato = "01.01.2019",
     varsling = Kodeverksentitet(
