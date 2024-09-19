@@ -12,7 +12,6 @@ import no.nav.arbeidsforhold.health.health
 import no.nav.arbeidsforhold.routes.arbeidsforholdFnr
 import no.nav.arbeidsforhold.routes.arbeidsforholdId
 
-
 fun Application.testModule(appContext: TestApplicationContext) {
 
     install(ContentNegotiation) {

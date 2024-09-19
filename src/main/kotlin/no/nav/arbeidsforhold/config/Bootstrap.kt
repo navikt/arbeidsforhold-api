@@ -58,7 +58,6 @@ fun Application.mainModule(appContext: ApplicationContext = ApplicationContext()
         }
     }
 
-
     install(MicrometerMetrics) {
         registry = appContext.appMicrometerRegistry
     }

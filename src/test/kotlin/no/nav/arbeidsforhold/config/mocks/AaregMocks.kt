@@ -10,7 +10,6 @@ import io.ktor.http.isSuccess
 import no.nav.arbeidsforhold.testutils.contentTypeJsonHeader
 import no.nav.arbeidsforhold.testutils.readJsonFile
 
-
 fun MockRequestHandleScope.mockAareg(request: HttpRequestData, status: HttpStatusCode): HttpResponseData {
     return if (status.isSuccess()) {
         respond(
