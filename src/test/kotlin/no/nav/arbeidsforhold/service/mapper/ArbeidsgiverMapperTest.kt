@@ -5,15 +5,15 @@ import io.kotest.matchers.nulls.shouldBeNull
 import io.kotest.matchers.shouldBe
 import no.nav.arbeidsforhold.consumer.aareg.dto.Identer
 import no.nav.arbeidsforhold.service.outbound.ArbeidsgiverDto
-import no.nav.arbeidsforhold.testdata.IdenterFactory.createIdenterArbeidssted
-import no.nav.arbeidsforhold.testdata.IdenterFactory.createIdenterArbeidstaker
+import no.nav.arbeidsforhold.testdata.defaultIdenterArbeidssted
+import no.nav.arbeidsforhold.testdata.defaultIdenterArbeidstaker
 import org.junit.jupiter.api.Test
 
 class ArbeidsgiverMapperTest {
 
     @Test
     fun `should map all fields correctly for organisasjon`() {
-        val inbound: Identer = createIdenterArbeidssted()
+        val inbound: Identer = defaultIdenterArbeidssted
         val outbound: ArbeidsgiverDto = inbound.toOutbound(ARBEIDSGIVER_NAVN)
 
         assertSoftly(outbound) {
@@ -26,7 +26,7 @@ class ArbeidsgiverMapperTest {
 
     @Test
     fun `should map all fields correctly for ikke-organisasjon`() {
-        val inbound: Identer = createIdenterArbeidstaker()
+        val inbound: Identer = defaultIdenterArbeidstaker
         val outbound: ArbeidsgiverDto = inbound.toOutbound(ARBEIDSGIVER_NAVN)
 
         assertSoftly(outbound) {

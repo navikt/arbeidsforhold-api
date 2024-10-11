@@ -5,14 +5,14 @@ import io.kotest.matchers.shouldBe
 import no.nav.arbeidsforhold.consumer.aareg.dto.Utenlandsopphold
 import no.nav.arbeidsforhold.service.outbound.PeriodeDto
 import no.nav.arbeidsforhold.service.outbound.UtenlandsoppholdDto
-import no.nav.arbeidsforhold.testdata.UtenlandsoppholdFactory.createUtenlandsopphold
+import no.nav.arbeidsforhold.testdata.defaultUtenlandsopphold
 import org.junit.jupiter.api.Test
 
 class UtenlandsoppholdMapperTest {
 
     @Test
     fun `should map all fields correctly`() {
-        val inbound: Utenlandsopphold = createUtenlandsopphold()
+        val inbound: Utenlandsopphold = defaultUtenlandsopphold
         val outbound: UtenlandsoppholdDto = inbound.toOutbound()
 
         assertSoftly(outbound) {

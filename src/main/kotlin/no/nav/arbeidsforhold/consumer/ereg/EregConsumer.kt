@@ -12,7 +12,6 @@ import no.nav.arbeidsforhold.consumer.ereg.dto.EregOrganisasjon
 import org.slf4j.LoggerFactory
 import org.slf4j.MDC
 
-
 class EregConsumer(
     private val client: HttpClient,
     private val environment: Environment

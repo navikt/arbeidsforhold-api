@@ -1,19 +1,18 @@
 package no.nav.arbeidsforhold.service.mapper
 
-
 import io.kotest.assertions.assertSoftly
 import io.kotest.matchers.shouldBe
 import no.nav.arbeidsforhold.consumer.aareg.dto.TimerMedTimeloenn
 import no.nav.arbeidsforhold.service.outbound.AntallTimerForTimeloennetDto
 import no.nav.arbeidsforhold.service.outbound.PeriodeDto
-import no.nav.arbeidsforhold.testdata.TimerMedTimeloennFactory.createTimerMedTimeloenn
+import no.nav.arbeidsforhold.testdata.defaultTimerMedTimeloenn
 import org.junit.jupiter.api.Test
 
 class AntallTimerForTimeloennetMapperTest {
 
     @Test
     fun `should map all fields correctly`() {
-        val inbound: TimerMedTimeloenn = createTimerMedTimeloenn()
+        val inbound: TimerMedTimeloenn = defaultTimerMedTimeloenn
         val outbound: AntallTimerForTimeloennetDto = inbound.toOutbound()
 
         assertSoftly(outbound) {

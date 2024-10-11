@@ -9,14 +9,14 @@ import io.kotest.matchers.nulls.shouldNotBeNull
 import io.kotest.matchers.shouldBe
 import no.nav.arbeidsforhold.consumer.aareg.dto.Arbeidsforhold
 import no.nav.arbeidsforhold.service.outbound.ArbeidsforholdDto
-import no.nav.arbeidsforhold.testdata.ArbeidsforholdFactory.createArbeidsforhold
+import no.nav.arbeidsforhold.testdata.defaultArbeidsforhold
 import org.junit.jupiter.api.Test
 
 class ArbeidsforholdMapperTest {
 
     @Test
     fun `should map basic fields correctly`() {
-        val inbound: Arbeidsforhold = createArbeidsforhold()
+        val inbound: Arbeidsforhold = defaultArbeidsforhold
         val outbound: ArbeidsforholdDto = inbound.toOutbound(ARBEIDSGIVER_NAVN, OPPLYSNINGSPLIKIG_NAVN)
 
         assertSoftly(outbound) {
@@ -46,7 +46,7 @@ class ArbeidsforholdMapperTest {
 
     @Test
     fun `should map basic + detailed fields correctly`() {
-        val inbound: Arbeidsforhold = createArbeidsforhold()
+        val inbound: Arbeidsforhold = defaultArbeidsforhold
         val outbound: ArbeidsforholdDto = inbound.toOutboundDetaljert(ARBEIDSGIVER_NAVN, OPPLYSNINGSPLIKIG_NAVN)
 
         assertSoftly(outbound) {
