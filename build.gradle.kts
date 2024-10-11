@@ -31,14 +31,14 @@ repositories {
 
 dependencies {
     val auth0JwtVersion = "4.4.0"
-    val ktorVersion = "2.3.12"
-    val micrometerVersion = "1.13.4"
-    val logbackVersion = "1.5.8"
+    val ktorVersion = "3.0.0"
+    val micrometerVersion = "1.13.5"
+    val logbackVersion = "1.5.9"
     val logstashVersion = "8.0"
     val navSecurityVersion = "5.0.5"
-    val mockkVersion = "1.13.12"
-    val kotlinVersion = "2.0.0"
-    val tmsKtorTokenSupportVersion = "4.1.1"
+    val mockkVersion = "1.13.13"
+    val kotlinVersion = "2.0.20"
+    val tmsKtorTokenSupportVersion = "4.1.2"
     val kotestVersion = "5.7.2"
 
     implementation("com.auth0:java-jwt:$auth0JwtVersion")
