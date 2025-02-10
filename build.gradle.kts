@@ -3,7 +3,7 @@ import org.gradle.api.tasks.testing.logging.TestExceptionFormat
 plugins {
     val kotlinVersion = "2.1.0"
     val shadowVersion = "8.1.1"
-    val versionsVersion = "0.51.0"
+    val versionsVersion = "0.52.0"
 
     kotlin("jvm") version kotlinVersion
     kotlin("plugin.allopen") version kotlinVersion
@@ -30,15 +30,15 @@ repositories {
 }
 
 dependencies {
-    val auth0JwtVersion = "4.4.0"
+    val auth0JwtVersion = "4.5.0"
     val ktorVersion = "3.0.3"
-    val micrometerVersion = "1.14.2"
-    val logbackVersion = "1.5.13"
+    val micrometerVersion = "1.14.3"
+    val logbackVersion = "1.5.16"
     val logstashVersion = "8.0"
-    val navSecurityVersion = "5.0.13"
-    val mockkVersion = "1.13.13"
+    val navSecurityVersion = "5.0.16"
+    val mockkVersion = "1.13.16"
     val kotlinVersion = "2.1.0"
-    val tmsKtorTokenSupportVersion = "5.0.0"
+    val tmsKtorTokenSupportVersion = "5.0.1"
     val kotestVersion = "5.9.1"
 
     implementation("com.auth0:java-jwt:$auth0JwtVersion")
