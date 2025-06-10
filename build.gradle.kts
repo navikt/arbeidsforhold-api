@@ -32,7 +32,7 @@ repositories {
 dependencies {
     val auth0JwtVersion = "4.5.0"
     val ktorVersion = "3.1.1"
-    val micrometerVersion = "1.14.3"
+    val micrometerVersion = "1.15.1"
     val logbackVersion = "1.5.17"
     val logstashVersion = "8.0"
     val navSecurityVersion = "5.0.17"
