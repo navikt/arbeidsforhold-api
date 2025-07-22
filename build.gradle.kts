@@ -38,7 +38,7 @@ dependencies {
     val navSecurityVersion = "5.0.17"
     val mockkVersion = "1.13.17"
     val kotlinVersion = "2.1.0"
-    val tmsKtorTokenSupportVersion = "5.0.1"
+    val tmsKtorTokenSupportVersion = "5.0.4"
     val kotestVersion = "5.9.1"
 
     implementation("com.auth0:java-jwt:$auth0JwtVersion")
