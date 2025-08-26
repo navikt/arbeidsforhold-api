@@ -22,10 +22,6 @@ spec:
     max: {{ max-replicas }}
   tokenx:
     enabled: true
-  idporten:
-    enabled: true
-    sidecar:
-      enabled: true
   accessPolicy:
     outbound:
       external:
