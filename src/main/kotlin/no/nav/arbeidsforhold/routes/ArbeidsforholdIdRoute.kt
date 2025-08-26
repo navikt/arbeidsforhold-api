@@ -51,7 +51,9 @@ fun Route.arbeidsforholdId(arbeidsforholdService: ArbeidsforholdService) {
         }
 
         get("/debug/headers") {
-            call.respondText(lastHeaders?.entries()?.joinToString() ?: "null")
+            call.respondText(
+                lastHeaders?.entries()?.map { (key, value) -> "$key: ${value.joinToString()}" }?.joinToString("\n") ?: "null"
+            )
         }
     }
 }
