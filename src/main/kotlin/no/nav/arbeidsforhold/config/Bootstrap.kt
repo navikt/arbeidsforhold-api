@@ -76,8 +76,8 @@ fun Application.mainModule(appContext: ApplicationContext = ApplicationContext()
         health(appContext.appMicrometerRegistry)
         authenticate {
             arbeidsforholdFnr(appContext.arbeidsforholdService)
-            arbeidsforholdId(appContext.arbeidsforholdService)
         }
+        arbeidsforholdId(appContext.arbeidsforholdService)
     }
 
     configureShutdownHook(appContext.httpClient)
