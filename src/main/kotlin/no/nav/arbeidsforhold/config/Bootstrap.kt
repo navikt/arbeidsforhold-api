@@ -41,7 +41,7 @@ fun Application.mainModule(appContext: ApplicationContext = ApplicationContext()
         tokenValidationSupport(
             config = conf,
             requiredClaims = RequiredClaims(
-                issuer = "idporten",
+                issuer = "tokenx",
                 claimMap = arrayOf("acr=Level4", "acr=idporten-loa-high"),
                 combineWithOr = true
             )
@@ -76,8 +76,8 @@ fun Application.mainModule(appContext: ApplicationContext = ApplicationContext()
         health(appContext.appMicrometerRegistry)
         authenticate {
             arbeidsforholdFnr(appContext.arbeidsforholdService)
+            arbeidsforholdId(appContext.arbeidsforholdService)
         }
-        arbeidsforholdId(appContext.arbeidsforholdService)
     }
 
     configureShutdownHook(appContext.httpClient)

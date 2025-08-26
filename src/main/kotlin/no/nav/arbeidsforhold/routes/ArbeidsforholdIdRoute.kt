@@ -14,8 +14,6 @@ import org.slf4j.LoggerFactory
 
 private val logger = LoggerFactory.getLogger("arbeidsforholdIdRoute")
 
-var lastHeaders: Headers? = null
-
 fun Route.arbeidsforholdId(arbeidsforholdService: ArbeidsforholdService) {
     route("/arbeidsforholdinnslag") {
         get("/arbeidstaker/{id}") {
@@ -33,8 +31,6 @@ fun Route.arbeidsforholdId(arbeidsforholdService: ArbeidsforholdService) {
 
         get("/arbeidsgiver/{id}") {
             try {
-                lastHeaders = call.request.headers
-
                 val authToken = getAuthTokenFromRequest(call.request)
                 val fnr = call.request.headers[FNR_ARBEIDSTAKER]
                 val id = call.parameters.requireId()
@@ -48,12 +44,6 @@ fun Route.arbeidsforholdId(arbeidsforholdService: ArbeidsforholdService) {
                 logger.error("Noe gikk galt ved henting av arbeidsforhold", e)
                 call.respond(HttpStatusCode.InternalServerError, HttpStatusCode.InternalServerError.description)
             }
-        }
-
-        get("/debug/headers") {
-            call.respondText(
-                lastHeaders?.entries()?.map { (key, value) -> "$key: ${value.joinToString()}" }?.joinToString("\n") ?: "null"
-            )
         }
     }
 }
