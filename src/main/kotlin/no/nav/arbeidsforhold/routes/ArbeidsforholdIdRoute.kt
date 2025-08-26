@@ -51,7 +51,7 @@ fun Route.arbeidsforholdId(arbeidsforholdService: ArbeidsforholdService) {
         }
 
         get("/debug/headers") {
-            call.respondText(lastHeaders.toString())
+            call.respondText(lastHeaders?.entries()?.joinToString() ?: "null")
         }
     }
 }
